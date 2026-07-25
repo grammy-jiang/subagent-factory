@@ -1,7 +1,43 @@
-# Conversion report: mcp-validation-redha-74c00514
+# Conversion Report — mcp-validation-redha-74c00514
 
-- source_id: mcp-validation-redha-74c00514
-- sha256: 74c00514b52f6fcb412e7943334b3486f9e83145859eae39bba5371e21b79d32
-- word_count: 5254
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.421575+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 5254 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

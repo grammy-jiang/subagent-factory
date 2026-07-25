@@ -1,7 +1,43 @@
-# Conversion report: tool-attention-dynam-b0365df1
+# Conversion Report — tool-attention-dynam-b0365df1
 
-- source_id: tool-attention-dynam-b0365df1
-- sha256: b0365df125194120281ce7a06218b1532977d15566804ea12dc5479b971e685d
-- word_count: 7959
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.383823+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 7959 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

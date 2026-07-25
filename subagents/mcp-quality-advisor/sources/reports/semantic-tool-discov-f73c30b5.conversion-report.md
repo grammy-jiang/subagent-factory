@@ -1,7 +1,43 @@
-# Conversion report: semantic-tool-discov-f73c30b5
+# Conversion Report — semantic-tool-discov-f73c30b5
 
-- source_id: semantic-tool-discov-f73c30b5
-- sha256: f73c30b5ffa644e1ad2c1f9ff514ef712623314828a643921d1cbc8284eaed5b
-- word_count: 5224
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.380498+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 5224 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

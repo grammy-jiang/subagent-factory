@@ -1,7 +1,43 @@
-# Conversion report: how-to-create-skills-50982633
+# Conversion Report — how-to-create-skills-50982633
 
-- source_id: how-to-create-skills-50982633
-- sha256: 50982633050dab0cb432cd24041c335a1f586b2b94fc5c3b2bd902e1a8402077
-- word_count: 4264
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.942444+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 4264 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

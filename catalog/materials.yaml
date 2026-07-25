@@ -1,28 +1,6 @@
 schema_version: materials-catalog-v1
-count: 255
+count: 296
 materials:
-- sha256: 303099e755e505976137400ea2506671c900f16a14a45cae961758fd3b2a6a62
-  title: A Commentary on the Sixth Edition UNIX Operating System
-  author: J. Lions
-  year: 1977
-  source_type: pdf
-  word_count: 161226
-  rights_status: proprietary/restricted
-  feeds:
-  - unix-v6-kernel-source-reviewer
-  map_principles: null
-  status: built
-- sha256: 4c802320e45f683042e1b886b9abab24a26d906e0851199ab55b0dba6f9f9d70
-  title: A Guide to Kafka Optimizations and Benchmarks
-  author: Debashis Paul, Roberto Baturoni
-  year: 2022
-  source_type: pdf
-  word_count: 6911
-  rights_status: distillation-only
-  feeds:
-  - kafka-benchmarking-advisor
-  map_principles: null
-  status: built
 - sha256: 5e67c59e0e18c2adb0fe3e81b0e771e66e3a0785ee927e6ca2029d6bd463ad8b
   title: A Philosophy of Software Design
   author: John Ousterhout
@@ -44,6 +22,17 @@ materials:
   feeds:
   - agent-skills-advisor
   map_principles: 17
+  status: built
+- sha256: 9a26472423d0080c593b33fa1b159d69dcffcba53681fdcc8f1b6c80c92e3ead
+  title: a-phd-is-not-enough
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 28222
+  rights_status: distillation-only
+  feeds:
+  - research-career-advisor
+  map_principles: 44
   status: built
 - sha256: 8aab528164de9e4af5664a4fbced7a55230bd2fdb579d738dc131fe3a8b44f1f
   title: aaronparecki-fix-oauth-in-mcp
@@ -266,6 +255,17 @@ materials:
   - devops-sre-advisor
   map_principles: 18
   status: built
+- sha256: 8707406d317ef04855e847486944ece2a4d9b71b01c00be1494cebe368a7337c
+  title: blueprint-contract
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 8244
+  rights_status: distillation-only
+  feeds:
+  - product-blueprint-reviewer
+  map_principles: 57
+  status: built
 - sha256: a86591486b37495f29b7a62818caea29a390590d0a31fbf7dd4cf54cbaa37a95
   title: building-agents-with-skills-equipping-agents-for-specialized-work
   author: null
@@ -298,6 +298,18 @@ materials:
   feeds:
   - caching-strategy-advisor
   map_principles: 40
+  status: built
+- sha256: 5798beb748a0cb78314cb69afbab99a4a731b5ae4dd2b69df37a5a038fc461a1
+  title: chinglish-europeanized-chinese-yu
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 403
+  rights_status: distillation-only
+  feeds:
+  - translation-naturalness-reviewer
+  - translation-quality-reviewer
+  map_principles: 16
   status: built
 - sha256: 375da9b843dacc82be260bc7b7427915b1bdb3275f55aa915a33725b4a5440e3
   title: claude-agent-skills-overview
@@ -398,17 +410,6 @@ materials:
   - software-design
   map_principles: 40
   status: built
-- sha256: ed89eef520902447ae3df9a1f934e56141572a26ada4c7b790920df627e80b81
-  title: Cloud Native DevOps with Kubernetes, 2nd Edition
-  author: John Arundel and Justin Domingus
-  year: 2022
-  source_type: pdf
-  word_count: 18124
-  rights_status: distillation-only
-  feeds:
-  - cloud-native-kubernetes-advisor
-  map_principles: null
-  status: built
 - sha256: aca1f344450896248c057b5a67e3ba254b791cfa33f6683181953c56d9cfb2f9
   title: 'Code Simplicity: The Fundamentals of Software'
   author: Max Kanat-Alexander
@@ -497,17 +498,6 @@ materials:
   feeds:
   - agent-skills-advisor
   map_principles: 27
-  status: built
-- sha256: 5a3cc3cc88e8e6be36f5507245b14233087a50d250191cb06a34e0dec2aff43a
-  title: 'Concurrent Programming in Java: Design Principles and Patterns'
-  author: Doug Lea
-  year: 1997
-  source_type: pdf
-  word_count: 26764
-  rights_status: distillation-only
-  feeds:
-  - java-concurrency-reviewer
-  map_principles: null
   status: built
 - sha256: b46e89fc3782d9fbfc3e218e31bea0ca0c5845118b70104c9dea33ff406049da
   title: continuous-delivery
@@ -619,13 +609,46 @@ materials:
   - agent-skills-advisor
   map_principles: 14
   status: built
+- sha256: 98c56c2df14371dea057669796d30e83b58e00cc19e7412a2b793a2f035fe25f
+  title: corpus-based-translation-kruger
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 13274
+  rights_status: distillation-only
+  feeds:
+  - translation-quality-reviewer
+  map_principles: 30
+  status: built
+- sha256: ceffdb401b94c0c86201e0d59b59843bf43ff132697066f2e8c6d3464ca87716
+  title: corpus-linguistics-translation-studies-baker1993
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 15426
+  rights_status: distillation-only
+  feeds:
+  - translation-quality-reviewer
+  map_principles: 18
+  status: built
+- sha256: b10b2ead5dd001a942d9c589467370f0b8113630ef0dcfa2a7c98f3a07d32c8e
+  title: corpus-translation-russian-dayter-grabowski
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 8425
+  rights_status: distillation-only
+  feeds:
+  - translation-quality-reviewer
+  map_principles: 17
+  status: built
 - sha256: 515304c317e387afd91534fdb4b7e0465b278f3a294c868a057cd9fe23aee6e3
   title: cosai-mcp-security
   author: null
   year: null
   source_type: markdown
   word_count: 9259
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 28
@@ -640,6 +663,17 @@ materials:
   feeds:
   - domain-driven-design-reviewer
   map_principles: 115
+  status: built
+- sha256: 14900d779c9cb2949b551f0cf7d2d0317ad82054fd7b729e7dfbcbc474ba6e9c
+  title: craft-of-research-4e
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 91976
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 138
   status: built
 - sha256: f888cfc0baffd5784bbb8e46fa134f4056ff1c169896d09782d9a2fbdfa5b5b4
   title: cui20-moore
@@ -763,6 +797,31 @@ materials:
   - ux-design-advisor
   map_principles: 54
   status: built
+- sha256: 34ce671ddf6c4d26c463e715007df261bb2eec9612b515b57a0479c5a2606ad0
+  title: double-cross-system
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 76056
+  rights_status: distillation-only
+  feeds:
+  - deception-detection-reviewer
+  map_principles: 240
+  status: built
+- sha256: e6872198422504a2952d709f0713ba7c3d17990f700d0a954e535b3d26504065
+  title: dynamic-formal-equivalence-nida1964
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 10406
+  rights_status: distillation-only
+  feeds:
+  - translation-equivalence-advisor
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 28
+  status: built
 - sha256: 107bd586b99617f8751adad80298f5c08e0c0c4724fbd53a4e961f1fdd8c7283
   title: effective-context-engineering-for-ai-agents
   author: null
@@ -784,6 +843,17 @@ materials:
   feeds:
   - agent-skills-advisor
   map_principles: 14
+  status: built
+- sha256: fc16a0303ffc4b98dfcc4b743981d10d6ea6e07ad4f467d196c8ec276779c617
+  title: effective-shell
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 145110
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 115
   status: built
 - sha256: a8da44b134be20b1082444e47e3fba305f9b0a5630514ebd2aa898519f9d30f0
   title: effective-software-testing-aniche
@@ -807,6 +877,28 @@ materials:
   - ux-design-advisor
   map_principles: 71
   status: built
+- sha256: de09d1d7acb126c3cfdc69f8ffd75611daaaa73d0f606169fce88a3873a02811
+  title: empirical-methods-cohen
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 8027
+  rights_status: distillation-only
+  feeds:
+  - research-career-advisor
+  map_principles: 31
+  status: built
+- sha256: 9857a4a355e5af943295a247e2606881fe266587ee45a4fc0ed5942ea2d2f28d
+  title: english-writing-research-papers
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 120086
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 218
+  status: built
 - sha256: 8afa2d6eafa0bdec3aeee8fda8dca59e76011fd3582042bdd8023efaf5fe767c
   title: Enterprise Integration Patterns
   author: Gregor Hohpe, Bobby Woolf
@@ -829,6 +921,17 @@ materials:
   - agent-skills-advisor
   map_principles: 10
   status: built
+- sha256: 8988bab5046f242c1f987225c22e4d560c642c1758d20da28bebca0a7a7d837a
+  title: escaping-the-build-trap-perri
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 59765
+  rights_status: distillation-only
+  feeds:
+  - product-blueprint-reviewer
+  map_principles: 93
+  status: built
 - sha256: 37d2b8d97a65e6850049c3d801d00d356293d1c3e7d16d2a3b5a71547d2c0462
   title: escaping-the-build-trap-perri
   author: null
@@ -839,6 +942,19 @@ materials:
   feeds:
   - product-design-advisor
   map_principles: 120
+  status: built
+- sha256: 5da0a790f5aed156cd278ea09ce286e2dfdd341e6642687d4568adb1b19bf55d
+  title: expert-political-judgment
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 127345
+  rights_status: distillation-only
+  feeds:
+  - analytic-method-reviewer
+  - bias-perception-reviewer
+  - calibration-forecasting-reviewer
+  map_principles: 260
   status: built
 - sha256: 772a44790c9067b4a08a94c6b3d48847edbd636c5451f493308dcbf0f02685b8
   title: extending-claude-capabilities-with-skills-mcp-servers
@@ -884,6 +1000,17 @@ materials:
   - software-architecture
   map_principles: 100
   status: built
+- sha256: 782202ce18477f5a18efeddf79801aff6ac7b57704afb4dd35c88066a165a38e
+  title: gaoxiao-xueshu-guifan-zhinan
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 2588
+  rights_status: distillation-only
+  feeds:
+  - research-integrity-reproducibility-advisor
+  map_principles: 30
+  status: built
 - sha256: d12f463d157c26ac5b6a00119c3b2bc2c3f60d6da9dcfea5f897e69b7c76cd99
   title: getting-started-with-loops
   author: null
@@ -906,6 +1033,28 @@ materials:
   - mcp-quality-advisor
   map_principles: 12
   status: built
+- sha256: ece374b583e84d66d881b4dffef8b04c3f7b0830020cbf09f50c72e112f5e2ea
+  title: gnu-bash-reference-manual
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 80122
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 230
+  status: built
+- sha256: 457d111305bfac11dfd7fb3a41cd56d6d2f139072de6d504ba70c3981ec1463c
+  title: google-shell-style-guide
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 5721
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 53
+  status: built
 - sha256: 3ae5f96ea0cdcce7a1bb8879afd4f877043fdf8f743e647bed3b9023855cf824
   title: google-tech-writing
   author: null
@@ -916,6 +1065,28 @@ materials:
   feeds:
   - documentation-as-code-advisor
   map_principles: 69
+  status: built
+- sha256: 05f06662f2b0f011871a74928fd8db65d61b089a79a0497d72e856222fe023f3
+  title: greg-bash-pitfalls
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 15428
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 54
+  status: built
+- sha256: dd4e9d2506fb5833f60f45e74e018664232637f5268337bfe50b2996239240c4
+  title: greg-bashguide-full
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 36760
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 59
   status: built
 - sha256: ed2ddca7fab166a3fcd3157f782a8080ba46577fc8c6d75e16f539c0f648b583
   title: growing-oo-software-guided-by-tests
@@ -928,6 +1099,17 @@ materials:
   - software-testing-advisor
   map_principles: 120
   status: built
+- sha256: 5bf0ea64aa2237cee4986c5efe5430161fc9b40d17d73d80d23c50e27d2ee987
+  title: hamming-meta
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 28332
+  rights_status: distillation-only
+  feeds:
+  - research-career-advisor
+  map_principles: 81
+  status: built
 - sha256: 27f567091549d5cca51a9de2f8603aa02c6cb5a5cf61b339376e314cdb85a5e1
   title: harness-design-long-running-apps
   author: null
@@ -938,6 +1120,28 @@ materials:
   feeds:
   - agent-skills-advisor
   map_principles: 29
+  status: built
+- sha256: 7631b6ed4409487b13b62f27302659be2438a4ac21a1f5931150fed7342e2cc2
+  title: harness-engineering-guide
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 9116
+  rights_status: distillation-only
+  feeds:
+  - harness-engineering-advisor
+  map_principles: 36
+  status: built
+- sha256: a4430459ad174a14efbf70a963d9b82b8a48e41bdb021fb50fcd7457df8a74ae
+  title: harness-engineering-research-report
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 19843
+  rights_status: distillation-only
+  feeds:
+  - harness-engineering-advisor
+  map_principles: 40
   status: built
 - sha256: eed3b927f9233065be06061b31cb55d35c8affc1b7f4789085dfcee1c37f2da4
   title: harness-mcp-server-redesign
@@ -1005,6 +1209,28 @@ materials:
   - agent-skills-advisor
   map_principles: 19
   status: built
+- sha256: a0f38246af25dc2e46bf568afb0141b0208f2796086dcdde7b527c10b72f5392
+  title: how-to-take-smart-notes
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 56822
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 76
+  status: built
+- sha256: bd8de41698f9b56b791241e5862153118945e83818f6345344a5fcaa4848fbe7
+  title: how-to-write-a-lot-silvia
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 31194
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 71
+  status: built
 - sha256: f86a022e76ca48af7b04f2bafce7c1dc0e93f6edd9c3079a0317258f25724515
   title: improving-skill-creator-test-measure-and-refine-agent-skills
   author: null
@@ -1015,6 +1241,20 @@ materials:
   feeds:
   - agent-skills-advisor
   map_principles: 12
+  status: built
+- sha256: 8e6c3cb106446e534e0a04ec564cb7afaf07229c974ffbd18e0f94b447262ade
+  title: in-other-words-baker
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 109990
+  rights_status: distillation-only
+  feeds:
+  - translation-equivalence-advisor
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 90
   status: built
 - sha256: 861e11e30d6eaf924d59772226d036313dbde6ff6fa13506f2fec3fdc8b649f5
   title: information-architecture-4e
@@ -1060,6 +1300,20 @@ materials:
   - software-testing-advisor
   map_principles: 109
   status: built
+- sha256: 4a29c5cac37adc2724b1af8cd6af678017ee487c466142aced53d83dc459637a
+  title: introducing-translation-studies-munday
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 134107
+  rights_status: distillation-only
+  feeds:
+  - descriptive-translation-reviewer
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 120
+  status: built
 - sha256: cf7957044f40826177296bab1daabed632b422b51cba4d6c63e8eaeb35ede152
   title: invariant-tool-poisoning
   author: null
@@ -1081,17 +1335,6 @@ materials:
   feeds:
   - mcp-security-advisor
   map_principles: 8
-  status: built
-- sha256: f6774161120f682a60d42a5d685ea681fcac1e78cec475aeea62f9d9fb49e2ee
-  title: Java Threads
-  author: Scott Oaks, Henry Wong
-  year: 2004
-  source_type: pdf
-  word_count: 104666
-  rights_status: distillation-only
-  feeds:
-  - java-concurrency-reviewer
-  map_principles: null
   status: built
 - sha256: 53171e801c6b4dbe0d62999c6fdcba0f4b7ce0332601c307cf0af775e46ce824
   title: judge-reliability-harness-2603.05399
@@ -1115,27 +1358,16 @@ materials:
   - ux-design-advisor
   map_principles: 87
   status: built
-- sha256: abd331966f5b1fc3f587a368f1e8d358d6158a21e276328b311de750bf1d075b
-  title: K6 Guideline
+- sha256: 2a049107e9608fdf06eb416160e053dba11b5614792ebdf6dfbf51fb6f142e15
+  title: lean-startup-katila-2020
   author: null
   year: null
-  source_type: pdf
-  word_count: 2109
+  source_type: markdown
+  word_count: 15233
   rights_status: distillation-only
   feeds:
-  - k6-load-test-scripting-advisor
-  map_principles: null
-  status: built
-- sha256: 66f36d454b44453cf6f8d32ed99dc334a444612169d5771664860d9816398c34
-  title: Kafka Best Practices
-  author: Yeva Byzek
-  year: 2020
-  source_type: pdf
-  word_count: 10520
-  rights_status: distillation-only
-  feeds:
-  - kafka-client-performance-advisor
-  map_principles: null
+  - product-blueprint-reviewer
+  map_principles: 16
   status: built
 - sha256: 6124b61e4fbf3c3922254069db1980a2b7f6718f5eced68e64b911718fd3eac4
   title: lean-ux-gothelf-seiden
@@ -1169,6 +1401,17 @@ materials:
   feeds:
   - ai-agent-engineering-reviewer
   map_principles: 31
+  status: built
+- sha256: 2583cb6ce003a637a7ffeccc99c35aaccb895effdf085297e9d9cf5a1a8ce329
+  title: linux-pocket-guide
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 71785
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 92
   status: built
 - sha256: eaca3d50aebb10d431c3cd78f7fa9527a5e6c0548ba950cbf0cf4ae2143a7fc1
   title: livemcpbench-2508.01780
@@ -1209,7 +1452,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 16603
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 92
@@ -1220,7 +1463,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 1098
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 15
@@ -1231,7 +1474,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 464
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 9
@@ -1242,7 +1485,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 3107
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 16
@@ -1253,7 +1496,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 2071
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 18
@@ -1264,7 +1507,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 314
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 6
@@ -1308,7 +1551,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 4830
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 26
@@ -1341,7 +1584,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 4921
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 17
@@ -1550,7 +1793,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 1305
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 10
@@ -1561,7 +1804,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 786
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 13
@@ -1583,7 +1826,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 5254
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-quality-advisor
   map_principles: 21
@@ -1610,7 +1853,7 @@ materials:
   - mcp-security-advisor
   map_principles: 34
   status: built
-- sha256: a36be0e9c3ce2b30017234f27d53171667b40cb7e7a6ae271805b51c2289a760
+- sha256: a51cf6857a5a7e0a11e750b33ee8ccca9615e2ca006ccb5cba58989a265925a5
   title: Microservice Pattern Language
   author: Chris Richardson
   year: null
@@ -1619,18 +1862,18 @@ materials:
   rights_status: distillation-only
   feeds:
   - microservice-patterns-advisor
-  map_principles: null
+  map_principles: 18
   status: built
-- sha256: 4bb1a6214f784d950760e85197c50c1cda7359e89c5522c8cdf0523422881f7e
+- sha256: 19016f24094f005c2799639baa06bde8e28fb75e68ee9395103a1404ea1faf51
   title: 'Microservices Patterns: With examples in Java'
   author: Chris Richardson
   year: 2018
   source_type: pdf
-  word_count: 190008
+  word_count: 190020
   rights_status: distillation-only
   feeds:
   - microservice-patterns-advisor
-  map_principles: null
+  map_principles: 146
   status: built
 - sha256: d06c3bb5a5d5980212f4af9459bc17960a4d059eea24366880bee66645968641
   title: mitchell-model-cards
@@ -1642,17 +1885,6 @@ materials:
   feeds:
   - ai-agent-engineering-reviewer
   map_principles: 23
-  status: built
-- sha256: e5f0853cca579cc75851ee86376a93c3b7ee11a8b0a3d47314b6d8d032b662b8
-  title: Mockito for Spring
-  author: Sujoy Acharya
-  year: 2015
-  source_type: pdf
-  word_count: null
-  rights_status: distillation-only
-  feeds:
-  - mockito-unit-testing-advisor
-  map_principles: null
   status: built
 - sha256: a39afdcf3a7e038535badaf3e67371e5263ebea23767300a11cf7f1d4535abb5
   title: mohammadi-llm-agent-eval-survey
@@ -1676,16 +1908,31 @@ materials:
   - agent-skills-advisor
   map_principles: 25
   status: built
-- sha256: 195d8af289e9d60fa233c94c12a5038a0d4b016d94875c0e4c87b8d456f6b841
-  title: 'Never Split the Difference: Negotiating As If Your Life Depended On It'
-  author: Chris Voss, Tahl Raz
-  year: 2016
-  source_type: pdf
-  word_count: 93589
+- sha256: 8bacf4e1ca9cb0bf3087cc774bed01b180e1f019c66abfc0e1cec8587fba35f1
+  title: new-rules-of-context-engineering-claude-5
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 1582
   rights_status: distillation-only
   feeds:
-  - negotiation-tactics-advisor
-  map_principles: null
+  - agent-skills-advisor
+  - mcp-quality-advisor
+  map_principles: 14
+  status: built
+- sha256: ad249b8df9d0b920f6e22763ab18a653ea9a8ed97aa2bbb809d6b178970f536d
+  title: norms-in-translation-toury
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 6836
+  rights_status: distillation-only
+  feeds:
+  - descriptive-translation-reviewer
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 24
   status: built
 - sha256: dcbba5b2c9ad00be56a997ba8b6cffc94a28c5ee21c13b4e1b317652ee775047
   title: nsa-csi-mcp-security
@@ -1693,7 +1940,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 5205
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 19
@@ -1709,6 +1956,17 @@ materials:
   - agent-skills-advisor
   map_principles: 27
   status: built
+- sha256: f5840c5bf2ef9a20f3b9805c83c1c9b42589614d6a28d0ee71f63f8077f3166d
+  title: on-being-a-scientist
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 18346
+  rights_status: distillation-only
+  feeds:
+  - research-integrity-reproducibility-advisor
+  map_principles: 47
+  status: built
 - sha256: 2445eb6688c25d150ebed806ebf76870362eb87be9cd9da55084042b628f5dae
   title: onboarding-claude-code-like-a-new-developer-lessons-from-17-years-of-development
   author: null
@@ -1719,17 +1977,6 @@ materials:
   feeds:
   - agent-skills-advisor
   map_principles: 12
-  status: built
-- sha256: abff5e7fc7fba54bdf706f7305a26c851a37a09dda010a68b698a1050af3bf45
-  title: Optimizing Your Apache Kafka Deployment
-  author: Yeva Byzek
-  year: 2020
-  source_type: pdf
-  word_count: 8543
-  rights_status: distillation-only
-  feeds:
-  - kafka-client-performance-advisor
-  map_principles: null
   status: built
 - sha256: a13b9e9edc112fd45bc30cff9676e2d3a048907e528643ac9d8f9cc9cd811f07
   title: organization-skills-and-directory
@@ -1836,10 +2083,21 @@ materials:
   year: null
   source_type: markdown
   word_count: 3000
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 23
+  status: built
+- sha256: a1edef2148071309efb6b461427443272df8d3e6371351d6e135e20e5f24eda3
+  title: owasp-command-injection-attack
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 1372
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 10
   status: built
 - sha256: e6ab8dd9a85cb87749985859ba141a4240275269ea2fea2ac8cf671f64c59861
   title: owasp-mcp-security-cheatsheet
@@ -1847,7 +2105,7 @@ materials:
   year: null
   source_type: markdown
   word_count: 1878
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 18
@@ -1858,10 +2116,21 @@ materials:
   year: null
   source_type: markdown
   word_count: 10010
-  rights_status: distillation-only
+  rights_status: open
   feeds:
   - mcp-security-advisor
   map_principles: 13
+  status: built
+- sha256: 10824bdf56f3453a6b8515ec0ebe778241911a527bf066cce74686c623c51f07
+  title: owasp-os-command-injection-defense
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 1511
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 10
   status: built
 - sha256: 73827be00a9bf2dd95d641e47e6d3561483b3d9f19956eec4b799d019588cfcb
   title: parecki-enterprise-ready-mcp
@@ -1907,17 +2176,18 @@ materials:
   - software-architecture
   map_principles: 272
   status: built
-- sha256: 7fe74e3a510c17fae5d1e3092bafede05a87c1f051c7090490a4b58d311d0459
-  title: 'Payment Systems and Performance Improvement: Participation in Payment System
-    Design'
-  author: Angela Bowey; Richard Thorpe
-  year: 1989
-  source_type: pdf
-  word_count: 3055
+- sha256: a445f2941de4424c5aa32ae3e6d1349492daf542cbcbeb1d3b457830cd282864
+  title: perception-and-misperception
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 255019
   rights_status: distillation-only
   feeds:
-  - employee-payment-scheme-advisor
-  map_principles: null
+  - analytic-method-reviewer
+  - bias-perception-reviewer
+  - calibration-forecasting-reviewer
+  map_principles: 411
   status: built
 - sha256: 7f54213fedb8267a61ea2125ad12e9abb4e300150a41b6ddb241284a81d68ee4
   title: pipeline-as-code-con-2e091c45
@@ -1930,6 +2200,28 @@ materials:
   - devops-sre-advisor
   map_principles: 69
   status: built
+- sha256: 07b8d355a162a860a20e5dbe74a6fec6e78a7b2d952e3db685b87fe09bd52576
+  title: posix-shell-command-language
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 27926
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 75
+  status: built
+- sha256: db533de8c28a0875b4eab95d86181b6cda799337970d4546a5b78370d2e26bb3
+  title: presentation-zen-design
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 45435
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 61
+  status: built
 - sha256: dfe0874c00ba183189eaed255a2e98b0e1ef6155aebad3ca75f374645d4a324e
   title: promcp-token-flows-latency
   author: null
@@ -1940,6 +2232,30 @@ materials:
   feeds:
   - mcp-quality-advisor
   map_principles: 17
+  status: built
+- sha256: 3a2b4f822beb9640d7a9538e135b6ac056191f0d4da4e535bd92b5bfe72dfb8c
+  title: psychology-of-intelligence-analysis
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 67347
+  rights_status: distillation-only
+  feeds:
+  - analytic-method-reviewer
+  - bias-perception-reviewer
+  - calibration-forecasting-reviewer
+  map_principles: 157
+  status: built
+- sha256: 0a32f97f8de326c83e909107d8eb46c35e333f7f4ec0e56ba2ac055b532d51af
+  title: pure-bash-bible
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 7074
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 22
   status: built
 - sha256: 2bf219904a5b0d7b67661945a32093d46cc4e22108b8cfd6b1c90b7bc173f5c9
   title: Python Distilled
@@ -1987,25 +2303,23 @@ materials:
   status: built
 - sha256: 67c60e378753c0ba6d223084ed739f37451e3e5289c533c93e430d22154524d0
   title: Scalability Rules
-  author: null
-  year: null
+  author: Martin L. Abbott, Michael T. Fisher
+  year: 2011
   source_type: markdown
   word_count: null
   rights_status: distillation-only
   feeds:
-  - scalability-mr
   - software-architecture
   map_principles: 33
   status: built
 - sha256: a6c7e769c07281de15399e2fa33a2d3ceaf1edfcc47eae4aa74e29d7d41b487f
   title: Scalable Internet Architectures
-  author: null
-  year: null
+  author: Theo Schlossnagle
+  year: 2006
   source_type: markdown
   word_count: null
   rights_status: distillation-only
   feeds:
-  - scalability-mr
   - software-architecture
   map_principles: 65
   status: built
@@ -2019,6 +2333,31 @@ materials:
   feeds:
   - ai-agent-engineering-reviewer
   map_principles: 33
+  status: built
+- sha256: 10f0a73c184da9798a1c56865dc101547fa4fd556d6af861a9f08b84e8f80985
+  title: science-research-writing-nonnative
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 73145
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 122
+  status: built
+- sha256: d92653ac75eeb4afb7c297321f5f364ff88a84e7da758c67198563420bbd2faa
+  title: scientific-technical-translation-byrne
+  author: Jody Byrne
+  year: 2012
+  source_type: markdown
+  word_count: 70414
+  rights_status: distillation-only
+  feeds:
+  - technical-translation-advisor
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 157
   status: built
 - sha256: 1a5b18f0f07e90b704b0bebfac4038b0595d89b076b109dfb0ada162f722999e
   title: 'Securing the API Stronghold: The Ultimate Guide to API Security'
@@ -2196,6 +2535,17 @@ materials:
   - mcp-quality-advisor
   map_principles: 13
   status: built
+- sha256: f4cae1466b8ae513e68a985ed5ff8f74daba2ab23d2aa863d8dfd448a1627e62
+  title: stage-boundaries
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 6149
+  rights_status: distillation-only
+  feeds:
+  - product-blueprint-reviewer
+  map_principles: 31
+  status: built
 - sha256: 3f36f8343ccf762eba017e39446289b9edc0839299acb90a493f4a8e9736938c
   title: steering-claude-code-skills-hooks-rules-subagents-and-more
   author: null
@@ -2207,39 +2557,18 @@ materials:
   - agent-skills-advisor
   map_principles: 15
   status: built
-- sha256: ba9cc038dc056669d01b8056670e2cc977b4e2525bcb2d7cb56b43a045bc1c79
-  title: StrengthsFinder
-  author: Gallup
-  year: 2015
-  source_type: pdf
-  word_count: 37913
+- sha256: e3c7c0b4e46fb872c1ff632440c42958d01644a3f64befaffe78abf66df18297
+  title: superforecasting
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 101077
   rights_status: distillation-only
   feeds:
-  - strengths-based-development-coach
-  map_principles: null
-  status: built
-- sha256: 2ce71747f82627fad38c0f33f72143305b434e908ee3ca66963068d4181057fa
-  title: StrengthsFinder 2.0
-  author: Tom Rath
-  year: 2007
-  source_type: pdf
-  word_count: 37289
-  rights_status: distillation-only
-  feeds:
-  - strengths-based-development-coach
-  map_principles: null
-  status: built
-- sha256: 8e2d20f770275532c05f94edd15b6491875e95073b525db0f4ef6331fdcd3898
-  title: 'Summary: Never Split the Difference — Negotiating As If Your Life Depended
-    On It (EssentialInsight Summaries)'
-  author: EssentialInsight Summaries
-  year: 2021
-  source_type: pdf
-  word_count: 13810
-  rights_status: distillation-only
-  feeds:
-  - negotiation-tactics-advisor
-  map_principles: null
+  - analytic-method-reviewer
+  - bias-perception-reviewer
+  - calibration-forecasting-reviewer
+  map_principles: 72
   status: built
 - sha256: e5bd744baa21f5bce6c602620a1e7a4a0d30c0d0c2f27bae14fc8bf8835a7029
   title: tdd-with-python-percival
@@ -2251,6 +2580,31 @@ materials:
   feeds:
   - python-testing-advisor
   map_principles: 79
+  status: built
+- sha256: 41f3c47c6f8afe00db0d7ed2a69e86196ae0a5356592f5a40cc682e802f6180b
+  title: technical-translation-usability-byrne
+  author: Jody Byrne
+  year: 2006
+  source_type: markdown
+  word_count: 100238
+  rights_status: distillation-only
+  feeds:
+  - technical-translation-advisor
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 96
+  status: built
+- sha256: 7e242e4f50fd4041a78fd68f0064c31467ce7e56f48f8c0049438479c1674d65
+  title: ted-talks-public-speaking
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 77305
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 105
   status: built
 - sha256: e619fe9a039439b5829ee24c3d9567b321c085aefb4b56c11a872ef4be87fd26
   title: Test-Driven Development By Example
@@ -2273,28 +2627,6 @@ materials:
   feeds:
   - python-testing-advisor
   map_principles: 73
-  status: built
-- sha256: cb5bdc7ab03716d1fb58829222a3aa8a2fb4843afeca343f50836454a2bae48c
-  title: The End of Advertising As We Know It
-  author: Sergio Zyman, Armin Brott
-  year: 2002
-  source_type: pdf
-  word_count: 89389
-  rights_status: distillation-only
-  feeds:
-  - advertising-effectiveness-advisor
-  map_principles: null
-  status: built
-- sha256: 7c1c7e77db364b688f40d61157b92022f8427713507f7dc0c633d1ffff3e4356
-  title: The Hard Thing About Hard Things
-  author: Ben Horowitz
-  year: null
-  source_type: pdf
-  word_count: 78769
-  rights_status: distillation-only
-  feeds:
-  - startup-ceo-leadership-advisor
-  map_principles: null
   status: built
 - sha256: 13ff3ba5042aa1682f6c85bbba17fd0b6b531604ebf5a7e96d8e1bde931d6a1e
   title: 'The Pragmatic Programmer: From Journeyman to Master'
@@ -2329,6 +2661,30 @@ materials:
   - devops-sre-advisor
   map_principles: 64
   status: built
+- sha256: c8604455f3d51bccbbe958671948f57606ca23143bba9db2b442465ad17f9122
+  title: the-linux-command-line
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 147301
+  rights_status: distillation-only
+  feeds:
+  - bash-shell-scripting-advisor
+  map_principles: 170
+  status: built
+- sha256: d88ef7714f298b6339bd5768935a49fe0273af91a16c715ca2709b114ed51ed0
+  title: thinking-fast-and-slow
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 91287
+  rights_status: distillation-only
+  feeds:
+  - analytic-method-reviewer
+  - bias-perception-reviewer
+  - calibration-forecasting-reviewer
+  map_principles: 131
+  status: built
 - sha256: b0365df125194120281ce7a06218b1532977d15566804ea12dc5479b971e685d
   title: tool-attention-dynamic-gating-lazy-schema
   author: null
@@ -2340,6 +2696,19 @@ materials:
   - mcp-quality-advisor
   map_principles: 27
   status: built
+- sha256: 6ec9d9fb28d64e379011c244e9853d8f7816e1d5e96477731be494d0993328a7
+  title: tradecraft-primer
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 13162
+  rights_status: distillation-only
+  feeds:
+  - analytic-method-reviewer
+  - bias-perception-reviewer
+  - calibration-forecasting-reviewer
+  map_principles: 20
+  status: built
 - sha256: 6954b21807d3793e8f8e153655f6be567b44446d3ec0ee8664a3464f37250e44
   title: trailofbits-line-jumping-mcp
   author: null
@@ -2350,6 +2719,45 @@ materials:
   feeds:
   - mcp-security-advisor
   map_principles: 12
+  status: built
+- sha256: c0dd203dbe43780bfcfba542599430b15a4f4f815a429653fd8bede5eef9105d
+  title: translation-quality-assessment-house
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 65628
+  rights_status: distillation-only
+  feeds:
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-quality-reviewer
+  - translation-strategy-reviewer
+  map_principles: 114
+  status: built
+- sha256: 45ee8f34c41b329a9f4297242b458b48a04ddc0c2dcf1bfb30070fdc5f800b9b
+  title: translation-studies-reader-venuti
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 242724
+  rights_status: distillation-only
+  feeds:
+  - descriptive-translation-reviewer
+  - translation-faithfulness-reviewer
+  - translation-naturalness-reviewer
+  - translation-strategy-reviewer
+  map_principles: 220
+  status: built
+- sha256: 96a0665f5b6e50746c4b88127d2ee9f09a374cc015998cb1b16e258126d12d00
+  title: turing-way-reproducible-research
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 119940
+  rights_status: distillation-only
+  feeds:
+  - research-integrity-reproducibility-advisor
+  map_principles: 168
   status: built
 - sha256: b4bcb3ed0e87a8a75fd455368e06b6995d7c4e2f56c30012d9d9c1f375401e91
   title: unit42-mcp-prompt-injection-sampling
@@ -2506,16 +2914,16 @@ materials:
   - mcp-quality-advisor
   map_principles: 13
   status: built
-- sha256: e072e4939e4f7af89bdcfe5759fe6c949e5a0a49e46b0d23e2670d9b88348abb
+- sha256: 1d83dc6f489c2d739681c1ae7a24ea481d47bf1adeed6d529accc14a4c051672
   title: Working Effectively with Legacy Code
   author: Michael C. Feathers
   year: 2005
   source_type: pdf
-  word_count: 128052
+  word_count: 131673
   rights_status: distillation-only
   feeds:
   - legacy-code-change-advisor
-  map_principles: null
+  map_principles: 148
   status: built
 - sha256: be2d4265223e5ffc7cb7085c484c232760fdfdfbff67d2201592732bc9456a65
   title: Writing Effective Use Cases
@@ -2528,6 +2936,28 @@ materials:
   - requirements-use-case-advisor
   map_principles: 57
   status: built
+- sha256: 5ddb3c955d34eb525c4d519928c1cd566f21dd70536312df75456dcb83b2964b
+  title: writing-for-computer-science
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 124924
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 371
+  status: built
+- sha256: 80f45a2cc19e1fa4f8507d2dfd71a6a3da37fb8b6d6d5066e085adabc9782d5a
+  title: writing-science-schimel
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 89244
+  rights_status: distillation-only
+  feeds:
+  - research-writing-advisor
+  map_principles: 119
+  status: built
 - sha256: a0c96ef125b7890403d501a14506858879ca51c4d41b511bcfb9bde1cd386d72
   title: writing-tools-for-agents
   author: null
@@ -2539,6 +2969,17 @@ materials:
   - agent-skills-advisor
   map_principles: 17
   status: built
+- sha256: ff70b27e8bcd27747ed7fcc43e4680441125fff8bd28796fb95200e33be75f72
+  title: xueshu-yanjiu-chenggong-zhidao
+  author: null
+  year: null
+  source_type: markdown
+  word_count: 6360
+  rights_status: distillation-only
+  feeds:
+  - research-career-advisor
+  map_principles: 85
+  status: built
 - sha256: 11f28a2119c700bce5d07ee570471a9e118cfcb8dda4147091a4c226eb2e2728
   title: xunit-test-patterns-meszaros
   author: null
@@ -2549,17 +2990,6 @@ materials:
   feeds:
   - software-testing-advisor
   map_principles: 61
-  status: built
-- sha256: f74bc1cb4b0f146d0fdd0d11f878373e35247302d384b956ae53c55c0b393507
-  title: 'xv6: a simple, Unix-like teaching operating system'
-  author: null
-  year: null
-  source_type: pdf
-  word_count: 42432
-  rights_status: distillation-only
-  feeds:
-  - xv6-kernel-internals-reviewer
-  map_principles: null
   status: built
 - sha256: 0285c0b6941d0b3827507da1a74fd4871bbf40849b8fa6485f25188f5ec566c2
   title: yao-react
@@ -2663,6 +3093,16 @@ materials:
   feeds: []
   map_principles: 42
   status: mapped-not-built
+- sha256: 22c4f88d89963e5917c919f259434c7f1079057866c6f9b1016748cc124e5b67
+  title: fm-2-22-3-humint
+  author: null
+  year: null
+  source_type: book
+  word_count: null
+  rights_status: null
+  feeds: []
+  map_principles: 249
+  status: mapped-not-built
 - sha256: 6b15bd8cd9bacbf14042cbf3c638369ee2cfbe96aec51f060858832c0e3ed00a
   title: fundamentals-of-software-architecture
   author: null
@@ -2712,6 +3152,26 @@ materials:
   rights_status: null
   feeds: []
   map_principles: 12
+  status: mapped-not-built
+- sha256: caa3d319c0810cdb978a415ad56313d19e5eec8157c541ffc24e5c136032cc4b
+  title: OSINT Techniques, 11th Edition
+  author: null
+  year: null
+  source_type: book
+  word_count: null
+  rights_status: null
+  feeds: []
+  map_principles: 346
+  status: mapped-not-built
+- sha256: da5fcf0b0e8780232dd6469c863c2bc2b3e4716b49ee35ee03f83ebec3e7fb89
+  title: owasp-mcp05-command-injection
+  author: null
+  year: null
+  source_type: book
+  word_count: null
+  rights_status: null
+  feeds: []
+  map_principles: 13
   status: mapped-not-built
 - sha256: fbd95667ee10f52c67a3805bce9b8e203fd797b38a129db1026204084b2b674a
   title: patterns-of-enterprise-application-architecture
@@ -2763,6 +3223,16 @@ materials:
   feeds: []
   map_principles: 15
   status: mapped-not-built
+- sha256: 6b85c42a601f5eae9b343eace3fa4a6fa7684db6189c7e7cdbb2528d968b335f
+  title: strategic-intelligence
+  author: null
+  year: null
+  source_type: book
+  word_count: null
+  rights_status: null
+  feeds: []
+  map_principles: 132
+  status: mapped-not-built
 - sha256: 0deb156842f15986bfd3e4c740567c63d722039e75639ecdfd8b15ba73ef15d6
   title: tau-bench-2406.12045
   author: null
@@ -2792,4 +3262,14 @@ materials:
   rights_status: null
   feeds: []
   map_principles: 37
+  status: mapped-not-built
+- sha256: 1fbb75028c7f4daff7404518814b476d97b730bb3456dadbd22686be6b39df43
+  title: we-are-bellingcat
+  author: null
+  year: null
+  source_type: book
+  word_count: null
+  rights_status: null
+  feeds: []
+  map_principles: 66
   status: mapped-not-built

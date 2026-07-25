@@ -1,7 +1,43 @@
-# Conversion report: ai-resistant-technic-78079b86
+# Conversion Report — ai-resistant-technic-78079b86
 
-- source_id: ai-resistant-technic-78079b86
-- sha256: 78079b86783c53e7f2b672702e75752c66803f7918ae284e8c7853100eee10c5
-- word_count: 2679
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.046241+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2679 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

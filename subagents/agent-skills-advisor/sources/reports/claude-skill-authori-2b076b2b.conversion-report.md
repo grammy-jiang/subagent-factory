@@ -1,7 +1,43 @@
-# Conversion report: claude-skill-authori-2b076b2b
+# Conversion Report — claude-skill-authori-2b076b2b
 
-- source_id: claude-skill-authori-2b076b2b
-- sha256: 2b076b2b50c8e0e544f73e844404f297d251d1d00825aa50fe3e2dc82c732f74
-- word_count: 5525
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.984999+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 5525 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

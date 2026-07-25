@@ -1,7 +1,43 @@
-# Conversion report: claude-skills-api-qu-44948e80
+# Conversion Report — claude-skills-api-qu-44948e80
 
-- source_id: claude-skills-api-qu-44948e80
-- sha256: 44948e80051552d5a1a7785e24376a80f9de53a4153be41e7c97fac272f9ae30
-- word_count: 794
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.993834+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 794 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -1,7 +1,43 @@
-# Conversion report: demystifying-evals-f-ba55f4c0
+# Conversion Report — demystifying-evals-f-ba55f4c0
 
-- source_id: demystifying-evals-f-ba55f4c0
-- sha256: ba55f4c069805f1c33a909951bc6b864801fee3ce2df454711f519f007142be8
-- word_count: 6132
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.033344+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 6132 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

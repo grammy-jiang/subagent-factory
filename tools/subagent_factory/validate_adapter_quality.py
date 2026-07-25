@@ -6,7 +6,9 @@ adapter-policy scan) with a *quality* gate on the canonical adapter
 
 - the ``GENERATED FILE. DO NOT EDIT`` header is present (generated-artifact-policy rule #3 — was
   enforced nowhere);
-- no stub/placeholder tokens leaked from an unfinished profile (TODO, STATUS: STUB, PLACEHOLDER…);
+- no stub/placeholder tokens leaked from an unfinished profile (TODO, STATUS: STUB, PLACEHOLDER…),
+  scanned everywhere except the machine-compiled ``- **[Pxxx]** …`` invariant lines, which are
+  rendered verbatim from an already-validated spine (see ``_INVARIANT_LINE``);
 - the load-bearing sections (``## Role``, ``## When to use``) exist and are non-empty;
 - the body is not implausibly short.
 
@@ -42,6 +44,18 @@ _PLACEHOLDERS = [
 ]
 _REQUIRED_SECTIONS = ("## Role", "## When to use")
 _MIN_LINES = 20  # a real templated adapter is ~130 lines; below this it is a stub
+
+# A compiled invariant line, as rendered by templates/claude-agent-adapter.md.j2:
+#     - **[P167]** <first sentence of the principle statement>
+# These are emitted verbatim from principles.yaml by compile_invariants, i.e. distilled source
+# content that already passed the principle validators — NOT authored profile prose. The stub
+# guard exists to catch tokens "leaked from an unfinished profile", so a stub token inside a
+# grounded principle is a false positive: mcp-quality-advisor's P167 legitimately reads
+# "…leaving TODO rows for ambiguity…", and failing the whole adapter on it drove that package to
+# set `attach_invariants: false`, silently dropping its entire must-hold layer just to go green.
+# Only these compiled lines are exempt; the section's prose preamble and every other line, including
+# the same tokens anywhere in authored profile text, are still scanned.
+_INVARIANT_LINE = re.compile(r"^- \*\*\[P\d+\]\*\* ")
 
 
 def _parse_frontmatter(text: str) -> tuple[str, object]:
@@ -107,8 +121,9 @@ def validate_adapter_quality(subagent_dir: str | Path) -> list[tuple[str, str]]:
             if not (isinstance(fm_payload, dict) and fm_payload.get(key)):
                 out.append(("FAIL", f"adapter frontmatter missing required key '{key}'"))
 
+    stub_scan_text = "\n".join(ln for ln in text.splitlines() if not _INVARIANT_LINE.match(ln))
     for pattern, label in _PLACEHOLDERS:
-        if pattern.search(text):
+        if pattern.search(stub_scan_text):
             out.append(("FAIL", f"adapter contains stub/placeholder token: {label}"))
 
     for sec in _REQUIRED_SECTIONS:

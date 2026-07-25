@@ -1,14 +1,59 @@
 {
-  "328": {"action": "split", "subgroups": [[564], [565]]},
-  "335": {"action": "split", "subgroups": [[575], [578]]},
-  "337": {"action": "split", "subgroups": [[577], [614]]},
-  "350": {"action": "confirm", "canonical": "Never assume an MCP list call (list_tools/list_prompts/list_resources/list_resource_templates) returns every item: they are cursor-paginated, so loop — passing the previous response's next cursor — until the next cursor is empty, even though some in-process servers return a single page."},
-  "352": {"action": "split", "subgroups": [[598], [599]]},
-  "353": {"action": "split", "subgroups": [[600], [601]]},
-  "354": {"action": "split", "subgroups": [[603], [604]]},
-  "358": {"action": "split", "subgroups": [[609], [620]]},
-  "360": {"action": "confirm", "canonical": "Use InMemoryTransport (e.g. createLinkedPair) only for in-process unit and integration testing of MCP server logic; reserve stdio or Streamable-HTTP transports for end-to-end transport-level tests and for production in-process connections."},
-  "367": {"action": "split", "subgroups": [[623], [629]]},
-  "371": {"action": "split", "subgroups": [[631], [634], [640], [641]]},
-  "374": {"action": "split", "subgroups": [[636], [638]]}
+  "328": {
+    "action": "split",
+    "subgroups": []
+  },
+  "335": {
+    "action": "split",
+    "subgroups": []
+  },
+  "337": {
+    "action": "confirm",
+    "canonical": "Exercise tools through the connected client session and assert both model-facing text content and machine-readable structuredContent, calling listTools first when schema validation depends on cached tool schemas."
+  },
+  "350": {
+    "action": "confirm",
+    "canonical": "Page every MCP list call with a cursor loop, collecting results until the response has no next cursor rather than assuming the first page is complete."
+  },
+  "352": {
+    "action": "confirm",
+    "canonical": "Use the SDK's built-in ping() for health checks, adding an explicit timeout or deadline when the side being called does not provide one."
+  },
+  "353": {
+    "action": "confirm",
+    "canonical": "Wire progress reporting end-to-end only when requested: the client supplies an onprogress callback/progress token and the server emits progress notifications guarded by that token."
+  },
+  "354": {
+    "action": "confirm",
+    "canonical": "Make long-running calls cancellable end-to-end: the client passes and aborts an AbortSignal, and the server handler polls the signal and stops promptly when cancellation is signalled."
+  },
+  "358": {
+    "action": "confirm",
+    "canonical": "Define and register MCP tool and prompt schemas with JSON Schema 2020-12, directly or through a compatible schema library such as Zod/Standard-Schema."
+  },
+  "360": {
+    "action": "confirm",
+    "canonical": "Use InMemoryTransport for unit, integration, test, and development in-process MCP wiring, reserving stdio, Streamable HTTP, or local server URLs for transport-level or production paths."
+  },
+  "367": {
+    "action": "split",
+    "subgroups": []
+  },
+  "371": {
+    "action": "split",
+    "subgroups": [
+      [
+        631,
+        634
+      ]
+    ]
+  },
+  "374": {
+    "action": "split",
+    "subgroups": []
+  },
+  "377": {
+    "action": "confirm",
+    "canonical": "Keep agent guidance minimal, judgment-anchored, and non-overlapping across prompts, skills, CLAUDE.md, and user requests, verifying that removed constraints do not hurt behavior."
+  }
 }

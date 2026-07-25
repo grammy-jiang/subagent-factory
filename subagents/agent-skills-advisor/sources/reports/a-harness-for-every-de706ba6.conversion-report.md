@@ -1,7 +1,43 @@
-# Conversion report: a-harness-for-every-de706ba6
+# Conversion Report — a-harness-for-every-de706ba6
 
-- source_id: a-harness-for-every-de706ba6
-- sha256: de706ba6765fe33acc5f8ad8194e414ed1a943932bf64d7c420365a672c798b9
-- word_count: 2350
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.973564+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2350 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

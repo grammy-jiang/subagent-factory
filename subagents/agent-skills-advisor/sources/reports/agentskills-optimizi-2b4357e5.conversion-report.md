@@ -1,7 +1,43 @@
-# Conversion report: agentskills-optimizi-2b4357e5
+# Conversion Report — agentskills-optimizi-2b4357e5
 
-- source_id: agentskills-optimizi-2b4357e5
-- sha256: 2b4357e5551906f6db918c52237abacd25f2e3c3e80301274270ab103afac96f
-- word_count: 2007
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.064360+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2007 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

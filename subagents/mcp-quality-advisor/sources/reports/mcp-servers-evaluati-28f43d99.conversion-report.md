@@ -1,7 +1,43 @@
-# Conversion report: mcp-servers-evaluati-28f43d99
+# Conversion Report — mcp-servers-evaluati-28f43d99
 
-- source_id: mcp-servers-evaluati-28f43d99
-- sha256: 28f43d99e05e51f49c9634cc8d705590e9d639d23bebb1dd3fb9e013180346c6
-- word_count: 4126
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.349329+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 4126 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

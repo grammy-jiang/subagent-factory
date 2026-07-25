@@ -1,7 +1,43 @@
-# Conversion report: claude-skills-api-gu-52ae38ef
+# Conversion Report — claude-skills-api-gu-52ae38ef
 
-- source_id: claude-skills-api-gu-52ae38ef
-- sha256: 52ae38ef592a3ae85a6e2503558c5ee20bb426ac1d34a659b0f8f156e83ed188
-- word_count: 2286
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.988514+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2286 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

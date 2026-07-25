@@ -382,6 +382,10 @@
    {
     "idx": 193,
     "statement": "Prefer a dynamic workflow over the single-context default harness when a task is long-running, massively parallel, highly structured, or adversarial, because a single context window is prone to agentic laziness, self-preferential bias, and goal drift."
+   },
+   {
+    "idx": 913,
+    "statement": "Right-size context for capable models: over-constraining an agent through its system prompt, CLAUDE.md, and skills degrades results, so aim for the minimum context that works and verify (e.g. via evals) that removals do not hurt."
    }
   ]
  },
@@ -427,6 +431,10 @@
    {
     "idx": 788,
     "statement": "Build self-validation loops into skills: instruct the agent to do the work, run a validator, fix any issues, and repeat until validation passes before proceeding."
+   },
+   {
+    "idx": 923,
+    "statement": "Treat skills as lightweight, team- or product-specific guides that help the model find information when needed; encode your particular opinions and best practices and avoid overconstraining them."
    }
   ]
  },
@@ -1181,6 +1189,19 @@
   ]
  },
  {
+  "group": 63,
+  "members": [
+   {
+    "idx": 127,
+    "statement": "Use append-system-prompt for lightweight, per-invocation additions such as coding standards, output formatting, or domain knowledge, and keep the appended instruction set small because adherence degrades as instructions grow or contradict."
+   },
+   {
+    "idx": 919,
+    "statement": "Put tool-usage instructions in the tool's own description rather than duplicating them in the system prompt, and do not repeat the same instruction in multiple places."
+   }
+  ]
+ },
+ {
   "group": 65,
   "members": [
    {
@@ -1431,6 +1452,19 @@
    {
     "idx": 719,
     "statement": "Maintain a lean CLAUDE.md of only broadly-applicable, non-obvious project context (Bash commands, non-default style, test runners, etiquette, gotchas); prune ruthlessly because bloat makes Claude ignore rules, and use emphasis plus git check-in."
+   }
+  ]
+ },
+ {
+  "group": 105,
+  "members": [
+   {
+    "idx": 199,
+    "statement": "Generate multiple candidates, then filter them by rubric or verification and dedupe, returning only the highest-quality, tested options."
+   },
+   {
+    "idx": 922,
+    "statement": "Use rubrics as references plus dynamic verifier agents to check subjective quality or taste (e.g. what good API design looks like) that a single rule cannot capture."
    }
   ]
  },
@@ -2247,6 +2281,10 @@
    {
     "idx": 844,
     "statement": "Structure every Agent Skill as a folder containing a single SKILL.md file that opens with a YAML frontmatter block (delimited by ---) declaring name and description, followed by a Markdown body of instructions."
+   },
+   {
+    "idx": 920,
+    "statement": "Keep CLAUDE.md lightweight: briefly state what the repo is for, spend most tokens on codebase gotchas, and omit obvious facts the model can learn by inspecting the file system or repo."
    }
   ]
  },
@@ -2512,6 +2550,10 @@
    {
     "idx": 781,
     "statement": "Use progressive disclosure: keep SKILL.md to the core instructions needed every run (under ~500 lines and ~5,000 tokens), move detailed material into references/, and tell the agent exactly when to load each file rather than giving a generic pointer."
+   },
+   {
+    "idx": 917,
+    "statement": "Apply progressive disclosure: load the right context at the right time via a tree of files rather than one upfront repository — move situational instructions (verification, code review) into selectively-called skills and split long skills into multiple files."
    }
   ]
  },
@@ -2559,6 +2601,19 @@
    {
     "idx": 761,
     "statement": "Keep reference files small and focused since agents load them on demand, and use assets/ only for static resources like templates, images, and data files."
+   }
+  ]
+ },
+ {
+  "group": 248,
+  "members": [
+   {
+    "idx": 491,
+    "statement": "Separate prompt guidance by purpose so background, instructions, tool guidance, and output expectations are easy for the model to locate."
+   },
+   {
+    "idx": 915,
+    "statement": "Eliminate conflicting and overlapping instructions across the system prompt, skills, CLAUDE.md, and the user request; contradictory guidance forces the model to spend reasoning reconciling it before acting."
    }
   ]
  },
@@ -2720,6 +2775,14 @@
    {
     "idx": 529,
     "statement": "Use tool input examples to teach conventions that schemas cannot express, including optional-field patterns, nested object usage, correlated parameters, and similar-tool disambiguation."
+   },
+   {
+    "idx": 916,
+    "statement": "Design expressive tool, script, and file interfaces (clear, self-describing parameters) instead of supplying usage examples, because examples can constrain a capable model to a narrow exploration space."
+   },
+   {
+    "idx": 921,
+    "statement": "Prefer high-fidelity references — code, detailed test suites, functions to port, and HTML artifacts/mockups — over prose descriptions or screenshots, and @-mention them so the model can consult in-depth information for the current plan."
    }
   ]
  },
@@ -2737,6 +2800,10 @@
    {
     "idx": 871,
     "statement": "When a dedicated tool returns skill content, wrap it in identifying tags (so it is distinguishable and preservable during compaction) and enumerate bundled resources without eagerly reading them, letting the model load specific files on demand."
+   },
+   {
+    "idx": 918,
+    "statement": "Expose many tools cheaply through deferred loading: keep full tool definitions out of context and require the agent to fetch them via ToolSearch before use, so tool count does not inflate the always-on context."
    }
   ]
  },

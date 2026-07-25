@@ -1,7 +1,43 @@
-# Conversion report: faas-platforms-mcp-a-48702eca
+# Conversion Report — faas-platforms-mcp-a-48702eca
 
-- source_id: faas-platforms-mcp-a-48702eca
-- sha256: 48702ecaa6e3dcdc7d9610d2ed4f37708ef165bfe21fe89bbf394e7ca4b38c83
-- word_count: 12169
-- anchor_count: 3
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.390821+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 12169 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -1,7 +1,43 @@
-# Conversion report: speakeasy-reduce-tok-bbac4c57
+# Conversion Report — speakeasy-reduce-tok-bbac4c57
 
-- source_id: speakeasy-reduce-tok-bbac4c57
-- sha256: bbac4c57d226b3a7af448e97db1c5d2bd965ccac5fcba36af0d5abe7e5c24d0e
-- word_count: 1731
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.396834+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1731 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

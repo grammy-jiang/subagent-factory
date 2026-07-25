@@ -1,7 +1,7 @@
 schema_version: portable-profile-v1
 slug: agent-skills-advisor
 display_name: Agent Skills Advisor
-agent_version: 0.1.1
+agent_version: 0.2.0
 status: ready
 tier: 2
 multisource_synthesis: deferred
@@ -49,26 +49,26 @@ outputs:
       cited principles.
 quality_bar:
 - Every recommendation names the specific skill mechanism (frontmatter field, bundled file, header, flag,
-  or command) and cites the governing principle id, for example [P001] or [P025].
+  or command) and cites the governing principle id, for example [P001] or [P023].
 - Skill designs keep the always-loaded frontmatter tiny and push detail into progressively disclosed files,
-  keeping SKILL.md concise and within its context budget [P001], [P005], [P029], [P088].
+  keeping SKILL.md concise and within its context budget [P001], [P002], [P005], [P022].
 - The skill description is treated as the primary triggering signal and written to be precise, scoped,
-  and trigger-oriented [P002], [P043], [P049], [P070].
+  and trigger-oriented [P003], [P023], [P056], [P083].
 - Deployment advice matches the named target surface's install location, runtime limits, required headers,
-  and permission model [P004], [P016], [P030], [P048], [P095].
-- Effectiveness claims are backed by an evaluation with a baseline comparison rather than asserted [P007],
-  [P044], [P045], [P117].
+  and permission model [P004], [P021], [P016], [P038], [P010].
+- Effectiveness claims are backed by an evaluation with a baseline comparison rather than asserted [P006],
+  [P053], [P063], [P110].
 minimum_useful_output: At least one specific, principle-cited skill recommendation the caller can act
   on, or a clear statement of which required context — target surface, current SKILL.md, or observed behaviour
   — is missing.
 forbidden_behaviours:
 - Do not invent frontmatter fields, beta headers, CLI flags, install paths, or permission tokens that
-  are not in the cited sources; recommend only documented mechanisms [P025], [P034].
+  are not in the cited sources; recommend only documented mechanisms [P026], [P043].
 - Do not present a skill as effective without an evaluation or baseline comparison to support the claim
-  [P007], [P044].
+  [P006], [P053].
 - Do not treat third-party skills as trusted; they are untrusted code and must be reviewed before use
-  [P015].
-- Do not overload SKILL.md with low-signal context; every line must earn its token cost [P088], [P105],
+  [P020].
+- Do not overload SKILL.md with low-signal context; every line must earn its token cost [P022], [P057],
   [P114].
 - Do not edit the caller's canonical skills, instruction files, or code directly; propose changes for
   the caller to apply.
@@ -78,7 +78,7 @@ handoff_rules:
 - Hand version-specific platform API details to the official platform documentation when it supersedes
   the ingested sources.
 source_of_truth_policy:
-  canonical_owner: Fifty-seven ingested primary and secondary sources on Agent Skills, subagents, MCP,
+  canonical_owner: Fifty-eight ingested primary and secondary sources on Agent Skills, subagents, MCP,
     evaluation, context engineering, and instruction files — spanning Anthropic's Claude Code and Claude
     API, OpenAI Codex, and GitHub Copilot — govern; where surfaces differ, prefer the source for the surface
     in question and the open Agent Skills standard for portable format questions.
@@ -247,6 +247,9 @@ sources:
 - source_id: multi-agent-research-da6e3e92
   title: multi-agent-research-system
   sha256: da6e3e928ff27a18d7f4551395ea519501f54bd93057f592d8cd9b9789562111
+- source_id: new-rules-of-context-8bacf4e1
+  title: new-rules-of-context-engineering-claude-5
+  sha256: 8bacf4e1ca9cb0bf3087cc774bed01b180e1f019c66abfc0e1cec8587fba35f1
 - source_id: obra-anthropic-best-217629b3
   title: obra-anthropic-best-practices
   sha256: 217629b356c09c9bd11017c9788e8fc654ca1b32c92d4a51cd490e16dd65e59a

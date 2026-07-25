@@ -1,7 +1,43 @@
-# Conversion report: mcp-conformance-fram-a136f0ee
+# Conversion Report — mcp-conformance-fram-a136f0ee
 
-- source_id: mcp-conformance-fram-a136f0ee
-- sha256: a136f0ee9ae527f05faa0c04ad6dd32978ece08bb4f5c679725cacc2230a6070
-- word_count: 16603
-- anchor_count: 4
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.400737+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 16603 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.
