@@ -7,11 +7,14 @@ with a literal " | ", and the whole string was clipped mid-trigger
 ("...experiencing change").
 """
 
+import json
+
 import yaml
 
 from tools.subagent_factory import export_claude_agent as _eca
 from tools.subagent_factory.export_claude_agent import (
     _TRAILING_CONNECTORS,
+    _build_template_context,
     _clean_clause,
     _compose_description,
     _drop_dangling_open_paren,
@@ -394,3 +397,54 @@ def test_description_em_dash_only_marks_section_boundaries():
     assert total_em == structural, f"content em dash leaked into description: {desc!r}"
     # En dashes must not survive in the clauses either.
     assert "–" not in desc
+
+
+# --- router_description precedence -------------------------------------------------------------
+# The frontmatter ``description`` is the string Claude Code routes on. The mechanical
+# ``role — Use when — Not for`` composition keeps only the first two triggers and the first
+# exclusion, silently dropping later ``when_to_use`` domains and every sibling-advisor
+# exclusion. A profile may therefore author a purpose-built ``router_description``, which wins.
+
+
+def _ctx_description(profile):
+    """Return the decoded frontmatter description ``_build_template_context`` would emit."""
+    return json.loads(_build_template_context(profile)["description"])
+
+
+def test_router_description_overrides_composed_description():
+    profile = dict(SAMPLE_PROFILE, slug="demo", router_description="Reviews X. Not for Y.")
+    assert _ctx_description(profile) == "Reviews X. Not for Y."
+
+
+def test_router_description_absent_falls_back_to_composition():
+    profile = dict(SAMPLE_PROFILE, slug="demo")
+    assert _ctx_description(profile) == _compose_description(profile)
+
+
+def test_blank_router_description_falls_back_to_composition():
+    # An empty / whitespace-only field must not blank out the routing signal.
+    profile = dict(SAMPLE_PROFILE, slug="demo", router_description="   \n  ")
+    assert _ctx_description(profile) == _compose_description(profile)
+
+
+def test_router_description_is_collapsed_to_one_line():
+    # Profiles author it as folded/multi-line YAML; frontmatter must stay a single line.
+    profile = dict(SAMPLE_PROFILE, slug="demo", router_description="Reviews X\n  across   lines.\n")
+    desc = _ctx_description(profile)
+    assert desc == "Reviews X across lines."
+    assert "\n" not in desc
+
+
+def test_router_description_keeps_domains_the_composition_drops():
+    # The defect this pins: with a third trigger the composed form still keeps only the first two.
+    profile = dict(
+        SAMPLE_PROFILE,
+        slug="demo",
+        when_to_use=[
+            *SAMPLE_PROFILE["when_to_use"],
+            "Designing an empirical study for soundness.",
+        ],
+        router_description="Covers design review, change amplification, and empirical study soundness.",
+    )
+    assert "empirical study soundness" in _ctx_description(profile)
+    assert "empirical study" not in _compose_description(profile)
