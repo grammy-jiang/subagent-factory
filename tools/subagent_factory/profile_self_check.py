@@ -100,6 +100,7 @@ class Fields:
 
     base: Path
     slug: str
+    agent_version: str
     router_description: str
     handoff_rules: list
     when_to_use: list
@@ -412,6 +413,38 @@ def _check_provenance_ledger(num: int, f: Fields, add: _Emit) -> None:
         add(num, "PASS", "provenance-ledger", "present")
 
 
+# The current agent_version is recorded in the provenance ledger
+def _check_version_in_ledger(num: int, f: Fields, add: _Emit) -> None:
+    """FAIL when ``agent_version`` has no entry in ``provenance-ledger.md``.
+
+    ``generated-artifact-policy.md`` requires a version bump on every change and a matching
+    Version History entry ("Never silently overwrite prior profile decisions"). Check 16 only
+    proves the ledger exists and is non-trivial, so a bump with no entry passed every gate: a
+    2026-07-25 backfill bumped 40 packages, wrote their CHANGELOGs, and left every ledger
+    untouched — 41/41 validated and all of CI stayed green. Only a human-style review caught it.
+    FAIL, not WARNING: an unrecorded bump erases the audit trail the supersession rule exists to
+    keep, and there is no benign case for it.
+    """
+    version = f.agent_version
+    ledger = f.base / "provenance-ledger.md"
+    if not version:
+        add(num, "FAIL", "version-in-ledger", "profile.yaml has no agent_version")
+        return
+    if not ledger.exists():
+        add(num, "FAIL", "version-in-ledger", "provenance-ledger.md missing")
+        return
+    if version in ledger.read_text(encoding="utf-8"):
+        add(num, "PASS", "version-in-ledger", f"agent_version {version} recorded in the ledger")
+    else:
+        add(
+            num,
+            "FAIL",
+            "version-in-ledger",
+            f"agent_version {version} has no provenance-ledger.md entry; add a Version History "
+            "entry recording what changed (generated-artifact-policy supersession rule)",
+        )
+
+
 # No unresolved conflict (delegated — requires merge log)
 def _check_no_unresolved_conflict(num: int, f: Fields, add: _Emit) -> None:
     add(
@@ -461,6 +494,7 @@ _CHECKS: list[tuple[int, _Check]] = [
     # Appended, not inserted: the ordinals are referenced by existing reports and tests, so a
     # new check takes the next number rather than renumbering the established ones.
     (19, _check_router_description),
+    (20, _check_version_in_ledger),
 ]
 
 
@@ -509,6 +543,7 @@ def _extract_fields(profile: dict, base: Path) -> Fields:
     and the field-derivation logic lives in one place.
     """
     slug = str(profile.get("slug", "") or "")
+    agent_version = str(profile.get("agent_version", "") or "").strip()
     router_description = " ".join(str(profile.get("router_description", "") or "").split())
     handoff_rules = _as_list(profile.get("handoff_rules"))
     when_to_use = _as_list(profile.get("when_to_use"))
@@ -544,6 +579,7 @@ def _extract_fields(profile: dict, base: Path) -> Fields:
     return Fields(
         base=base,
         slug=slug,
+        agent_version=agent_version,
         router_description=router_description,
         handoff_rules=handoff_rules,
         when_to_use=when_to_use,

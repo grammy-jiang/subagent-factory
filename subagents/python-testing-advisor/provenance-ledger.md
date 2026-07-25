@@ -61,6 +61,8 @@ Every profile field is grounded in the package's promoted principles
 
 ## Version History
 
+- **0.3.1** (2026-07-25) — Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 | Version | Date | Changes | Sources involved |
 |---------|------|---------|------------------|
 | 0.2.0 | 2026-07-03 | Regenerated the LLM-authored layer (profile, skills, references, tests, faithfulness) to match the merged principles from the map→reduce build. | python-testing-with-44deffe9, tdd-with-python-perc-e5bd744b |

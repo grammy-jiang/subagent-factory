@@ -32,6 +32,9 @@ def _valid_profile() -> dict:
         "schema_version": "portable-profile-v1",
         "slug": "demo-design-reviewer",
         "display_name": "Demo Design Reviewer",
+        # Every real package carries a version, and Phase 8 check 20 requires it to be recorded in
+        # the provenance ledger; the fixture omitted it entirely, which no gate previously noticed.
+        "agent_version": "0.1.0",
         "role": "An expert reviewer who evaluates designs for complexity and guides "
         "structural improvements grounded in named principles.",
         "when_to_use": [
@@ -92,9 +95,15 @@ def _build(
     pkg = repo / "subagents" / slug
     pkg.mkdir(parents=True)
 
-    (pkg / "profile.yaml").write_text(yaml.safe_dump(_valid_profile()), encoding="utf-8")
+    profile = _valid_profile()
+    (pkg / "profile.yaml").write_text(yaml.safe_dump(profile), encoding="utf-8")
+    # The ledger must record the profile's current agent_version — Phase 8 check 20 enforces the
+    # generated-artifact-policy supersession rule, so a fixture without it fails as a real package would.
     (pkg / "provenance-ledger.md").write_text(
-        "# Provenance Ledger\n\n" + ("detail. " * 60), encoding="utf-8"
+        "# Provenance Ledger\n\n"
+        + ("detail. " * 60)
+        + f"\n\n## Version History\n\n- **{profile.get('agent_version')}** (2026-01-01) — initial.\n",
+        encoding="utf-8",
     )
     (pkg / "source-pack.manifest.yaml").write_text(
         yaml.safe_dump(

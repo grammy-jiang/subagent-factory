@@ -35,6 +35,8 @@ the two references index and ground them.
 
 ## Version History
 
+- **1.5.1** (2026-07-25) — Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 - **v1.5.0** (2026-07-12) — In-session finish after the auto-merge driver triage-stopped: an independent
   adversarial faithfulness verify found 11 citation-integrity over-claims the loop's rubber-stamp
   faithfulness-report missed. Dropped the manufactured P059/P134 citation from four ownership/sign-off

@@ -60,6 +60,10 @@ map is `.build/authoring/partition.json` (generated). Summary:
 
 ## Version History
 
+### 1.0.2 — 2026-07-25
+
+- Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 ### 1.0.0 — 2026-07-10
 
 Initial LLM-authored layer (profile, faithfulness report, skills, references, tests, adapter) over the

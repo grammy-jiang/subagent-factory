@@ -38,6 +38,8 @@ references index and ground them.
 
 ## Version History
 
+- **1.11.1** (2026-07-25) — Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 - **1.11.0** (2026-07-12) — Review-loop round r3
   (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`; no prior decision silently
   overwritten). This round is the independent re-verify of the v1.10.0 self-narrated fixes (**SF-1** in the r3

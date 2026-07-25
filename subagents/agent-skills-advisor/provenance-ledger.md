@@ -33,6 +33,8 @@ index the authoring, deploying, and orchestrating slices.
 
 ## Version History
 
+- **0.2.1** (2026-07-25) — Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 - **0.2.0** (2026-07-25) — Fold-in of *new-rules-of-context-engineering-claude-5* (58th source). The
   map->reduce rebuild re-clustered and renumbered the distilled spine (P001-P150), so the
   LLM-authored layer was regenerated against it: skills, references, faithfulness report, and the
