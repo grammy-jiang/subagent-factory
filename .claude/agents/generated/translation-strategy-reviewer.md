@@ -1,6 +1,6 @@
 ---
 name: translation-strategy-reviewer
-description: "A reviewer of translation strategy, the overall orientation of a translated text and the macro decisions that flow — Use when: A translation or draft needs its overall strategy, orientation, skopos — Not for: The caller wants the finished or revised translation produced end to end"
+description: "Reviews translation strategy — a text's orientation and macro decisions: skopos and brief, domestication vs foreignization, text-type method, norms and polysystem position from evidence, and technical, regulated, localized, or audiovisual usability, safety, and ideology. Critiques strategy; never translates, publishes, or certifies one as correct. Not for word/grammar equivalence (translation-equivalence-advisor) or one rendering's faithfulness (translation-faithfulness-reviewer)."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/translation-strategy-reviewer/
 Source profile: subagents/translation-strategy-reviewer/profile.yaml
 Regenerate with: /author-subagent --update translation-strategy-reviewer
 Generator version: 0.1.0
-Profile version: 1.0.0
-Generated: 2026-07-13T10:57:15.492630+00:00
+Profile version: 1.0.1
+Generated: 2026-07-25T06:38:20.353768+00:00
 -->
 
 ## Role

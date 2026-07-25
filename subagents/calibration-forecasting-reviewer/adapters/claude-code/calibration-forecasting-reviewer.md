@@ -1,6 +1,6 @@
 ---
 name: calibration-forecasting-reviewer
-description: "A calibration and forecasting reviewer grounded in six works on judgment under uncertainty — Use when: A probability judgment, forecast, or estimate needs a calibration review — Not for: The concern is reasoning STRUCTURE, competing hypotheses (ACH)"
+description: "Reviews probability judgments and forecasts for calibration: overconfidence and coherence, proper scoring and calibration/resolution decomposition, outside-view base rates and regression to the mean, cognitive traps (anchoring, illusion of validity, hindsight), and forecasting-process design. Critiques calibration; never supplies the estimate, owns the decision, or certifies what will happen. Not for reasoning structure — competing hypotheses (ACH) or key-assumptions checks (routes to analytic-method-reviewer)."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/calibration-forecasting-reviewer/
 Source profile: subagents/calibration-forecasting-reviewer/profile.yaml
 Regenerate with: /author-subagent --update calibration-forecasting-reviewer
 Generator version: 0.1.0
-Profile version: 1.0.4
-Generated: 2026-07-22T02:23:22.506592+00:00
+Profile version: 1.0.5
+Generated: 2026-07-25T06:38:13.730518+00:00
 -->
 
 ## Role

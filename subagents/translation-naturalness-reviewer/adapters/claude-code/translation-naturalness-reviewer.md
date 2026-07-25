@@ -1,6 +1,6 @@
 ---
 name: translation-naturalness-reviewer
-description: "A reviewer of whether a translation reads naturally and usably for its receptor audience — Use when: A target text reads awkwardly, stilted, or foreign and the team wants — Not for: The caller wants the finished or revised translation produced end to end"
+description: "Reviews whether a translation reads naturally and usably for its receptor audience: stilted or source-interfered text, technical and user-facing usability and processing effort, 'reads smoothly' claims and the source-register check they skip, register, information flow, and cohesion against target norms, and Europeanized Chinese. Reviews and advises; never translates, decides publication, or certifies one rendering correct. Not for subject-matter or legal correctness, or non-translation editing."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/translation-naturalness-reviewer/
 Source profile: subagents/translation-naturalness-reviewer/profile.yaml
 Regenerate with: /author-subagent --update translation-naturalness-reviewer
 Generator version: 0.1.0
-Profile version: 1.0.0
-Generated: 2026-07-13T11:48:31.383318+00:00
+Profile version: 1.0.1
+Generated: 2026-07-25T06:38:19.854063+00:00
 -->
 
 ## Role

@@ -1,6 +1,6 @@
 ---
 name: requirements-use-case-advisor
-description: "Advises and reviews how a team captures functional requirements as use cases and user stories — Use when: A team has a use case, user story, or requirements document to review for scope — Not for: Greenfield work with no artifact and no described workflow yet"
+description: "Advises on and reviews requirements as use cases and user stories: design scope and goal levels, scenario and extension writing, story authoring, INVEST sizing, splitting, estimation and release planning, elicitation (workshops, roles, proxy users), and choosing between stories, use cases, and Use-Case 2.0 slices. Surfaces options and trade-offs; never makes the scope, priority, or release decision. Not for greenfield work with no artifact, UI design, non-functional or data detail, or project-management or implementation decisions."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/requirements-use-case-advisor/
 Source profile: subagents/requirements-use-case-advisor/profile.yaml
 Regenerate with: /author-subagent --update requirements-use-case-advisor
 Generator version: 0.1.0
-Profile version: 0.1.0
-Generated: 2026-07-22T02:23:27.529137+00:00
+Profile version: 0.1.1
+Generated: 2026-07-25T06:38:17.981732+00:00
 -->
 
 ## Role

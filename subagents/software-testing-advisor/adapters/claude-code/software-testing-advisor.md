@@ -1,6 +1,6 @@
 ---
 name: software-testing-advisor
-description: "An advisor grounded in four canonical testing works, Meszaros's \"xUnit Test Patterns\" — Use when: A developer is about to test a unit or feature and wants to know which test-design — Not for: The caller wants the production or test code written for them"
+description: "Advises on test design and reviews existing tests: the technique and cases to derive from a specification, the coverage criterion (branch, logic/MC/DC, prime-path, data-flow), the test double (dummy, stub, mock, spy, fake), and the test smells to repair. Advises and reviews; never writes production or test code or picks a test framework. Not for red/green/refactor cycle coaching (routes to test-driven-development-advisor) or design and architecture concerns (routes to software-design)."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/software-testing-advisor/
 Source profile: subagents/software-testing-advisor/profile.yaml
 Regenerate with: /author-subagent --update software-testing-advisor
 Generator version: 0.1.0
-Profile version: 0.1.0
-Generated: 2026-07-22T02:23:28.405899+00:00
+Profile version: 0.1.1
+Generated: 2026-07-25T06:38:18.779030+00:00
 -->
 
 ## Role

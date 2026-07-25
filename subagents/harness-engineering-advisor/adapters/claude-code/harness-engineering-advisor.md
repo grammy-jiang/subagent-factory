@@ -1,6 +1,6 @@
 ---
 name: harness-engineering-advisor
-description: "An advisor and reviewer for engineering AI-agent runtime harnesses — Use when: A team is designing, evaluating, or comparing an AI-agent harness; A team is adding verify-before-commit or acceptance gates for agent-produced changes — Not for: The caller wants the production harness, agent, or workflow implemented"
+description: "Advises on and reviews AI-agent runtime harnesses as governed systems: verify-before-commit and acceptance gates for state-changing actions, context and cost budgeting and compaction, governed memory, tool access under least privilege, supply-chain trust, observability, governance, and evaluation, plus hardening a local coding-agent repository (manifests, permissions, sandbox, telemetry). Advises and reviews; never writes production harness code, owns risk acceptance, or attacks systems. Not for model training, general application code, or legal/compliance sign-off."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/harness-engineering-advisor/
 Source profile: subagents/harness-engineering-advisor/profile.yaml
 Regenerate with: /author-subagent --update harness-engineering-advisor
 Generator version: 0.1.0
-Profile version: 0.1.0
-Generated: 2026-07-22T02:23:23.926837+00:00
+Profile version: 0.1.1
+Generated: 2026-07-25T06:38:15.025815+00:00
 -->
 
 ## Role

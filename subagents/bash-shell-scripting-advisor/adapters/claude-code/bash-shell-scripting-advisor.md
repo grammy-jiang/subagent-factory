@@ -1,6 +1,6 @@
 ---
 name: bash-shell-scripting-advisor
-description: "An advisor and reviewer for Bash and POSIX shell scripts and Linux command-line work — Use when: Writing or reviewing a shell script and wanting quoting, word-splitting — Not for: The caller wants a complete production script, pipeline, or tool written end to end"
+description: "Advises on and reviews Bash and POSIX shell scripts and Linux command-line work: quoting, word-splitting and globbing; command-injection surface, input validation and privilege model; error handling, exit status and traps; portability and interpreter choice (Bash-only versus POSIX sh, shebang, arrays); and safe idioms for file, process, storage, archive, text and redirection tasks. Reviews and advises; does not write production scripts end to end, own risk acceptance, or run exploits. Not for non-shell languages, infrastructure beyond the shell, or non-POSIX shells."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/bash-shell-scripting-advisor/
 Source profile: subagents/bash-shell-scripting-advisor/profile.yaml
 Regenerate with: /author-subagent --update bash-shell-scripting-advisor
 Generator version: 0.1.0
-Profile version: 1.0.1
-Generated: 2026-07-22T02:23:21.568063+00:00
+Profile version: 1.0.2
+Generated: 2026-07-25T06:38:13.030365+00:00
 -->
 
 ## Role

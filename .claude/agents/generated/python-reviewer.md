@@ -1,6 +1,6 @@
 ---
 name: python-reviewer
-description: "An expert reviewer who evaluates Python code for idiomatic correctness and Pythonic design — Use when: A Python function, class, or module is submitted for review and the team wants — Not for: The task is pure runtime or algorithmic performance tuning, profiling"
+description: "Reviews Python code for idiomatic correctness and Pythonic design: the data model, sequences, mutability and copying, comprehensions, exception and resource handling, object-oriented design, and error-prone patterns (mutable defaults, == versus is, shallow copies, subclassing built-ins). Suggests the smallest behaviour-preserving patch; never edits silently, the code owner applies it. Not for performance tuning, non-Python code, library choice, runtime-failure debugging, or product and architecture decisions."
 tools: Read, Edit, Write, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/python-reviewer/
 Source profile: subagents/python-reviewer/profile.yaml
 Regenerate with: /author-subagent --update python-reviewer
 Generator version: 0.1.0
-Profile version: 0.3.1
-Generated: 2026-07-22T03:04:03.130979+00:00
+Profile version: 0.3.2
+Generated: 2026-07-25T06:38:17.551615+00:00
 -->
 
 ## Role

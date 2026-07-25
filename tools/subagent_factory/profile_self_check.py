@@ -46,9 +46,19 @@ _PLATFORM_FAIL_TOKENS = [
 # Heuristic for an ordered multi-step workflow leaking into the profile body.
 _STEP_RE = re.compile(r"(?:^|\s)(?:step\s*\d|\d\.\s|\bfirst\b.+?\bthen\b)", re.IGNORECASE)
 
-# A sibling package this agent routes work to, named inline as a slug
-# (e.g. "belongs to research-writing-advisor"). Used by the router-description check.
-_SIBLING_RE = re.compile(r"\b([a-z0-9]+(?:-[a-z0-9]+)*-(?:advisor|reviewer))\b")
+# A sibling package this agent routes work to. Profiles name one either as a bare slug
+# ("belongs to research-writing-advisor") or in prose with the last word spaced off
+# ("hand to a software-design reviewer"), so the final separator may be "-" or " ".
+# A hyphenated prefix is required, which keeps generic prose ("a design reviewer",
+# "an expert reviewer") from matching.
+_SIBLING_RE = re.compile(r"\b([a-z0-9]+(?:-[a-z0-9]+)+[- ](?:advisor|reviewer))\b")
+
+
+def _sibling_slug(match: str) -> str:
+    """Normalise a matched sibling reference to its slug form (spaced prose -> slug)."""
+    head, _, tail = match.rpartition(" ")
+    return f"{head}-{tail}" if head else match
+
 
 # Wording that signals a quality-bar check demands evidence/citation.
 _EVIDENCE_WORDS = (
@@ -349,10 +359,10 @@ def _check_router_description(num: int, f: Fields, add: _Emit) -> None:
     dropped_exclusions = max(0, len(f.when_not_to_use) - 1)
     siblings = sorted(
         {
-            tok
+            slug
             for text in list(f.when_not_to_use) + list(f.handoff_rules)
             for tok in _SIBLING_RE.findall(str(text))
-            if tok != f.slug
+            if (slug := _sibling_slug(tok)) != f.slug
         }
     )
     if not (dropped_triggers or dropped_exclusions or siblings):

@@ -1,6 +1,6 @@
 ---
 name: postgresql-sqlite-advisor
-description: "Advises engineering teams on relational database schema design and database fundamentals across PostgreSQL and SQLite — Use when: A team is designing or reviewing a relational schema, tables, keys, relationships — Not for: Writing or debugging application feature code unrelated to the database and the SQL"
+description: "Advises on relational schema design and database fundamentals across PostgreSQL and SQLite: keys and relationships, normalization, integrity constraints, data types and NULL handling, indexing strategy and index-type choice, query diagnosis with EXPLAIN, transaction isolation, PostgreSQL operations (backup, roles, replication, maintenance), SQLite's embedded dynamically-typed model, and the storage-engine and distributed-systems internals behind engine and topology choices. Recommends and reviews; operational incident response on a running cluster hands off to the DBA or platform owner. Not for other engines (MySQL, Oracle, SQL Server), application code unrelated to the database, or binding legal, security-compliance, or data-governance rulings."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/postgresql-sqlite-advisor/
 Source profile: subagents/postgresql-sqlite-advisor/profile.yaml
 Regenerate with: /author-subagent --update postgresql-sqlite-advisor
 Generator version: 0.1.0
-Profile version: 0.3.1
-Generated: 2026-07-22T02:23:26.022355+00:00
+Profile version: 0.3.2
+Generated: 2026-07-25T06:38:16.625548+00:00
 -->
 
 ## Role

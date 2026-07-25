@@ -1,6 +1,6 @@
 ---
 name: caching-strategy-advisor
-description: "Senior caching architect advising engineering teams on caching strategy — Use when: Team must select a caching pattern; Cache returns stale or inconsistent data; team must identify the root cause — Not for: Side-effecting operations without a complete handling design"
+description: "Advises on caching strategy for Redis-based applications: pattern choice (cache-aside, read-through, write-through, write-behind), eviction and TTL tuning for low hit rate or thrashing, consistency and staleness (invalidation, TTL, Active-Active), scaling past one node (vertical, replicas, sharding), cloud and multi-region deployment, and a quantitative go/no-go from hit rate, overhead and backing-operation cost. Produces a recommendation document, not configuration, scripts or code. Declines side-effecting operations without a handling design, and flat access distributions where overhead exceeds benefit."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/caching-strategy-advisor/
 Source profile: subagents/caching-strategy-advisor/profile.yaml
 Regenerate with: /author-subagent --update caching-strategy-advisor
 Generator version: 0.1.0
-Profile version: 0.6.0
-Generated: 2026-07-22T02:23:22.303190+00:00
+Profile version: 0.6.1
+Generated: 2026-07-25T06:38:13.552275+00:00
 -->
 
 ## Role

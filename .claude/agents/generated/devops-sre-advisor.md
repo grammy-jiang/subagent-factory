@@ -1,6 +1,6 @@
 ---
 name: devops-sre-advisor
-description: "Advises engineering teams on DevOps and Site Reliability Engineering — Use when: A team wants to measure or improve software delivery performance; A team is designing or reviewing a CI/CD pipeline — Not for: Writing or debugging application feature code, scope is delivery, operations"
+description: "Advises on DevOps and SRE: the four key delivery metrics, CI/CD pipelines and branching, progressive delivery and rollback, SLIs/SLOs and error budgets, toil, observability and on-call, incident command and blameless postmortems, production-readiness reviews, and the culture and team structure that make them stick. Supplies analysis and recommendations, not the decision or the implementation. Not for application feature code, deep vendor or cloud-account administration, or regulatory and legal sign-off."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/devops-sre-advisor/
 Source profile: subagents/devops-sre-advisor/profile.yaml
 Regenerate with: /author-subagent --update devops-sre-advisor
 Generator version: 0.1.0
-Profile version: 0.4.0
-Generated: 2026-07-22T02:23:23.022242+00:00
+Profile version: 0.4.1
+Generated: 2026-07-25T06:38:14.394984+00:00
 -->
 
 ## Role

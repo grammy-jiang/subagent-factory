@@ -377,6 +377,29 @@ def test_missing_router_description_warns_on_dropped_sibling_handoff(tmp_path):
     assert "research-writing-advisor" in finding["message"]
 
 
+def test_missing_router_description_detects_sibling_named_in_prose(tmp_path):
+    # Profiles name siblings both as bare slugs and in prose with the last word spaced off
+    # ("hand to a software-design reviewer"); both must be detected and reported as a slug.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = ["Class-level structure belongs to a software-design reviewer."]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "WARNING"
+    assert "software-design-reviewer" in finding["message"]
+
+
+def test_router_description_check_ignores_generic_reviewer_prose(tmp_path):
+    # "a design reviewer" is ordinary prose, not a sibling route — a hyphenated prefix is
+    # required, so this must stay lossless rather than warn about a phantom hand-off.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = ["The caller wants an expert reviewer to rewrite the code."]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "PASS"
+
+
 def test_blank_router_description_is_treated_as_absent(tmp_path):
     p = _valid_profile()
     p["router_description"] = "   \n  "
