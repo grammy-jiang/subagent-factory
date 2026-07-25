@@ -10,7 +10,10 @@ MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4
 EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-14400}"
 # Multi-engine (mirror map_book.sh) so p2b can run on copilot/codex to save Claude Code tokens.
 COPILOT_BIN="${COPILOT_BIN:-$HOME/.local/bin/copilot}"; COPILOT_MODEL="${COPILOT_MODEL:-claude-opus-4.8}"; COPILOT_EFFORT="${COPILOT_EFFORT:-max}"
-CODEX_BIN="${CODEX_BIN:-$HOME/.local/bin/codex}"; CODEX_MODEL="${CODEX_MODEL:-gpt-5.5}"
+CODEX_BIN="${CODEX_BIN:-$HOME/.local/bin/codex}"; CODEX_MODEL="${CODEX_MODEL:-gpt-5.6-sol}"
+# Pin model AND effort together — `ultra` is a gpt-5.6-* tier and the older gpt-5.5 rejects it with
+# HTTP 400 on reasoning.effort. --config keeps this script hermetic against ~/.codex/config.toml drift.
+CODEX_EFFORT="${CODEX_EFFORT:-ultra}"
 ENGINE="claude"
 SLUG="software-architecture-p0"; FG=0; DRYRUN=0
 while [ $# -gt 0 ]; do
@@ -38,7 +41,7 @@ driver="$LOGS/$run.driver.sh"
     echo "timeout \"$RUN_TIMEOUT\" \"$COPILOT_BIN\" -p \"\$(cat \"$promptfile\")\" --model \"$COPILOT_MODEL\" --effort \"$COPILOT_EFFORT\" --context long_context --allow-all --add-dir \"$REPO\" > \"$log\" 2>&1"
     echo "rc=\$?; echo \"[p2b] $SLUG copilot rc=\$rc\""
   elif [ "$ENGINE" = "codex" ]; then
-    echo "timeout \"$RUN_TIMEOUT\" \"$CODEX_BIN\" exec --model \"$CODEX_MODEL\" --sandbox workspace-write --skip-git-repo-check \"\$(cat \"$promptfile\")\" > \"$log\" 2>&1"
+    echo "timeout \"$RUN_TIMEOUT\" \"$CODEX_BIN\" exec --config \"model_reasoning_effort=$CODEX_EFFORT\" --model \"$CODEX_MODEL\" --sandbox workspace-write --skip-git-repo-check \"\$(cat \"$promptfile\")\" > \"$log\" 2>&1"
     echo "rc=\$?; echo \"[p2b] $SLUG codex rc=\$rc\""
   else
     echo "timeout \"$RUN_TIMEOUT\" \"$CLAUDE_BIN\" -p --model \"$MODEL\" --effort \"$EFFORT\" --add-dir \"$REPO\" \\"

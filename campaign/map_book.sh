@@ -21,7 +21,13 @@ COPILOT_BIN="${COPILOT_BIN:-$HOME/.local/bin/copilot}"
 COPILOT_MODEL="${COPILOT_MODEL:-claude-opus-4.8}"   # Copilot's opus id (dot, not dash)
 COPILOT_EFFORT="${COPILOT_EFFORT:-high}"            # Copilot max effort is "high"
 CODEX_BIN="${CODEX_BIN:-$HOME/.local/bin/codex}"
-CODEX_MODEL="${CODEX_MODEL:-gpt-5.5}"               # Codex (OpenAI); SMALL 5h budget — small books only
+CODEX_MODEL="${CODEX_MODEL:-gpt-5.6-sol}"           # Codex (OpenAI); budget/window unmeasured on 5.6-sol
+                                                    # (the old gpt-5.5 default was "small books only")
+# Pin model AND effort together — they are not independently valid. `ultra` is a gpt-5.6-* tier; the
+# older gpt-5.5 rejects it with HTTP 400 invalid_value on reasoning.effort (codex maps ultra→max).
+# Passing --config makes this script hermetic: it no longer inherits whatever ~/.codex/config.toml
+# happens to be set to, which is what silently broke every factory codex call on 2026-07-25.
+CODEX_EFFORT="${CODEX_EFFORT:-ultra}"               # valid for gpt-5.6-*; use xhigh if pinning gpt-5.5
 MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
 EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
 CACHE="$REPO/cache/book-extracts"
@@ -164,7 +170,7 @@ if [ "$ENGINE" = "copilot" ]; then
 elif [ "$ENGINE" = "codex" ]; then
   # Codex non-interactive: prompt as arg (like copilot). workspace-write lets it write the
   # module dir under $REPO (cache/book-extracts/...); never prompts for approval.
-  engine_argv=("$CODEX_BIN" exec --model "$CODEX_MODEL" --sandbox workspace-write --skip-git-repo-check "$(cat "$promptfile")")
+  engine_argv=("$CODEX_BIN" exec --config "model_reasoning_effort=$CODEX_EFFORT" --model "$CODEX_MODEL" --sandbox workspace-write --skip-git-repo-check "$(cat "$promptfile")")
 else
   build_claude_argv engine_argv "$MODEL" "$EFFORT" "$REPO"
   engine_argv[0]="$CLAUDE_BIN"   # contract is `claude -p ...`; use the configured binary path
