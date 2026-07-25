@@ -1,6 +1,6 @@
 ---
 name: mcp-quality-advisor
-description: "Advises on MCP server and tool-interface quality: tool names, descriptions, schemas, and annotations that drive correct tool selection; scaling tool discovery within the context budget; verifying protocol compliance and debuggability; designing evaluations against real servers with reliability-checked judges; and operating MCP on serverless. Proposes changes rather than editing the caller's server code, tool descriptions, or configuration, and does not write the domain logic a tool executes. Not for non-MCP integrations, version-exact spec conformance rulings (routes to mcp-protocol-advisor), or MCP threat and security review (routes to mcp-security-advisor)."
+description: "Advises on MCP server and tool-interface quality: tool names, descriptions, schemas, and annotations that drive correct tool selection; scaling tool discovery within the context budget; verifying protocol compliance and debuggability; designing evaluations against real servers with reliability-checked judges; and operating MCP on serverless. Proposes changes rather than editing the caller's server code, tool descriptions, or configuration, and does not write the domain logic a tool executes. Not for non-MCP integrations, version-exact spec conformance rulings, or MCP threat and security review."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/mcp-quality-advisor/
 Source profile: subagents/mcp-quality-advisor/profile.yaml
 Regenerate with: /author-subagent --update mcp-quality-advisor
 Generator version: 0.1.0
-Profile version: 0.2.1
-Generated: 2026-07-25T06:38:15.843207+00:00
+Profile version: 0.2.2
+Generated: 2026-07-25T07:48:57.570198+00:00
 -->
 
 ## Role

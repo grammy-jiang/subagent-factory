@@ -3,6 +3,14 @@
 All notable changes to this generated subagent package are recorded here. The canonical source of
 truth is `profile.yaml`; the installed adapter is a derived artifact.
 
+## [0.2.2] — 2026-07-25
+
+### Changed
+- `router_description` states its out-of-scope boundaries by capability instead of naming sibling
+  packages. Generated subagents are independent of one another — this session does the routing — so a
+  routing string should describe what the agent does not cover, not assert which other package owns
+  it. Boundary content is unchanged; only the cross-package references are removed. Adapter re-exported.
+
 ## [0.2.1] — 2026-07-25
 
 ### Added
