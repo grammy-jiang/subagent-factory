@@ -1,7 +1,43 @@
-# Conversion report: mcp-universe-2508-14-46bbfd26
+# Conversion Report — mcp-universe-2508-14-46bbfd26
 
-- source_id: mcp-universe-2508-14-46bbfd26
-- sha256: 46bbfd26b8df3b7726508d30f48f07fb6cfadf351cc1c01f015c68feaba10466
-- word_count: 20895
-- anchor_count: 5
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.336498+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 20895 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

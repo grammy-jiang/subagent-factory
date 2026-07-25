@@ -1,32 +1,177 @@
 {
-  "0": {"action": "split", "subgroups": [[15, 416], [0], [29], [62], [107], [118], [155], [316], [317], [405], [415]]},
-  "2": {"action": "split", "subgroups": [[2], [3], [32], [53], [56], [111]]},
-  "3": {"action": "split", "subgroups": [[4], [31], [39], [44], [75], [76], [261]]},
-  "4": {"action": "split", "subgroups": [[5], [6]]},
-  "7": {"action": "split", "subgroups": [[9], [193]]},
-  "9": {"action": "split", "subgroups": [[11], [157]]},
-  "11": {"action": "split", "subgroups": [[13], [36], [37]]},
-  "12": {"action": "split", "subgroups": [[14, 225], [164], [289]]},
-  "13": {"action": "split", "subgroups": [[16], [17]]},
-  "17": {"action": "split", "subgroups": [[21], [265]]},
-  "18": {"action": "split", "subgroups": [[162, 284], [22], [30], [48], [106], [176], [202], [208], [239], [296], [297], [298], [404], [421]]},
-  "20": {"action": "split", "subgroups": [[24], [124]]},
-  "21": {"action": "split", "subgroups": [[25], [624]]},
-  "24": {"action": "confirm", "canonical": "Design tasks that require multi-hop, multi-step reasoning across scattered sources — resolving indirect references, aggregating evidence, and filtering datasets to uniquely identify a target — rather than single-lookup retrieval."},
-  "25": {"action": "split", "subgroups": [[33, 59], [35], [45], [348], [384]]},
-  "26": {"action": "split", "subgroups": [[34, 60], [318]]},
-  "27": {"action": "split", "subgroups": [[38], [43], [218], [336]]},
-  "28": {"action": "split", "subgroups": [[40], [41], [72], [371]]},
-  "29": {"action": "split", "subgroups": [[42], [217], [256], [353]]},
-  "30": {"action": "split", "subgroups": [[46], [47], [79], [120], [125]]},
-  "31": {"action": "split", "subgroups": [[49, 67], [161], [374]]},
-  "33": {"action": "confirm", "canonical": "Select the evaluation metric to match the question: single-run success rate as the primary measure, pass@k (probability of at least one correct solution in k attempts) when only one success is needed, and pass^k (probability all k trials succeed) when consistent, reliable behaviour is required."},
-  "34": {"action": "split", "subgroups": [[278, 281], [52], [262], [275]]},
-  "36": {"action": "split", "subgroups": [[55], [96]]},
-  "39": {"action": "split", "subgroups": [[61], [82]]},
-  "40": {"action": "split", "subgroups": [[63], [167], [175]]},
-  "41": {"action": "split", "subgroups": [[64], [101]]},
-  "43": {"action": "confirm", "canonical": "Construct each task's tool environment with the minimum necessary relevant tools plus plausible, semantically-similar distractor tools, so evaluation tests tool discovery under noise rather than execution with a known API."},
-  "46": {"action": "split", "subgroups": [[70], [90], [103], [207]]},
-  "48": {"action": "split", "subgroups": [[73], [74]]}
+  "0": {
+    "action": "split",
+    "subgroups": [
+      [
+        15,
+        416
+      ],
+      [
+        316,
+        317
+      ]
+    ]
+  },
+  "11": {
+    "action": "split",
+    "subgroups": []
+  },
+  "12": {
+    "action": "split",
+    "subgroups": [
+      [
+        14,
+        225
+      ]
+    ]
+  },
+  "13": {
+    "action": "split",
+    "subgroups": []
+  },
+  "17": {
+    "action": "split",
+    "subgroups": []
+  },
+  "18": {
+    "action": "split",
+    "subgroups": [
+      [
+        162,
+        284
+      ]
+    ]
+  },
+  "2": {
+    "action": "split",
+    "subgroups": []
+  },
+  "20": {
+    "action": "split",
+    "subgroups": []
+  },
+  "21": {
+    "action": "split",
+    "subgroups": []
+  },
+  "24": {
+    "action": "confirm",
+    "canonical": "Include reasoning-intensive, multi-step tasks that require resolving indirect or scattered clues across sources to reach a specific answer."
+  },
+  "25": {
+    "action": "split",
+    "subgroups": [
+      [
+        33,
+        59
+      ]
+    ]
+  },
+  "26": {
+    "action": "split",
+    "subgroups": [
+      [
+        34,
+        60
+      ]
+    ]
+  },
+  "27": {
+    "action": "split",
+    "subgroups": []
+  },
+  "28": {
+    "action": "split",
+    "subgroups": [
+      [
+        40,
+        72
+      ]
+    ]
+  },
+  "29": {
+    "action": "split",
+    "subgroups": [
+      [
+        42,
+        256
+      ]
+    ]
+  },
+  "3": {
+    "action": "split",
+    "subgroups": [
+      [
+        39,
+        75
+      ]
+    ]
+  },
+  "30": {
+    "action": "split",
+    "subgroups": []
+  },
+  "31": {
+    "action": "split",
+    "subgroups": [
+      [
+        49,
+        67
+      ]
+    ]
+  },
+  "33": {
+    "action": "confirm",
+    "canonical": "Select evaluation metrics to match the reliability question: use single-run success or pass@k when one successful attempt is enough, and pass^k when every attempt must succeed consistently."
+  },
+  "34": {
+    "action": "split",
+    "subgroups": [
+      [
+        262,
+        278,
+        281
+      ]
+    ]
+  },
+  "36": {
+    "action": "split",
+    "subgroups": []
+  },
+  "39": {
+    "action": "split",
+    "subgroups": []
+  },
+  "4": {
+    "action": "split",
+    "subgroups": []
+  },
+  "40": {
+    "action": "split",
+    "subgroups": []
+  },
+  "41": {
+    "action": "split",
+    "subgroups": []
+  },
+  "43": {
+    "action": "confirm",
+    "canonical": "Populate each task's exposed tool set with the minimum necessary relevant tools plus plausible, semantically similar distractors so evaluation tests tool discovery under realistic noise without adding ambiguity."
+  },
+  "46": {
+    "action": "split",
+    "subgroups": []
+  },
+  "48": {
+    "action": "split",
+    "subgroups": []
+  },
+  "7": {
+    "action": "split",
+    "subgroups": []
+  },
+  "9": {
+    "action": "split",
+    "subgroups": []
+  }
 }

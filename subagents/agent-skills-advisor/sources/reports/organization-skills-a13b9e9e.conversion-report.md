@@ -1,7 +1,43 @@
-# Conversion report: organization-skills-a13b9e9e
+# Conversion Report — organization-skills-a13b9e9e
 
-- source_id: organization-skills-a13b9e9e
-- sha256: a13b9e9edc112fd45bc30cff9676e2d3a048907e528643ac9d8f9cc9cd811f07
-- word_count: 327
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.957411+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 327 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

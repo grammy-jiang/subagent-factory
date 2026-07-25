@@ -1,7 +1,43 @@
-# Conversion report: agentskills-evaluati-221fbace
+# Conversion Report — agentskills-evaluati-221fbace
 
-- source_id: agentskills-evaluati-221fbace
-- sha256: 221fbace3a1127b9d65bad726e11d828cb8cbe50869017eb49cc0a8257ee97bb
-- word_count: 2464
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.061772+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2464 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

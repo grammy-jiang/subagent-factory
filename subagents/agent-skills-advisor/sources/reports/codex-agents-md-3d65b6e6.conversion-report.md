@@ -1,7 +1,43 @@
-# Conversion report: codex-agents-md-3d65b6e6
+# Conversion Report — codex-agents-md-3d65b6e6
 
-- source_id: codex-agents-md-3d65b6e6
-- sha256: 3d65b6e6bdb9cf2447bce708b1c033d4e1a5234c777c5234ab254ed01ad69d08
-- word_count: 904
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.001033+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 904 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -1,32 +1,161 @@
 {
-  "133": {"action": "split", "subgroups": [[229, 560], [236]]},
-  "134": {"action": "split", "subgroups": [[230], [602]]},
-  "135": {"action": "split", "subgroups": [[233], [260]]},
-  "136": {"action": "split", "subgroups": [[238], [240]]},
-  "137": {"action": "split", "subgroups": [[241], [573]]},
-  "140": {"action": "split", "subgroups": [[244], [621]]},
-  "141": {"action": "split", "subgroups": [[245], [248]]},
-  "143": {"action": "split", "subgroups": [[250, 253], [259]]},
-  "147": {"action": "split", "subgroups": [[255], [258], [379], [382], [386]]},
-  "148": {"action": "split", "subgroups": [[257], [627]]},
-  "149": {"action": "split", "subgroups": [[263], [264], [270], [279]]},
-  "152": {"action": "split", "subgroups": [[268], [276]]},
-  "159": {"action": "split", "subgroups": [[282], [283]]},
-  "162": {"action": "split", "subgroups": [[290], [291], [294], [295], [335], [346]]},
-  "165": {"action": "split", "subgroups": [[299], [349]]},
-  "166": {"action": "split", "subgroups": [[300], [588]]},
-  "168": {"action": "split", "subgroups": [[302], [303], [425]]},
-  "169": {"action": "split", "subgroups": [[304], [396]]},
-  "171": {"action": "split", "subgroups": [[307, 308], [417]]},
-  "172": {"action": "split", "subgroups": [[310], [436]]},
-  "175": {"action": "confirm", "canonical": "Use tool input examples to teach conventions schemas cannot express — optional-field patterns, nested objects, correlated parameters, similar-tool disambiguation — writing them as concise, realistic minimal/partial/full variants only where they resolve genuine ambiguity."},
-  "178": {"action": "split", "subgroups": [[357, 365], [320], [322], [351], [366], [489]]},
-  "179": {"action": "split", "subgroups": [[321], [408]]},
-  "182": {"action": "split", "subgroups": [[325], [562]]},
-  "186": {"action": "split", "subgroups": [[330], [332]]},
-  "189": {"action": "split", "subgroups": [[337], [339], [355]]},
-  "191": {"action": "split", "subgroups": [[340], [341]]},
-  "215": {"action": "split", "subgroups": [[378, 380], [388], [395], [397], [407]]},
-  "216": {"action": "split", "subgroups": [[381], [413]]},
-  "221": {"action": "split", "subgroups": [[391], [392], [400], [401], [406]]}
+  "133": {
+    "action": "split",
+    "subgroups": [
+      [
+        229,
+        560
+      ]
+    ]
+  },
+  "134": {
+    "action": "confirm",
+    "canonical": "Configure timeouts for long-running or streaming operations so active progress prevents premature timeout while cancellation and stream termination still resolve cleanly."
+  },
+  "135": {
+    "action": "split",
+    "subgroups": []
+  },
+  "136": {
+    "action": "split",
+    "subgroups": []
+  },
+  "137": {
+    "action": "split",
+    "subgroups": []
+  },
+  "140": {
+    "action": "split",
+    "subgroups": []
+  },
+  "141": {
+    "action": "split",
+    "subgroups": []
+  },
+  "143": {
+    "action": "split",
+    "subgroups": [
+      [
+        250,
+        253
+      ]
+    ]
+  },
+  "147": {
+    "action": "split",
+    "subgroups": []
+  },
+  "148": {
+    "action": "split",
+    "subgroups": []
+  },
+  "149": {
+    "action": "split",
+    "subgroups": []
+  },
+  "152": {
+    "action": "split",
+    "subgroups": []
+  },
+  "159": {
+    "action": "split",
+    "subgroups": []
+  },
+  "162": {
+    "action": "split",
+    "subgroups": [
+      [
+        290,
+        291
+      ]
+    ]
+  },
+  "165": {
+    "action": "confirm",
+    "canonical": "Provide intelligent, searchable tool discovery with adjustable detail levels once tool catalogs grow large enough that browsing or static exposure is inefficient."
+  },
+  "166": {
+    "action": "split",
+    "subgroups": []
+  },
+  "168": {
+    "action": "confirm",
+    "canonical": "Keep sensitive and intermediate data out of the model context by default, exposing only explicitly logged, returned, or policy-approved values through least-exposure controls such as tokenization, read-only mode, or metadata-only secret access."
+  },
+  "169": {
+    "action": "confirm",
+    "canonical": "Persist intermediate state, reusable task code, and agent memory outside the transient prompt when workflows need resume capability, repeated execution, continuity, provenance, or auditability."
+  },
+  "171": {
+    "action": "confirm",
+    "canonical": "Use deferred tool loading with a small always-loaded core and searchable long tail so full tool definitions stay out of context until needed and tool metadata remains within the context budget."
+  },
+  "172": {
+    "action": "split",
+    "subgroups": []
+  },
+  "175": {
+    "action": "conflict"
+  },
+  "178": {
+    "action": "split",
+    "subgroups": [
+      [
+        320,
+        357,
+        365,
+        366
+      ],
+      [
+        322,
+        351
+      ]
+    ]
+  },
+  "179": {
+    "action": "split",
+    "subgroups": []
+  },
+  "182": {
+    "action": "split",
+    "subgroups": []
+  },
+  "186": {
+    "action": "split",
+    "subgroups": []
+  },
+  "189": {
+    "action": "split",
+    "subgroups": []
+  },
+  "191": {
+    "action": "split",
+    "subgroups": []
+  },
+  "215": {
+    "action": "split",
+    "subgroups": [
+      [
+        378,
+        380
+      ],
+      [
+        397,
+        407
+      ]
+    ]
+  },
+  "216": {
+    "action": "split",
+    "subgroups": []
+  },
+  "221": {
+    "action": "split",
+    "subgroups": [
+      [
+        401,
+        406
+      ]
+    ]
+  }
 }

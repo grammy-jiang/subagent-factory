@@ -1,7 +1,43 @@
-# Conversion report: managed-agents-a3e5d595
+# Conversion Report — managed-agents-a3e5d595
 
-- source_id: managed-agents-a3e5d595
-- sha256: a3e5d595f78fef519581fb3bcae02fae229f68bcf07a7ad60e02d6a2a951a661
-- word_count: 2066
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.043831+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2066 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -3,1123 +3,1651 @@ subagent_slug: agent-skills-advisor
 principle_behaviour_tests:
 - test_id: PB-P001
   principle_id: P001
-  prompt: I'm authoring or structuring a skill's SKILL.md and file layout. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where creating or packaging a skill is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design Skills for three-tier progressive disclosure
-  - cites P001
+  - 'Applies the principle: Package every skill as a minimal, valid skill folder.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P001.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P002
   principle_id: P002
-  prompt: I'm authoring or reviewing a skill's discoverability. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where authoring or structuring a skill's SKILL.md and file layout is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to treat the SKILL.md description as the sole triggering signal and invest effort accordingly
-  - cites P002
+  - 'Applies the principle: Design Skills for three-tier progressive disclosure.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P002.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P003
   principle_id: P003
-  prompt: I'm creating or packaging a skill. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where authoring or reviewing a skill's discoverability is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to author each agent skill as a self-contained directory whose SKILL.md is the entry point and which
-    also holds any scripts or resources the instructions reference; Copilot auto-discovers every file in that directory
-    when the skill is invoked
-  - cites P003
+  - 'Applies the principle: Treat the SKILL.md description as the sole triggering signal and invest effort accordingly.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P003.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P004
   principle_id: P004
-  prompt: I'm deciding where to check in or install a skill. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where deciding where to check in or install a skill is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to place a skill in the location matching its intended audience (repository .agents/skills scanned from
-    CWD up to repo root, user $HOME/.agents/skills, admin /etc/codex/skills, or system-bundled) and avoid duplicate
-    skill names, since Codex does not merge same-named skills and shows both in selectors
-  - cites P004
+  - 'Applies the principle: Place a skill in the location matching its intended audience.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P004.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P005
   principle_id: P005
-  prompt: I'm authoring skills with nontrivial instructions, references, or assets. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where Authoring skills with nontrivial instructions, references, or assets. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design Skills for progressive disclosure and a small context footprint
-  - cites P005
+  - 'Applies the principle: Design Skills for progressive disclosure and a small context footprint.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P005.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P006
   principle_id: P006
-  prompt: I'm steps benefit from clean, isolated context. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where deciding whether or what skill to build is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to offload discrete specialized work to subagents for context isolation and parallelism
-  - cites P006
+  - 'Applies the principle: Practice eval-driven development.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P006.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P007
   principle_id: P007
-  prompt: I'm deciding whether or what skill to build. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where steps benefit from clean, isolated context is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to practice eval-driven development
-  - cites P007
+  - 'Applies the principle: Offload discrete specialized work to subagents for context isolation and parallelism.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P007.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P008
   principle_id: P008
-  prompt: I'm refining an existing skill against observed agent behaviour. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where A skill contains more detail than is needed for every invocation. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to author skills from the agent's perspective and iterate empirically
-  - cites P008
+  - 'Applies the principle: Apply progressive disclosure.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P008.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P009
   principle_id: P009
-  prompt: I'm using Skills through the API. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where refining an existing skill against observed agent behaviour is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to to run Skills on the Claude API, send the three required beta headers (code-execution-2025-08-25,
-    skills-2025-10-02, files-api-2025-04-14) and reference pre-built Skills by skill_id in the container parameter
-    alongside the code execution tool
-  - cites P009
+  - 'Applies the principle: Author skills from the agent''s perspective and iterate empirically.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P009.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P010
   principle_id: P010
-  prompt: I'm designing an agent that must reach external tools or data. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where using Skills through the API is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to assign responsibilities by layer
-  - cites P010
+  - 'Applies the principle: To run Skills on the Claude API, send the three required beta headers.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P010.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P011
   principle_id: P011
-  prompt: I'm batch, destructive, complex-validation, or high-stakes operations. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where batch, destructive, complex-validation, or high-stakes operations is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to for batch or destructive operations, have the agent produce a structured plan, validate it against
-    a source of truth, and only then execute; make validation errors informative enough (e.g., listing valid field
-    names) for the agent to self-correct
-  - cites P011
+  - 'Applies the principle: For batch or destructive operations, have the agent produce a structured plan, validate it against a source of truth.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P011.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P012
   principle_id: P012
-  prompt: I'm authoring the instructions body of a skill. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where choosing between global and repo-level guidance is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to write instructions that are structured, scannable, and actionable
-  - cites P012
+  - 'Applies the principle: Place guidance at the right location.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P012.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P013
   principle_id: P013
-  prompt: I'm a skill's workflow is complex enough to benefit from a dedicated session. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a skill misbehaves in triggering or in output quality is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to run a skill in a forked context (context
-  - cites P013
+  - 'Applies the principle: Debug a skill by adjusting the dimension that fails.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P013.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P014
   principle_id: P014
-  prompt: I'm a skill bundles scripts or resources. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where authoring the instructions body of a skill is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to write the SKILL.md body as an operational recipe
-  - cites P014
+  - 'Applies the principle: Write instructions that are structured, scannable.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P014.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P015
   principle_id: P015
-  prompt: I'm installing or adopting a skill from an external source. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where An eval exposes a concrete failure mode in a skill. is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to treat third-party skills as untrusted code
-  - cites P015
+  - 'Applies the principle: Treat skill evaluation as an iterative loop.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P015.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P016
   principle_id: P016
-  prompt: Design each Skill for its target surface's runtime limits. How should I approach this?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a project skill defines allowed-tools is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design each Skill for its target surface's runtime limits
-  - cites P016
+  - 'Applies the principle: Use allowed-tools to pre-approve tools while a skill is active and disallowed-tools to remove them.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P016.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P017
   principle_id: P017
-  prompt: I'm authoring or reviewing a skill's description. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a skill's workflow is complex enough to benefit from a dedicated session is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to write concise skill descriptions with clear scope and boundaries, front-loading the primary use case
-    and trigger words
-  - cites P017
+  - 'Applies the principle: Run a skill in a forked context.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P017.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P018
   principle_id: P018
-  prompt: I'm a common task or interaction should be reusable and shareable. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where a skill bundles scripts or resources is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use prompt files (*.prompt.md, stored at .github/prompts/) for reusable, task-specific chat interactions
-    run repeatedly with different inputs, kept distinct from codebase-wide custom instructions and invoked manually
-  - cites P018
+  - 'Applies the principle: Write the SKILL.md body as an operational recipe.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P018.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P019
   principle_id: P019
-  prompt: I'm a Skill bundles executable scripts. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Tool definitions are large enough to materially consume context, tool-selection errors are likely, multiple MCP servers are connected, or the available library has roughly ten or more tools. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to for deterministic, repeatable work, ship an executable script and have Claude run it via bash rather
-    than generating code inline
-  - cites P019
+  - 'Applies the principle: Expose many tools cheaply through deferred loading.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P019.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P020
   principle_id: P020
-  prompt: I'm building a Messages API request that uses Agent Skills. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where installing or adopting a skill from an external source is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to select Skills for a request via the Messages API container parameter, giving each entry type "anthropic",
-    a skill_id (e.g. pptx), and a version such as "latest" to pin the newest published version
-  - cites P020
+  - 'Applies the principle: Treat skills as an untrusted-code supply chain.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P020.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P021
   principle_id: P021
-  prompt: I'm multiple AGENTS.md files could apply to the same run. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where deploying and governing skills across platforms is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design instruction files around Codex precedence
-  - cites P021
+  - 'Applies the principle: Design each Skill for its target surface''s runtime limits.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P021.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P022
   principle_id: P022
-  prompt: I'm choosing how prescriptive a skill workflow or command should be. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where authoring agent skills is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to match instruction strictness to task fragility
-  - cites P022
+  - 'Applies the principle: Give each skill a directory with SKILL.md as its required entrypoint, keep the body concise and under 500 lines.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P022.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P023
+  principle_id: P023
+  mode: review
+  prompt: I'm working on an Agent Skills question where authoring or reviewing a skill's description is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Write concise skill descriptions with clear scope and boundaries, front-loading the primary use case and trigger words.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P023.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P024
   principle_id: P024
-  prompt: I'm choosing a skill's file format. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where a common task or interaction should be reusable and shareable is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to package skills in the standard Agent Skills folder format (instructions + scripts + resources) so
-    one skill built once runs unchanged across Claude apps, Claude Code, the API, and the Agent SDK
-  - cites P024
+  - 'Applies the principle: Use prompt files (*.prompt.md under .github/prompts/) for reusable, task-specific chat interactions run repeatedly with different inputs, keeping them distinct from codebase-wide custom instructions and invoking them manually.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P024.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P025
   principle_id: P025
-  prompt: I'm writing a skill's metadata and activation scope. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where designing an agent that must reach external tools or data is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to always supply the required SKILL.md frontmatter
-  - cites P025
+  - 'Applies the principle: Assign responsibilities by layer.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P025.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P026
   principle_id: P026
-  prompt: I'm designing a reusable Codex workflow. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where Writing SKILL.md front matter/metadata is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to reuse before building
-  - cites P026
+  - 'Applies the principle: Author every Skill as a SKILL.md with valid YAML frontmatter carrying the required name and description; keep name ≤64 chars of lowercase letters, numbers and hyphens with no XML tags and no reserved words.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P026.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P027
   principle_id: P027
-  prompt: I'm choosing between global and repo-level guidance. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where explaining how a repeatable process should be performed is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to place guidance at the right location
-  - cites P027
+  - 'Applies the principle: Package recurring domain expertise as a Skill instead of repeating prompt instructions.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P027.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P028
   principle_id: P028
-  prompt: I'm setting up AGENTS.md for a repo or monorepo. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a Skill bundles executable scripts is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to provide agent-specific guidance via one or more AGENTS.md files placed anywhere in the repository
-  - cites P028
+  - 'Applies the principle: For deterministic, repeatable work, ship an executable script and have Claude run it via bash rather than generating code inline.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P028.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P029
   principle_id: P029
-  prompt: I'm a skill contains more detail than is needed for every invocation. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where building a Messages API request that uses Agent Skills is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use progressive disclosure
-  - cites P029
+  - 'Applies the principle: Select Skills for a request via the Messages API container parameter, giving each entry type "anthropic", a skill_id.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P029.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P030
   principle_id: P030
-  prompt: I'm installing or distributing a skill. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where multiple AGENTS.md files could apply to the same run is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to install skills per surface
-  - cites P030
+  - 'Applies the principle: Design instruction files around Codex precedence.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P030.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P031
   principle_id: P031
-  prompt: I'm designing, documenting, or evaluating a skill as part of a workflow system. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Choosing how prescriptive a skill workflow or command should be. is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to package reusable procedural knowledge and organization-, team-, or user-specific context into portable,
-    version-controlled skill folders loaded on demand, rather than relying on ad-hoc or inlined context
-  - cites P031
+  - 'Applies the principle: Match instruction strictness to task fragility.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P031.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P032
   principle_id: P032
-  prompt: I'm choosing or reviewing a skill's name field. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where adding executable code under scripts/ is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to constrain the skill name to 1-64 characters using only lowercase alphanumerics and hyphens, never
-    starting or ending with a hyphen and never using consecutive hyphens
-  - cites P032
+  - 'Applies the principle: For reusable logic, bundle a self-contained script that declares its dependencies inline.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P032.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P033
   principle_id: P033
-  prompt: I'm claude must read, act on, or write to an external system. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where choosing a skill's file format is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to extend Claude's reach with MCP servers for internal tools, data sources, and APIs it cannot otherwise
-    access, and expose structured search as a callable MCP tool as the most sophisticated teams do
-  - cites P033
+  - 'Applies the principle: Package skills in the standard Agent Skills folder format.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P033.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P034
   principle_id: P034
-  prompt: I'm writing SKILL.md frontmatter. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a side task would clutter the main conversation with disposable intermediate results is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to author valid SKILL.md frontmatter
-  - cites P034
+  - 'Applies the principle: Use a subagent to isolate a side task whose intermediate output you will not reuse.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P034.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P035
   principle_id: P035
-  prompt: I'm a recurring or repeatable operation exists. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where writing a skill's metadata and activation scope is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to bundle reusable deterministic scripts for recurring, mechanically-checkable operations and instruct
-    the agent to run them by default instead of regenerating or reading equivalent code, because bundled scripts
-    are more reliable, token-cheaper, faster, and more consistent
-  - cites P035
+  - 'Applies the principle: Always supply the required SKILL.md frontmatter.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P035.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P036
   principle_id: P036
-  prompt: I'm a Skill creates a file such as Excel, PowerPoint, PDF, or Word. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where designing a reusable Codex workflow is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to retrieve a Skill-generated file through the Files API
-  - cites P036
+  - 'Applies the principle: Reuse before building.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P036.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P037
   principle_id: P037
-  prompt: I'm controlling whether a skill appears as a slash command and whether it auto-loads. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Tools are discovered by matching against names and descriptions, especially when many capabilities are deferred. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to set invocation visibility deliberately with user-invocable and disable-model-invocation
-  - cites P037
+  - 'Applies the principle: Engineer tool descriptions and schemas as part of the prompt.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P037.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P038
   principle_id: P038
-  prompt: I'm a skill benefits from substantial auxiliary documentation, examples, datasets, or scripts. What do
-    you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where installing or distributing a skill is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design skill resources around lazy access
-  - cites P038
+  - 'Applies the principle: Install skills per surface.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P038.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P039
   principle_id: P039
-  prompt: I'm a task reads many files or needs focused work that would otherwise clutter the main context. What
-    do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Designing, documenting, or evaluating a skill as part of a workflow system. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to delegate complex subtasks that should run in isolation from the main agent to subagents (e.g. codebase
-    research, running test suites); treat subagents as runtime processes triggered automatically or by direct reference,
-    not as user-configured files
-  - cites P039
+  - 'Applies the principle: Package reusable procedural knowledge and organization-, team-, or user-specific context into portable, version-controlled skill folders loaded on demand.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P039.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P040
   principle_id: P040
-  prompt: I'm choosing or reviewing a skill's name field. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where choosing or reviewing a skill's name field is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to name every skill in lowercase letters, numbers, and hyphens, under 64 characters with no slashes,
-    colons, dots, or namespace prefixes, and make the SKILL.md 'name' field exactly match its parent directory name
-    — invalid or mismatched names can make the skill silently fail to load
-  - cites P040
+  - 'Applies the principle: Constrain the skill name to 1-64 characters using only lowercase alphanumerics and hyphens, never starting or ending with a hyphen and never using consecutive hyphens.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P040.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P041
+  principle_id: P041
+  mode: review
+  prompt: I'm working on an Agent Skills question where Claude must read, act on, or write to an external system is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Extend Claude''s reach with MCP servers for internal tools, data sources.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P041.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P042
+  principle_id: P042
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where agents can access many tools, especially heterogeneous MCP tools is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat tool design as a first-class interface.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P042.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P043
   principle_id: P043
-  prompt: I'm designing how a skill gets triggered. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where writing SKILL.md frontmatter is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to rely on Claude's automatic Skill matching and progressive disclosure rather than hardcoding invocation
-  - cites P043
+  - 'Applies the principle: Author valid frontmatter.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P043.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P044
   principle_id: P044
-  prompt: I'm a skill must be selected among multiple available skills or tools. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a recurring or repeatable operation exists is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to evaluate a skill with a baseline comparison
-  - cites P044
+  - 'Applies the principle: Bundle reusable deterministic scripts for recurring, mechanically-checkable operations and have the agent run them by default instead of regenerating the code.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P044.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P045
   principle_id: P045
-  prompt: I'm a first draft of a skill exists. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where a Skill creates a file such as Excel, PowerPoint, PDF, or Word is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to treat skill evaluation as an iterative loop
-  - cites P045
+  - 'Applies the principle: Retrieve a Skill-generated file through the Files API.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P045.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P046
   principle_id: P046
-  prompt: I'm a skill spans multiple workflows or performs large multi-change edits. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where controlling whether a skill appears as a slash command and whether it auto-loads is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to for complex skills, route by task type with a decision tree, show complex patterns with paired good/bad
-    examples, and apply large multi-change edits in small verified batches of about three to ten
-  - cites P046
+  - 'Applies the principle: Set invocation visibility deliberately with user-invocable and disable-model-invocation.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P046.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P047
   principle_id: P047
-  prompt: I'm a skill will be used across multiple models or model tiers. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where writing or reviewing an AGENTS.md file is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to test each Skill against every model it will run on and write instructions that work across all target
-    models, giving enough concrete detail for the least-capable model without over-explaining for the strongest
-  - cites P047
+  - 'Applies the principle: Keep AGENTS.md small and scoped to durable, repo-specific rules the agent must follow every time.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P047.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P048
   principle_id: P048
-  prompt: I'm a skill runs scripts or uses tools that would otherwise prompt for confirmation. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where A skill benefits from substantial auxiliary documentation, examples, datasets, or scripts. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to pre-approve the tools a skill needs via the SKILL.md allowed-tools frontmatter field to avoid a per-use
-    confirmation prompt; any tool omitted from allowed-tools will trigger a permission prompt each time it is used
-  - cites P048
+  - 'Applies the principle: Design skill resources around lazy access.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P048.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P049
   principle_id: P049
-  prompt: I'm authoring or reviewing a skill's description field. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a task reads many files or needs focused work that would otherwise clutter the main context is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to write a precise, trigger-oriented description
-  - cites P049
+  - 'Applies the principle: Delegate complex subtasks that should run in isolation from the main agent to subagents.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P049.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P050
   principle_id: P050
-  prompt: I'm guidance should apply to the whole repository. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where choosing or reviewing a skill's name field is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to put guidance that should apply to every request in a repository-wide file located exactly at .github/copilot-instructions.md,
-    creating the .github directory first if it does not exist
-  - cites P050
+  - 'Applies the principle: Name each skill in lowercase letters, numbers.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P050.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P051
+  principle_id: P051
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Work spans many actions, long sessions, or more useful state than fits in one context window is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not rely on context compaction alone to preserve continuity across sessions; add explicit externally-persisted state.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P051.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P052
   principle_id: P052
-  prompt: I'm eval cases can be split into independent runs. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where designing how a skill gets triggered is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to isolate each eval run with a clean context so only SKILL.md drives behaviour, using fresh subagent
-    tasks where available or a separate session otherwise
-  - cites P052
+  - 'Applies the principle: Rely on Claude''s automatic Skill matching and progressive disclosure rather than hardcoding invocation.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P052.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P053
   principle_id: P053
-  prompt: I'm the target platforms implement or align with the Agent Skills standard. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where A skill must be selected among multiple available skills or tools. is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to author skills against the open Agent Skills standard so they stay portable across AI platforms and
-    systems that implement it, rather than tied to a single tool
-  - cites P053
+  - 'Applies the principle: Evaluate a skill with a baseline comparison.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P053.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P054
   principle_id: P054
-  prompt: I'm completing a task, especially after a long autonomous run. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where a skill spans multiple workflows or performs large multi-change edits is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to never let the agent self-certify its own work
-  - cites P054
+  - 'Applies the principle: For complex skills, route by task type with a decision tree, show complex patterns with paired good/bad examples.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P054.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P055
   principle_id: P055
-  prompt: I'm writing file paths in SKILL.md, reference files, scripts, or examples. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where A skill will be used across multiple models or model tiers. is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to always use forward-slash file paths in skill instructions and references so skills work across platforms
-  - cites P055
+  - 'Applies the principle: Test each skill against every model it will run.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P055.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P056
   principle_id: P056
-  prompt: I'm a Skill uses MCP tools. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where authoring or reviewing a skill's description field is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to reference MCP tools by fully qualified ServerName:tool_name to avoid tool-not-found errors, especially
-    when multiple MCP servers are available
-  - cites P056
+  - 'Applies the principle: Write a precise, trigger-oriented description.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P056.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P057
+  principle_id: P057
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Organizing a skill package's files is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Keep SKILL.md focused on task instructions and push optional material into the conventional subfolders.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P057.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P058
+  principle_id: P058
+  mode: advise
+  prompt: I'm working on an Agent Skills question where guidance should apply to the whole repository is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Put guidance that should apply to every request in a repository-wide file located exactly at .github/copilot-instructions.md, creating the .github directory first if it does not exist.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P058.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P059
   principle_id: P059
-  prompt: I'm skills are reused across many varied contexts. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where guidance applies only to certain file types or directories is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to aim for moderate detail
-  - cites P059
+  - 'Applies the principle: Recognize that GitHub Copilot supports three repository custom-instruction types.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P059.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P060
   principle_id: P060
-  prompt: I'm a workload has ZDR or data-retention requirements. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where a skill involves repeated non-trivial code the agent would otherwise rewrite is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to do not rely on Zero Data Retention for Agent Skills
-  - cites P060
+  - 'Applies the principle: Prefer scripts-as-tools over opaque built-in tools and capture recurring ones.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P060.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P061
   principle_id: P061
-  prompt: I'm several tools or approaches could accomplish a step. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a skill is already in use and behaving inconsistently is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to when multiple tools or approaches could work, give one sensible default with an escape hatch, mentioning
-    alternatives only briefly rather than presenting many equal options
-  - cites P061
+  - 'Applies the principle: Iterate skills from real-world usage.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P061.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P062
   principle_id: P062
-  prompt: I'm inputs can be rendered as images. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where deciding a skill's scope and granularity is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to when inputs can be rendered as images, have Claude analyze them visually to reason about spatial
-    layout, form structure, and other visual properties
-  - cites P062
+  - 'Applies the principle: Author skills as small, single-purpose composable units rather than monoliths.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P062.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P063
   principle_id: P063
-  prompt: I'm the artifact quality improves through iterative revision. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Eval cases can be split into independent runs. is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to build a validation feedback loop into quality-critical or refinement workflows
-  - cites P063
+  - 'Applies the principle: Isolate each eval run with a clean context so only SKILL.md drives behaviour, using fresh subagent tasks where available or a separate session otherwise.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P063.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P064
+  principle_id: P064
+  mode: advise
+  prompt: I'm working on an Agent Skills question where The target platforms implement or align with the Agent Skills standard. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Author skills against the open Agent Skills standard so they stay portable across any AI platform that implements it.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P064.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P065
+  principle_id: P065
+  mode: review
+  prompt: I'm working on an Agent Skills question where completing a task, especially after a long autonomous run is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Before treating work as done, require an adversarial review by a dedicated subagent in a fresh context on only the diff/query and the acceptance criteria; fix blocking correctness findings and re-review rather than letting the producing agent approve its own output.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P065.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P066
   principle_id: P066
-  prompt: I'm tool definitions are large enough to materially consume context, tool-selection errors are likely,
-    multiple MCP servers are connected, or the available library has roughly ten or more tools. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where A skill asks the agent to produce a recurring output format. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use deferred tool discovery for large tool libraries so the model loads only the tool definitions
-    needed for the current task
-  - cites P066
+  - 'Applies the principle: Provide output templates whose strictness matches the need.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P066.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P067
+  principle_id: P067
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Writing file paths in SKILL.md, reference files, scripts, or examples. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Always use forward-slash file paths in skill instructions and references so skills work across platforms, including Unix.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P067.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P068
   principle_id: P068
-  prompt: I'm the task processes large datasets, has three or more dependent tool calls, needs filtering or transformation,
-    benefits from parallel checks, or should keep intermediate records out of model context. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a Skill bundles executable scripts is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use programmatic tool calling for workflows where code can reduce context bloat, inference round-trips,
-    or fragile manual synthesis
-  - cites P068
+  - 'Applies the principle: In bundled scripts, handle error conditions explicitly and justify/document every configuration constant.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P068.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P069
   principle_id: P069
-  prompt: I'm architecting a reusable set of skills and connections. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where a Skill uses MCP tools is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to treat skills and MCP as complementary rather than substitutes
-  - cites P069
+  - 'Applies the principle: Reference MCP tools by fully qualified ServerName:tool_name to avoid tool-not-found errors, especially when multiple MCP servers are available.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P069.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P070
   principle_id: P070
-  prompt: I'm writing or debugging the description field. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where The model is capable enough for the target problem space and failure modes are monitored is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to make frontmatter descriptions precise enough for automatic loading
-  - cites P070
+  - 'Applies the principle: Let model capability justify simpler scaffolding and greater autonomy.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P070.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P071
   principle_id: P071
-  prompt: I'm deciding which customization feature fits a task. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where Tool responses can become large enough to consume substantial context. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to select a Copilot customization feature by matching its trigger model to the task
-  - cites P071
+  - 'Applies the principle: Keep tool and script output bounded to protect the agent''s context budget.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P071.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P072
   principle_id: P072
-  prompt: I'm a skill invokes an external CLI tool or package at runtime. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where skills are reused across many varied contexts is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to prefer a runtime dependency-resolving tool runner (uvx, pipx, npx, bunx, deno run, go run) so a skill
-    can invoke a tool without a manual install step, choosing the runner that matches the target runtime and its
-    install/caching characteristics
-  - cites P072
+  - 'Applies the principle: Aim for moderate detail.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P072.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P073
+  principle_id: P073
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a workload has ZDR or data-retention requirements is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not rely on Zero Data Retention for Agent Skills.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P073.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P074
+  principle_id: P074
+  mode: review
+  prompt: I'm working on an Agent Skills question where several tools or approaches could accomplish a step is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Give a single sensible default with an escape hatch, mentioning alternatives only briefly.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P074.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P075
+  principle_id: P075
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where inputs can be rendered as images is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: When inputs can be rendered as images, have the model inspect them visually to reason about spatial layout, form structure.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P075.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P076
+  principle_id: P076
+  mode: advise
+  prompt: I'm working on an Agent Skills question where The artifact quality improves through iterative revision. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Build validation feedback loops into quality-critical workflows.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P076.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P077
   principle_id: P077
-  prompt: I'm discovering, installing, or updating third-party skills. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where creating a new skill from scratch is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to manage the skill lifecycle with the gh skill CLI
-  - cites P077
+  - 'Applies the principle: Scaffold a new skill with the skill-creator skill instead of hand-editing files.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P077.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P078
   principle_id: P078
-  prompt: I'm a behavior must happen every time or an action must never happen. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Two candidate outputs or configurations can be compared against the same task. is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to for behavior that must happen reliably or must be blocked, enforce it deterministically with hooks
-    (and permissions/managed settings) rather than a prompted instruction, because prompted rules can fail under
-    pressure, in long or ambiguous sessions, or via prompt injection
-  - cites P078
+  - 'Applies the principle: Use blind A/B comparison.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P078.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P079
   principle_id: P079
-  prompt: I'm configuring persistent project context for Claude Code. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where deciding which Claude agentic component to reach for is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to maintain a lean CLAUDE.md of only broadly-applicable, non-obvious project context (Bash commands,
-    non-default style, test runners, etiquette, gotchas); prune ruthlessly because bloat makes Claude ignore rules,
-    and use emphasis plus git check-in
-  - cites P079
+  - 'Applies the principle: Match the building block to the need.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P079.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P080
   principle_id: P080
-  prompt: I'm triaging a wrong analytics answer or architecting an analytics-agent stack. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a behavior must happen every time or an action must never happen is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to diagnose every inaccurate analytics-agent answer as one of three failure modes - concept-to-entity
-    ambiguity, data staleness, or retrieval failure - and architect each stack layer to attack a specific one; the
-    largest gains come from addressing all three together
-  - cites P080
+  - 'Applies the principle: For behavior that must happen reliably or must be blocked, enforce it deterministically with hooks.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P080.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P081
   principle_id: P081
-  prompt: I'm choosing where to store instructions for a specific IDE. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where The task processes large datasets, has three or more dependent tool calls, needs filtering or transformation, benefits from parallel checks, or should keep intermediate records out of model context. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to account for IDE differences in supported instruction mechanisms
-  - cites P081
+  - 'Applies the principle: Use programmatic tool calling for workflows where code can reduce context bloat, inference round-trips, or fragile manual synthesis.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P081.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P082
   principle_id: P082
-  prompt: I'm guidance should apply only to files matching a path or glob. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where architecting a reusable set of skills and connections is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to scope narrower guidance to matching files by adding .github/instructions/NAME.instructions.md files
-    whose names end in .instructions.md, each beginning with an applyTo frontmatter key using glob syntax (comma-separated
-    for multiple patterns)
-  - cites P082
+  - 'Applies the principle: Treat skills and MCP as complementary rather than substitutes.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P082.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P083
   principle_id: P083
-  prompt: I'm a task's context will exceed the model's context window. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where Writing or debugging the description field. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to avoid irreversible retain/discard context decisions on long-horizon tasks (compaction, trimming)
-  - cites P083
+  - 'Applies the principle: Make frontmatter descriptions precise enough for automatic loading.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P083.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P084
   principle_id: P084
-  prompt: I'm correct invocation depends on meaningful conventions, nested structures, many optional parameters,
-    domain formats, or choosing among similar tools. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where deciding which customization feature fits a task is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use tool input examples to teach conventions that schemas cannot express, including optional-field
-    patterns, nested object usage, correlated parameters, and similar-tool disambiguation
-  - cites P084
+  - 'Applies the principle: Select a Copilot customization feature by matching its trigger model to the task.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P084.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P085
   principle_id: P085
-  prompt: I'm prompting for a concrete implementation, fix, or investigation. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where a skill invokes an external CLI tool or package at runtime is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to write precise, context-rich prompts
-  - cites P085
+  - 'Applies the principle: Prefer a runtime dependency-resolving tool runner.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P085.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P086
   principle_id: P086
-  prompt: I'm choosing how much resource headroom to grant an agentic eval. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a task is long-running, massively parallel, highly structured, or adversarial is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to separate infrastructure-reliability gains from capability gains
-  - cites P086
+  - 'Applies the principle: Prefer a dynamic workflow over the single-context default harness when a task is long-running, massively parallel, highly structured, or adversarial.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P086.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P087
+  principle_id: P087
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Work spans repeated AI sessions or depends on project-specific knowledge is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat project context for an AI coding agent as durable infrastructure.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P087.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P088
   principle_id: P088
-  prompt: Keep every Skill concise. How should I approach this?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where advising whether a feature is usable on a specific IDE or surface is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to keep every Skill concise
-  - cites P088
+  - 'Applies the principle: Before promising a customization feature works on a given IDE or surface, verify it against the feature-support matrix and recommend the latest stable IDE/CLI/extension versions.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P088.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P089
   principle_id: P089
-  prompt: I'm the task is open-ended, breadth-first, and heavily parallelizable. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where discovering, installing, or updating third-party skills is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to reserve a multi-agent orchestrator-worker architecture for high-value, breadth-first tasks with heavy
-    parallelization, information exceeding one context window, or many complex tools; do not use it for work that
-    requires all agents to share context or that has heavy inter-agent dependencies
-  - cites P089
+  - 'Applies the principle: Manage the skill lifecycle with the gh skill CLI.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P089.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P090
   principle_id: P090
-  prompt: I'm background knowledge must inform all conversations in an initiative. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where diagnosing score variance or reproducibility problems in an agentic eval is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use a Project for persistent, always-loaded context that should inform every conversation about an
-    initiative, and rely on RAG mode when the project's knowledge base exceeds the context window
-  - cites P090
+  - 'Applies the principle: Treat agentic evals as end-to-end system tests and audit all confounders.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P090.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P091
   principle_id: P091
-  prompt: I'm confirming a component is available in the target environment. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where configuring persistent project context for Claude Code is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to check runtime and plan prerequisites before choosing a block
-  - cites P091
+  - 'Applies the principle: Maintain a lean CLAUDE.md of only broadly-applicable, non-obvious project context.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P091.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P092
   principle_id: P092
-  prompt: Author every Skill as a SKILL.md with valid YAML frontmatter carrying the required name and description;
-    keep name ≤64 chars of lowercase letters, numbers and hyphens with no XML tags and no reserved words ('anthropic'/'claude'),
-    and keep description non-empty, ≤1024 chars, and free of XML tags. How should I approach this?
+  mode: review
+  prompt: I'm working on an Agent Skills question where triaging a wrong analytics answer or architecting an analytics-agent stack is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to author every Skill as a SKILL.md with valid YAML frontmatter carrying the required name and description;
-    keep name ≤64 chars of lowercase letters, numbers and hyphens with no XML tags and no reserved words ('anthropic'/'claude'),
-    and keep description non-empty, ≤1024 chars, and free of XML tags
-  - cites P092
+  - 'Applies the principle: Diagnose every inaccurate analytics-agent answer as one of three failure modes - concept-to-entity ambiguity, data staleness, or retrieval failure - and architect each stack layer to attack a specific one; the largest gains come from addressing all three together.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P092.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P093
   principle_id: P093
-  prompt: I'm creating or refining a skill. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where choosing where to store instructions for a specific IDE is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to author a skill as a SKILL.md plus optional scripts, references, and assets, rely on progressive disclosure,
-    and write clear name/description metadata
-  - cites P093
+  - 'Applies the principle: Account for IDE differences in supported instruction mechanisms.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P093.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P094
   principle_id: P094
-  prompt: I'm designing or reviewing an LLM-based analytics or data-agent system. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where guidance should apply only to files matching a path or glob is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to treat a wrong analytics answer as a mapping failure, not a query-writing failure
-  - cites P094
+  - 'Applies the principle: Scope narrower guidance to matching files by adding .github/instructions/NAME.instructions.md files whose names end in .instructions.md, each beginning with an applyTo frontmatter key using glob syntax.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P094.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P095
   principle_id: P095
-  prompt: Do not assume Skills sync across surfaces. How should I approach this?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a task's context will exceed the model's context window is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to do not assume Skills sync across surfaces
-  - cites P095
+  - 'Applies the principle: Avoid irreversible retain/discard context decisions on long-horizon tasks.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P095.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P096
   principle_id: P096
-  prompt: 'Restrict which skills Claude can invoke by denying the Skill tool wholesale in /permissions or scoping
-    with Skill(name) exact and Skill(name *) prefix rules, and use disable-model-invocation: true to block programmatic
-    invocation, since user-invocable only affects menu visibility. How should I approach this?'
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Correct invocation depends on meaningful conventions, nested structures, many optional parameters, domain formats, or choosing among similar tools. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - 'advises to restrict which skills Claude can invoke by denying the Skill tool wholesale in /permissions or scoping
-    with Skill(name) exact and Skill(name *) prefix rules, and use disable-model-invocation: true to block programmatic
-    invocation, since user-invocable only affects menu visibility'
-  - cites P096
+  - 'Applies the principle: Use tool input examples to teach conventions that schemas cannot express, including optional-field patterns, nested object usage, correlated parameters.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P096.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P097
   principle_id: P097
-  prompt: I'm the agent repeats a mistake. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where prompting for a concrete implementation, fix, or investigation is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to maintain AGENTS.md as a feedback loop
-  - cites P097
+  - 'Applies the principle: Write precise, context-rich prompts.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P097.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P098
   principle_id: P098
-  prompt: I'm the domain has complex rules or high policy burden (e.g. the airline tau-bench domain). What do you
-    advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where choosing how much resource headroom to grant an agentic eval is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to on difficult, policy-heavy domains, pair the think tool with an optimized prompt that gives domain-specific
-    reasoning examples
-  - cites P098
+  - 'Applies the principle: Separate infrastructure-reliability gains from capability gains.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P098.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P099
   principle_id: P099
-  prompt: I'm selecting how to grade a task or transcript. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Choosing which evaluation method(s) to invest in is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to choose grader types by trade-off
-  - cites P099
+  - 'Applies the principle: Understand each evaluation method''s trade-offs before relying on it.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P099.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P100
   principle_id: P100
-  prompt: I'm choosing where an agent's components run. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where the task is open-ended, breadth-first, and heavily parallelizable is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to do not couple session, harness, and sandbox into one container
-  - cites P100
+  - 'Applies the principle: Reserve a multi-agent orchestrator-worker architecture for high-value, breadth-first tasks with heavy parallelization, information exceeding one context window, or many complex tools; do not use it for work that requires all agents to share context or that has heavy inter-agent dependencies.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P100.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P101
   principle_id: P101
-  prompt: I'm authoring the initial eval set for a skill. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where background knowledge must inform all conversations in an initiative is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design a small, varied, realistic test set
-  - cites P101
+  - 'Applies the principle: Use a Project for persistent, always-loaded context that should inform every conversation about an initiative.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P101.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P102
+  principle_id: P102
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where confirming a component is available in the target environment is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Check runtime and plan prerequisites before choosing a block.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P102.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P103
+  principle_id: P103
+  mode: advise
+  prompt: I'm working on an Agent Skills question where designing or reviewing an LLM-based analytics or data-agent system is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat a wrong analytics answer as a mapping failure.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P103.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P104
+  principle_id: P104
+  mode: review
+  prompt: I'm working on an Agent Skills question where deploying and governing skills across platforms is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not assume Skills sync across surfaces.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P104.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P105
+  principle_id: P105
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where deploying and governing skills across platforms is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Restrict which skills Claude can invoke by denying the Skill tool wholesale in /permissions or scoping with Skill(name) exact and Skill(name *) prefix rules.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P105.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P106
+  principle_id: P106
+  mode: advise
+  prompt: I'm working on an Agent Skills question where the agent repeats a mistake is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Maintain AGENTS.md as a feedback loop.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P106.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P107
+  principle_id: P107
+  mode: review
+  prompt: I'm working on an Agent Skills question where the domain has complex rules or high policy burden (e.g. the airline tau-bench domain) is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: On difficult, policy-heavy domains, pair the think tool with an optimized prompt that gives domain-specific reasoning examples.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P107.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P108
+  principle_id: P108
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Selecting how to grade a task or transcript is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose grader types by trade-off.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P108.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P109
+  principle_id: P109
+  mode: advise
+  prompt: I'm working on an Agent Skills question where choosing where an agent's components run is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not couple session, harness.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P109.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P110
+  principle_id: P110
+  mode: review
+  prompt: I'm working on an Agent Skills question where authoring the initial eval set for a skill is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Design a small, varied, realistic test set.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P110.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
+- test_id: PB-P111
+  principle_id: P111
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where writing behavioural guidance for a Claude 5-class model is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer judgement-anchored guidance over rigid rules for newer-generation models.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P111.
+  must_not:
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P112
   principle_id: P112
-  prompt: I'm authoring or reviewing an Agent Skill. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Designing or revising evals for a skill. is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to structure every skill as a directory whose SKILL.md opens with YAML frontmatter defining name and
-    description; the agent pre-loads that metadata at startup as the first level of progressive disclosure
-  - cites P112
+  - 'Applies the principle: Classify a skill as capability uplift or encoded preference before deciding what its evals must prove.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P112.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P113
   principle_id: P113
-  prompt: I'm an operation needs deterministic reliability or is costly to perform via token generation. What do
-    you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where writing a skill for a multi-step workflow is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to package deterministic or expensive operations as executable code inside the skill instead of relying
-    on token generation; code is cheaper for such work and gives consistent, repeatable results, and the agent can
-    run it without loading the script or its data into context
-  - cites P113
+  - 'Applies the principle: Author each skill to encode discovery, orchestration.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P113.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P114
   principle_id: P114
-  prompt: I'm authoring or revising a SKILL.md file. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Choosing among prompt text, tools, examples, history, and retrieved content is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to keep the main skill file concise, structured, and focused on context that materially changes agent
-    execution
-  - cites P114
+  - 'Applies the principle: Budget context as a scarce resource.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P114.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P115
   principle_id: P115
-  prompt: I'm a workflow is multi-step and ships bundled assets that should load on demand (e.g. Actions debugging,
-    deployment, release notes). What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Defining, pruning, or reviewing tools that expose information or actions to an agent is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to package multi-step workflows with bundled instructions, scripts, and resources as agent skills at
-    a SKILL.md path (project .github/.claude/.agents skills dirs, or personal ~/.copilot/~/.agents skills dirs);
-    they load automatically when Copilot judges them relevant
-  - cites P115
+  - 'Applies the principle: Design agent tools as clear, non-overlapping, token-efficient contracts with robust behavior and unambiguous parameters.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P115.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P116
   principle_id: P116
-  prompt: I'm a side task would clutter the main conversation with disposable intermediate results. What do you
-    advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where evaluating and iterating on skills is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use a subagent to isolate a side task whose intermediate output you will not reuse (deep search,
-    log analysis, dependency audit), since only its final message returns to the main session; use a skill instead
-    when you need to see and steer each step in the main thread
-  - cites P116
+  - 'Applies the principle: Evaluate tool quality with realistic workflow tasks, realistic data, verifiable outcomes.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P116.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P117
   principle_id: P117
-  prompt: I'm validating a skill before deployment. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where Designing or revising an LLM application architecture. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to before deploying, test the skill with a three-class matrix
-  - cites P117
+  - 'Applies the principle: Start with the simplest LLM design that can solve the task.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P117.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P118
   principle_id: P118
-  prompt: I'm explaining how a repeatable process should be performed. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Selecting between a coded workflow and an autonomous agent. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to choose a skill when the need is multi-step tool workflows, consistency-critical processes, capturing
-    and sharing domain expertise, or preserving institutional knowledge against team attrition
-  - cites P118
+  - 'Applies the principle: Choose workflows for predictable predefined paths and choose autonomous agents only when flexible, model-directed control is needed for an open-ended task.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P118.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P119
   principle_id: P119
-  prompt: I'm a user is creating or editing a skill and the workflow complexity determines the authoring method.
-    What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where authoring or reviewing an Agent Skill is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to offer multiple authoring paths
-  - cites P119
+  - 'Applies the principle: Structure every skill as a directory whose SKILL.md opens with YAML frontmatter defining name and description; the agent pre-loads that metadata at startup as the first level of progressive disclosure.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P119.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P120
   principle_id: P120
-  prompt: I'm authoring or reviewing a Claude skill package. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where an operation needs deterministic reliability or is costly to perform via token generation is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to package every skill as a minimal, valid skill folder
-  - cites P120
+  - 'Applies the principle: Package deterministic or expensive operations as executable code inside the skill instead of relying on token generation; code is cheaper for such work and gives consistent, repeatable results.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P120.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P121
   principle_id: P121
-  prompt: I'm deciding where to put tool-usage instructions. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Authoring or revising a SKILL.md file. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to keep MCP-server instructions generic and scoped to how to operate the server and its tools correctly,
-    and place process-specific and multi-server workflow logic in skills
-  - cites P121
+  - 'Applies the principle: Keep the main skill file concise, structured.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P121.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P122
   principle_id: P122
-  prompt: Manage skill visibility from settings with skillOverrides (on, name-only, user-invocable-only, off; absent
-    means on), edited via the /skills menu into .claude/settings.local.json, where off also hides from Remote Control
-    and Agent SDK callers (v2.1.199+). How should I approach this?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a workflow is multi-step and ships bundled assets that should load on demand (e.g. Actions debugging, deployment, release notes) is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to manage skill visibility from settings with skillOverrides (on, name-only, user-invocable-only, off;
-    absent means on), edited via the /skills menu into .claude/settings.local.json, where off also hides from Remote
-    Control and Agent SDK callers (v2.1.199+)
-  - cites P122
+  - 'Applies the principle: Package multi-step workflows with bundled instructions, scripts.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P122.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P123
   principle_id: P123
-  prompt: I'm choosing how prescriptive an instruction should be. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where engineering the system prompt / CLAUDE.md / skills for a Claude 5-class agent is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to match instruction specificity to task fragility
-  - cites P123
+  - 'Applies the principle: Right-size context for capable models.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P123.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P124
   principle_id: P124
-  prompt: I'm authoring a .claude/rules/ file. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where validating a skill before deployment is at issue (evaluating and iterating on skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to scope every rule that applies to only some paths with a 'paths' frontmatter; leave a rule unscoped
-    only when it truly must apply to all sessions
-  - cites P124
+  - 'Applies the principle: Before deploying, test the skill with a three-class matrix.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P124.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P125
   principle_id: P125
-  prompt: 'Avoid custom output styles unless a significant role change is required; prefer the built-in Proactive/Explanatory/Learning
-    styles, and when customizing set keep-coding-instructions: true to retain Claude Code''s default software-engineering
-    behavior. How should I approach this?'
+  mode: review
+  prompt: I'm working on an Agent Skills question where A user is creating or editing a skill and the workflow complexity determines the authoring method. is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - 'advises to avoid custom output styles unless a significant role change is required; prefer the built-in Proactive/Explanatory/Learning
-    styles, and when customizing set keep-coding-instructions: true to retain Claude Code''s default software-engineering
-    behavior'
-  - cites P125
+  - 'Applies the principle: Offer multiple authoring paths.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P125.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P126
   principle_id: P126
-  prompt: I'm a workflow has distinct stages needing a specialist persona or restricted tools. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where deciding where to put tool-usage instructions is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to recommend custom agents for projects or processes with distinct stages that need specialized capability,
-    tool restrictions, or strict handoffs; define the persona at the correct location (.github/agents/AGENT-NAME.md
-    repo, org/enterprise .github(-private) /agents, or user profile) and invoke it manually from the agent dropdown
-  - cites P126
+  - 'Applies the principle: Keep MCP-server instructions generic and scoped to how to operate the server and its tools correctly.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P126.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P127
   principle_id: P127
-  prompt: I'm a user is directing the work interactively and the task is not a regular process. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where deploying and governing skills across platforms is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use turn-based loops for short, irregular tasks, and reduce extra turns with specific prompts plus
-    explicit verification support
-  - cites P127
+  - 'Applies the principle: Manage skill visibility from settings with skillOverrides.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P127.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P128
   principle_id: P128
-  prompt: I'm claude is expected to modify or evaluate code. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where choosing how prescriptive an instruction should be is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to improve loop output quality by maintaining a clean codebase, accessible technical documentation,
-    explicit verification, and independent review
-  - cites P128
+  - 'Applies the principle: Match instruction specificity to task fragility.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P128.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P129
   principle_id: P129
-  prompt: I'm a loop may repeat work, spawn agents, poll external systems, or consume substantial model time. What
-    do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where authoring a .claude/rules/ file is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to manage loop cost by selecting the right primitive and model, defining clear stop criteria, piloting
-    large runs, scripting deterministic work, tuning intervals, and reviewing usage data
-  - cites P129
+  - 'Applies the principle: Scope every rule that applies to only some paths with a ''paths'' frontmatter; leave a rule unscoped only when it truly must apply to all sessions.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P129.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P130
   principle_id: P130
-  prompt: I'm navigating or searching a large or fast-changing codebase. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where deploying and governing skills across platforms is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to rely on live agentic search rather than a maintained embedding index
-  - cites P130
+  - 'Applies the principle: Avoid custom output styles unless a significant role change is required; prefer the built-in Proactive/Explanatory/Learning styles.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P130.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P131
   principle_id: P131
-  prompt: Exploit the filesystem model. How should I approach this?
+  mode: review
+  prompt: I'm working on an Agent Skills question where a workflow has distinct stages needing a specialist persona or restricted tools is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to exploit the filesystem model
-  - cites P131
+  - 'Applies the principle: Recommend custom agents for projects or processes with distinct stages that need specialized capability, tool restrictions, or strict handoffs; define the persona at the correct location.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P131.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P132
   principle_id: P132
-  prompt: I'm the skill loads but MCP calls fail. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where A user is directing the work interactively and the task is not a regular process. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to diagnose MCP call failures in layers
-  - cites P132
+  - 'Applies the principle: Use turn-based loops for short, irregular tasks.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P132.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P133
   principle_id: P133
-  prompt: I'm issuing any API request that uses Skills. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Claude is expected to modify or evaluate code. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to enable the code execution tool and set the code-execution-2025-08-25 and skills-2025-10-02 beta headers
-    on every Skills request, adding files-api-2025-04-14 when files are transferred to or from the container
-  - cites P133
+  - 'Applies the principle: Improve loop output quality by maintaining a clean codebase, accessible technical documentation, explicit verification.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P133.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P134
   principle_id: P134
-  prompt: I'm codex needs capabilities that live outside the local repository. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where A loop may repeat work, spawn agents, poll external systems, or consume substantial model time. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to use MCP to connect Codex to capabilities outside the local repo (issue trackers, design tools, browsers,
-    shared docs), reasoning about trust via the host/client/server model and the tools, resources, and prompts a
-    server exposes
-  - cites P134
+  - 'Applies the principle: Manage loop cost by selecting the right primitive and model, defining clear stop criteria, piloting large runs, scripting deterministic work, tuning intervals.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P134.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P135
   principle_id: P135
-  prompt: I'm authoring or reviewing a new Agent Skill. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where navigating or searching a large or fast-changing codebase is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to structure every Agent Skill as a folder containing a single SKILL.md file that opens with a YAML
-    frontmatter block (delimited by ---) declaring name and description, followed by a Markdown body of instructions
-  - cites P135
+  - 'Applies the principle: Rely on live agentic search rather than a maintained embedding index.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P135.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P136
   principle_id: P136
-  prompt: I'm combined instruction size approaches or exceeds the byte cap. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where orchestrating skills, subagents, mcp, and harnesses is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to keep instruction files non-empty and within the size cap
-  - cites P136
+  - 'Applies the principle: Exploit the filesystem model.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P136.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P137
   principle_id: P137
-  prompt: I'm expected instructions are missing, wrong, or fallback files are ignored. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where The skill loads but MCP calls fail. is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to troubleshoot instruction discovery systematically
-  - cites P137
+  - 'Applies the principle: Diagnose MCP call failures in layers.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P137.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P138
   principle_id: P138
-  prompt: I'm deciding where a new instruction should live. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where issuing any API request that uses Skills is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to select the instruction level (personal, repository, or organization) to match the scope over which
-    the guidance should apply, rather than defaulting everything to one level
-  - cites P138
+  - 'Applies the principle: Enable the code execution tool and set the code-execution-2025-08-25 and skills-2025-10-02 beta headers on every Skills request, adding files-api-2025-04-14 when files are transferred to or from the container.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P138.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P139
   principle_id: P139
-  prompt: I'm standards or review expectations should apply broadly and automatically. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where Codex needs capabilities that live outside the local repository is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to recommend always-on custom instructions when a team needs standards, guidelines, or expectations
-    applied automatically across a scope; place them at the matching scope file (.github/copilot-instructions.md
-    repo-wide, .github/instructions/*.instructions.md path-specific, AGENTS.md for third-party agents, or org/personal
-    settings)
-  - cites P139
+  - 'Applies the principle: Use MCP to connect Codex to capabilities outside the local repo.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P139.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P140
   principle_id: P140
-  prompt: I'm generating a copilot-instructions.md via the Copilot cloud agent. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where configuring Codex instructions for a repository is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to when onboarding a repository with cloud-agent-generated instructions, keep them under two pages and
-    non-task-specific, and run the onboarding task only once per repository
-  - cites P140
+  - 'Applies the principle: Layer Codex guidance in two tiers.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P140.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P141
   principle_id: P141
-  prompt: I'm building a harness for lengthy autonomous tasks. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where authoring or reviewing a new Agent Skill is at issue (authoring agent skills). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to design explicit mechanisms against the two dominant long-task failure modes
-  - cites P141
+  - 'Applies the principle: Structure every Agent Skill as a folder containing a single SKILL.md file that opens with a YAML frontmatter block.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P141.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P142
   principle_id: P142
-  prompt: I'm designing when the model should invoke the think tool during a task. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where combined instruction size approaches or exceeds the byte cap is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to position the think tool as an in-flight reconsideration step used after generation has begun (typically
-    after receiving tool results) and before the next action or response, not as a substitute for comprehensive
-    up-front planning
-  - cites P142
+  - 'Applies the principle: Keep instruction files non-empty and within the size cap.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P142.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P143
   principle_id: P143
-  prompt: I'm the value of the task is high enough to pay for increased token usage. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where expected instructions are missing, wrong, or fallback files are ignored is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to budget for multi-agent token cost explicitly
-  - cites P143
+  - 'Applies the principle: Troubleshoot instruction discovery systematically.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P143.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P144
   principle_id: P144
-  prompt: I'm architecting a long-running agent platform meant to outlast specific implementations. What do you
-    advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where deciding where a new instruction should live is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to virtualize an agent into independently swappable components -- a session (event log), a harness (the
-    model loop and tool router), and a sandbox (code/file execution) -- defined by stable interfaces rather than
-    by their current implementations
-  - cites P144
+  - 'Applies the principle: Select the instruction level.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P144.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P145
   principle_id: P145
-  prompt: I'm hiring/evaluation design in a domain where frontier coding models are improving. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where standards or review expectations should apply broadly and automatically is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to treat every technical evaluation as perishable
-  - cites P145
+  - 'Applies the principle: Recommend always-on custom instructions when a team needs standards, guidelines, or expectations applied automatically across a scope; place them at the matching scope file.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P145.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P146
   principle_id: P146
-  prompt: I'm enforcing per-task resource specs in a container runtime (e.g. Kubernetes). What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where generating a copilot-instructions.md via the Copilot cloud agent is at issue (deploying and governing skills across platforms). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to configure container resources with a guaranteed allocation and a separate, higher hard-kill limit;
-    never pin both to the same value, since zero headroom lets a transient memory spike OOM-kill a container that
-    would otherwise have passed
-  - cites P146
+  - 'Applies the principle: When onboarding a repository with cloud-agent-generated instructions, keep them under two pages and non-task-specific.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P146.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P147
   principle_id: P147
-  prompt: I'm comparing models on an agentic coding benchmark. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where building a harness for lengthy autonomous tasks is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to when comparing models, hold the entire runtime constant (same harness, task set, and hardware for
-    both scaffold and inference stack); agents given different resource budgets or time limits are not taking the
-    same test
-  - cites P147
+  - 'Applies the principle: Design explicit mechanisms against the two dominant long-task failure modes.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P147.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P148
   principle_id: P148
-  prompt: I'm publishing or maintaining a public agentic benchmark. What do you advise?
+  mode: advise
+  prompt: I'm working on an Agent Skills question where giving the model a spec, design, or reference material is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to benchmark maintainers should publish both recommended per-task resource specs and the enforcement
-    methodology (guaranteed-allocation versus hard-kill semantics); specs without enforcement detail leave a reproducibility
-    gap
-  - cites P148
+  - 'Applies the principle: Prefer high-fidelity references.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P148.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P149
   principle_id: P149
-  prompt: I'm making deployment or model-selection decisions from leaderboard scores. What do you advise?
+  mode: review
+  prompt: I'm working on an Agent Skills question where designing when the model should invoke the think tool during a task is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to when consuming leaderboards, treat agentic-eval differences below about 3 percentage points as within
-    uncertainty until the configuration is documented and matched, since infrastructure confounders stack on top
-    of binomial confidence intervals and the extremes of the allocation range reach about 6 points
-  - cites P149
+  - 'Applies the principle: Position the think tool as an in-flight reconsideration step used after generation has begun.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P149.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.
 - test_id: PB-P150
   principle_id: P150
-  prompt: I'm writing or reviewing a SKILL.md file. What do you advise?
+  mode: eval-guide
+  prompt: I'm working on an Agent Skills question where the value of the task is high enough to pay for increased token usage is at issue (orchestrating skills, subagents, mcp, and harnesses). What should I check for, what is the fix, and what residual trade-off or referral should I carry?
   expected_behaviour:
-  - advises to give every SKILL.md the required frontmatter
-  - cites P150
+  - 'Applies the principle: Budget for multi-agent token cost explicitly.'
+  - Names the specific skill mechanism and the correction, and states the residual trade-off or referral.
+  - Cites P150.
   must_not:
-  - invents a skill mechanism, frontmatter field, flag, or header not present in the sources
+  - Invents a frontmatter field, beta header, CLI flag, install path, or permission token not present in the sources.
+  - Writes the caller's domain feature or asserts the skill is effective without an evaluation.

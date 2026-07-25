@@ -1,7 +1,43 @@
-# Conversion report: equipping-agents-for-b2e7bb6f
+# Conversion Report — equipping-agents-for-b2e7bb6f
 
-- source_id: equipping-agents-for-b2e7bb6f
-- sha256: b2e7bb6f60c49e678776d882a4edc7aae4eb61eb4dba2befcc0cfd9401bb17ea
-- word_count: 1535
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.939629+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1535 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

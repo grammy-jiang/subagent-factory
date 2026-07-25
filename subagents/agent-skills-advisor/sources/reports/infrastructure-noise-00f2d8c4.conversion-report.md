@@ -1,7 +1,43 @@
-# Conversion report: infrastructure-noise-00f2d8c4
+# Conversion Report — infrastructure-noise-00f2d8c4
 
-- source_id: infrastructure-noise-00f2d8c4
-- sha256: 00f2d8c40830d658cf3b046cf7f02b48cbca9942052f9cec8373fc742b4aebc2
-- word_count: 1790
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.051015+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1790 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

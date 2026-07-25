@@ -1,7 +1,43 @@
-# Conversion report: promcp-token-flows-l-dfe0874c
+# Conversion Report — promcp-token-flows-l-dfe0874c
 
-- source_id: promcp-token-flows-l-dfe0874c
-- sha256: dfe0874c00ba183189eaed255a2e98b0e1ef6155aebad3ca75f374645d4a324e
-- word_count: 7912
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.377308+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 7912 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

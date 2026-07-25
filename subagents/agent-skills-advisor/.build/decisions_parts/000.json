@@ -1,32 +1,657 @@
 {
-  "0": {"action": "split", "subgroups": [[0, 12, 22, 38, 71, 86, 272, 316], [5, 349]]},
-  "1": {"action": "split", "subgroups": [[2, 850], [4, 44], [49, 113], [7, 267, 347], [268, 291]]},
-  "3": {"action": "split", "subgroups": [[106, 769, 770]]},
-  "5": {"action": "split", "subgroups": [[15, 96, 103, 437]]},
-  "6": {"action": "split", "subgroups": [[17, 194, 376, 505, 654]]},
-  "9": {"action": "split", "subgroups": [[23], [193]]},
-  "10": {"action": "split", "subgroups": [[26, 282, 474, 602]]},
-  "11": {"action": "split", "subgroups": [[27, 283, 475], [76, 88]]},
-  "12": {"action": "split", "subgroups": [[28, 31, 74, 262, 464, 814, 846]]},
-  "13": {"action": "confirm", "canonical": "Treat third-party skills as untrusted code: install only from trusted sources (self-authored or Anthropic), and before using a skill from an untrusted or unknown source, audit every bundled file (SKILL.md, scripts, resources) for behaviour that does not match its stated purpose, treating skills that fetch external URLs as higher risk."},
-  "15": {"action": "split", "subgroups": [[34, 751]]},
-  "16": {"action": "split", "subgroups": [[36, 279, 758]]},
-  "17": {"action": "split", "subgroups": [[37], [778], [779]]},
-  "20": {"action": "split", "subgroups": [[42], [164]]},
-  "21": {"action": "split", "subgroups": [[60, 340]]},
-  "22": {"action": "split", "subgroups": [[45, 443], [775, 813]]},
-  "23": {"action": "split", "subgroups": [[46], [92], [101], [259]]},
-  "25": {"action": "split", "subgroups": [[48, 473]]},
-  "26": {"action": "split", "subgroups": [[50], [51], [53]]},
-  "28": {"action": "split", "subgroups": [[55], [574]]},
-  "31": {"action": "split", "subgroups": [[58, 796]]},
-  "32": {"action": "confirm", "canonical": "Use blind A/B comparison — presenting both outputs without revealing which skill version (or skill/no-skill variant) produced which — to decide whether a skill change actually improves outputs."},
-  "33": {"action": "split", "subgroups": [[64], [295], [807]]},
-  "36": {"action": "split", "subgroups": [[68], [407]]},
-  "38": {"action": "split", "subgroups": [[72, 780]]},
-  "40": {"action": "split", "subgroups": [[77], [842]]},
-  "42": {"action": "split", "subgroups": [[80], [864], [870]]},
-  "44": {"action": "split", "subgroups": [[84], [548]]},
-  "45": {"action": "split", "subgroups": [[85, 304, 356, 398, 764, 903]]},
-  "46": {"action": "split", "subgroups": [[87, 401]]}
+ "0": {
+  "action": "split",
+  "subgroups": [
+   [
+    0,
+    12,
+    22,
+    38,
+    71,
+    86,
+    272,
+    312
+   ],
+   [
+    5,
+    349
+   ],
+   [
+    271,
+    316
+   ],
+   [
+    1,
+    436
+   ],
+   [
+    32
+   ],
+   [
+    69
+   ],
+   [
+    118
+   ],
+   [
+    183
+   ],
+   [
+    278
+   ],
+   [
+    315
+   ],
+   [
+    336
+   ]
+  ]
+ },
+ "1": {
+  "action": "split",
+  "subgroups": [
+   [
+    4,
+    44
+   ],
+   [
+    7,
+    267,
+    347
+   ],
+   [
+    2,
+    850
+   ],
+   [
+    49,
+    113
+   ],
+   [
+    268,
+    291
+   ],
+   [
+    6
+   ],
+   [
+    8
+   ],
+   [
+    9
+   ],
+   [
+    21
+   ],
+   [
+    24
+   ],
+   [
+    25
+   ],
+   [
+    30
+   ],
+   [
+    62
+   ],
+   [
+    75
+   ],
+   [
+    78
+   ],
+   [
+    91
+   ],
+   [
+    120
+   ],
+   [
+    129
+   ],
+   [
+    298
+   ],
+   [
+    319
+   ],
+   [
+    320
+   ],
+   [
+    331
+   ],
+   [
+    332
+   ],
+   [
+    404
+   ],
+   [
+    461
+   ],
+   [
+    797
+   ],
+   [
+    834
+   ],
+   [
+    848
+   ],
+   [
+    881
+   ],
+   [
+    882
+   ],
+   [
+    897
+   ],
+   [
+    911
+   ]
+  ]
+ },
+ "3": {
+  "action": "split",
+  "subgroups": [
+   [
+    106,
+    769,
+    770
+   ],
+   [
+    10
+   ],
+   [
+    11
+   ],
+   [
+    14
+   ],
+   [
+    19
+   ],
+   [
+    35
+   ],
+   [
+    90
+   ],
+   [
+    136
+   ],
+   [
+    358
+   ],
+   [
+    773
+   ]
+  ]
+ },
+ "5": {
+  "action": "split",
+  "subgroups": [
+   [
+    15,
+    96,
+    103
+   ],
+   [
+    16
+   ],
+   [
+    174
+   ],
+   [
+    182
+   ],
+   [
+    437
+   ]
+  ]
+ },
+ "6": {
+  "action": "split",
+  "subgroups": [
+   [
+    17,
+    194,
+    376,
+    654
+   ],
+   [
+    122,
+    505
+   ],
+   [
+    204
+   ],
+   [
+    497
+   ],
+   [
+    652
+   ]
+  ]
+ },
+ "9": {
+  "action": "split",
+  "subgroups": [
+   [
+    23
+   ],
+   [
+    193
+   ],
+   [
+    913
+   ]
+  ]
+ },
+ "10": {
+  "action": "split",
+  "subgroups": [
+   [
+    26,
+    282,
+    474,
+    602
+   ],
+   [
+    82
+   ],
+   [
+    83
+   ],
+   [
+    114
+   ],
+   [
+    438
+   ],
+   [
+    774
+   ],
+   [
+    788
+   ],
+   [
+    923
+   ]
+  ]
+ },
+ "11": {
+  "action": "split",
+  "subgroups": [
+   [
+    27,
+    283,
+    475
+   ],
+   [
+    76,
+    88
+   ],
+   [
+    66
+   ],
+   [
+    167
+   ],
+   [
+    168
+   ],
+   [
+    222
+   ],
+   [
+    534
+   ],
+   [
+    541
+   ],
+   [
+    567
+   ],
+   [
+    608
+   ],
+   [
+    672
+   ],
+   [
+    777
+   ]
+  ]
+ },
+ "12": {
+  "action": "split",
+  "subgroups": [
+   [
+    28,
+    31,
+    74,
+    262,
+    464,
+    814,
+    846,
+    849
+   ],
+   [
+    41,
+    61
+   ],
+   [
+    263,
+    765
+   ],
+   [
+    63
+   ],
+   [
+    344
+   ],
+   [
+    352
+   ],
+   [
+    470
+   ]
+  ]
+ },
+ "13": {
+  "action": "confirm",
+  "canonical": "Treat skills as an untrusted-code supply chain: install only from trusted sources (self-authored or vendor), and thoroughly audit every bundled file of a less-trusted skill before use, since a malicious skill can drive the agent to act against you."
+ },
+ "15": {
+  "action": "split",
+  "subgroups": [
+   [
+    34,
+    751
+   ],
+   [
+    276
+   ],
+   [
+    400
+   ]
+  ]
+ },
+ "16": {
+  "action": "split",
+  "subgroups": [
+   [
+    36,
+    279,
+    758
+   ],
+   [
+    413
+   ]
+  ]
+ },
+ "17": {
+  "action": "split",
+  "subgroups": [
+   [
+    37
+   ],
+   [
+    778
+   ],
+   [
+    779
+   ]
+  ]
+ },
+ "20": {
+  "action": "split",
+  "subgroups": [
+   [
+    42
+   ],
+   [
+    164
+   ]
+  ]
+ },
+ "21": {
+  "action": "split",
+  "subgroups": [
+   [
+    60,
+    340
+   ],
+   [
+    43
+   ],
+   [
+    196
+   ],
+   [
+    277
+   ]
+  ]
+ },
+ "22": {
+  "action": "split",
+  "subgroups": [
+   [
+    45,
+    443,
+    815
+   ],
+   [
+    54,
+    775,
+    813
+   ],
+   [
+    310
+   ],
+   [
+    453
+   ]
+  ]
+ },
+ "23": {
+  "action": "split",
+  "subgroups": [
+   [
+    101,
+    259
+   ],
+   [
+    46
+   ],
+   [
+    92
+   ]
+  ]
+ },
+ "25": {
+  "action": "split",
+  "subgroups": [
+   [
+    48,
+    473
+   ],
+   [
+    467
+   ]
+  ]
+ },
+ "26": {
+  "action": "split",
+  "subgroups": [
+   [
+    50
+   ],
+   [
+    51
+   ],
+   [
+    53
+   ]
+  ]
+ },
+ "28": {
+  "action": "split",
+  "subgroups": [
+   [
+    55
+   ],
+   [
+    574
+   ]
+  ]
+ },
+ "31": {
+  "action": "split",
+  "subgroups": [
+   [
+    58,
+    796
+   ],
+   [
+    742,
+    743
+   ],
+   [
+    585
+   ]
+  ]
+ },
+ "32": {
+  "action": "confirm",
+  "canonical": "Use blind A/B comparison \u2014 presenting both outputs without revealing which skill version produced which \u2014 to judge whether a skill change (or skill vs no-skill) actually improves outputs."
+ },
+ "33": {
+  "action": "split",
+  "subgroups": [
+   [
+    64
+   ],
+   [
+    295
+   ],
+   [
+    807
+   ]
+  ]
+ },
+ "36": {
+  "action": "split",
+  "subgroups": [
+   [
+    68
+   ],
+   [
+    407
+   ]
+  ]
+ },
+ "38": {
+  "action": "split",
+  "subgroups": [
+   [
+    72,
+    780
+   ],
+   [
+    137
+   ],
+   [
+    776
+   ]
+  ]
+ },
+ "40": {
+  "action": "split",
+  "subgroups": [
+   [
+    77
+   ],
+   [
+    842
+   ]
+  ]
+ },
+ "42": {
+  "action": "split",
+  "subgroups": [
+   [
+    80
+   ],
+   [
+    864
+   ],
+   [
+    870
+   ]
+  ]
+ },
+ "44": {
+  "action": "split",
+  "subgroups": [
+   [
+    84
+   ],
+   [
+    548
+   ]
+  ]
+ },
+ "45": {
+  "action": "split",
+  "subgroups": [
+   [
+    85,
+    304,
+    356,
+    371,
+    398,
+    434,
+    764,
+    903
+   ],
+   [
+    93
+   ],
+   [
+    95
+   ],
+   [
+    109
+   ],
+   [
+    305
+   ],
+   [
+    444
+   ],
+   [
+    890
+   ]
+  ]
+ },
+ "46": {
+  "action": "split",
+  "subgroups": [
+   [
+    87,
+    401
+   ],
+   [
+    818
+   ],
+   [
+    869
+   ]
+  ]
+ }
 }

@@ -1,7 +1,43 @@
-# Conversion report: mcp-python-sdk-testi-1d5543a1
+# Conversion Report — mcp-python-sdk-testi-1d5543a1
 
-- source_id: mcp-python-sdk-testi-1d5543a1
-- sha256: 1d5543a107210e91e9daf33b7a4278c36aa9d2955f6e3f07daf8eee96ef6620f
-- word_count: 314
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.411236+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 314 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

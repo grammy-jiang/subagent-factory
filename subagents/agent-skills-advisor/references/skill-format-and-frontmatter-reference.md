@@ -4,104 +4,124 @@ kind: reference
 status: ready
 provenance:
   principles:
-  - P025
+  - P001
+  - P002
+  - P003
+  - P005
+  - P008
+  - P009
+  - P014
+  - P018
+  - P022
+  - P023
+  - P026
+  - P028
   - P032
-  - P034
-  - P037
+  - P033
+  - P035
+  - P039
   - P040
+  - P043
+  - P044
   - P048
-  - P055
-  - P092
-  - P112
+  - P050
+  - P052
+  - P054
+  - P056
+  - P057
+  - P062
+  - P064
+  - P066
+  - P067
+  - P068
+  - P072
+  - P074
+  - P075
+  - P077
+  - P083
+  - P085
+  - P113
+  - P119
   - P120
+  - P121
   - P122
-  - P124
-  - P135
-  - P150
+  - P125
+  - P141
   claims:
-  - C00187
-  - C00198
-  - C00879
-  - C00880
-  - C00881
-  - C00903
-  - C00089
-  - C01641
-  - C01642
-  - C01643
-  - C01644
-  - C00588
-  evidence:
-  - E00099
-  - E00104
-  - E00398
-  - E00399
-  - E00400
-  - E00412
-  - E00064
-  - E00692
-  - E00693
-  - E00694
-  - E00695
-  - E00258
-  source_anchors:
-  - a86591486b37-c0000
-  - c86c41e74ac0-c0000
-  - 50982633050d-c0000
-  - 9d770de8f1b0-c0000
-  - 2b076b2b50c8-c0000
-  authored_from_digest: e954bed19b589adc550296ca470461b9ac79f84513b8d2f05775ff083dcbae99
+  - C00001
+  - C00002
+  - C00003
+  - C00004
+  - C00005
+  - C00006
+  - C00008
+  - C00009
+  - C00017
+  - C00019
+  - C00021
+  - C00022
+  - C00023
+  - C00056
+  evidence: []
+  source_anchors: []
+  authored_from_digest: 333ee9ee7b75b2e32b8cfc05fcc3269a1fe47c339234aeb0720f99b38c167fae
 ---
+
 
 # Reference: skill-format-and-frontmatter-reference
 
 ## Purpose
 
-The exact structural and frontmatter rules for a valid Agent Skill — folder shape, entry file,
-the `name`/`description` contract, tool grants, and invocation visibility. Use this as a lookup
-when authoring or reviewing a `SKILL.md`. Grounded in P025, P032, P034, P092, P112, P135, P150.
+The structural and frontmatter rules for a valid Agent Skill — folder shape, the SKILL.md entry file, the name/description contract, bundled scripts and resources, progressive-disclosure layering, and portability. Use it as a lookup when authoring or reviewing a SKILL.md.
 
-## Folder & entry-file shape
+## Principle index
 
-| Element | Rule | Principle |
-|---------|------|-----------|
-| Folder name | kebab-case; one skill per folder | P120, P135 |
-| Entry file | exactly `SKILL.md` at the folder root | P003, P115, P120 |
-| Contents | self-contained: instructions + optional scripts, references, assets beside it | P003, P115 |
-| `README.md` | kept outside the skill folder, not the entry file | P120 |
-| Paths | always forward-slash, for cross-platform portability | P055 |
+Every principle this reference indexes, owned by the `authoring-agent-skills` skill. Each entry restates the operative core; the full statement lives in `../principles/principles.yaml`.
 
-## Required frontmatter
-
-A `SKILL.md` opens with a YAML frontmatter block (delimited by `---`) that the agent pre-loads at
-startup for discovery [P112], [P135]:
-
-| Field | Requirement | Principle |
-|-------|-------------|-----------|
-| `name` | lowercase letters, numbers, hyphens; 1–64 chars; no leading/trailing hyphen; no consecutive hyphens; no slashes/colons/dots/namespace prefixes; no XML tags or reserved words; typically matches the directory | P025, P032, P034, P040, P092, P150 |
-| `description` | states what the skill does **and** when to use it; front-loads the primary use case and trigger words; precise enough for automatic loading | P025, P070, P150 |
-
-The `name` + `description` are the always-loaded metadata; the agent reads the full body only
-after a description match, so the description is the primary triggering signal [P002], [P150].
-
-## Optional frontmatter
-
-| Field | Purpose | Principle |
-|-------|---------|-----------|
-| allowed-tools | pre-approve tools the skill needs, avoiding a per-use confirmation prompt; a tool omitted from all grants is unavailable | P048 |
-| user-invocable / disable-model-invocation | set invocation visibility: auto-load, user-only, or model-only; omit both for a slash command that also auto-loads | P037 |
-| `paths` (scoped rules) | scope a rule to matching files; leave unscoped only when it truly must apply everywhere | P124 |
-
-## Validity checklist
-
-- [ ] Folder is kebab-case; entry file is exactly `SKILL.md` [P120].
-- [ ] `name` obeys the character/length rules above [P032], [P034].
-- [ ] `description` says what + when, with trigger words [P025], [P150].
-- [ ] Only documented frontmatter fields are used — no invented fields.
-- [ ] Tools the skill uses are granted via allowed-tools [P048].
-- [ ] Invocation visibility is set intentionally [P037]; visibility managed via settings [P122].
+- **P001** — Package every skill as a minimal, valid skill folder.
+- **P002** — Design Skills for three-tier progressive disclosure.
+- **P003** — Treat the SKILL.md description as the sole triggering signal and invest effort accordingly.
+- **P005** — Design Skills for progressive disclosure and a small context footprint.
+- **P008** — Apply progressive disclosure.
+- **P009** — Author skills from the agent's perspective and iterate empirically.
+- **P014** — Write instructions that are structured, scannable.
+- **P018** — Write the SKILL.md body as an operational recipe.
+- **P022** — Give each skill a directory with SKILL.md as its required entrypoint, keep the body concise and under 500 lines.
+- **P023** — Write concise skill descriptions with clear scope and boundaries, front-loading the primary use case and trigger words.
+- **P026** — Author every Skill as a SKILL.md with valid YAML frontmatter carrying the required name and description; keep name ≤64 chars of lowercase letters, numbers and hyphens with no XML tags and no reserved.
+- **P028** — For deterministic, repeatable work, ship an executable script and have Claude run it via bash rather than generating code inline.
+- **P032** — For reusable logic, bundle a self-contained script that declares its dependencies inline _(supporting)_.
+- **P033** — Package skills in the standard Agent Skills folder format.
+- **P035** — Always supply the required SKILL.md frontmatter.
+- **P039** — Package reusable procedural knowledge and organization-, team-, or user-specific context into portable, version-controlled skill folders loaded on demand.
+- **P040** — Constrain the skill name to 1-64 characters using only lowercase alphanumerics and hyphens, never starting or ending with a hyphen and never using consecutive hyphens.
+- **P043** — Author valid frontmatter.
+- **P044** — Bundle reusable deterministic scripts for recurring, mechanically-checkable operations and have the agent run them by default instead of regenerating the code.
+- **P048** — Design skill resources around lazy access.
+- **P050** — Name each skill in lowercase letters, numbers.
+- **P052** — Rely on Claude's automatic Skill matching and progressive disclosure rather than hardcoding invocation.
+- **P054** — For complex skills, route by task type with a decision tree, show complex patterns with paired good/bad examples.
+- **P056** — Write a precise, trigger-oriented description.
+- **P057** — Keep SKILL.md focused on task instructions and push optional material into the conventional subfolders.
+- **P062** — Author skills as small, single-purpose composable units rather than monoliths.
+- **P064** — Author skills against the open Agent Skills standard so they stay portable across any AI platform that implements it.
+- **P066** — Provide output templates whose strictness matches the need.
+- **P067** — Always use forward-slash file paths in skill instructions and references so skills work across platforms, including Unix.
+- **P068** — In bundled scripts, handle error conditions explicitly and justify/document every configuration constant.
+- **P072** — Aim for moderate detail.
+- **P074** — Give a single sensible default with an escape hatch, mentioning alternatives only briefly.
+- **P075** — When inputs can be rendered as images, have the model inspect them visually to reason about spatial layout, form structure.
+- **P077** — Scaffold a new skill with the skill-creator skill instead of hand-editing files _(supporting)_.
+- **P083** — Make frontmatter descriptions precise enough for automatic loading.
+- **P085** — Prefer a runtime dependency-resolving tool runner.
+- **P113** — Author each skill to encode discovery, orchestration _(supporting)_.
+- **P119** — Structure every skill as a directory whose SKILL.md opens with YAML frontmatter defining name and description; the agent pre-loads that metadata at startup as the first level of progressive.
+- **P120** — Package deterministic or expensive operations as executable code inside the skill instead of relying on token generation; code is cheaper for such work and gives consistent, repeatable results.
+- **P121** — Keep the main skill file concise, structured.
+- **P122** — Package multi-step workflows with bundled instructions, scripts.
+- **P125** — Offer multiple authoring paths.
+- **P141** — Structure every Agent Skill as a folder containing a single SKILL.md file that opens with a YAML frontmatter block.
 
 ## Grounding
 
-Principles: P025, P032, P034, P037, P040, P048, P055, P092, P112, P120, P122, P124, P135, P150.
-Distillation-only: no verbatim source quotation.
+Indexes 43 of the package's 150 principles, grounded in the fifty-eight ingested distillation-only sources on Agent Skills, subagents, MCP, evaluation, and context engineering across the Claude (Code + API), OpenAI Codex, and GitHub Copilot surfaces and the open Agent Skills standard. Paraphrase and restructure only — no verbatim quotation (see `.claude/rules/rights-and-quotation-policy.md`). Every id resolves into `principles/principles.yaml`.

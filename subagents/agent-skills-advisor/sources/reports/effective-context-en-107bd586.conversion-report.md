@@ -1,7 +1,43 @@
-# Conversion report: effective-context-en-107bd586
+# Conversion Report — effective-context-en-107bd586
 
-- source_id: effective-context-en-107bd586
-- sha256: 107bd586b99617f8751adad80298f5c08e0c0c4724fbd53a4e961f1fdd8c7283
-- word_count: 3111
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.018285+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 3111 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

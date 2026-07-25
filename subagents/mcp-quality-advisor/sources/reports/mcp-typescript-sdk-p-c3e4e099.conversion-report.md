@@ -1,7 +1,43 @@
-# Conversion report: mcp-typescript-sdk-p-c3e4e099
+# Conversion Report — mcp-typescript-sdk-p-c3e4e099
 
-- source_id: mcp-typescript-sdk-p-c3e4e099
-- sha256: c3e4e099b722dfedd2652c2ff1dea1929f6d94ec06a52a1995a868180a4a6efd
-- word_count: 786
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.416208+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 786 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

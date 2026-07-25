@@ -1,7 +1,43 @@
-# Conversion report: copilot-response-cus-9385a2ff
+# Conversion Report — copilot-response-cus-9385a2ff
 
-- source_id: copilot-response-cus-9385a2ff
-- sha256: 9385a2ff21f8ec03fa51371c2bef7095ccd64903c444f43f92a7d0f8794455ea
-- word_count: 6374
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:23.008237+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 6374 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

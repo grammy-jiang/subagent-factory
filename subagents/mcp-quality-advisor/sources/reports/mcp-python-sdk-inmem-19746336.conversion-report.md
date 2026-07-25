@@ -1,7 +1,43 @@
-# Conversion report: mcp-python-sdk-inmem-19746336
+# Conversion Report — mcp-python-sdk-inmem-19746336
 
-- source_id: mcp-python-sdk-inmem-19746336
-- sha256: 1974633645bd0f91cacc2d1eebbf87ebc6f0a709d73a9f9c5650e50171b9ea17
-- word_count: 2071
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.413776+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2071 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

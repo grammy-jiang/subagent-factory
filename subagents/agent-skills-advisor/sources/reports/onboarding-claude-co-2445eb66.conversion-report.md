@@ -1,7 +1,43 @@
-# Conversion report: onboarding-claude-co-2445eb66
+# Conversion Report — onboarding-claude-co-2445eb66
 
-- source_id: onboarding-claude-co-2445eb66
-- sha256: 2445eb6688c25d150ebed806ebf76870362eb87be9cd9da55084042b628f5dae
-- word_count: 1476
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:00:22.968326+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1476 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

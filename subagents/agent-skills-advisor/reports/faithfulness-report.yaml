@@ -10,117 +10,70 @@ findings:
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Naming the specific mechanism and citing a principle id is a house editorial rule, grounded in the sources' emphasis
-    on precise, documented skill mechanisms (P002, P025).
+  note: Naming the specific mechanism and citing a principle id is a house editorial rule, grounded in the sources' emphasis on precise, documented skill mechanisms (P001, P023).
 - rule_ref: quality_bar[1]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Tiny always-loaded frontmatter, progressive disclosure into on-demand files, and a concise SKILL.md within its context
-    budget are directly stated (P001, P005, P029, P088).
+  note: A tiny always-loaded frontmatter, progressive disclosure into on-demand files, and a concise SKILL.md within its context budget are directly stated (P001, P002, P005, P022).
 - rule_ref: quality_bar[2]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: The description as the primary triggering signal, written precise and trigger-oriented, is directly supported (P002,
-    P043, P049, P070).
+  note: The description as the primary triggering signal, written precise and trigger-oriented, is directly supported (P003, P023, P056, P083).
 - rule_ref: quality_bar[3]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Matching install location, runtime limits, required headers, and permission model to the target surface is directly
-    supported (P004, P016, P030, P048, P095).
+  note: Matching install location, runtime limits, required headers, and permission model to the named surface is directly supported (P004, P021, P016, P038, P010).
 - rule_ref: quality_bar[4]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Backing effectiveness claims with an evaluation and a baseline comparison is directly supported (P007, P044, P045,
-    P117).
+  note: Backing effectiveness with an eval baseline comparison rather than assertion is directly supported (P006, P053, P063, P110).
 - rule_ref: forbidden_behaviours[0]
   verdict: WITHIN_SCOPE
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Recommending only documented mechanisms (no invented fields/headers/flags/paths) extends the sources' requirement
-    for valid, documented frontmatter and metadata (P025, P034).
+  note: Recommending only documented frontmatter fields, headers, flags, paths, and tokens restates the requirement to author valid, standard frontmatter (P026, P043).
 - rule_ref: forbidden_behaviours[1]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Not presenting a skill as effective without an evaluation/baseline is directly supported (P007, P044).
+  note: Not presenting a skill as effective without an evaluation restates eval-driven development (P006, P053).
 - rule_ref: forbidden_behaviours[2]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Treating third-party skills as untrusted code to review before use is directly supported (P015).
+  note: Treating third-party skills as untrusted code to review before use is directly stated (P020).
 - rule_ref: forbidden_behaviours[3]
   verdict: EXACT_SUPPORT
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Not overloading SKILL.md and challenging each line against its token cost is directly supported (P088, P105, P114).
+  note: Not overloading SKILL.md with low-signal context restates keeping the body concise and budgeting context (P022, P057, P114).
 - rule_ref: forbidden_behaviours[4]
   verdict: WITHIN_SCOPE
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Not editing the caller's canonical skills/instructions/code is a role-scoping decision (advisory specialist), consistent
-    with the source-of-truth policy; no source claim is over-extended.
-- rule_ref: when_to_use[0]
+  note: Not editing the caller's canonical files is an advisory-boundary role decision consistent with packaging guidance for the caller to apply (P039).
+- rule_ref: outputs.primary_format
   verdict: WITHIN_SCOPE
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Caller-observable trigger for authoring/structuring a SKILL.md, drawn from principle applies_when (P001, P003, P005).
-- rule_ref: when_to_use[1]
+  note: The per-recommendation format naming the mechanism and principle id is a house rule grounded in the sources' precision emphasis (P001, P023).
+- rule_ref: source_of_truth_policy.precedence
   verdict: WITHIN_SCOPE
   action: accept_with_note
   support_granularity: section
   severity: low
-  note: Caller-observable trigger for deploying/governing on a surface, drawn from principle applies_when (P004, P030, P048,
-    P095).
-- rule_ref: when_to_use[2]
-  verdict: WITHIN_SCOPE
-  action: accept_with_note
-  support_granularity: section
-  severity: low
-  note: Caller-observable trigger for evaluating a skill, drawn from principle applies_when (P007, P044, P045, P117).
-- rule_ref: when_to_use[3]
-  verdict: WITHIN_SCOPE
-  action: accept_with_note
-  support_granularity: section
-  severity: low
-  note: Caller-observable trigger for choosing/composing skill vs subagent vs MCP vs prompt vs instruction file (P006, P039,
-    P069).
-- rule_ref: when_to_use[4]
-  verdict: WITHIN_SCOPE
-  action: accept_with_note
-  support_granularity: section
-  severity: low
-  note: Caller-observable trigger for diagnosing trigger/loading/context failures (P041, P043, P132).
-- rule_ref: when_not_to_use[0]
-  verdict: WITHIN_SCOPE
-  action: accept_with_note
-  support_granularity: section
-  severity: low
-  note: 'Scope boundary: the advisor scopes how to build/operate the skill, not the domain work it performs. Role decision,
-    not a source over-claim.'
-- rule_ref: when_not_to_use[1]
-  verdict: WITHIN_SCOPE
-  action: accept_with_note
-  support_granularity: section
-  severity: low
-  note: Scope boundary excluding non-skill product/model/infra work. Role decision.
-- rule_ref: when_not_to_use[2]
-  verdict: WITHIN_SCOPE
-  action: accept_with_note
-  support_granularity: section
-  severity: low
-  note: Scope boundary excluding platforms/formats outside the ingested surfaces and the open Agent Skills standard. Role
-    decision.
+  note: Preferring current platform documentation for version-specific details, and not assuming cross-surface parity, is source-grounded (P088, P104).
