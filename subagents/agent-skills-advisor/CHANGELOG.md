@@ -2,6 +2,46 @@
 
 All notable changes to this subagent are documented here.
 
+## [0.3.0] — 2026-07-25
+
+Fold-in of a 59th source — Anthropic's official *skill-creator* SKILL.md (the authoring loop:
+capture intent, interview, draft, evaluate, iterate; the skill-writing guide; the description
+optimizer) — into the distilled spine. The map->reduce rebuild re-clustered and renumbered the
+principles (P001-P150), so the LLM-authored layer was regenerated to match — no rule
+stronger than its evidence, every cited id resolves into the current spine.
+
+### Changed
+
+- Re-grounded the LLM-authored layer against the rebuilt spine (150 principles,
+  126 high-confidence, 2059 claims): all four skills, three references,
+  `reports/faithfulness-report.yaml`, `tests/golden-tests.yaml`, and
+  `tests/principle-behaviour-tests.yaml` (one behaviour test per principle) now cite the current
+  principle ids; skill/reference frontmatter `authored_from_digest` re-stamped from the current
+  grounding.
+- `profile.yaml` refreshed: `quality_bar` / `forbidden_behaviours` / `outputs` /
+  `source_of_truth_policy` citations remapped to the current spine, the 59th source
+  (*skill-creator-skill*) added to `sources[]`, the source-count prose updated, and `agent_version`
+  bumped to 0.3.0.
+- Re-exported the Claude Code adapter and reinstalled it under `.claude/agents/generated/`.
+
+### Fixed
+
+- Source metadata `source_type` corrected from the invalid `md` to the schema value `markdown` for
+  all ingested sources (the map->reduce rebuild reintroduced the defect; the same fix was applied at
+  0.2.0).
+
+### Sources
+
+- 59 primary and secondary distillation-only sources on Agent Skills, subagents, MCP, evaluation,
+  context engineering, and instruction files, spanning the Claude (Code + API), OpenAI Codex, and
+  GitHub Copilot surfaces and the open Agent Skills standard.
+
+### Notes
+
+- Distillation-only sources: no verbatim quotation. The distilled spine
+  (claims / evidence / principles / anchors) was assembled by the map->reduce build and is not
+  edited by this release.
+
 ## [0.2.1] — 2026-07-25
 
 ### Added

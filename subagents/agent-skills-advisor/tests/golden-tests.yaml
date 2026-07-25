@@ -1,7 +1,7 @@
 schema_version: golden-tests-v1
 subagent_slug: agent-skills-advisor
 generated_at: '2026-07-25'
-profile_version: 0.2.0
+profile_version: 0.3.0
 tier: 2
 golden_tests:
 - test_id: GT-001
@@ -18,10 +18,10 @@ golden_tests:
   - Tell the caller to put everything in SKILL.md
   principle_coverage:
   - P001
-  - P002
-  - P005
+  - P007
   - P022
-  - P048
+  - P079
+  - P112
 - test_id: GT-002
   description: Positive — write the description for reliable triggering
   prompt: My skill rarely activates. How should I write its description so the agent picks it up?
@@ -34,10 +34,10 @@ golden_tests:
   must_not_do:
   - Claim the body, not the description, drives triggering
   principle_coverage:
-  - P003
-  - P023
-  - P056
-  - P083
+  - P002
+  - P015
+  - P061
+  - P086
 - test_id: GT-003
   description: Positive — deploy a skill to a target surface with the right permissions
   prompt: I need to ship this skill so it runs on our target surface with the tools it needs pre-approved. What do I set and where does it install?
@@ -50,10 +50,10 @@ golden_tests:
   must_not_do:
   - Invent an install path or permission token not in the sources
   principle_coverage:
-  - P004
-  - P021
-  - P016
-  - P038
+  - P080
+  - P028
+  - P036
+  - P081
 - test_id: GT-004
   description: Positive — prove a skill helps with a baseline comparison
   prompt: How do I show this skill actually improves the agent rather than just assuming it does?
@@ -66,10 +66,10 @@ golden_tests:
   must_not_do:
   - Assert effectiveness without any evaluation
   principle_coverage:
-  - P006
-  - P053
-  - P063
-  - P110
+  - P033
+  - P010
+  - P012
+  - P034
 - test_id: GT-005
   description: Positive — choose between a skill, a subagent, and an MCP server
   prompt: Should this capability be a skill, a subagent, or an MCP server? It reads many files and returns a summary.
@@ -82,10 +82,11 @@ golden_tests:
   must_not_do:
   - Treat skills and MCP as interchangeable substitutes
   principle_coverage:
-  - P025
-  - P079
-  - P082
-  - P007
+  - P059
+  - P088
+  - P118
+  - P005
+  - P023
 - test_id: GT-006
   description: Positive — bundle a deterministic script instead of generating code
   prompt: My skill regenerates the same parsing code every run. Is there a better way?
@@ -98,10 +99,10 @@ golden_tests:
   must_not_do:
   - Recommend inventing a runtime the sources do not mention
   principle_coverage:
-  - P028
-  - P044
-  - P120
-  - P032
+  - P017
+  - P025
+  - P108
+  - P110
 - test_id: GT-007
   description: Positive — review an existing skill folder layout
   prompt: 'Here is my skill folder: SKILL.md plus a 900-line body and a README inside it. Review the layout.'
@@ -114,10 +115,11 @@ golden_tests:
   must_not_do:
   - Approve a SKILL.md body far over the size budget without comment
   principle_coverage:
-  - P022
-  - P057
-  - P121
+  - P004
   - P001
+  - P079
+  - P112
+  - P120
 - test_id: GT-008
   description: Positive — keep a skill portable across platforms
   prompt: I want one skill to run unchanged across several agent platforms. What keeps it portable?
@@ -130,9 +132,10 @@ golden_tests:
   must_not_do:
   - Tie the skill to one platform's proprietary layout without noting the portability cost
   principle_coverage:
-  - P033
-  - P064
-  - P067
+  - P047
+  - P048
+  - P020
+  - P090
 - test_id: GT-009
   description: Positive — a pre-deploy three-class test matrix
   prompt: Before I ship this skill, how should I test it?
@@ -145,9 +148,9 @@ golden_tests:
   must_not_do:
   - Recommend shipping with only happy-path checks
   principle_coverage:
-  - P124
-  - P110
-  - P055
+  - P117
+  - P035
+  - P096
 - test_id: GT-010
   description: Positive — treat a third-party skill as untrusted
   prompt: A teammate found a useful skill on a public repo. Can we just install and use it?
@@ -160,7 +163,7 @@ golden_tests:
   must_not_do:
   - Tell the caller to install and run it without review
   principle_coverage:
-  - P020
+  - P014
 negative_routing_tests:
 - test_id: NR-001
   description: Negative — write the production feature, not the skill
@@ -171,7 +174,7 @@ negative_routing_tests:
   must_not_do:
   - Produce the production ETL implementation
   principle_coverage:
-  - P027
+  - P059
 - test_id: NR-002
   description: Negative — product/UI design out of scope
   prompt: Design the visual layout and pricing tiers for our product's landing page.
@@ -181,7 +184,7 @@ negative_routing_tests:
   must_not_do:
   - Produce UI or pricing design work
   principle_coverage:
-  - P027
+  - P059
 - test_id: NR-003
   description: Negative — cluster infrastructure out of scope
   prompt: Configure autoscaling and node pools for our Kubernetes cluster.
@@ -191,7 +194,7 @@ negative_routing_tests:
   must_not_do:
   - Produce Kubernetes infrastructure configuration
   principle_coverage:
-  - P027
+  - P059
 missing_context_tests:
 - test_id: MC-001
   description: Missing context — which surface and current file
@@ -204,8 +207,8 @@ missing_context_tests:
   - the observed behaviour or failure
   minimum_output: Ask for the missing context before advising
   principle_coverage:
-  - P013
-  - P143
+  - P142
+  - P030
 - test_id: MC-002
   description: Missing context — deploy target unspecified
   prompt: How do I deploy this skill?
@@ -215,8 +218,8 @@ missing_context_tests:
   - which target surface or platform you are deploying to
   minimum_output: Ask which surface before giving install/permission steps
   principle_coverage:
-  - P004
-  - P021
+  - P080
+  - P136
 - test_id: MC-003
   description: Missing context — no eval criteria
   prompt: Is my skill any good?
@@ -227,5 +230,5 @@ missing_context_tests:
   - the realistic prompts / test set to judge it on
   minimum_output: Ask for eval criteria and a test set before judging
   principle_coverage:
-  - P006
-  - P110
+  - P033
+  - P096

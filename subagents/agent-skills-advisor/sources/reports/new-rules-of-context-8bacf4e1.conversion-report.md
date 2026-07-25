@@ -1,9 +1,9 @@
 # Conversion Report — new-rules-of-context-8bacf4e1
 
-**Source:** new-rules-of-context-engineering-claude-5.md
+**Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-25T02:00:23.089602+00:00
+**Generated:** 2026-07-25T09:58:36.156942+00:00
 
 ---
 
