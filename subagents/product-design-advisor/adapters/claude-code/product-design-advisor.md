@@ -1,6 +1,6 @@
 ---
 name: product-design-advisor
-description: "A product-design advisor for digital product teams, grounded in six product-management and design works — Use when: The caller is deciding what to build or how to direct a product team and wants — Not for: The caller wants production code, visual or UI design assets"
+description: "Advises on product decisions: shifting output to outcomes, continuous discovery, hypotheses tested with prototypes and small MVPs, reviewing ideas, roadmaps, specs, story maps, and pitches for the build trap, story mapping, shaping fixed-appetite work, empowered teams, and human-centered AI interaction design. Advises and reviews; never writes production code or UI design, nor decides for the team. Not for tech-stack or vendor choice, pricing and go-to-market, engineering architecture, security, legal, or HR decisions."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/product-design-advisor/
 Source profile: subagents/product-design-advisor/profile.yaml
 Regenerate with: /author-subagent --update product-design-advisor
 Generator version: 0.1.0
-Profile version: 0.2.0
-Generated: 2026-07-22T02:23:26.944698+00:00
+Profile version: 0.2.1
+Generated: 2026-07-25T06:38:17.336761+00:00
 -->
 
 ## Role

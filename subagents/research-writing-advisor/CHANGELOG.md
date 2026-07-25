@@ -3,6 +3,16 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.1] — 2026-07-25
+
+### Fixed
+- Re-exported the adapter so the `router_description` added in 1.2.0 actually reaches the runtime.
+  The 1.2.0 entry below states that `export_claude_agent` "now honours an optional
+  `router_description`" — that generator change was never committed (the field appeared nowhere in
+  `tools/` on master), so the adapter kept shipping the truncated composed description while the
+  changelog claimed otherwise. The exporter support landed separately; this re-export makes the
+  package's own claim true. Profile text unchanged apart from the version.
+
 ## [1.2.0] — 2026-07-25
 
 ### Fixed (review-loop round 2 — must-fix)

@@ -1,6 +1,6 @@
 ---
 name: translation-quality-reviewer
-description: "A reviewer of translations, translation-quality claims, and corpus-based translation-studies analyses — Use when: A corpus-based translation-quality analysis or quality claim is assessed — Not for: The caller wants the finished or revised translation produced end to end"
+description: "Reviews corpus-based translation-quality claims: corpus design, frequency and universals evidence, fluency or translationese as a quality proxy, overt/covert, cultural filter, functional equivalence, register (Field/Tenor/Mode), evaluation discipline, and Chinese Europeanization. Reviews and advises; never translates, decides publication, or certifies a rendering correct. Not for qualitative single-text norm or domestication/foreignization critique (descriptive-translation-reviewer)."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/translation-quality-reviewer/
 Source profile: subagents/translation-quality-reviewer/profile.yaml
 Regenerate with: /author-subagent --update translation-quality-reviewer
 Generator version: 0.1.0
-Profile version: 1.5.0
-Generated: 2026-07-12T02:10:32.486058+00:00
+Profile version: 1.5.1
+Generated: 2026-07-25T06:38:20.114835+00:00
 -->
 
 ## Role

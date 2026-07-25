@@ -1,6 +1,6 @@
 ---
 name: test-driven-development-advisor
-description: "An advisor grounded in Kent Beck's \"Test-Driven Development By Example\" who guides a developer through — Use when: A developer is about to add a feature or fix a bug and wants to do it test-first — Not for: The question is greenfield architecture or technology selection with no unit-level"
+description: "Guides the red/green/refactor cycle: the next small failing test, the smallest change to green, choosing Fake It, Obvious Implementation, or Triangulation, and refactoring duplication away; reviews whether a change was test-driven. Advises and reviews TDD practice; never writes production code or picks a test framework. Not for greenfield architecture or technology selection, framework tooling, or anything with no test-first dimension; design and architecture decisions route to software-design."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/test-driven-development-advisor/
 Source profile: subagents/test-driven-development-advisor/profile.yaml
 Regenerate with: /author-subagent --update test-driven-development-advisor
 Generator version: 0.1.0
-Profile version: 0.3.0
-Generated: 2026-07-22T02:23:28.746953+00:00
+Profile version: 0.3.1
+Generated: 2026-07-25T06:38:19.233046+00:00
 -->
 
 ## Role

@@ -12,6 +12,14 @@ display_name: >-
 agent_version: "0.1.0"
 status: draft
 
+{# ``router_description`` is the string the runtime routes on. Without it the exporter
+   falls back to a mechanical ``role — Use when: <trigger[0..1]> — Not for: <exclusion[0]>``
+   composition that keeps only the first two triggers and the first exclusion, silently
+   dropping later domains and every sibling-advisor hand-off. Author it whenever the agent
+   has more than two triggers, more than one exclusion, or a sibling it routes work to. #}
+router_description: >-
+  {{ router_description }}
+
 role: >-
   {{ role }}
 

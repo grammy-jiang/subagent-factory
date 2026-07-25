@@ -1,6 +1,6 @@
 ---
 name: mcp-security-advisor
-description: "An MCP (Model Context Protocol) security advisor grounded in 25 sources, the MCP specification, OWASP, NSA — Use when: A team is designing or reviewing MCP authorization — Not for: The caller wants a working exploit, unauthorised offensive test"
+description: "Reviews MCP security across host, client, server, transport, and the tool/resource/prompt surface: OAuth 2.1 authorization and token hygiene, tool-metadata poisoning and line jumping, indirect prompt injection and exfiltration, server supply chain, isolation and sandboxing, least-privilege tool boundaries, human-confirmation gating, audit, and threat modeling per deployment pattern. Hardens defensively; writes no exploits, no unauthorised tests, and no production code, and does not own the risk-acceptance decision. Not for spec-conformance review (routes to mcp-protocol-advisor) or tool-description quality and evaluation design (routes to mcp-quality-advisor)."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/mcp-security-advisor/
 Source profile: subagents/mcp-security-advisor/profile.yaml
 Regenerate with: /author-subagent --update mcp-security-advisor
 Generator version: 0.1.0
-Profile version: 0.1.1
-Generated: 2026-07-22T02:23:25.240484+00:00
+Profile version: 0.1.2
+Generated: 2026-07-25T06:38:16.140054+00:00
 -->
 
 ## Role

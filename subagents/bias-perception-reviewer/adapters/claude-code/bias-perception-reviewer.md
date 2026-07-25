@@ -1,6 +1,6 @@
 ---
 name: bias-perception-reviewer
-description: "A reviewer and advisor who examines analytic judgments, forecasts, and decision reasoning for cognitive bias — Use when: Reviewing an analytic product, estimate, or brief for cognitive bias and perceptual — Not for: The caller wants the substantive intelligence, policy"
+description: "Reviews analytic judgments, forecasts and decision reasoning for cognitive bias and perceptual distortion: anchoring, availability, representativeness, unexamined mind-set; forecast calibration against base rates and a track record; motivated reasoning and belief perseverance; misreading another actor's intentions or signals (attribution error, centralized-actor assumption, deterrence/spiral); and ACH, alternative futures and premortems. Reviews and advises; never makes the judgment or certifies an analysis correct. Not for data collection, clinical assessment, or rationalising a conclusion already reached."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/bias-perception-reviewer/
 Source profile: subagents/bias-perception-reviewer/profile.yaml
 Regenerate with: /author-subagent --update bias-perception-reviewer
 Generator version: 0.1.0
-Profile version: 1.0.0
-Generated: 2026-07-22T02:23:21.900797+00:00
+Profile version: 1.0.1
+Generated: 2026-07-25T06:38:13.276845+00:00
 -->
 
 ## Role

@@ -46,6 +46,20 @@ _PLATFORM_FAIL_TOKENS = [
 # Heuristic for an ordered multi-step workflow leaking into the profile body.
 _STEP_RE = re.compile(r"(?:^|\s)(?:step\s*\d|\d\.\s|\bfirst\b.+?\bthen\b)", re.IGNORECASE)
 
+# A sibling package this agent routes work to. Profiles name one either as a bare slug
+# ("belongs to research-writing-advisor") or in prose with the last word spaced off
+# ("hand to a software-design reviewer"), so the final separator may be "-" or " ".
+# A hyphenated prefix is required, which keeps generic prose ("a design reviewer",
+# "an expert reviewer") from matching.
+_SIBLING_RE = re.compile(r"\b([a-z0-9]+(?:-[a-z0-9]+)+[- ](?:advisor|reviewer))\b")
+
+
+def _sibling_slug(match: str) -> str:
+    """Normalise a matched sibling reference to its slug form (spaced prose -> slug)."""
+    head, _, tail = match.rpartition(" ")
+    return f"{head}-{tail}" if head else match
+
+
 # Wording that signals a quality-bar check demands evidence/citation.
 _EVIDENCE_WORDS = (
     "evidence",
@@ -86,6 +100,8 @@ class Fields:
 
     base: Path
     slug: str
+    router_description: str
+    handoff_rules: list
     when_to_use: list
     when_not_to_use: list
     inputs_required: list
@@ -324,6 +340,52 @@ def _check_body_size(num: int, f: Fields, add: _Emit) -> None:
         )
 
 
+# Routing signal survives export
+def _check_router_description(num: int, f: Fields, add: _Emit) -> None:
+    """Warn when the adapter's routing string would silently lose scope.
+
+    The adapter frontmatter ``description`` is what the runtime routes on. Absent a
+    ``router_description``, ``export_claude_agent`` composes it as
+    ``role — Use when: <trigger[0..1]> — Not for: <exclusion[0]>``, which keeps only the
+    first two triggers and the first exclusion. For an agent with more triggers, more
+    exclusions, or a sibling it hands work to, the dropped text is exactly the signal a
+    router needs — so the loss is invisible at runtime and nothing else catches it.
+    """
+    if f.router_description:
+        add(num, "PASS", "router-description", "authored routing description present")
+        return
+
+    dropped_triggers = max(0, len(f.when_to_use) - 2)
+    dropped_exclusions = max(0, len(f.when_not_to_use) - 1)
+    siblings = sorted(
+        {
+            slug
+            for text in list(f.when_not_to_use) + list(f.handoff_rules)
+            for tok in _SIBLING_RE.findall(str(text))
+            if (slug := _sibling_slug(tok)) != f.slug
+        }
+    )
+    if not (dropped_triggers or dropped_exclusions or siblings):
+        add(num, "PASS", "router-description", "composed description is lossless")
+        return
+
+    lost = []
+    if dropped_triggers:
+        lost.append(f"{dropped_triggers} of {len(f.when_to_use)} triggers")
+    if dropped_exclusions:
+        lost.append(f"{dropped_exclusions} of {len(f.when_not_to_use)} exclusions")
+    if siblings:
+        lost.append(f"hand-off to {', '.join(siblings)}")
+    add(
+        num,
+        "WARNING",
+        "router-description",
+        "no router_description; the composed adapter description drops "
+        + "; ".join(lost)
+        + " — author router_description so routing sees the full remit",
+    )
+
+
 # No platform-specific paths or tool names in core
 def _check_platform_neutral(num: int, f: Fields, add: _Emit) -> None:
     core_text = " ".join(str(t) for t in f.body_fields).lower()
@@ -396,6 +458,9 @@ _CHECKS: list[tuple[int, _Check]] = [
     (16, _check_provenance_ledger),
     (17, _check_no_unresolved_conflict),
     (18, _check_golden_tests),
+    # Appended, not inserted: the ordinals are referenced by existing reports and tests, so a
+    # new check takes the next number rather than renumbering the established ones.
+    (19, _check_router_description),
 ]
 
 
@@ -444,6 +509,8 @@ def _extract_fields(profile: dict, base: Path) -> Fields:
     and the field-derivation logic lives in one place.
     """
     slug = str(profile.get("slug", "") or "")
+    router_description = " ".join(str(profile.get("router_description", "") or "").split())
+    handoff_rules = _as_list(profile.get("handoff_rules"))
     when_to_use = _as_list(profile.get("when_to_use"))
     when_not_to_use = _as_list(profile.get("when_not_to_use"))
     inputs_required = _as_list(profile.get("inputs", {}).get("required"))
@@ -477,6 +544,8 @@ def _extract_fields(profile: dict, base: Path) -> Fields:
     return Fields(
         base=base,
         slug=slug,
+        router_description=router_description,
+        handoff_rules=handoff_rules,
         when_to_use=when_to_use,
         when_not_to_use=when_not_to_use,
         inputs_required=inputs_required,

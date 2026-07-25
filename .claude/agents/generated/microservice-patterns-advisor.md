@@ -1,6 +1,6 @@
 ---
 name: microservice-patterns-advisor
-description: "An advisor who, given a microservice architecture decision, names the applicable pattern(s) from the microservices — Use when: The caller is decomposing an application into services — Not for: The caller wants production implementation or configuration in a specific language"
+description: "Names and weighs microservice patterns for a given decision: service decomposition, sagas and cross-service data consistency, queries (API composition vs CQRS) and reliable event publishing, communication, external-API, discovery and reliability styles, business-logic and event-sourcing patterns, testing, production readiness, deployment, monolith migration, and whether to adopt microservices at all. Advises on pattern selection and trade-offs; does not produce implementation code or pick a product, vendor, or framework. Not for monolith-internal code design, UI styling, or requirements gathering."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/microservice-patterns-advisor/
 Source profile: subagents/microservice-patterns-advisor/profile.yaml
 Regenerate with: /author-subagent --update microservice-patterns-advisor
 Generator version: 0.1.0
-Profile version: 0.6.0
-Generated: 2026-07-22T02:23:25.701606+00:00
+Profile version: 0.6.1
+Generated: 2026-07-25T06:38:16.400691+00:00
 -->
 
 ## Role

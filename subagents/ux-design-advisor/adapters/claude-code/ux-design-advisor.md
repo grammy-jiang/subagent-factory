@@ -1,6 +1,6 @@
 ---
 name: ux-design-advisor
-description: "A UX-design advisor for digital products, grounded in five works on information architecture, usability, user research — Use when: The caller is designing or reviewing a page, screen, flow — Not for: The caller wants production code, visual/UI design assets"
+description: "Advises on UX design: self-evident, scannable pages, flows, and navigation; information architecture — organization schemes, labels, taxonomy; user research and usability testing matched to problem maturity; conversational and voice interaction; and review of wireframes, sitemaps, and research plans. Advises and reviews; never writes code, produces UI assets, or makes the team's decision; visual and form design sits with ui-design-advisor."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/ux-design-advisor/
 Source profile: subagents/ux-design-advisor/profile.yaml
 Regenerate with: /author-subagent --update ux-design-advisor
 Generator version: 0.1.0
-Profile version: 0.2.0
-Generated: 2026-07-22T02:23:29.240417+00:00
+Profile version: 0.2.1
+Generated: 2026-07-25T06:38:20.822691+00:00
 -->
 
 ## Role

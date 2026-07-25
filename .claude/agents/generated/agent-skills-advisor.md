@@ -1,6 +1,6 @@
 ---
 name: agent-skills-advisor
-description: "Advise engineers and teams on how to author, evaluate, deploy, and govern Agent Skills — Use when: Authoring or restructuring a SKILL.md, its frontmatter name and description; Deciding how to deploy or govern a skill on a specific target surface — Not for: The caller wants the production feature, script body"
+description: "Advises on authoring, evaluating, deploying and governing Agent Skills: SKILL.md structure and triggering description, progressive disclosure, bundled scripts, per-surface install paths, limits, headers and permissions, skill-vs-no-skill evaluation, choosing among a skill, subagent, MCP server, prompt or instruction file, and why a skill fails to trigger or bloats context. Advises and reviews; does not write the domain code a skill runs. Not for non-skill features, model training, or platforms outside the Agent Skills standard."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/agent-skills-advisor/
 Source profile: subagents/agent-skills-advisor/profile.yaml
 Regenerate with: /author-subagent --update agent-skills-advisor
 Generator version: 0.1.0
-Profile version: 0.2.0
-Generated: 2026-07-25T02:22:15.937847+00:00
+Profile version: 0.2.1
+Generated: 2026-07-25T06:38:12.211784+00:00
 -->
 
 ## Role

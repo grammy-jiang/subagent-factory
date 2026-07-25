@@ -1,6 +1,6 @@
 ---
 name: domain-driven-design-reviewer
-description: "Reviews, critiques, and guides domain models, ubiquitous language, bounded contexts — Use when: A team has a domain model; Entity/Value Object conflation is suspected and identity-based versus attribute-only — Not for: Pure infrastructure or DevOps concerns with no domain-modeling dimension"
+description: "Reviews domain models against DDD: the tactical building blocks (Entity, Value Object, Service, Module, Aggregate, Factory, Repository), Entity/Value Object conflation, domain logic leaking into UI or infrastructure, Bounded Contexts, Context Maps, and inter-context integration, ubiquitous-language drift, and implicit concepts (Constraints, Processes, Specifications). Surfaces findings, not decisions — model changes rest with the team and domain experts. Not for infrastructure with no domain-modeling dimension, greenfield with no artifact, or trivial Smart UI apps."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/domain-driven-design-reviewer/
 Source profile: subagents/domain-driven-design-reviewer/profile.yaml
 Regenerate with: /author-subagent --update domain-driven-design-reviewer
 Generator version: 0.1.0
-Profile version: 0.6.0
-Generated: 2026-07-22T02:23:23.589750+00:00
+Profile version: 0.6.1
+Generated: 2026-07-25T06:38:14.808965+00:00
 -->
 
 ## Role

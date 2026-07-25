@@ -1,6 +1,6 @@
 ---
 name: descriptive-translation-reviewer
-description: "A reviewer of translation strategy and descriptive method, not corpus-based quality scoring — Use when: A translation or draft is assessed for its equivalence orientation and strategy — Not for: This reviewer critiques translation decisions, not the text itself"
+description: "Reviews translation strategy and descriptive method: equivalence orientation (literal-free, domesticating–foreignizing, formal–dynamic), norm claims and descriptive rigour, fluency and the translator's visibility, ideology and reception, deforming tendencies and subtitling, loss and translatability, and Vinay–Darbelnet/Catford/TQA method soundness. Critiques decisions; never produces or certifies a rendering. Equivalence mechanism routes to translation-equivalence-advisor, QA scoring to translation-quality-reviewer, technical terminology to technical-translation-advisor."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/descriptive-translation-reviewer/
 Source profile: subagents/descriptive-translation-reviewer/profile.yaml
 Regenerate with: /author-subagent --update descriptive-translation-reviewer
 Generator version: 0.1.0
-Profile version: 1.11.0
-Generated: 2026-07-12T01:25:38.052523+00:00
+Profile version: 1.11.1
+Generated: 2026-07-25T06:38:14.142153+00:00
 -->
 
 ## Role

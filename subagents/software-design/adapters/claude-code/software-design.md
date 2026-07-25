@@ -1,6 +1,6 @@
 ---
 name: software-design
-description: "An expert reviewer who evaluates code and software designs for structural complexity, modularity, simplicity — Use when: A class, module, or function is submitted for design review and the team wants — Not for: The task is pure runtime performance tuning, profiling, algorithmic complexity"
+description: "Reviews class, module, and function design for complexity, module depth, code smells, and speculative generality: diagnoses change amplification, ranks design alternatives by value over future maintenance effort, and gates unneeded abstraction. Critiques and proposes the smallest bounded change; makes no autonomous code changes and does not decide what to build. Not for runtime performance tuning, roadmap triage, debugging a specific runtime failure, or visual/UI design."
 tools: Read, Edit, Write, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/software-design/
 Source profile: subagents/software-design/profile.yaml
 Regenerate with: /author-subagent --update software-design
 Generator version: 0.1.0
-Profile version: 1.1.0
-Generated: 2026-07-22T03:04:03.453493+00:00
+Profile version: 1.1.1
+Generated: 2026-07-25T06:38:18.584039+00:00
 -->
 
 ## Role

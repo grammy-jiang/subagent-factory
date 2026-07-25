@@ -1,5 +1,14 @@
 # Changelog — caching-strategy-advisor
 
+## [0.6.1] — 2026-07-25
+
+### Added
+- `router_description` in `profile.yaml`: the adapter frontmatter `description` is the string the
+  runtime routes on, and without this field the exporter composes it from the role plus only the
+  first two `when_to_use` triggers and the first `when_not_to_use` exclusion — silently dropping the
+  remaining domains. The authored description names the full remit and boundary. Adapter
+  re-exported; no principle, rule, or skill changed.
+
 ## 0.6.0 — 2026-06-28
 
 ### Changed

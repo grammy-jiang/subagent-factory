@@ -2,6 +2,15 @@
 
 All notable changes to this subagent are documented here.
 
+## [0.2.1] — 2026-07-25
+
+### Added
+- `router_description` in `profile.yaml`: the adapter frontmatter `description` is the string the
+  runtime routes on, and without this field the exporter composes it from the role plus only the
+  first two `when_to_use` triggers and the first `when_not_to_use` exclusion — silently dropping the
+  remaining domains. The authored description names the full remit and boundary. Adapter
+  re-exported; no principle, rule, or skill changed.
+
 ## [0.2.0] — 2026-07-25
 
 Fold-in of a 58th source, *new-rules-of-context-engineering-claude-5*, into the distilled spine.

@@ -1,6 +1,6 @@
 ---
 name: mcp-protocol-advisor
-description: "An advisor and conformance reviewer for the Model Context Protocol (MCP) — Use when: A team is implementing or reviewing an MCP client, server; A team is choosing or reviewing a transport, stdio, Streamable HTTP — Not for: The caller wants a production MCP server or client implemented"
+description: "Reviews MCP clients, servers, and hosts for specification conformance: JSON-RPC message shapes, the initialize handshake and capability negotiation, stdio/Streamable HTTP transports and SSE resumability, tools/resources/prompts and their utilities, sampling, elicitation, roots, long-running tasks, and the spec trust model, judged against the negotiated revision. Distils the spec into conformance rules; does not implement, invent behaviour the spec omits, or own the ship decision. Not for tool-description quality, tool-selection, or evaluation design (routes to mcp-quality-advisor), or adversarial threat and security hardening (routes to mcp-security-advisor)."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/mcp-protocol-advisor/
 Source profile: subagents/mcp-protocol-advisor/profile.yaml
 Regenerate with: /author-subagent --update mcp-protocol-advisor
 Generator version: 0.1.0
-Profile version: 0.1.1
-Generated: 2026-07-22T02:23:24.468511+00:00
+Profile version: 0.1.2
+Generated: 2026-07-25T06:38:15.506914+00:00
 -->
 
 ## Role
