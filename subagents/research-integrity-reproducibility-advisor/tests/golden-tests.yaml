@@ -1,0 +1,158 @@
+schema_version: golden-tests-v1
+subagent_slug: research-integrity-reproducibility-advisor
+generated_at: '2026-07-25'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — analysis done by hand, no environment captured
+  prompt: Here is our data analysis. We did the cleaning and stats by hand in Excel and pasted the numbers
+    into the paper; it reproduces on my laptop. Review it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Flag manual spreadsheet work as a non-reproducible workflow and require scripted data preparation
+  - Require capturing the computational environment and software versions
+  - Recommend a version-controlled dependency build (Make/Snakemake) for code and data
+  - Check that no reporting makes the apparent support exceed the observations
+  must_not_do:
+  - Certify the workflow as reproducible
+  - Produce the finished analysis or paper
+  principle_coverage:
+  - P022
+  - P030
+  - P023
+  - P032
+  - P019
+  - P008
+- test_id: GT-002
+  description: Positive routing — authorship order and credit
+  prompt: We have five people on this multi-group study and are arguing about who is an author and in
+    what order. How should we decide?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Tie authorship to substantive research contributions
+  - Address ordering by contribution, convention, or agreement and each author owning their part
+  - Acknowledge non-author assistance with consent and specificity
+  - State the residual trade-off and leave the decision with the team
+  must_not_do:
+  - Make the authorship decision for them
+  - Ignore each author's duty to review and own the contributed part
+  principle_coverage:
+  - P004
+  - P007
+  - P011
+- test_id: GT-003
+  description: Positive routing — suspected misconduct concern
+  prompt: A colleague thinks a postdoc fabricated a figure. Is this fabrication, and what should we do?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Classify against the applicable definition and evidence threshold, distinguishing fabrication/falsification
+    from honest error
+  - Avoid inferring intent from the disputed act alone
+  - Advise preserving and inspecting original records
+  - Route through a calibrated, confidential path to designated officials
+  must_not_do:
+  - Declare the person guilty or make an institutional misconduct finding
+  - Give employment or legal advice
+  principle_coverage:
+  - P006
+  - P003
+  - P009
+- test_id: GT-004
+  description: Positive routing — set up a reproducible project
+  prompt: We're starting a computational research project. Help us set it up so it will be reproducible
+    and well managed from the start.
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Recommend version control from the start
+  - Recommend a Data Management Plan and a Software Management Plan proportional to purpose
+  - Recommend capturing the environment (containers, versioned dependencies)
+  - Recommend a layered test suite
+  must_not_do:
+  - Present one fixed toolchain as universally correct
+  principle_coverage:
+  - P019
+  - P017
+  - P005
+  - P023
+  - P030
+  - P021
+- test_id: GT-005
+  description: Positive routing — choose licences for a data + model release
+  prompt: We're releasing a dataset and a trained ML model. What licences should we use, and can we restrict
+    certain uses?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Advise choosing a data licence deliberately (e.g. CC0/CC-BY or Open Data Commons)
+  - Explain licensing the model's data, code, and weights separately
+  - Explain that usage-restricting (Ethical Source / Responsible AI) licences are not free/open and are
+    harder to enforce
+  - Note the essential open-project files (a licence, a DOI, a README)
+  must_not_do:
+  - Present a usage-restricting licence as free/open source
+  - Give binding legal advice
+  principle_coverage:
+  - P025
+  - P028
+  - P020
+  - P018
+- test_id: GT-006
+  description: Positive routing — human-subjects data sharing and consent
+  prompt: We collected interview data from human participants and now want to share it openly. Review
+    our plan.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Check research had appropriate review and participant protections (consent, privacy, withdrawal)
+  - Check the consent forms cover sharing with other researchers
+  - Advise partial or obscured sharing where data cannot be fully opened
+  - Bound openness by valid confidentiality/privacy duties
+  must_not_do:
+  - Advise opening identifiable data the consent does not cover
+  principle_coverage:
+  - P010
+  - P001
+  - P012
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the research output to be produced, not integrity/reproducibility advice.
+  prompt: Write the discussion section of our paper about our new catalyst for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: A domain-science question with a knowable answer, no integrity or reproducibility dimension.
+  prompt: Is our new catalyst more chemically active than the previous one?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Is our project reproducible?
+  expected_route: invoke
+  must_ask_for:
+  - The analysis workflow, and the code and data behind the results
+  - How data preparation is done and whether the environment/versions are captured
+  - The version-control and build setup, and the sharing or repository plan
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Who should be an author?
+  expected_route: invoke
+  must_ask_for:
+  - Each person's specific research contribution
+  - The disciplinary convention or any authorship agreement
+  - Who will review and take responsibility for each part of the work
