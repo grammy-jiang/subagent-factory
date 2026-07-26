@@ -1,0 +1,199 @@
+schema_version: golden-tests-v1
+subagent_slug: instructional-design-advisor
+generated_at: '2026-07-26'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — unit built from topics with a quiz bolted on the end
+  prompt: Review our five-week unit plan. It lists the chapters we'll cover, the activities students enjoy,
+    and ends with a multiple-choice quiz. The aim is 'students will understand supply and demand.'
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Work backward from desired results to evidence to teaching
+  - Resolve 'understand' into the knowledge subtype and cognitive process required
+  - Reject the multiple-choice quiz as sufficient evidence of understanding
+  - Require an authentic task with explicit public criteria
+  must_not_do:
+  - Write the finished unit plan and quiz for them
+  - Certify the unit as effective
+  principle_coverage:
+  - P013
+  - P060
+  - P071
+  - P179
+  - P014
+  - P015
+- test_id: GT-002
+  description: Positive routing — e-learning module with narrated text on screen and decoration
+  prompt: Review our e-learning module. Each screen narrates the text that's also printed on screen, has
+    background music and stock photos, and the diagram labels are in a legend below.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Remove the on-screen duplication of narrated words
+  - Strip background music, decorative images, and irrelevant words
+  - Place printed words next to the graphic part they describe
+  - Eliminate split attention across the interface
+  must_not_do:
+  - Rebuild the module for them
+  - Justify the duplication as serving different learning styles
+  principle_coverage:
+  - P004
+  - P078
+  - P139
+  - P140
+  - P001
+  - P043
+- test_id: GT-003
+  description: Positive routing — training request before any analysis
+  prompt: Our error rate is up so we want a training course for the whole team. Where do we start?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Begin performance improvement without presuming instruction
+  - Observe the actual setting and consult frontline practitioners
+  - Separate capability gaps from environment, incentive, and systems causes
+  - Trace the problem to an organisational outcome and quantify the gap
+  must_not_do:
+  - Start designing the course immediately
+  - Promise the training will cut the error rate
+  principle_coverage:
+  - P130
+  - P168
+  - P054
+  - P022
+  - P002
+- test_id: GT-004
+  description: Positive routing — assessment scheme graded on a curve with hidden criteria
+  prompt: Review our assessment scheme. We grade on a curve, the criteria live in the marker's head, and
+    everything rides on one final exam.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Prefer criterion-referenced standards over norm-referenced grading on a curve
+  - Require explicit public criteria applied before judgment
+  - Gather evidence along the way by varied methods rather than one snapshot
+  - Separate formative from summative purpose and label them unmistakably
+  must_not_do:
+  - Assign the grades or set the pass mark for them
+  - Treat a single exam score as sufficient outcome evidence
+  principle_coverage:
+  - P039
+  - P015
+  - P136
+  - P075
+  - P083
+- test_id: GT-005
+  description: Positive routing — build a course from verified need to evaluation
+  prompt: We've confirmed a real skill gap. Plan how we get from here to a working course we can trust.
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Set outcomes and the evidence of achievement before building materials
+  - Derive instructional strategy from the goal, analyses, objectives, and assessments
+  - Use experiential prototypes with representative learners while change is affordable
+  - Plan formative evaluation on a usable draft with one-to-one, small-group, and field evidence
+  must_not_do:
+  - Build the materials for them
+  - Treat specification sign-off as evidence the design works
+  principle_coverage:
+  - P013
+  - P102
+  - P133
+  - P073
+  - P122
+- test_id: GT-006
+  description: Positive routing — group project failing with free-riding and vague outcomes
+  prompt: Review our group project. Teams pick their own topic, one person does the work, and we grade
+    the final artefact as a group.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Structure group learning with relevant resources, responsibility, and a cognitively demanding agenda
+    tied to assessed outcomes
+  - Require visible individual contribution before using group evidence
+  - Share functional product criteria before learners begin
+  - Calibrate option choice for demand, workload, and scoring before grading it
+  must_not_do:
+  - Assign the group grades for them
+  - Treat the format itself as the teaching method
+  principle_coverage:
+  - P087
+  - P092
+  - P164
+  - P145
+  - P147
+- test_id: GT-007
+  description: Positive routing — training delivered but the behaviour is not appearing at work
+  prompt: Everyone passed the training six months ago but we don't see the new procedure being used on
+    the job. What now?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Establish with valid posttest evidence that learners could perform every main goal performance
+  - Measure use by degree, frequency, context, and prior use
+  - Diagnose nonuse across relevance, permission, support, resources, and incentives
+  - Triangulate across learners and relevant workplace observers
+  must_not_do:
+  - Conclude the training failed without posttest evidence
+  - Prescribe more training as the default remedy
+  principle_coverage:
+  - P093
+  - P045
+  - P051
+  - P066
+  - P131
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the deliverable to be built end to end, not instructional-design advice.
+  prompt: Write the full slide deck, workbook, and final exam for our onboarding course.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Asks for learners to be graded — the teacher of record's decision, not design advice.
+  prompt: Grade these thirty student essays and give each one a mark out of 100.
+  expected_route: do_not_invoke
+- test_id: NR-003
+  description: A subject-matter correctness question for a content expert, outside the design scope.
+  prompt: Is the second law of thermodynamics stated correctly in this chapter?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Make our course better.
+  expected_route: invoke
+  must_ask_for:
+  - Which part — the outcomes, the assessment, the activities, or the materials
+  - The learners, the setting, and the delivery format
+  - What evidence exists that something is not working
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Review my assessment.
+  expected_route: invoke
+  must_ask_for:
+  - The assessment tasks and criteria themselves
+  - The outcomes they are meant to provide evidence for
+  - Whether the purpose is formative, summative, or both
+- test_id: MC-003
+  description: Underspecified request
+  prompt: We need training.
+  expected_route: invoke
+  must_ask_for:
+  - The organisational outcome or problem behind the request
+  - Whether a capability gap has been distinguished from environment, incentive, and systems causes
+  - Who the performers are and what they can currently do

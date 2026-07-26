@@ -1,0 +1,198 @@
+schema_version: golden-tests-v1
+subagent_slug: learning-science-advisor
+generated_at: '2026-07-26'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — replace rereading with retrieval and spacing
+  prompt: My students revise by rereading and highlighting their notes, then do badly in the exam. We
+    have three weeks. What should they do instead?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Default to practice testing and distributed practice and displace highlighting or rereading as the
+    primary method
+  - Require genuine reconstruction from memory with an unaided attempt before the answer is revealed
+  - Pair retrieval with an accuracy check because learners cannot verify themselves
+  - Spread review across the three weeks, revisiting missed items sooner and expanding intervals after
+    success
+  must_not_do:
+  - Promise that the exam grade will improve
+  - Write the revision materials or teach the subject content
+  principle_coverage:
+  - P020
+  - P059
+  - P135
+  - P107
+  - P050
+  - P040
+  - P118
+- test_id: GT-002
+  description: Positive routing — appraise a learning-styles platform
+  prompt: We're buying a platform that assesses each learner's visual/auditory/kinesthetic style and streams
+    matching content. Review that decision.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Refuse styles-based differentiation absent evidence of a stable crossover
+  - Report that modality-matched instruction yields little or no gain and the preference groups overlap
+    heavily
+  - Distinguish modality preference from outcome evidence
+  - Choose presentation because it represents the content well, and treat accessibility accommodations
+    separately
+  must_not_do:
+  - Endorse learning-style matching as evidence-based
+  - Make the purchase decision for the caller
+  principle_coverage:
+  - P011
+  - P103
+  - P044
+  - P017
+  - P052
+- test_id: GT-003
+  description: Positive routing — students execute but choose the wrong method
+  prompt: My students can do each formula when I tell them which one, but on a mixed test they pick the
+    wrong one. Review my practice sets.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Recommend interleaved rather than blocked practice for discriminating among types or strategies
+  - Introduce each new type with enough blocked practice first, then mix it cumulatively with what it
+    must be distinguished from
+  - Practise applicability directly by mixing plausible problem types and contexts
+  - Judge the change by delayed discrimination and transfer, not practice fluency
+  must_not_do:
+  - Present interleaving as universally superior to blocking regardless of goal
+  - Write the new problem sets for the caller
+  principle_coverage:
+  - P028
+  - P142
+  - P001
+  - P035
+  - P064
+- test_id: GT-004
+  description: Positive routing — design a course from outcomes with load and scaffolding managed
+  prompt: I'm building a new introductory module from scratch. Help me plan it so beginners aren't overwhelmed.
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Start from substantive demonstrable outcomes and plan backward
+  - Use worked examples and scaffolds for novices and plan how they fade
+  - Keep essential state visible and pace multistep work within working memory
+  - Verify prerequisite knowledge is reliably retrievable before demanding inquiry or problem solving
+  must_not_do:
+  - Write the module's content or lesson materials
+  - Present one fixed course template as universally correct
+  principle_coverage:
+  - P089
+  - P101
+  - P067
+  - P047
+  - P136
+  - P009
+- test_id: GT-005
+  description: Positive routing — feedback that reports a score instead of closing the gap
+  prompt: I return marked essays with a grade and a few comments at the end of term. Review my feedback
+    practice.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Treat feedback's purpose as reducing the discrepancy between current understanding and the learning
+    intention
+  - Require feedback to give task or process information rather than only correctness
+  - Return targeted feedback while learners can still apply it to related work
+  - Build a task-specific analytic rubric that separates and weights consequential components
+  must_not_do:
+  - Mark the essays for the caller
+  - Reduce the recommendation to giving more praise
+  principle_coverage:
+  - P051
+  - P088
+  - P099
+  - P036
+- test_id: GT-006
+  description: Positive routing — a misconception that survives explanation
+  prompt: Every year my class insists heavier objects fall faster, even after I explain it. What do I
+    do?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - 'Use refutational teaching: lead with the accurate account, name the misconception briefly, and explain
+    its failure with evidence'
+  - Inoculate against the misleading arguments that will recur
+  - Elicit the learner's current model as a prediction and test it so the discrepancy and failed assumptions
+    become visible
+  - Require learners to justify the more adequate alternative
+  must_not_do:
+  - Assume a clearer explanation alone will replace the model
+  - Teach the physics content itself in place of the design advice
+  principle_coverage:
+  - P043
+  - P078
+  - P025
+  - P114
+- test_id: GT-007
+  description: Positive routing — unstructured group work
+  prompt: My group projects end with one student doing everything and the rest learning nothing. Review
+    how I run them.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Impose structure on the peer learning so goals, learning intentions and success criteria get spelled
+    out
+  - Pair individual accountability with group rewards and script the session
+  - Train collaboration explicitly, with safeguards against dominance and nonparticipation
+  - Require an individual observable attempt before peer or whole-class discussion
+  must_not_do:
+  - Assign the group roles or produce the project brief for the caller
+  - Attribute the imbalance to fixed learner traits
+  principle_coverage:
+  - P095
+  - P097
+  - P075
+  - P138
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the subject content to be taught or written, not for learning-design advice.
+  prompt: Explain how photosynthesis works so I can put it in my slides.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Requests an individual diagnosis of a learner, which belongs to a qualified specialist.
+  prompt: Based on this description of my daughter's behaviour, does she have dyslexia or ADHD?
+  expected_route: do_not_invoke
+- test_id: NR-003
+  description: Requests an admission decision, which belongs to the responsible body.
+  prompt: Which of these two candidates should we admit to the programme?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: How should I teach this better?
+  expected_route: invoke
+  must_ask_for:
+  - What the learners must be able to do afterwards, and when that is measured
+  - What they already know and where they currently get stuck
+  - How the teaching and practice are structured now, and the time available
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Is spaced repetition worth it?
+  expected_route: invoke
+  must_ask_for:
+  - The retention horizon the learning has to survive to
+  - The material and whether the goal is facts, discrimination, or higher-order use
+  - How much total practice time exists and whether retrieval is currently checked
