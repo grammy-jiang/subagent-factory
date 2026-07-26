@@ -1,5 +1,8 @@
 ---
 name: spacing-distributed-practice-and-consolidation
+description: Schedules spaced retrieval, cumulative assessment, and consolidation
+  time so revision, practice, and review plans protect retention rather than rely
+  on massed repetition.
 kind: skill
 status: ready
 provenance:
@@ -39,12 +42,11 @@ provenance:
   authored_from_digest: 895e16e7d752c376905c75afda5c88d71b75eca47653d4b38164682605320ad1
 ---
 
-
 # Spacing, Distributed Practice And Consolidation
 
 ## Purpose
 
-This skill schedules practice over time. It treats distributed practice as a high-utility default across ages, materials, and retention periods while preserving uncertainty for complex structured learning and higher-order outcomes; it sets the gap in relation to the desired retention horizon, using roughly one tenth to one fifth of that horizon as a provisional planning heuristic adjusted for deadlines and retrieval success. It repeats retrieval across intervals that permit some forgetting while keeping each attempt challenging but recoverable, revisits missed items sooner, expands intervals after success, and retains occasional long-interval checks. It makes prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final, keeps that cumulative load sustainable through a pruned reusable pool sampled rather than exhausted, and protects consolidation time — including sleep — rather than treating polished rapid repetitions as durable learning.
+This skill advises the instructor, course designer, or study-plan owner on turning a revision, review, or assessment schedule into spaced, cumulative practice that protects retention rather than relying on massed repetition. It works at the grain of a syllabus, unit, or individual revision calendar — deciding when material recurs, how far apart retrieval attempts fall, and where consolidation time must be protected.
 
 ## When to use
 
@@ -55,38 +57,60 @@ This skill schedules practice over time. It treats distributed practice as a hig
 
 ## Procedure
 
-1. Allow consolidation time, including sleep when schedules permit, and later reconstructive retrieval instead of treating polished rapid repetitions as durable learning (P019).
-2. Space preparation early enough to protect sleep (P024).
-3. Make important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment (P027).
-4. Plan spacing early, review after a modest delay, mix older material into later sessions, and retain a final review without making it the only study opportunity (P040).
-5. Set spacing in relation to the desired retention horizon, using roughly one tenth to one fifth of that horizon as a provisional planning heuristic and adjusting for deadlines and retrieval success (P061).
-6. Introduce spacing with small sustainable cumulative practices such as lagged assignments and brief quizzes spanning prior classes, weeks, and months, including prompts that connect new and old knowledge (P065).
-7. Keep cumulative assessment sustainable by maintaining a reusable pool of essential earlier questions, sampling from it rather than testing everything, and pruning it around enduring themes, essential questions, and future performance (P093).
-8. Repeat retrieval across intervals that permit some forgetting, keeping each attempt challenging but recoverable (P110).
-9. Schedule retrieval adaptively (P118).
-10. Use distributed practice as a high-utility default across ages, materials, and retention periods, while preserving uncertainty for complex structured learning, higher-order outcomes, and moderators beyond age (P125).
-11. Inventory prerequisite cognitive skills during planning, schedule several brief practices before relevant assessments, and verify every important component has been rehearsed multiple times (P129).
-12. Distribute repeated retrievals within and across sessions, lengthening intervals for longer retention goals while keeping retrieval achievable through earlier practice or support (P144).
-13. Build reusable knowledge by linking information across episodes, contexts, times, and representations and allowing consolidation between encounters (P145).
+### Set the retention horizon and applicability
+
+1. Confirm that distributed practice is being used as the default plan — it is high-utility across ages, materials, and retention periods — but recommend preserving uncertainty for complex structured learning, higher-order outcomes, and moderators beyond age rather than applying it as a rigid rule (P125).
+2. Have the design owner set the spacing gap in relation to the desired retention horizon, using roughly one tenth to one fifth of that horizon as a provisional planning heuristic, adjusted for deadlines and how retrieval is going (P061).
+3. Recommend building reusable knowledge by linking information across episodes, contexts, times, and representations, and allowing consolidation time between encounters (P145).
+
+### Schedule the intervals
+
+4. Have the instructor plan spacing early, review after a modest delay, mix older material into later sessions, and retain a final review without making it the only study opportunity (P040).
+5. Recommend introducing spacing through small sustainable cumulative practices — lagged assignments and brief quizzes spanning prior classes, weeks, and months — including prompts that connect new and old knowledge (P065).
+6. Recommend repeating retrieval across intervals that permit some forgetting, keeping each attempt challenging but recoverable (P110).
+7. Recommend scheduling retrieval adaptively: revisit missed items soon, expand intervals after success, and retain occasional long-interval checks for important material (P118).
+8. Recommend distributing repeated retrievals within and across sessions, lengthening intervals for longer retention goals while keeping retrieval achievable through earlier practice or support (P144).
+9. Have the instructor inventory prerequisite cognitive skills during planning, schedule several brief practices before relevant assessments, and verify every important component has been rehearsed multiple times (P129).
+
+### Design cumulative assessment
+
+10. Recommend making important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment (P027).
+11. Have the instructor keep cumulative assessment sustainable by maintaining a reusable pool of essential earlier questions, sampling from it rather than testing everything, and pruning it around enduring themes, essential questions, and future performance needs when it becomes unwieldy (P093).
+
+### Sustain and protect consolidation
+
+12. Recommend allowing consolidation time, including sleep when schedules permit, and later reconstructive retrieval instead of treating polished rapid repetitions as durable learning (P019).
+13. Have the instructor space preparation early enough to protect sleep, because recurring sleep loss impairs cognition and post-learning sleep supports consolidation, understanding, retention, and easier relearning (P024).
 
 ## Inputs
 
 - The syllabus, revision plan, or assessment calendar, the retention horizon that matters, and the time actually available to learners.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
-- Overlooking P019: Allow consolidation time, including sleep when schedules permit, and later reconstructive retrieval instead of treating polished rapid repetitions.
-- Overlooking P024: Space preparation early enough to protect sleep.
-- Overlooking P027: Make important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment.
-- Overlooking P040: Plan spacing early, review after a modest delay, mix older material into later sessions, and retain a final review without making it the only study.
-- Overlooking P061: Set spacing in relation to the desired retention horizon, using roughly one tenth to one fifth of that horizon as a provisional planning heuristic.
-- Overlooking P065: Introduce spacing with small sustainable cumulative practices such as lagged assignments and brief quizzes spanning prior classes, weeks, and months.
-- Overlooking P093: Keep cumulative assessment sustainable by maintaining a reusable pool of essential earlier questions, sampling from it rather than testing.
+- A crammed, smooth final re-read is treated as evidence of durable learning, with no consolidation time — including sleep — and no later reconstructive retrieval built into the plan (P019).
+- Preparation is scheduled late enough that it displaces normal sleep, forgoing the consolidation, understanding, and easier relearning that post-learning sleep supports (P024).
+- Prior material is tested only once, at the final exam, instead of being allowed to recur across assignments and quizzes along the way (P027).
+- Spacing is left unplanned until late, the only revisit of older material is a last-minute final review, and no modest-delay review or mixing of older content into later sessions happens beforehand (P040).
+- A fixed review interval (for example, always "review tomorrow") is applied regardless of how far off the target retention date is, instead of scaling the gap to that horizon and adjusting it for deadlines and how retrieval is going (P061).
+- Spacing is introduced as one large one-off overhaul rather than small sustainable cumulative practices, or the practices omit prompts that connect new material back to older knowledge (P065).
+- Cumulative assessment tries to retest everything from earlier in the course rather than sampling from a pruned, reusable pool of essential questions, so the assessment burden becomes unsustainable (P093).
+- Retrieval attempts are packed so closely together that little forgetting occurs, or spaced so far apart that the attempt becomes unrecoverable rather than merely challenging (P110).
+- Retrieval runs on a fixed schedule that doesn't shorten the interval after a missed item or lengthen it after a success, and drops long-interval checks on important material once it seems learned (P118).
+- Distributed practice is applied as a rigid universal rule to complex structured learning or higher-order outcomes, where the evidence for its benefit is less certain, instead of being treated as a high-utility default (P125).
+- An assessment is planned without first inventorying its prerequisite cognitive skills, or an important component enters the assessment having been rehearsed only once or not at all (P129).
+- Retrieval attempts are massed within a single session, or intervals are lengthened for a long-term retention goal without the earlier practice or support needed to keep retrieval achievable at that distance (P144).
+- Information is presented once, in a single context and representation, with no consolidation gap before the next encounter, leaving the knowledge tied to that one episode rather than reusable (P145).
+
+## Worked example
+
+A course reserves cumulative testing for the final exam. Students mass their preparation into the two nights before it and sleep little.
+
+Recommend that important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment (P027), introduced through small sustainable practices such as lagged assignments and brief quizzes spanning prior classes, weeks, and months (P065). Have the instructor plan spacing early, review after a modest delay, mix older material into later sessions, and keep the final review from being the only study opportunity (P040), setting the gap in relation to the desired retention horizon (P061). Have the instructor space preparation early enough to protect sleep, because recurring sleep loss impairs cognition and post-learning sleep supports consolidation, understanding, and retention (P024, P019). Recommend revisiting missed items soon and expanding intervals after success (P118), while preserving uncertainty for complex structured learning and higher-order outcomes (P125).
 
 ## References
 
@@ -94,4 +118,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P019, P024, P027, P040, P061, P065, P093, P110, P118, P125, P129, P144, P145, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P019, P024, P027, P040, P061, P065, P093, P110, P118, P125, P129, P144, P145; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

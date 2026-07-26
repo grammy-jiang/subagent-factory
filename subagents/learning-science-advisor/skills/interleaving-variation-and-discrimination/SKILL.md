@@ -1,5 +1,8 @@
 ---
 name: interleaving-variation-and-discrimination
+description: Sequences interleaved versus blocked practice and structured problem
+  variation for learners who must discriminate related categories, strategies, or
+  procedures, not just execute them.
 kind: skill
 status: ready
 provenance:
@@ -32,12 +35,11 @@ provenance:
   authored_from_digest: ea9392069871c13b729a90fb0ecd0dbe63293bd586b3b57b7a31f89e41491b26
 ---
 
-
 # Interleaving, Variation And Discrimination
 
 ## Purpose
 
-This skill sequences practice so learners can tell related things apart and choose among them. It uses interleaved rather than blocked practice when learners must discriminate related categories or select among problem-solving strategies, and judges it by delayed discrimination and transfer rather than by fluency during practice. It introduces each new type with focused instruction and enough blocked practice for basic competence, then mixes it cumulatively with the previously learned types it must be distinguished from. It varies practice by shuffling relevant items, order, starting conditions, and contingencies, and practises applicability directly — mixed plausible problem types and contexts, context-to-skill and skill-to-context matching, option trade-offs, counterfactual variation — so learners must diagnose the situation, choose a strategy, and adapt it. It also recognises the opposite case: blocking can help when the immediate challenge is discovering common structure among dissimilar members of one category.
+This skill advises the instructor or study-plan owner on sequencing interleaved versus blocked practice and structured problem variation, for learners who must discriminate related categories, strategies, or procedures rather than merely execute them. It operates at the grain of an individual practice set or unit sequence.
 
 ## When to use
 
@@ -48,30 +50,43 @@ This skill sequences practice so learners can tell related things apart and choo
 
 ## Procedure
 
-1. Introduce each new type with focused instruction and enough blocked practice for basic competence, then mix it cumulatively with previously learned types that must be distinguished (P001).
-2. Use interleaved rather than blocked practice when learners must discriminate related categories or select among problem-solving strategies, and correct selection errors (P028).
-3. Practice applicability directly, not execution alone (P035).
-4. Sequence examples to create the comparison the goal requires (P064).
-5. Vary and interleave practice by shuffling relevant items, order, starting conditions, and contingencies so learners must diagnose the situation and select a response (P106).
-6. Use interleaving when learners must distinguish among problem types, strategies, formulas, or categories, and judge it by delayed discrimination and transfer rather than practice fluency (P142).
+### Decide whether to interleave
+
+1. Recommend interleaved rather than blocked practice when learners must discriminate related categories or select among problem-solving strategies, and have the instructor correct selection errors as they surface (P028).
+2. Advise sequencing examples to match the goal: interleave similar, confusable categories to sharpen discrimination, and use blocked practice instead when the immediate challenge is discovering common structure among dissimilar members of one category (P064).
+
+### Sequence the practice
+
+3. Recommend introducing each new type with focused instruction and enough blocked practice for basic competence, then mixing it cumulatively with the previously learned types it must be distinguished from (P001).
+4. Advise varying and interleaving practice by shuffling relevant items, order, starting conditions, and contingencies, so learners must diagnose the situation and select a response rather than anticipate what comes next (P106).
+
+### Vary and test applicability
+
+5. Recommend practising applicability directly, not execution alone: mix plausible problem types and contexts, use context-to-skill and skill-to-context matching, option trade-offs, and counterfactual variation of the relevant conditions so learners must diagnose the situation, choose a strategy, and adapt it (P035).
+6. Have the instructor judge the change by learners' delayed discrimination and transfer rather than by fluency during the practice session itself (P142).
 
 ## Inputs
 
 - The practice set or problem sequence, the categories or strategies learners must discriminate, and how mastery will be measured and when.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
-- Overlooking P001: Introduce each new type with focused instruction and enough blocked practice for basic competence, then mix it cumulatively with previously learned.
-- Overlooking P028: Use interleaved rather than blocked practice when learners must discriminate related categories or select among problem-solving strategies.
-- Overlooking P035: Practice applicability directly, not execution alone.
-- Overlooking P064: Sequence examples to create the comparison the goal requires.
-- Overlooking P106: Vary and interleave practice by shuffling relevant items, order, starting conditions, and contingencies so learners must diagnose the situation.
-- Overlooking P142: Use interleaving when learners must distinguish among problem types, strategies, formulas, or categories, and judge it by delayed discrimination.
+- A brand-new type or method is thrown straight into mixed, interleaved practice before learners have had focused instruction and enough blocked practice to reach basic competence, or it is introduced but never later mixed with the earlier types it must be distinguished from (P001).
+- Practice stays blocked by type or method even though the real difficulty is choosing which related category or strategy applies, and selection errors pass uncorrected instead of being surfaced and fixed through interleaving (P028).
+- Learners drill execution of one procedure in a row without also mixing plausible problem types and contexts, context-to-skill and skill-to-context matching, option trade-offs, or counterfactual variation, so they rehearse the moves but are never made to diagnose the situation and choose (P035).
+- Examples are sequenced the same way regardless of the goal — interleaving dissimilar members of one category when the challenge is discovering their common structure, or blocking similar confusable categories when the goal is sharpening discrimination between them (P064).
+- Items, order, starting conditions, or contingencies stay constant across repetitions, so learners can anticipate what comes next instead of having to diagnose the situation and select a response each time (P106).
+- An interleaved sequence is judged by how fluent or fast it looks during the practice session itself, rather than by learners' delayed discrimination and transfer once the mixing is taken away (P142).
+
+## Worked example
+
+Students work twenty problems of a single integration technique each night, score well on homework, then cannot tell which technique a mixed exam problem needs.
+
+Blocked practice trained execution but not applicability. Recommend introducing each technique with focused instruction and enough blocked practice for basic competence, then mixing it cumulatively with the previously learned techniques it must be distinguished from (P001, P028). Advise practising applicability directly — plausible mixed types and contexts, context-to-skill matching, counterfactual variation of the relevant conditions — so learners must diagnose the situation, choose a strategy, and adapt it (P035, P106). Have the instructor judge the change by delayed discrimination and transfer rather than practice fluency (P142), and recommend blocking instead when the immediate challenge is discovering common structure among dissimilar members of one category (P064).
 
 ## References
 
@@ -79,4 +94,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P001, P028, P035, P064, P106, P142, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P001, P028, P035, P064, P106, P142; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
