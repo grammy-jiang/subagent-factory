@@ -80,7 +80,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - The rigid twenty-slides-at-twenty-seconds pecha kucha format is applied to a data-heavy talk whose graphs need lingering discussion, or to a team that already has ample time to be trained on a fuller structure (P051).
 - A brief to the illustrator is a literal drawing instruction with no story context, no time budgeted for revision, and separate unreconciled feedback arriving from each stakeholder (P062).
 - A high-stakes external pitch has no preparation time booked until days before delivery, or a low-stakes internal update is rebuilt from scratch instead of reused (P065).
-- A submitted deck runs well past eighteen minutes' worth of material with no forced cut, and nothing in its format compels self-editing (P088).
+- A submitted deck carries more material than its slot allows, with no forced cut, and nothing in its format compels self-editing (P088).
 
 ## References
 

@@ -52,6 +52,27 @@ timelines — so nothing in the profile or a skill treats it as an operative ins
 
 ## Version History
 
+- **1.2.1** (2026-07-27) — Adversarial verify-pass-1 fixes (3 must-fix, all faithfulness wording
+  drifts). **Superseded decisions, stated explicitly:** (a) 1.2.0 left `examples[1]` step (b) asserting
+  P119's *emotionally-driven* branch about an executive committee whose type was never established — and
+  step (c) of the same answer told the reader to establish that audience's bias first, so one model
+  answer both asserted and disclaimed the audience read. The round-2 faithfulness report graded this
+  WITHIN_SCOPE on the ground that P119 was "cited where used"; that grade is withdrawn — citation was
+  never the issue, applying a two-branched conditional to an unclassified audience is, and on the other
+  branch the advice inverts. The claim is now conditioned on the committee deciding partly on grounds
+  other than proof volume, the hedge `examples[3]` already carried. (b) `in-room-delivery-and-composure`
+  Procedure step 8 turned P066's "account for" into "judge **only** against"; the exclusivity is in
+  neither P066 nor claim C00499 and contradicted P063 and P079, so the word is deleted.
+  (c) `format-choice-and-preparation-planning`'s last anti-pattern converted P088's eighteen minutes —
+  a case observation (C01312, `evidence_type: case`) about the most influential talks, supporting the
+  *policy* of hard constraint — into a review threshold that fires on any deck over 18 minutes,
+  including the lectures, defences and hour-long slots this package serves (`when_to_use[0]`, P111,
+  P065); the trigger is re-anchored to the talk's own slot. (d) `quality_bar[2]` adds the missing P049
+  citation behind its "bold" (citation gap, force unchanged). **Process finding recorded, not yet
+  closed:** the authored `reports/faithfulness-report.yaml` audits `profile.yaml` fields only — zero
+  entries cover `knowledge_partition.skills` or any `SKILL.md` body, which is why (b) and (c) survived
+  a `must-fix = 0` verdict. The faithfulness surface should extend to skill bodies. No principle,
+  claim, or evidence record was changed — the spine is untouched.
 - **1.2.0** (2026-07-27) — Round-2 review fixes. **Superseded decisions, stated explicitly:**
   (a) 1.1.0 applied the P001/P091 withdrawal to `forbidden_behaviours[2]` only; the same debunked
   citation survived on `when_not_to_use[1]` and was still marked clean in the faithfulness report.

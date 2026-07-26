@@ -3,6 +3,35 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.1] — 2026-07-27
+
+Adversarial verify pass 1 (`reports/review-loop/presentation-design-advisor.verify1.md`): 3 must-fix,
+all faithfulness wording drifts. No principle, claim, or evidence record was changed, and no claim
+absent from `principles/principles.yaml` was introduced.
+
+### Fixed
+- **`examples[1]` no longer asserts P119's emotionally-driven branch for an unclassified audience**
+  (SCOPE_BROADENED). P119 is two-branched and its `applies_when` requires the audience to be
+  characterised first; the model answer applied one branch to an executive committee whose type step
+  (c) of the same answer says is still unknown. The over-supply claim is now conditioned — "If that
+  committee decides partly on grounds other than proof volume" — matching the hedge `examples[3]`
+  already carries.
+- **`skills/in-room-delivery-and-composure` step 8 drops "only"** (HEDGING_REMOVED). P066 makes the
+  audience and room a mandatory input to the judgement ("account for", "without accounting for"), not
+  the sole yardstick; the exclusive reading also collided with P063 and P079. `always_on[10]` and
+  `forbidden_behaviours[4]` already used the correct wording.
+- **`skills/format-choice-and-preparation-planning` anti-pattern re-anchors to the slot, not to
+  eighteen minutes** (SCOPE_BROADENED). P088's eighteen minutes is a case observation about the most
+  influential talks (claim C01312, `evidence_type: case`) supporting the policy of constraining length,
+  not a review threshold; as a trigger it fired "too long" on the lectures, defences and hour-long
+  slots this package explicitly serves (`when_to_use[0]`, P111, P065). The trigger is now "more
+  material than its slot allows". The same file's Procedure step 3 already stated it descriptively.
+
+### Changed
+- `quality_bar[2]` adds **P049** to its citation list — the "bold" in "large bold type" comes from P049
+  ("Boldface slide type, especially for a larger room"), which was cited in `always_on[3]` but missing
+  here. Citation gap only; the rule's force is unchanged.
+
 ## [1.2.0] — 2026-07-27
 
 Round-2 review (`reports/review-loop/presentation-design-advisor.r2.review.md`): 2 must-fix,
