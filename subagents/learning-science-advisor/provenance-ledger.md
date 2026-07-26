@@ -64,6 +64,54 @@ references index and ground them.
 
 ## Version History
 
+- **1.3.1** (2026-07-27) — Adversarial verify gate #2
+  (`reports/review-loop/learning-science-advisor.verify2.md`), must-fix = 1, applied. Both lanes
+  converged on P100 from opposite directions. Supersedes, and states what it supersedes:
+  - **MUST_FIX 1a — P100's citation in `knowledge_partition.always_on[10]` superseded (dropped).**
+    P100 is reading-diagnostic measure selection; the expertise/transfer paragraph is about
+    goal-directed practice, feedback, coaching, simulation, applicability boundaries, far transfer and
+    multi-dimensional competence, and restates none of it. It was P100's only use in `profile.yaml`, so
+    the citation sent a reader to an unrelated rule. Dropped; the remaining ten citations already ground
+    every claim in the paragraph, so nothing became unsupported. The skill
+    `expertise-development-and-transfer` **keeps** P100 — it routes on it and restates it correctly at
+    `## Procedure` step 2 — so the principle keeps a home. `.build/authoring/gen.py` gained an
+    `ALWAYS_ON_EXCLUDE` entry so a regeneration does not silently re-add the link.
+  - **MUST_FIX 1b — P100's imperative statement superseded.** The invariant compiler strips
+    `applies_when`, so P100 reached the always-loaded layer as an unconditional "Collect real-word
+    reading, spelling ability and word attack skills as the diagnostic measures" — the only invariant of
+    the 54 phrased as an act-on-an-individual instruction, sitting against `forbidden_behaviours[1]`
+    ("Diagnosing … an individual learner"), `when_not_to_use[1]` and the router's diagnosis exclusion.
+    The statement is now self-sufficient under stripping: "When advising on assessment for a persistent
+    reading difficulty, recommend real-word reading, spelling ability and word attack skills as the
+    diagnostic measures to collect, since they are the greatest predictors of reading comprehension."
+    The condition is P100's own `applies_when[1]` and C04895's recorded `condition`; the advisory verb
+    matches the skill body's existing wording. No evidence strengthened — the "greatest predictors"
+    clause is carried verbatim from C03615.
+  - **NICE_TO_HAVE (P146 altitude drift) — applied in the same pass.** P146 rendered as a
+    child-welfare action ("Protect developmentally sensitive periods by preventing severe early
+    deprivation…") rather than a learning-design criterion, and its `operational_mapping.test_cases`
+    entry read "Prioritize early enriched **placement**…" while `forbidden_behaviours[2]` forbids
+    placement decisions. Statement reframed to "Advise that developmentally sensitive periods be
+    protected by preventing …"; the test case renamed to "Recommend early enriched input and
+    longitudinal tracking of cognitive recovery" (and its `test_id` in
+    `tests/principle-behaviour-tests.yaml`, which mirrors that descriptor); `always_on[13]`'s "It
+    protects…" → "It advises protecting…". Wording only — the adapter never granted authority here, and
+    no evidence, hedge or scope changed.
+  - **Derived restatements re-synced, not re-authored:** the `lead()`-truncated forms of P100 and P146
+    in `references/learning-science-principles-index.md` and in the two `expected_behaviour` lines of
+    `tests/principle-behaviour-tests.yaml`, and the `always_on[10]` note in
+    `reports/faithfulness-report.yaml` (P100 removed from its "Restates …" list). The four
+    `authored_from_digest` values that the two statement edits invalidated were re-stamped with
+    `detect_stale --stamp` after confirming both skill bodies already state the principles in the
+    advisory voice they now carry.
+  - **Not applied (verify2 NICE_TO_HAVE, non-gating, recorded so the next touch can pick them up):**
+    P109's citation in `always_on[9]` stays — the paragraph restates P109 near-verbatim, and the rule is
+    caution-preserving, so moving it would create a fresh orphan citation in `always_on[11]` (or cost
+    body words to restate it there); and the weak-linkage citations P104 / P141 / P145 / P041, all
+    graded no higher than `WITHIN_SCOPE` by the gate.
+  - No claim absent from `principles/principles.yaml` was introduced, no rule was strengthened, and no
+    hedge or safety clause was dropped. Adapter re-exported from the profile.
+
 - **1.3.0** (2026-07-27) — Independent re-verify round r1
   (`reports/review-loop/learning-science-advisor.r1.review.md`), must-fix = 3, all applied. This round
   closes the review → grounded fix → independent re-verify loop that 1.2.1 asserted `status: ready`

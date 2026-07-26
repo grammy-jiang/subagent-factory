@@ -173,9 +173,8 @@ provenance:
   - C00047
   evidence: []
   source_anchors: []
-  authored_from_digest: ad7be0ffaf47712a2cdeacecc32ba1dd2d844b2136755757c229a3db478a7c81
+  authored_from_digest: 10315dad62a656e5a2eeea130709b96d56f9444cf4a286a9348e54cc17d11ea7
 ---
-
 
 # Learning-Science Principles Index
 
@@ -349,7 +348,7 @@ Skill: `expertise-development-and-transfer`
 - **P009** — Match support and practice to expertise.
 - **P018** — For complex performance, diagnose difficult components slowly, rehearse them from natural cues in multiple coordinated representations, and reintegrate them into the whole.
 - **P039** — Require objective improvement on untrained outcomes before accepting a far-transfer claim; distinguish specific skill gains from transferable practice habits.
-- **P100** — Collect real-word reading, spelling ability and word attack skills as the diagnostic measures.
+- **P100** — When advising on assessment for a persistent reading difficulty, recommend real-word reading, spelling ability and word attack skills as the diagnostic measures to collect.
 - **P104** — Use mental practice, which benefits both initial and later stages of learning, expecting large effects on cognitive tasks from relatively short sessions and few trials compared with motor.
 - **P108** — Treat capability as developable through focus, sustained practice, learned mental models, and environmental support while respecting biological and individual limits.
 - **P117** — Use hands-on or simulated practice that reproduces complete desired field decisions and action sequences, then debrief cues, choices, constraints, outcomes, and justification.
@@ -394,7 +393,7 @@ Skill: `development-diversity-and-individual-differences`
 - **P124** — Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and considering social connection, culture, community, and cohort effects.
 - **P132** — Treat cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal.
 - **P134** — Use group categories for bounded population inference without converting them into individual capacity judgments; measure plural cultural systems and socially produced conditions directly.
-- **P146** — Protect developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational inputs as early as possible.
+- **P146** — Advise that developmentally sensitive periods be protected by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational inputs as early as possible.
 
 ## Collaborative And Peer Learning
 

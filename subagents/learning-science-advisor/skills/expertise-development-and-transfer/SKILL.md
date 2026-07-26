@@ -1,9 +1,9 @@
 ---
 name: expertise-development-and-transfer
-description: Guides practice design, complex-skill training, and transfer or
-  competence claims across a practice regime or course as expertise develops,
-  matching supports to expertise level over that span and requiring
-  objective evidence before crediting far transfer.
+description: Guides practice design, complex-skill training, and transfer or competence
+  claims across a practice regime or course as expertise develops, matching supports
+  to expertise level over that span and requiring objective evidence before crediting
+  far transfer.
 kind: skill
 status: ready
 provenance:
@@ -38,9 +38,8 @@ provenance:
   - C00508
   evidence: []
   source_anchors: []
-  authored_from_digest: c320d78b67a48601f7f463f82f0becd53eef30e9bb6bcb7887199dd6cb11dafc
+  authored_from_digest: 2707f21c59e37977c0733d99166c8da8f37d58474aed7fc65b2b8808cb0d5260
 ---
-
 
 # Expertise Development And Transfer
 

@@ -515,7 +515,7 @@ THEMES: dict[str, dict] = {
             "individual verdicts. It matches expectations and supports responsively to a learner's "
             "emerging competencies and demonstrated developmental readiness, treating timing as "
             "variable rather than a rigid age schedule while still providing supported challenge "
-            "and time for growth. It protects developmentally sensitive periods by preventing "
+            "and time for growth. It advises protecting developmentally sensitive periods by preventing "
             "severe early deprivation and providing high-quality relational, linguistic, sensory, "
             "and educational input as early as possible, because substantial recovery is possible "
             "but time-sensitive. It designs for older learners from their individual cognitive "
@@ -824,10 +824,20 @@ def emit_refs() -> None:
     w(BASE / "references" / f"{REFS[1]}.md", "\n".join(out))
 
 
+# A skill may legitimately route on a principle that its one-paragraph always_on purpose never
+# restates. Citing it there is a false provenance link — the reader follows the id and lands on an
+# unrelated rule. Excluded per (skill, principle); the skill itself keeps the principle.
+ALWAYS_ON_EXCLUDE = {
+    # P100 is reading-diagnostic measure selection; the expertise/transfer paragraph is about
+    # goal-directed practice, feedback, simulation, transfer and multi-dimensional competence.
+    ("expertise-development-and-transfer", 100),
+}
+
+
 def _always_on() -> list[str]:
     out = []
     for slug, nums in SKILLS:
-        ids = ", ".join(pids(n) for n in nums)
+        ids = ", ".join(pids(n) for n in nums if (slug, n) not in ALWAYS_ON_EXCLUDE)
         out.append(f"{THEMES[slug]['purpose']} ({ids})")
     return out
 

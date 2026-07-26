@@ -1,7 +1,8 @@
 ---
 name: development-diversity-and-individual-differences
-description: Guides expectations, older-learner design, and developmental-timing decisions when age, grade, or
-  group demographics risk substituting for a learner's demonstrated readiness or individual context.
+description: Guides expectations, older-learner design, and developmental-timing decisions
+  when age, grade, or group demographics risk substituting for a learner's demonstrated
+  readiness or individual context.
 kind: skill
 status: ready
 provenance:
@@ -31,9 +32,8 @@ provenance:
   - C04508
   evidence: []
   source_anchors: []
-  authored_from_digest: 6e19ec579aa58f3075197a45425c98a8b0ad34d387847f445b0f842a92443c7a
+  authored_from_digest: 60916262c256a3291a096c2b35ffc0f43bf04aaaa0ff1da7e0a613890f2bccb4
 ---
-
 
 # Development, Diversity And Individual Differences
 

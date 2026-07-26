@@ -3,6 +3,46 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.1] — 2026-07-27
+
+Adversarial verify gate #2 (`reports/review-loop/learning-science-advisor.verify2.md`) — 1 must-fix
+finding applied, plus the one nice-to-have that touches the always-on invariant layer. No claim absent
+from `principles/principles.yaml` was introduced; nothing was strengthened; no hedge was dropped.
+
+### Fixed
+- **P100 mis-cited in `knowledge_partition.always_on[10]`** — the expertise/transfer paragraph never
+  restates P100 (reading-diagnostic measure selection), and this was P100's only use in `profile.yaml`,
+  so the citation pointed a reader at an unrelated rule. Citation dropped; the other ten already ground
+  the paragraph. The `expertise-development-and-transfer` skill keeps P100, which it routes on and
+  restates correctly.
+- **P100 rendered as a bare act-on-a-learner imperative in the always-on invariant layer** — the
+  invariant compiler strips `applies_when`, so P100 reached the always-loaded layer as an unconditional
+  "Collect … the diagnostic measures", against `forbidden_behaviours[1]` and `when_not_to_use[1]`. The
+  statement now carries its own condition and advisory verb: "When advising on assessment for a
+  persistent reading difficulty, recommend real-word reading, spelling ability and word attack skills as
+  the diagnostic measures to collect, since they are the greatest predictors of reading comprehension."
+  Condition from P100's own `applies_when` and C04895's recorded `condition`; the "greatest predictors"
+  clause is verbatim from C03615.
+- **P146 altitude drift** — statement reframed from "Protect developmentally sensitive periods by …" to
+  "Advise that developmentally sensitive periods be protected by …", its `test_cases` descriptor (and
+  the mirroring `test_id`) from "Prioritize early enriched **placement** …" to "Recommend early enriched
+  input and longitudinal tracking of cognitive recovery" — placement decisions are forbidden by
+  `forbidden_behaviours[2]` — and `always_on[13]`'s "It protects …" to "It advises protecting …".
+  Wording only.
+
+### Changed
+- `.build/authoring/gen.py` — new `ALWAYS_ON_EXCLUDE` set so a regeneration does not re-add the
+  P100 → `always_on[10]` citation; the P146 purpose sentence updated to the advisory voice.
+- Derived restatements re-synced to the two edited statements: `references/learning-science-principles-index.md`,
+  the P100/P146 `expected_behaviour` lines in `tests/principle-behaviour-tests.yaml`, and the
+  `always_on[10]` note in `reports/faithfulness-report.yaml`. The four `authored_from_digest` values
+  invalidated by the statement edits were re-stamped with `detect_stale --stamp`.
+
+### Not applied (verify2 nice-to-have, non-gating)
+- P109's citation in `always_on[9]` (paragraph restates it near-verbatim; moving it would create a fresh
+  orphan citation) and the weak-linkage citations P104 / P141 / P145 / P041, all graded no higher than
+  `WITHIN_SCOPE`.
+
 ## [1.3.0] — 2026-07-27
 
 Independent re-verify round r1 (`reports/review-loop/learning-science-advisor.r1.review.md`) —

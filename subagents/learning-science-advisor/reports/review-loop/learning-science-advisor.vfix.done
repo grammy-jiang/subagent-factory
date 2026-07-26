@@ -1,9 +1,90 @@
 FIXED
 
-Package: subagents/learning-science-advisor  —  agent_version 1.2.0 → 1.2.1
-Gate:    reports/review-loop/learning-science-advisor.verify1.md (MUST_FIX_COUNT: 3)
+Package: subagents/learning-science-advisor  —  agent_version 1.3.0 → 1.3.1
+Gate:    reports/review-loop/learning-science-advisor.verify2.md (MUST_FIX_COUNT: 1)
 Result:  validate = VALIDATION PASSED, 0 FAIL, 1 WARN (pre-existing quote-scan: no source
          text in this worktree, unchanged by this fix).
+
+Strictly grounded: no claim absent from principles/principles.yaml was introduced, no rule was
+strengthened, and every hedge and safety clause is carried complete into the adapter.
+
+MUST_FIX 1 — P100, both halves
+
+1a  MIS-CITATION. profile.yaml knowledge_partition.always_on[10] (expertise/transfer) cited
+    P100 — reading-diagnostic measure selection — which that paragraph never restates, and
+    which was cited nowhere else in the profile. Citation dropped. The remaining ten (P005,
+    P009, P018, P039, P104, P108, P117, P122, P128, P131) already ground every claim in the
+    paragraph, so nothing became unsupported. The expertise-development-and-transfer SKILL
+    KEEPS P100 — it routes on it (trigger 4) and restates it advisorily at Procedure step 2 —
+    so the principle keeps a home. .build/authoring/gen.py gained an ALWAYS_ON_EXCLUDE set so
+    a regeneration cannot silently re-add the false link.
+
+1b  BARE ACT-ON-A-LEARNER IMPERATIVE IN THE ALWAYS-ON LAYER. The invariant compiler strips
+    applies_when, so P100 reached the always-loaded layer as the unconditional "Collect
+    real-word reading, spelling ability and word attack skills as the diagnostic measures" —
+    the only one of the 54 invariants phrased as an instruction to act on an individual, and
+    in tension with forbidden_behaviours[1] (diagnosing a learner), when_not_to_use[1] and the
+    router's diagnosis exclusion. The statement now survives stripping on its own:
+
+      "When advising on assessment for a persistent reading difficulty, recommend real-word
+       reading, spelling ability and word attack skills as the diagnostic measures to collect,
+       since they are the greatest predictors of reading comprehension."
+
+    Grounding: the condition is P100's own applies_when[1] plus C04895's recorded condition
+    ("when evaluating or supporting reading difficulty"); the "greatest predictors of reading
+    comprehension" clause is verbatim from C03615. The advisory verb matches the skill body's
+    existing wording. Nothing strengthened, nothing invented.
+
+NICE_TO_HAVE applied in the same pass — P146 altitude drift (same defect class: a must-hold
+line reading as an act-on-a-person instruction, plus a test descriptor naming a forbidden
+decision)
+    - statement: "Protect developmentally sensitive periods by preventing …"
+      → "Advise that developmentally sensitive periods be protected by preventing …"
+    - operational_mapping.test_cases and its mirroring test_id in
+      tests/principle-behaviour-tests.yaml: "Prioritize early enriched PLACEMENT and track
+      cognitive recovery longitudinally" → "Recommend early enriched input and longitudinal
+      tracking of cognitive recovery" (placement decisions are forbidden by
+      forbidden_behaviours[2]).
+    - profile.yaml always_on[13]: "It protects developmentally sensitive periods by …"
+      → "It advises protecting …".
+    Wording/altitude only; the hedge ("especially for children facing deprivation",
+    "substantial recovery is possible but time-sensitive") reaches the adapter complete.
+
+NOT APPLIED (verify2 nice-to-have, non-gating — recorded for the next touch)
+    - P109 in always_on[9]: the paragraph restates P109 near-verbatim and the rule is
+      caution-preserving (no over-claim). Moving the citation to always_on[11] would create a
+      fresh orphan citation there — the exact defect just fixed for P100 — or cost body words
+      to restate it, against the 1000-word body gate. Left where its text anchor is.
+    - Weak-linkage citations P104 / P141 / P145 / P041 — the gate graded all no higher than
+      WITHIN_SCOPE (no over-claim).
+
+DERIVED ARTIFACTS RE-SYNCED (not re-authored)
+    - references/learning-science-principles-index.md — the P100 and P146 lead()-truncated
+      lines, recomputed with the package's own gen.lead().
+    - tests/principle-behaviour-tests.yaml — the P100 and P146 expected_behaviour restatements.
+    - reports/faithfulness-report.yaml — always_on[10]'s "Restates …" list drops P100.
+    - The four authored_from_digest values invalidated by the two statement edits re-stamped
+      with detect_stale --stamp, after confirming both affected skill bodies already state the
+      principles in the advisory voice they now carry.
+    - CHANGELOG.md [1.3.1]; provenance-ledger.md § Version History 1.3.1 supersession block;
+      adapter re-exported via `python -m tools.subagent_factory.cli export learning-science-advisor`.
+
+POST-FIX CHECKS
+    - 54 `- **[Pnnn]**` invariants rendered, same count as before — no must-hold layer dropped.
+    - The P100 and P146 invariant lines render complete (no truncation, balanced punctuation).
+    - Installed adapter byte-identical to the package adapter
+      (md5 c1eb19742360f579366e0fdad0f3b477).
+    - validate_generated_package → VALIDATION PASSED, 0 FAIL, incl. adapter-sync,
+      adapter-fresh, adapter-quality, adapter-policy, principle/behaviour coverage,
+      stale-maintenance.
+    - No other subagent package touched.
+
+================================================================================
+ARCHIVE — prior round (verify1 gate, agent_version 1.2.0 → 1.2.1)
+================================================================================
+
+Gate:    reports/review-loop/learning-science-advisor.verify1.md (MUST_FIX_COUNT: 3)
+Result:  validate = VALIDATION PASSED, 0 FAIL, 1 WARN (pre-existing quote-scan).
 
 All three must-fix findings were of one class — a boundary rule citing principle codes whose
 `statement` in principles/principles.yaml does not state it. Fixes are provenance-only:
@@ -44,9 +125,3 @@ BODY-SIZE SIDE EFFECT (phase8 check 14, hard FAIL > 1000 words)
 
 UNCHANGED: all 150 principles, 15 skills, 2 references, tests, the 54-line invariant layer,
 the advice-only role, and every other subagent package.
-
-Artifacts updated: profile.yaml (agent_version 1.2.1), CHANGELOG.md [1.2.1],
-provenance-ledger.md § Version History 1.2.1, adapters/claude-code/learning-science-advisor.md
-and .claude/agents/generated/learning-science-advisor.md (re-exported via
-`python -m tools.subagent_factory.cli export learning-science-advisor`; byte-identical parity
-verified).
