@@ -1,5 +1,13 @@
 """Deterministic authoring generator for presentation-design-advisor.
 
+SUPERSEDED at agent_version 1.1.0 — DO NOT RE-RUN BLIND. This script produced the 1.0.0 layer,
+including the defects the round-1 review found: the seven-entry cap on each skill's anti-pattern
+list, the fixed-character truncation of Procedure and anti-pattern text, the 15-principle
+`rehearsal-and-extemporaneous-delivery` skill (now split into `rehearsal-and-memorisation` +
+`in-room-delivery-and-composure`), and P036/P048/P074 in the format skill. Re-running it would
+overwrite the 1.1.0 fixes with all of those. See CHANGELOG.md [1.1.0] and
+`.build/repartition.py` for the current skill partition.
+
 Reads the already-assembled, deterministically-valid distilled spine
 (principles/principles.yaml + analysis/claims.jsonl + evidence + anchors) and emits the
 LLM-authored layer: profile.yaml, references/*, skills/*, tests/*, reports/faithfulness-report.yaml,

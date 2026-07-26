@@ -1,0 +1,62 @@
+FIXED
+
+Package: subagents/presentation-design-advisor/
+Input:   reports/review-loop/presentation-design-advisor.verify1.md (MUST_FIX_COUNT: 3)
+Version: 1.2.0 -> 1.2.1
+Validate: VALIDATION PASSED, 0 FAIL
+Adapter:  re-exported; in-package == installed, md5 1eebf24e68744ac3ae9279db9352e933
+
+All three must-fix findings fixed, strictly grounded — no claim introduced that is not
+already in principles/principles.yaml; every fix weakens an over-claim back to its cited
+principle. No principle, claim, or evidence record changed. No safety hedge weakened or
+removed (the advice-only boundary, forbidden behaviours, instruction-data separation and
+the 115-line must-hold invariant layer are byte-identical apart from the version string).
+
+V1 — profile.yaml examples[1].ideal_response step (b), SCOPE_BROADENED
+  was: "Twenty slides of proof points is over-supply for that room — an emotionally driven
+       audience needs only a few (P119)."
+  now: "If that committee decides partly on grounds other than proof volume, twenty slides
+       of proof points is over-supply — an emotionally driven audience needs only a few
+       (P119)."
+  P119 is two-branched and its applies_when requires the audience to be characterised
+  first; the answer applied the emotionally-driven branch to a committee whose type step (c)
+  of the same answer says is still unknown. Condition restored, matching the hedge
+  examples[3] already carries. Examples ship into the adapter body verbatim.
+
+V2 — skills/in-room-delivery-and-composure/SKILL.md Procedure step 8, HEDGING_REMOVED
+  was: "Judge a delivery only against the audience and room the speaker faced, ..."
+  now: "Judge a delivery against the audience and room the speaker faced, ..."
+  P066 (and claim C00499) make audience-and-room a mandatory input ("account for" /
+  "without accounting for"), not the sole yardstick; the exclusive reading collided with
+  P063 and P079. One word deleted; always_on[10] and forbidden_behaviours[4] already used
+  the correct wording.
+
+V3 — skills/format-choice-and-preparation-planning/SKILL.md anti-pattern, SCOPE_BROADENED
+  was: "A submitted deck runs well past eighteen minutes' worth of material with no forced
+       cut, and nothing in its format compels self-editing (P088)."
+  now: "A submitted deck carries more material than its slot allows, with no forced cut,
+       and nothing in its format compels self-editing (P088)."
+  P088's eighteen minutes is a case observation (C01312, evidence_type: case) about the
+  most influential talks, backing the policy of hard constraint — not a limit. As a trigger
+  it fired "too long" on the lectures, defences and hour-long slots this package serves
+  (when_to_use[0], P111, P065). Re-anchored to the talk's own slot. Procedure step 3 in the
+  same file already stated the 18 minutes descriptively and is unchanged.
+
+Also fixed (non-must-fix, citation gap only, force unchanged):
+  profile.yaml quality_bar[2] adds P049 to its citation list — the "bold" in "large bold
+  type" comes from P049, already cited in always_on[3] but missing here.
+
+Not fixed, recorded in provenance-ledger.md 1.2.1 as an open process finding:
+  reports/faithfulness-report.yaml audits profile.yaml fields only — zero entries cover
+  knowledge_partition.skills or any SKILL.md body, which is why V2 and V3 survived a
+  must-fix = 0 verdict. Extending the faithfulness pass to skill bodies is a factory change,
+  out of scope for this package fix.
+  The remaining verify1 observations (attribution conflation in always_on[0]; the
+  technical/scientists wording inconsistency, both grounded and graded WITHIN_SCOPE;
+  invariant second-person voice, mitigated three ways; two profile fields the template never
+  renders, both duplicated elsewhere in the adapter) were explicitly non-must-fix and are
+  left as they are.
+
+Provenance: CHANGELOG.md [1.2.1] and provenance-ledger.md Version History 1.2.1 both record
+each fix and explicitly withdraw the round-2 faithfulness report's WITHIN_SCOPE grade on
+examples[1] (supersession rule — the old decision stays visible).

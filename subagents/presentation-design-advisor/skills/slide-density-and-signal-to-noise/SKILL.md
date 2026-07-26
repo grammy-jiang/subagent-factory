@@ -1,5 +1,8 @@
 ---
 name: slide-density-and-signal-to-noise
+description: 'Cut a slide down to what the speaker can actually deliver against it:
+  words-per-minute density, splitting and sequencing, clutter and empty space, and
+  engineered simplicity.'
 kind: skill
 status: ready
 provenance:
@@ -38,59 +41,121 @@ provenance:
   authored_from_digest: 63cc1b5e6fed5fba2ec0c08f0abb38bd4912d4293a7cc1d2c74e36b8fa5cbca4
 ---
 
-
 # Slide Density And Signal-To-Noise
 
 ## Purpose
 
-This skill reduces what a slide carries to what a speaker can actually deliver against it. It measures word count against projected words per minute rather than a per-slide bullet rule, because a slide projected for about a minute competes with the 120 to 140 words the speaker delivers in that same minute — which is why even a rule-compliant slide can carry too many words. It strips every phrase and decorative image that does not connect directly to the spoken content, asks what can be removed without changing the meaning and where the content can be split, and treats clear space as fine and clutter as a design failure. It splits content across slides and reveals the pieces in sequence whenever secondary or technical detail competes with the single main message, noting that splitting without sequencing does not by itself solve density. It holds the balance between saying and showing — headline carries the message, body carries the evidence, secondary detail is supplied aloud — keeps any grouping to four items or fewer, hides each element until it is referred to, and refuses to let the deck become the speaker's notes or a document read faster than it can be explained. It treats TED-style simplicity as engineered rather than effortless, costing more preparation than assertion-evidence slides and demanding artistic judgment in cropping and placement, achieved by raising the signal-to-noise ratio, eliminating unneeded text and lines, using empty space deliberately, and building scenes rather than slides.
+This skill reduces what a slide carries to what the speaker can actually deliver against it. Density is a competition between projected words and spoken ones, so the test is what the speaker says while the slide is up rather than a bullet-count rule, and clutter that survives that test is a design failure rather than a full slide. Use it to cut, split, sequence, and rebalance what is said against what is shown.
 
 ## When to use
 
-- A slide is overloaded and must be cut or split, or the deck reads as a document rather than a visual aid (P012, P018, P073, P019).
-- Word count needs judging against what the speaker will actually say in the time the slide is projected (P025, P101, P033).
-- Elements appear all at once, or a list or set of call-outs runs past four items, so the audience reads ahead instead of listening (P097, P084).
-- The slides were built as the speaker's own prompts rather than for the audience, producing the screen-then-room cycle (P080, P026).
-- A minimal, TED-style visual look is wanted and its real preparation cost and craft demands must be stated rather than assumed away (P081).
+- A slide is overloaded with text or images and needs judging against what the speaker will say
+  while it is projected, not against a fixed bullet-count rule (P012, P025, P018).
+- A slide's phrases or decorative images do not clearly connect to the spoken content, or the deck
+  reads like a document a presenter narrates rather than a visual aid (P019, P080, P026).
+- Secondary or technical detail is competing with a slide's single main message, or a grouping of
+  call-outs or list items runs past four (P073, P084).
+- Elements on a slide are exposed all at once and the audience risks reading ahead instead of
+  listening to the speaker (P097).
+- The balance between what is shown and what is said needs auditing, including whether a deck's
+  claimed simplicity is achievable given the preparation and craft it actually costs (P033, P101,
+  P081).
 
 ## Procedure
 
-1. Reduce an overloaded slide by asking what can be removed without changing the meaning and where the content can be split (P012).
-2. Keep the word count low enough to serve only as a mnemonic the presenter is comfortable delivering (P018).
-3. Strip every phrase and decorative image that does not connect directly to the spoken content (P019).
-4. Measure a slide against projected words per minute rather than against a per-slide word rule (P025).
-5. Give the presenter structure without a script (P026).
-6. Keep the balance between what is shown and what is said (P033).
-7. Split content across slides and reveal the pieces in sequence whenever secondary or technical detail competes with the slide's single main message, keeping on the slide only what is addressed verbally; splitting without sequencing (P073).
-8. Design slides for the audience rather than as the speaker's notes (P080).
-9. Treat TED-style simplicity as engineered rather than effortless (P081).
-10. Hold any grouping on a slide to four items or fewer (P084).
-11. Reveal content progressively and hide each element until it is referred (P097).
-12. Keep the balance between saying and showing (P101).
+1. Begin by measuring the slide's word count against how many words the speaker will actually
+   deliver while it is projected — roughly 120 to 140 words in a minute — rather than against a
+   fixed per-slide word rule, because a slide that satisfies a bullet-count convention can still
+   outpace the speech that accompanies it (P025).
+2. Cut the remaining word count further until what is left functions only as a mnemonic the
+   presenter is comfortable delivering, not a script to be read aloud (P018).
+3. Ask what can be removed from an overloaded slide without changing its meaning and where the
+   remaining content could instead be moved to a second slide, treating clear space as acceptable
+   and clutter as the design failure to fix (P012).
+4. Strip every phrase and decorative image that does not connect directly to what will actually be
+   spoken, working the slide toward the highest signal-to-noise ratio it can carry (P019).
+5. Design the slide for the audience's understanding rather than as the speaker's own cue card, so
+   the talk does not degrade into turning to the screen to find the next point and back to the room
+   to deliver it (P080).
+6. Let the slide scaffold the talk rather than script it, giving the presenter structure to work
+   from without dictating the exact sentences spoken (P026).
+7. When secondary or technical detail competes with a slide's single main message, split that
+   detail onto its own slide and reveal the pieces in sequence, keeping on each slide only what
+   will be addressed verbally — and treat this as a two-part fix, because splitting the content
+   without also sequencing its reveal does not by itself solve the density problem (P073).
+8. Hold any grouping placed on a slide — call-outs, categories, or list items — to four items or
+   fewer, since an audience retains groupings of two to four but loses track of larger ones (P084).
+9. Reveal each element only when it is referred to rather than exposing the whole slide at once,
+   because an audience reads a visual the instant it appears and will read ahead of the speaker
+   given the chance (P097).
+10. Balance what is shown against what is said: let the headline carry the main message, the body
+    carry the evidence, and hold secondary detail — such as how a result was produced — for
+    delivery aloud rather than placing it on the slide (P033).
+11. Keep saying and showing in balance across the deck as a whole, since a slide that already reads
+    like the speaker's own sentences invites the audience to stop listening, and a deck built
+    mostly of text-only slides with no supporting image serves little purpose beyond supplying
+    sentences to read (P101).
+12. Where a minimal, TED-style look is the goal, treat that simplicity as an engineered outcome
+    rather than an effortless default: budget more preparation time for it than an
+    assertion-evidence slide would need, apply artistic judgement to cropping and placement, and
+    reach it through concrete moves — raising the signal-to-noise ratio, eliminating unneeded text
+    and lines, using empty space deliberately, and building a scene rather than assembling a slide
+    (P081).
 
 ## Inputs
 
-- The slide or deck, the time available, and what the speaker intends to say aloud while each slide is projected.
-- The reasoning offered for the design or decision under review: what the presentation is meant to achieve, what is on the slides now, and any claim about why the current form works.
+- The slide or deck, the time available, and what the speaker intends to say aloud while each
+  slide is projected.
+- The reasoning offered for the design or decision under review: what the presentation is meant to
+  achieve, what is on the slides now, and any claim about why the current form works.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the source's guidance is conditional or context-bound rather than presenting it as settled. This skill advises on presentation design and delivery; it does not write the talk, build the deck, produce the graphics, deliver the presentation, or rule on whether the underlying result is correct.
+Per finding: name the gap and the principle it engages, give the correction, state the residual
+trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact
+first, and mark where the source's guidance is conditional or context-bound rather than presenting
+it as settled. This skill advises on presentation design and delivery; it does not write the talk,
+build the deck, produce the graphics, deliver the presentation, or rule on whether the underlying
+result is correct.
 
 ## Anti-patterns to flag
 
-- Overlooking P012: Reduce an overloaded slide by asking what can be removed without changing the meaning and where the content can be split.
-- Overlooking P018: Keep the word count low enough to serve only as a mnemonic the presenter is comfortable delivering.
-- Overlooking P019: Strip every phrase and decorative image that does not connect directly to the spoken content.
-- Overlooking P025: Measure a slide against projected words per minute rather than against a per-slide word rule.
-- Overlooking P026: Give the presenter structure without a script.
-- Overlooking P033: Keep the balance between what is shown and what is said.
-- Overlooking P073: Split content across slides and reveal the pieces in sequence whenever secondary or technical detail competes with the slide's single main message.
+- A slide keeps every point carried over from the underlying notes or data, with nothing cut and
+  nothing moved to a second slide, so it reads as clutter rather than a considered message (P012).
+- The slide's text is dense and grammatically complete enough to be read verbatim, rather than
+  short cues the presenter merely glances at while speaking (P018).
+- A caption, subtitle, or stock photo sits on the slide with no connection to anything the speaker
+  actually says (P019).
+- A slide obeys a bullet-count convention such as six bullets of six words yet still carries more
+  words than the speaker can voice in the time it stays projected (P025).
+- The slide text reads as a complete script — full sentences the presenter appears to be reading
+  aloud rather than speaking from (P026).
+- A slide's headline states supporting detail such as method or procedure while the body is left to
+  carry the main message, or the reverse, so the shown-versus-said split has collapsed (P033).
+- A slide is split into two parts but both are shown together at once, or a technical aside is left
+  competing with the main slide rather than pulled out and revealed on its own beat (P073).
+- The talk shows the presenter turning to the screen to locate the next point and back to the
+  audience to deliver it, slide after slide (P080).
+- A deck aiming for TED-style minimalism looks under-prepared: the same amount of craft time as an
+  assertion-evidence deck, no attention to cropping or empty space, just fewer words on the same
+  layout (P081).
+- A slide places five, six, or more call-outs or categories on one visual with no folding into
+  smaller, memorable groups (P084).
+- An entire slide's bullets, or several visuals, appear simultaneously the moment the slide is
+  projected, before the speaker has reached them (P097).
+- Most of a slide's sentences are already fully readable on screen, or most slides in the deck
+  carry no image at all, leaving the audience nothing but text to read (P101).
 
 ## References
 
-See `../../references/presentation-design-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/presentation-design-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.
+See `../../references/presentation-design-principles-index.md` for the full principle catalogue
+grouped by skill, and `../../references/presentation-design-evidence-notes.md` for how these
+principles are grounded and kept faithful to the sources.
 
 ## Provenance
 
-Derived from P012, P018, P019, P025, P026, P033, P073, P080, P081, P084, P097, P101, grounded in three distillation-only sources on presentation design and delivery (Alley's *The Craft of Scientific Presentations*, and Duarte's *Resonate* and *slide:ology*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P012, P018, P019, P025, P026, P033, P073, P080, P081, P084, P097, P101, grounded in
+three distillation-only sources on presentation design and delivery (Alley's *The Craft of
+Scientific Presentations*, and Duarte's *Resonate* and *slide:ology*). The frontmatter `provenance`
+block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and
+`analysis/claims.jsonl`.

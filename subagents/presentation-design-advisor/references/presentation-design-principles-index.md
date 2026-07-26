@@ -146,7 +146,6 @@ provenance:
   authored_from_digest: ab401b4e711f7cfaba6021e42aca4da2fe7dfc3887eafd4545a9a82820202a61
 ---
 
-
 # Presentation-Design Principles Index
 
 Package-wide index of every promoted principle, grouped by the skill that owns it. Each entry restates the principle's operative core; the full statement lives in `../principles/principles.yaml`.
@@ -239,6 +238,7 @@ Skill: `audience-analysis-and-persona-design`
 - **P063** — Check a talk against three traits rather than one.
 - **P075** — Test each detail of a known audience's talk against two questions.
 - **P114** — Discharge the mentor's two duties.
+- **P074** — Refuse to treat slides as an extension of the presenter's persona.
 - **P119** — Calibrate to the audience's tolerance in both directions.
 - **P120** — Locate content on the head-heart-gut-groin spectrum and correct in whichever direction the presenter defaults.
 
@@ -282,25 +282,30 @@ Skill: `opening-closing-and-framing-slides`
 - **P085** — Spend more than twenty or thirty seconds on the title slide and answer at least one of the audience's opening questions before the first slide change.
 - **P112** — Plant a handful of succinct, repeatable sound bites so the audience can recall and transfer the message, coordinating key phrases word-for-word with the press release and preparing at least one.
 
-## Rehearsal And Extemporaneous Delivery
+## Rehearsal And Memorisation
 
-Skill: `rehearsal-and-extemporaneous-delivery`
+Skill: `rehearsal-and-memorisation`
 
-- **P016** — Accept that no single delivery style is correct.
 - **P020** — Walk through the whole presentation beforehand even in a mumble.
 - **P052** — Practise until the talk can be given with no notes by memorising its organisation.
 - **P054** — Keep memorising the actual words the exception rather than the standard.
-- **P066** — Account for the audience and the room when judging a delivery.
 - **P072** — Let the visual evidence alone trigger what to say.
-- **P079** — Require three things of the speaker in a strong presentation.
 - **P094** — Answer the risk of groping for a word with repeated practice rather than with a script.
 - **P095** — Reject memorisation at presentation length.
 - **P105** — Treat reading a speech as costly by default.
+
+## In-Room Delivery And Composure
+
+Skill: `in-room-delivery-and-composure`
+
+- **P016** — Accept that no single delivery style is correct.
+- **P066** — Account for the audience and the room when judging a delivery.
+- **P079** — Require three things of the speaker in a strong presentation.
 - **P106** — Take charge of the room as part of delivery.
 - **P107** — Direct the audience's attention with the eyes.
 - **P108** — Hold composure through anything mid-talk.
 - **P110** — Replace the question of how to handle nervousness with the question of how to achieve confidence, whose answer is passion combined with preparation.
-- **P111** — Plan several deliberate delivery-mode changes within an hour.
+- **P111** — Plan several deliberate delivery-mode changes within an hour, wherever the slot runs beyond about ten minutes.
 
 ## Questions, Challenge And Composure
 
@@ -319,12 +324,9 @@ Skill: `format-choice-and-preparation-planning`
 - **P010** — Judge a presentation by whether the audience looks enlightened, moved to act, or willing to change behaviour, and get there by reviewing the content through their eyes, showing them something they.
 - **P027** — Reserve the Lessig style.
 - **P031** — Weigh a presentation against a document on five advantages.
-- **P036** — Critique a talk from four separate perspectives.
-- **P048** — Plan for slow adoption of a better slide structure.
 - **P051** — Use pecha kucha — 20 slides at 20 seconds each on automatic advance — where there is no time to teach a sophisticated structure.
 - **P062** — Brief an illustrator with the story to be told rather than with what to draw, give them time for research, ideation, and revision.
 - **P065** — Scale preparation time to the stakes and schedule it.
-- **P074** — Refuse to treat slides as an extension of the presenter's persona.
 - **P088** — Constrain the length hard.
 
 ## Equipment, Venue And Contingency
@@ -335,3 +337,10 @@ Skill: `equipment-venue-and-contingency`
 - **P028** — Never attempt a live demonstration without rehearsing it on the actual equipment.
 - **P053** — Imagine the worst compound case once the structure and slides are set and devise a plan for equipment failure.
 - **P104** — Remove the dependencies that fail in an unfamiliar room.
+
+## Not owned by a skill
+
+These two principles are deliberately outside the skill partition.
+
+- **P036** — Critique a talk from four separate perspectives. Cross-cutting review method, so it sits in the profile's `quality_bar` rather than in one topic skill.
+- **P048** — Plan for slow adoption of a better slide structure. Its own `operational_mapping.profile_rule` is `false`: a descriptive claim about institutional adoption timelines, not an operative design instruction, so nothing in the profile or a skill treats it as a directive.
