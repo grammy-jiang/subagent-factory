@@ -3,7 +3,9 @@ name: format-choice-and-preparation-planning
 description: 'Decide whether there should be a presentation at all, in what format,
   and how much work it deserves: presentation versus document or meeting, length constraint,
   specialised formats on their conditions, preparation scheduling, and briefing an
-  illustrator.'
+  illustrator. Use when a meeting is being booked for material that may really be a
+  document, when the slot length or format is still open, or when preparation time is
+  being scoped against the stakes.'
 kind: skill
 status: ready
 provenance:

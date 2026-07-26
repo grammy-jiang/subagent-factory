@@ -1,418 +1,145 @@
-# Review — presentation-design-advisor (round 1)
+# Review — presentation-design-advisor (round r1)
 
-Package: `subagents/presentation-design-advisor/`
-Reviewers: deterministic gates + 4 LLM lenses (skill-authoring, profile release-readiness,
-faithfulness/over-claim, agent design).
-Mode: **review only** — no package file was modified.
+Package: `subagents/presentation-design-advisor/` @ `agent_version: 1.2.1`
+Date: 2026-07-27
+Mode: review only — no files changed except this report.
 
-## Deterministic gates
+## 1. Deterministic gates
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **VALIDATION PASSED** — 0 FAIL, 1 WARN (see F6) |
+| `validate_generated_package` | **PASSED** — 0 FAIL, 1 WARN |
 | `quote_scan` | **PASS** — no potential verbatim quotation found |
-| ellipsis truncation grep (`…` in skills + adapter) | no hits |
-| severed-parenthetical grep (adapter invariants) | no hits |
-
-Zero deterministic FAILs. Note: the two truncation greps are **clean but not exonerating** — the
-real truncation in this package is silent (no ellipsis, closes with a `(Pxxx).` citation), so it
-slips past both patterns. See F2.
-
-## Findings
-
-Most severe first. Deduped across lenses.
-
----
-
-### F1 — Anti-pattern lists hard-capped at 7 entries, dropping up to 8 principles per skill
-**Where:** `skills/*/SKILL.md`, `## Anti-patterns to flag` — 10 of 13 skills.
-Worst: `rehearsal-and-extemporaneous-delivery/SKILL.md:87-93`,
-`slide-density-and-signal-to-noise/SKILL.md:80-88`,
-`assertion-evidence-slide-structure/SKILL.md:79-87`,
-`format-choice-and-preparation-planning/SKILL.md:77-84`.
-**Severity: must-fix** (confirmed deterministically)
-
-**Problem.** Every anti-pattern section stops at exactly `min(7, N)` entries regardless of how many
-principles the skill carries, while the frontmatter `provenance.principles` list is always complete.
-Measured principles-vs-anti-patterns per skill:
-
-```
-rehearsal-and-extemporaneous-delivery       15 → 7   (8 dropped)
-assertion-evidence-slide-structure          12 → 7   (5 dropped)
-slide-density-and-signal-to-noise           12 → 7   (5 dropped)
-format-choice-and-preparation-planning      11 → 7   (4 dropped)
-audience-analysis-and-persona-design        10 → 7   (3 dropped)
-talk-organisation-transitions-and-emphasis  10 → 7   (3 dropped)
-persuasion-ethos-pathos-and-logos            9 → 7   (2 dropped)
-story-structure-and-the-big-idea             9 → 7   (2 dropped)
-typography-colour-and-slide-layout           9 → 7   (2 dropped)
-visual-evidence-analogies-and-graphics       9 → 7   (2 dropped)
-equipment-venue-and-contingency              4 → 4   ok
-questions-challenge-and-composure            4 → 4   ok
-opening-closing-and-framing-slides           6 → 6   ok
-```
-
-Every skill at or under 7 principles is complete; every skill over 7 is truncated to exactly 7 —
-a generator cap, not an authoring judgment. Behavioural impact: `rehearsal-and-extemporaneous-delivery`
-loses the anti-patterns for most of its actual delivery content (P094, P095, P105, P106, P107, P108,
-P110, P111 — composure, confidence, eye contact, room control), so an agent scanning a submitted talk
-against that skill's checklist cannot flag violations of over half its principles.
-
-**Fix.** Regenerate `## Anti-patterns to flag` from the full `provenance.principles` list — one entry
-per principle, no `min(7, N)` cap — matching the completeness the closing `Provenance` line already has.
-
----
-
-### F2 — Procedure and anti-pattern bullets truncated mid-clause, producing ungrammatical instructions
-**Where:** `skills/format-choice-and-preparation-planning/SKILL.md:57`;
-`skills/persuasion-ethos-pathos-and-logos/SKILL.md:60,81`;
-`skills/story-structure-and-the-big-idea/SKILL.md:59,61,75,79,80`;
-`skills/slide-density-and-signal-to-noise/SKILL.md:64`;
-`skills/visual-evidence-analogies-and-graphics/SKILL.md:59`;
-`skills/audience-analysis-and-persona-design/SKILL.md:81`.
-**Severity: must-fix** (confirmed by reading the lines)
-
-**Problem.** Bullets are cut at a fixed character length (~230-240 chars for Procedure, ~150 for
-anti-patterns) with **no ellipsis** — the text just stops and the `(Pxxx).` citation is appended, so
-the line looks well-formed to a grep but is a broken sentence. Confirmed instances:
-
-- `format-choice…:57` — "…and combining strong (P010)." — combining strong *what*?
-- `persuasion…:60` — "…at every stage through careful (P113)." — through careful *what*?
-- `story-structure…:59` — "…recording how the presenter felt as each (P064)."
-- `story-structure…:61` — "…and everything after (P116)."
-- `slide-density…:64` — "…splitting without sequencing (P073)." — drops the actual point, which the
-  Purpose section states as: splitting without sequencing "does not by itself solve density".
-- `visual-evidence…:59` — "…supply the background warrants without (P091)."
-- `audience-analysis…:81` — "…keeping the persona slide at."
-- `story-structure…:75,80` — anti-patterns for P060 / P064 end "…conveys what." / "…sketching."
-
-This is worse than a cosmetic defect: the qualifying clause is where the substantive guidance lives,
-and an agent quoting these lines to a caller emits meaningless text.
-
-**Fix.** Regenerate Procedure/anti-pattern bodies without a character-count truncation. If a length
-bound is required, cut to the nearest complete clause and *summarize* the tail rather than severing it.
-Add a generator-side guard: reject any bullet whose text before the `(Pxxx)` citation does not end at a
-clause boundary — the existing `…` and severed-parenthetical greps do not catch this shape.
-
----
-
-### F3 — Faithfulness report never audits `knowledge_partition.always_on` (the bulk of the profile)
-**Where:** `reports/faithfulness-report.yaml` (whole file) vs `profile.yaml:113-313` (`always_on`,
-13 paragraphs) and `profile.yaml:333-389` (`examples`).
-**Severity: must-fix** (confirmed: `grep -c 'always_on\|knowledge_partition'` → **0**)
-
-**Problem.** The report carries `rule_ref` entries for only these keys:
-`quality_bar`, `forbidden_behaviours`, `when_to_use`, `when_not_to_use`, `outputs`, `handoff_rules`,
-`source_of_truth_policy`, `minimum_useful_output` — 29 rule locations, all
-`WITHIN_SCOPE` / `accept_with_note`. There is **zero** coverage of `always_on` or `examples`.
-
-`always_on` is the largest section of the profile (~2,000 words) and carries essentially every
-concrete, checkable claim: numeric thresholds (28pt type, 120-140 wpm, four-item groupings,
-"over twenty or thirty seconds", "within an hour"), audience-effect claims, and the one place a
-principle explicitly excluded from profile-rule status still appears as an operative directive (F4).
-A report that never opens the section cannot support the "faithfulness reviewed" gate it exists to
-provide — it is thin relative to its own stated method ("per rule, assign a verdict").
-
-**Fix.** Extend the report with a finding per `always_on` paragraph (and the `examples`), checking each
-numeric and mechanical claim against its cited principles' exact wording *and* `applies_when`
-conditions — not only the top-level quality-bar / forbidden-behaviour summaries.
-
----
-
-### F4 — P048 is operative in both the profile and a skill despite `profile_rule: false`
-**Where:** `profile.yaml:296-298` (`always_on`, format/prep paragraph) and
-`skills/format-choice-and-preparation-planning/SKILL.md:61` (Procedure step 6), vs
-`principles/principles.yaml:856-872` (`P048`).
-**Severity: should-fix** — claim strength **SCOPE_BROADENED**
-
-**Problem.** P048's own `operational_mapping.profile_rule` is `false`, and a sweep of
-`principles.yaml` confirms it is the **only** principle in the file marked that way — the
-principle-promotion step deliberately excluded it from profile-operative content (it is a descriptive
-claim about institutional adoption timelines, not an actionable design instruction; matches the
-evidence-protocol exclusion for background with no operational value). It nevertheless appears twice
-as an active directive: the profile's `always_on` says the skill "plans for slow institutional
-adoption of a better slide structure… (P048)", and the skill's Procedure step 6 reads
-"Plan for slow adoption of a better slide structure (P048)." This re-admits a principle past its own
-metadata gate — exactly the leak F3's blind spot would have to catch.
-
-**Fix.** Drop the P048 citation from both loci, or restate it as descriptive context rather than an
-operative "plan for…" instruction. Then add a generator/validator check that no `profile_rule: false`
-principle is cited by a profile rule or skill Procedure step.
-
----
-
-### F5 — Governance clauses cite principles that do not carry the claim
-**Where:** `profile.yaml:90-91` (`forbidden_behaviours[2]`) and `profile.yaml:109-112`
-(`source_of_truth_policy.precedence`).
-**Severity: should-fix** — claim strength **SCOPE_BROADENED** (invented grounding)
-
-**Problem.** `forbidden_behaviours[2]` — "Certifying the underlying result or business case as
-correct… (P001, P091)" — cites two *craft* principles (fix the main assertion before graphing it;
-build a chain of evidenced sub-assertions). Neither states or implies a prohibition on certifying
-truth. Likewise "Where two principles conflict, the audience's comprehension decides (P012, P056)"
-cites decluttering an overloaded slide and audience-centred design; neither states a meta-rule for
-arbitrating principle conflicts. Both clauses are sound authored policy — the defect is that the
-`(Pxxx, Pyyy)` citations claim principle-level grounding the principles don't carry.
-
-**Fix.** Either re-cite to principles that actually state a certification boundary / conflict-arbitration
-rule, or mark both as authored-policy overlays with no principle citation rather than attaching
-citations that don't support them.
-
----
-
-### F6 — Quote-scan rights gate could not run (validator WARN)
-**Where:** `validate_generated_package` output; `sources/markdown/` absent by design
-(3 `distillation-only` sources).
-**Severity: should-fix**
-
-**Problem.** `[WARN] quote-scan: rights NOT verified — 3 restricted source(s) but no source text
-available (no sources/markdown/, no warm cache module); verbatim-quote gate could not run.` The
-standalone `quote_scan` reports PASS, but that PASS is vacuous — with no source text there is nothing
-to compare against. Given three `distillation-only` sources (Alley + Duarte ×2), the no-verbatim-quotation
-rule in `.claude/rules/rights-and-quotation-policy.md` is currently **unverified**, not satisfied.
-
-**Fix.** Run the quote scan once against a warm markdown cache (or a temporary re-conversion) and record
-the verified result in the package, so the rights-clean export carries evidence rather than an
-unrunnable gate. Not a FAIL, but it is the one gate this package cannot currently self-attest.
-
----
-
-### F7 — `always_on` block carries all 13 topic areas into every invocation
-**Where:** `.claude/agents/generated/presentation-design-advisor.md:26-254`
-(mirrors `profile.yaml:114-313`); skill list at adapter lines 392-416.
-**Severity: should-fix**
-
-**Problem.** The operating-invariants block reproduces ~120 principles near-verbatim, and that content
-maps almost one-to-one onto the 13 separate skill files. Every invocation — a font-choice question or
-a Q&A-tactics question alike — always loads slide structure, story arc, persuasion, delivery, *and*
-equipment logistics into the system prompt. That defeats the point of granular on-demand skills and
-dilutes attention with material irrelevant to the query.
-
-**Fix.** Shrink `always_on` to genuinely cross-cutting non-negotiables (the advice-only boundary, the
-"never violate" rules), and leave the topic-specific technique detail to the skill files that already
-carry it. Re-export the adapter after the profile change.
-
----
-
-### F8 — Read/Grep/Glob granted but never mentioned in the instructions
-**Where:** adapter frontmatter line 4 (`tools: Read, Grep, Glob`); no corresponding instruction in the
-body (lines 17-421) or in `profile.yaml`.
-**Severity: should-fix**
-
-**Problem.** `review` mode triggers on "the caller submits a deck, slide, talk outline… for critique",
-but nothing tells the model when to Read a caller-supplied path versus rely on pasted text, or that
-Grep/Glob are for locating a named file rather than browsing. The tools are either dead weight or used
-without a boundary.
-
-**Fix.** Add one instruction: when the caller references a deck/outline by path rather than pasting it,
-use Read to load the actual content before critiquing; use Grep/Glob only to locate a referenced file,
-never to browse unrelated material.
-
----
-
-### F9 — Anti-patterns are restatements of Procedure steps, not failure signatures
-**Where:** all 13 `skills/*/SKILL.md`, `## Anti-patterns to flag`
-(e.g. `assertion-evidence-slide-structure/SKILL.md:81-87`).
-**Severity: should-fix**
+| Truncation gate: `…` ellipsis in skill bodies / adapter | clean — 0 hits |
+| Truncation gate: adapter invariant severed inside a parenthetical | clean — 0 hits |
 
-**Problem.** Every entry is literally "Overlooking P0XX: `<the same imperative sentence as the matching
-Procedure step>`." None describes an observable failure in a submitted deck (e.g. "headline is a topic
-phrase like 'Results' rather than a claim sentence"; "slide has five bullets but the speaker will voice
-only two"). The section is a lossy duplicate of Procedure — and, given F2, sometimes a strictly worse
-duplicate.
-
-**Fix.** Author anti-patterns as observable symptoms distinct from the positive instruction, giving a
-reviewing agent two lenses (what to do / what a violation looks like) instead of one repeated.
+Deterministic FAILs: **0**.
 
----
-
-### F10 — `rehearsal-and-extemporaneous-delivery` fuses two unrelated lenses (15 principles)
-**Where:** `skills/rehearsal-and-extemporaneous-delivery/SKILL.md` (whole file; package median ≈9).
-**Severity: should-fix**
+Two non-FAIL signals carried forward as findings below:
 
-**Problem.** It merges rehearsal/memorisation mechanics (P020, P052, P054, P094, P095, P105) with
-in-room delivery technique (eye contact P107, room control P106, composure P108, confidence P110,
-pacing P111) and general delivery-style judgment (P016, P066, P072, P079). It is also the worst victim
-of F1 — which is itself a symptom of one file covering too much ground.
+- `[WARN] quote-scan: rights NOT verified — 3 restricted source(s) but no source text available (no sources/markdown/, no warm cache module); verbatim-quote gate could not run`
+- `[OK  ] phase8: Phase 8 self-check WARNING`
 
-**Fix.** Split into `rehearsal-and-memorisation` (practice method, notes vs no-notes, script vs
-organisation-memorisation) and an in-room delivery/composure skill (eye contact, room control,
-confidence, mid-talk recovery). Both lists then fit without hitting any cap.
+## 2. Reviewer panel
 
----
+Four lenses run in parallel, each scoped to its own surface:
 
-### F11 — "composure" triggers two skills with disjoint principles
-**Where:** `skills/questions-challenge-and-composure/SKILL.md:44` vs
-`skills/rehearsal-and-extemporaneous-delivery/SKILL.md:55`.
-**Severity: should-fix**
+| Lens | Surface | MUST_FIX |
+|------|---------|----------|
+| agent-skills-advisor | `skills/*/SKILL.md` (14) | 0 |
+| profile-reviewer | `profile.yaml`, `provenance-ledger.md` | 1 |
+| faithfulness-reviewer | profile rules vs `principles/principles.yaml` | 1 |
+| ai-agent-engineering-reviewer | exported adapter + profile (agent design) | 0 |
 
-**Problem.** Both use "composure" as trigger language — Q&A/attack context (P029, P055, P093, P109)
-and general mid-talk nervousness (P108, P110). A caller asking "I lost my composure mid-talk, how do
-I recover" gives no clean signal for which skill applies.
+## 3. Consolidated findings — most severe first
 
-**Fix.** State the distinguishing condition in each `When to use` bullet: challenge/Q&A-triggered
-composure vs general mid-delivery mishap or nervousness.
+### F1 — must-fix — over-claim: Duarte persuasive narrative arc stated as universal planning law
 
----
+- **where** `profile.yaml:178-192` (`knowledge_partition.always_on[4]`, story-structure paragraph); also rendered into `.claude/agents/generated/presentation-design-advisor.md`
+- **lens** faithfulness (SCOPE_BROADENED)
+- **problem** The paragraph asserts the *Resonate* arc unconditionally — "It opens by stating what is… it makes the turning point an explicit, memorable call to adventure… and it lands the ending on a higher plane than the beginning." Each of the three principles carrying that arc is scoped by the source to a persuasive / change-seeking talk:
+  - P087 `applies_when: the presenter is about to propose something new`
+  - P059 `applies_when: writing the final movement of a persuasive presentation`
+  - P116 `applies_when: the audience must be moved from complacency into wanting a different reality`
 
-### F12 — `format-choice-and-preparation-planning` carries two off-lens principles
-**Where:** `skills/format-choice-and-preparation-planning/SKILL.md:44-45,52,60,65` (P036, P074).
-**Severity: should-fix**
+  All three conditions are dropped. The paragraph is always-on for any "planning from scratch" task (`when_to_use[2]`), which per `router_description` includes Alley-domain scientific-conference talks and lectures that report findings without proposing anything or needing a call to adventure. This is precisely the cross-source failure mode the package is exposed to: Duarte persuasion technique promoted to universal presentation law. `reports/faithfulness-report.yaml:381-390` audits P041's scope for this rule but is silent on P087/P059/P116 — i.e. the existing report is lenient on exactly this rule.
+- **fix** Either (a) restore the condition — "where the talk proposes something new or seeks a decision, it opens by stating what is… and lands the ending on a higher plane"; or (b) split the paragraph so the genuinely general big-idea/ideation content (P005, P035, P060, P118) stays unconditional and the narrative-arc content (P087, P059, P116) is explicitly scoped to persuasive / change-seeking talks. Then update the `knowledge_partition.always_on[4]` entry in `reports/faithfulness-report.yaml`, bump `agent_version`, re-export the adapter, re-validate.
 
-**Problem.** The name promises format choice and prep planning (document-vs-presentation, specialised
-styles, illustrator briefing, prep scheduling), but P036 ("critique a talk from four separate
-perspectives") and P074 ("refuse to treat slides as an extension of the presenter's persona") are
-general review-methodology / ethics guidance. A caller asking "meeting or deck?" gets unrelated
-content; a caller wanting talk-critique method won't look here. (P048's presence in the same skill is
-covered separately in F4.)
+### F2 — must-fix — `status: ready` declared over a self-check gap the ledger itself records as open
 
-**Fix.** Re-home P036/P074 to the shared quality-bar framing, or rename the skill to match its actual
-broader scope.
+- **where** `provenance-ledger.md:71-75` (1.2.1 entry) vs `profile.yaml:5` (`status: ready`); corresponds to the validator's `phase8: Phase 8 self-check WARNING`
+- **lens** profile / release-readiness
+- **problem** The ledger's own 1.2.1 entry records an unresolved process finding: the authored `reports/faithfulness-report.yaml` audits `profile.yaml` fields only — **zero entries cover `knowledge_partition.skills` or any `SKILL.md` body** — "which is why (b) and (c) survived a `must-fix = 0` verdict. The faithfulness surface should extend to skill bodies." That is the coverage hole behind the Phase 8 WARNING: 14 skill bodies carry inline `## Procedure` citations but their prose and anti-pattern text is unaudited. Two round-1 self-check defects escaped and were only caught by the next cycle — direct evidence the surface is insufficient *today*, not hypothetically. The package was nonetheless versioned forward 1.2.0→1.2.1 with `status: ready`, and the gap is written as a changelog note that reads closed but is not. F1 above is a live instance of what this hole misses.
+- **fix** Either (a) extend `reports/faithfulness-report.yaml` to cover every `SKILL.md` body and re-run Phase 8 before shipping this version; or (b) if deferring is deliberate, drop `status: ready` for an explicit provisional status and raise a tracked follow-up rather than a changelog note.
 
----
+### F3 — should-fix — `P031` cited in the adapter but never defined in it
 
-### F13 — Provenance ledger exempts four profile fields from the repo's traceability hard rule
-**Where:** `provenance-ledger.md:9-10` vs `.claude/rules/rights-and-quotation-policy.md`
-("Every profile field must be traceable to a source and QID… No orphan field values").
-**Severity: should-fix**
+- **where** `.claude/agents/generated/presentation-design-advisor.md:357` (Handoff rules, "(P009, P031)"); source `profile.yaml:107`
+- **lens** agent design
+- **problem** The adapter's Operating Invariants section is the one place that spells out principle text, and it claims each invariant is "traceable to its source principle" — but it jumps P030 → P032, so P031 is never defined in the document, while being cited in the handoff bullet on channel choice. P009's text supports the "change the format" half; the second citation is unresolvable from the adapter alone. Verified: P031 **does** exist in `principles/principles.yaml:564` and is legitimately cited at `profile.yaml:311`, so this is a rendering/selection gap in the must-hold invariant tier, not a dangling ID — it degrades the traceability guarantee the invariants section makes about itself. All other three-digit citations spot-checked (P062, P100–P120) resolve.
+- **fix** Add P031's statement to the Operating Invariants tier so the citation resolves within the adapter, or drop the citation from the handoff bullet if P031 was deliberately excluded from must-hold. Fix in `profile.yaml` and re-export — never edit the adapter.
 
-**Problem.** The ledger states that `role`, `when_to_use`, `inputs`, `outputs` "carry no inline tags,
-per repo convention", but those fields (`profile.yaml:8-23, 24-34, 44-47, 48-64`) hold substantive
-claims — the 13-topic role summary, the required-inputs list — with no citation trail. By the letter of
-the rule they are orphans; the ledger declares an exception to a rule that admits none.
+### F4 — should-fix — `quality_bar[8]` is an ungrounded orphan field
 
-**Fix.** Either add QID pointers for the descriptive fields' factual claims, or amend the policy to scope
-the traceability requirement to load-bearing rule fields (`quality_bar`, `forbidden_behaviours`,
-`handoff_rules`, `knowledge_partition`, `source_of_truth_policy`) so the carve-out is policy-consistent.
+- **where** `profile.yaml:86-87` ("Nothing falls below the output floor…") vs `provenance-ledger.md:18-26` (field-grounding table)
+- **lens** profile / provenance
+- **problem** Every other uncited profile field is either tagged inline `(authored boundary; no source principle states it)` (see `forbidden_behaviours[0]` at :91-92, `[2]` at :95-96, `handoff_rules[0]` at :103-105) or named in the ledger's grounding table (e.g. `outputs.primary_format`, `minimum_useful_output` at ledger:24). `quality_bar[8]` has neither: no `(Pxxx)`, no authored tag, and no `quality_bar` row in the grounding table — despite the 1.2.0 entry (ledger:93-94) explaining it was added deliberately as an authored floor duplicating `minimum_useful_output`. Orphan field value under the provenance requirement.
+- **fix** Tag it inline `(authored output floor; no source principle states it)` and add a one-line `quality_bar` row to the ledger table cross-referencing `minimum_useful_output`.
 
----
+### F5 — should-fix — verbatim-quote gate could not run (rights not verified)
 
-### F14 — `inputs.required` bundles seven facts as uniformly mandatory
-**Where:** `profile.yaml:44-47`.
-**Severity: should-fix**
+- **where** validator WARN; `sources/markdown/` absent by design (3 `distillation-only` sources, rights-clean export)
+- **lens** deterministic gate
+- **problem** `quote_scan` returned PASS, but the validator separately warns the rights check was **not verified**: with no source text and no warm cache module, the 40+-consecutive-word verbatim gate had nothing to compare against. The standalone `quote_scan` PASS is therefore not evidence that no verbatim quotation exists — it is evidence that nothing was checked. For three `distillation-only` sources (Alley, Duarte ×2), verbatim quotation is a hard policy bar.
+- **fix** Re-run `quote_scan` once against a warm MAP cache or a temporarily restored `sources/markdown/`, record the verified result in `reports/`, and cite it at release. If a rights-clean export permanently precludes this, record the last verified-clean run's version so the WARN is explicitly accounted for rather than silently carried.
 
-**Problem.** One `required` bullet makes all of artifact, occasion, audience, post-talk action, slot
-length, prep time, and room conditions strictly mandatory — broader than the triggers need. `when_to_use`
-bullet 1 (does each slide assert and evidence something?) needs neither room conditions nor prep time;
-bullet 2 (diagnose a flop) may need only audience plus what happened. Gating on all seven risks stalling
-on requests the advisor could partly answer.
+### F6 — nice — `when_to_use[5]` drops the live-presentation anchor
 
-**Fix.** Split into a minimal `required` set (artifact/topic + audience) and a `recommended` set
-(occasion, post-talk action, slot length, prep time, room conditions) that sharpens advice without gating.
+- **where** `profile.yaml:33` / adapter `:267` — "Judging whether a persuasive case covers evidence, emotion, and speaker credibility for its audience."
+- **lens** agent design (routing)
+- **problem** Every other `when_to_use` bullet is anchored to a talk / deck / slide / delivery context, and `when_not_to_use` explicitly excludes "a written document … with no live-presentation dimension." Bullet 5 alone reads as generic persuasion review (essay, ad, memo), a small misrouting risk against the package's own stated exclusion.
+- **fix** "Judging whether a persuasive **talk or pitch** covers evidence, emotion, and speaker credibility for its audience."
 
----
+### F7 — nice — same condition-dropping in the persuasion paragraph
 
-### F15 — P006 widened from "science" to "technical work"
-**Where:** `profile.yaml:206` vs `principles/principles.yaml:99-118` (P006).
-**Severity: nice** — claim strength **SCOPE_BROADENED** (minor)
+- **where** `profile.yaml:212-229` (`knowledge_partition.always_on[6]`)
+- **lens** faithfulness (SCOPE_BROADENED, low risk)
+- **problem** Same pattern as F1 — "It engineers contrast…", "builds the character appeal deliberately…", "builds common ground…" stated unconditionally, while P040 / P092 / P115 each carry an `applies_when`. Lower risk because this paragraph only fires inside the persuasion skill, where the conditions are near-always satisfied.
+- **fix** Optional consistency tightening once F1 is fixed — restate each clause with its source condition.
 
-**Problem.** P006 is scoped to "science"/"scientists" (Alley's domain); the profile generalises to
-"technical work" broadly. Probably intended cross-source synthesis with Duarte, but it is a silent
-widening of P006's own evidence base.
+### F8 — nice — `quality_bar[2]` citation incomplete on "bold type"
 
-**Fix.** Cite a Duarte-derived principle alongside P006 to carry the broader domain explicitly.
+- **where** `profile.yaml:73-75`
+- **lens** faithfulness (citation completeness, not a strength violation)
+- **problem** Cites (P007, P098, P099, P011, P004), but the bullet's "bold type" is grounded in P049 (boldface for larger rooms), which is not in this bar's citation list. P049 is correctly cited elsewhere at `knowledge_partition.always_on[3]`.
+- **fix** Add P049 to the citation list, or drop "bold" from the compressed bullet and leave it to the typography paragraph.
 
----
+### F9 — nice — adjacent skills lack mutual disambiguation
 
-### F16 — Post-mortem diagnosis trigger maps to no output mode
-**Where:** `profile.yaml:52-64` (`outputs.modes`) vs `profile.yaml:27-28` (`when_to_use` bullet 2).
-**Severity: nice**
+- **where** `skills/audience-analysis-and-persona-design/SKILL.md:59-61` and `skills/persuasion-ethos-pathos-and-logos/SKILL.md:49-52`
+- **lens** skill authoring
+- **problem** Both cover "tuning emotional appeal to the audience" from adjacent angles. Principle ownership is clean (no ID overlap), but neither description nor "When to use" cross-references the other — unlike the rehearsal / in-room-delivery / questions-challenge triad, which disambiguates itself well. A caller diagnosing "the pitch didn't land emotionally" gets no signal which to open first, and the profile's own worked example draws on both.
+- **fix** Add a one-line pointer in each "When to use", mirroring the existing triad pattern.
 
-**Problem.** `when_to_use` bullet 2 describes diagnosing why a talk didn't land — a narrated post-mortem
-with no artifact — but `review` mode's trigger is "the caller submits a deck, slide, talk outline, or
-delivery for critique" (artifact in hand) and `advise` is framed as a forward-looking decision. Neither
-mode cleanly names the case.
+### F10 — nice — three meta-level skills lack an explicit trigger clause
 
-**Fix.** Broaden `review`'s trigger to include "or a description of what happened", or add a diagnostic
-clause to `advise`.
+- **where** `skills/story-structure-and-the-big-idea/`, `skills/format-choice-and-preparation-planning/`, `skills/talk-organisation-transitions-and-emphasis/` — frontmatter `description`
+- **lens** skill authoring
+- **problem** Descriptions are imperative capability statements rather than trigger-oriented. Most skills compensate with concrete domain nouns ("typeface", "palette", "sticky-note story order") that should still fire; the three meta-level skills have no such anchor and no "Use when…" symptom clause.
+- **fix** Append an explicit symptom trigger, e.g. for `talk-organisation-transitions-and-emphasis`: "Use when a talk feels shapeless, loses the audience mid-way, or key details aren't landing despite sound content."
 
----
+### F11 — nice — "Not owned by a skill" section breaks index reading order
 
-### F17 — No example demonstrates two of the three refusal categories
-**Where:** `profile.yaml:371-389` (`examples`) vs `profile.yaml:38-39` (`when_not_to_use` items 2, 3).
-**Severity: nice**
-
-**Problem.** Three examples exist (two happy-path, one failure-recovery refusing to inflate a weak
-result), but none demonstrates declining to rule on whether the underlying result/business case is
-correct, or declining to guarantee funding/approval.
-
-**Fix.** Add an example where the caller asks "is our data solid enough to greenlight this" or "will the
-board approve this", showing an in-scope-help-while-declining response.
-
----
-
-### F18 — `multisource_synthesis: deferred` is unexplained
-**Where:** `profile.yaml:7`; not mentioned anywhere in `provenance-ledger.md`.
-**Severity: nice**
-
-**Problem.** An auditor cannot tell why synthesis across the three sources (Alley vs the two Duarte
-books) was deferred, or what "deferred" is meant to trigger later.
-
-**Fix.** Add one ledger line (Distillation or Version History) giving the rationale — e.g. single-pass P0
-authored layer, cross-source synthesis planned for a later minor version.
-
----
-
-### F19 — In-scope/out-of-scope both hinge on the word "case"
-**Where:** adapter lines 259-267 vs 270-281 (`profile.yaml:24-43`).
-**Severity: nice**
-
-**Problem.** "Judging whether a persuasive case covers evidence, emotional appeal, and speaker
-credibility" (in scope) sits next to "a ruling on whether the underlying result, data, method, or
-business case is correct" (out of scope). A router doing keyword matching can blur "is the case well
-presented" with "is the case true".
-
-**Fix.** Add a clause to the in-scope bullet: "…judging whether the case is *presented* persuasively —
-not whether the underlying data or business case is valid."
-
----
-
-### F20 — Procedure steps ordered by principle ID, not by workflow dependency
-**Where:** all 13 `skills/*/SKILL.md`, `## Procedure`.
-**Severity: nice**
-
-**Problem.** Step order matches ascending `provenance.principles` order in every skill, so Procedure is
-a per-principle restatement of Purpose rather than a sequenced process. Each step is individually
-actionable, but the section doesn't encode dependencies.
-
-**Fix.** Where a genuine causal order exists (assertion-evidence: identify assertion → draft headline →
-apply mechanics → check evidence-first exceptions), re-sequence to reflect it. Not needed where the
-principles are independent checks.
-
----
-
-### F21 — Two Procedure steps drop the condition their principle carries
-**Where:** `skills/format-choice-and-preparation-planning/SKILL.md:58` (P027);
-`skills/visual-evidence-analogies-and-graphics/SKILL.md:61` (P102).
-**Severity: nice**
-
-**Problem.** "Reserve the Lessig style (P027)." and "Put a short reference listing (P102)." compress a
-conditional principle into a bare imperative, dropping the condition stated in the skill's own Purpose
-(Lessig style is for "keynotes and after-dinner talks reused on multiple occasions"; the reference must
-be "visible on every slide carrying another group's work"). Read in isolation they aren't actionable.
-Related to F2 but distinct: these are grammatical, just under-specified.
-
-**Fix.** Fold the triggering condition into the Procedure line so each step stands alone.
-
----
-
-## Summary
-
-| Severity | Count |
-|----------|-------|
-| must-fix | 3 (F1, F2, F3) |
-| should-fix | 11 (F4-F14) |
-| nice | 7 (F15-F21) |
-
-All three must-fix findings were independently confirmed against the files, not accepted on a
-reviewer's word: the 7-entry anti-pattern cap by counting principles vs anti-patterns per skill, the
-mid-clause truncation by reading the cited lines, and the faithfulness gap by grepping
-`reports/faithfulness-report.yaml` for `always_on`/`knowledge_partition` (0 hits) plus confirming P048
-is the sole `profile_rule: false` principle.
-
-Deterministic gates contributed **0** must-fix (validation passed; the single WARN is F6). The package
-validates but is not yet trustworthy: F1 and F2 mean the skill bodies under-deliver against their own
-declared principle coverage, and F3 means the faithfulness gate never inspected the section of the
-profile carrying nearly all the checkable claims.
-
-MUST_FIX_COUNT: 3
+- **where** `references/presentation-design-principles-index.md:332-337`
+- **lens** skill authoring
+- **problem** The P036 / P048 section sits mid-document between two skill sections, interrupting the skill-by-skill order the 14 SKILL.md cross-references imply.
+- **fix** Move it to the end of the index.
+
+### F12 — nice — boundary sentence duplicated verbatim across 14 skill Output sections
+
+- **where** all `skills/*/SKILL.md` "## Output" (e.g. `assertion-evidence-slide-structure/SKILL.md:77-79`)
+- **lens** skill authoring
+- **problem** The advice-only boundary sentence is copy-pasted into all 14 files. No load-time cost (only the matched skill loads), but a DRY liability: a future edit to the profile's `forbidden_behaviours` wording must be propagated to all 14 or they drift from canonical language.
+- **fix** No functional change now; note the propagation requirement for maintainers.
+
+## 4. What checked out (no finding)
+
+- All 14 skills: frontmatter `provenance.principles` matches exactly the IDs cited in each body's Procedure and Anti-patterns. 118 skill-owned principles partition with **zero duplicate IDs**; P036/P048 documented as unowned. Bodies 79–174 lines, well within budget. All relative links to `references/` resolve.
+- Adapter frontmatter well-formed; `tools: Read, Grep, Glob`; description byte-identical to `router_description`; DO-NOT-EDIT header present in first 20 lines naming source profile and version 1.2.1, matching `agent_version`.
+- Tool boundary respected: every agent-directed instruction maps to Read/Grep/Glob; all write/build/produce/deliver verbs are either explicitly forbidden behaviours or domain content describing what the *presenter* does.
+- **Subagent-independence rule holds** — no "route to `<other>-advisor`" text anywhere; out-of-scope is stated by capability. The two adjacent phrases ("your methods reviewer rules on whether the claim is true") are boundary statements about who is not this agent, not delegation.
+- No authority creep: forbidden behaviours bar certifying results, guaranteeing outcomes, and prescribing one correct delivery style; worked examples reinforce it in practice.
+- Version consistency: `profile.yaml:4` 1.2.1 matches ledger top entry (:55); three prior entries with explicit supersession reasoning — supersession rule satisfied.
+- Ledger field-grounding table covers every uncited profile field except `quality_bar[8]` (F4).
+- Not verified this pass (out of every lens's read scope): `CHANGELOG.md` has a matching 1.2.1 entry per `generated-artifact-policy.md` rule 5. The release owner should confirm separately.
+
+## 5. Tally
+
+- Deterministic FAILs: 0
+- LLM must-fix (deduped): 2 — F1 (faithfulness), F2 (profile / Phase 8)
+- should-fix: 3 — F3, F4, F5
+- nice: 7 — F6–F12
+
+F1 and F2 are related but distinct and both must be closed: F2 is the missing audit surface, F1 is a live over-claim that surface would have caught.
+
+MUST_FIX_COUNT: 2

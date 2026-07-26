@@ -61,6 +61,10 @@ This skill establishes who the talk is for and builds the design around them. Th
   P063, P114).
 - A deck's styling or polish appears to be tracking the presenter's own image rather than the
   clarity of the message (P074).
+- Note the boundary: this skill characterises the audience and tunes how much emotion and evidence
+  they will take. Building or auditing the persuasive case itself — coverage of the three appeals,
+  the prior bias it must overcome, and the reward it offers — belongs to the sibling skill
+  `persuasion-ethos-pathos-and-logos`.
 
 ## Procedure
 

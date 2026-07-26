@@ -329,13 +329,6 @@ Skill: `format-choice-and-preparation-planning`
 - **P065** — Scale preparation time to the stakes and schedule it.
 - **P088** — Constrain the length hard.
 
-## Not owned by a skill
-
-These two principles are deliberately outside the skill partition.
-
-- **P036** — Critique a talk from four separate perspectives. Cross-cutting review method, so it sits in the profile's `quality_bar` rather than in one topic skill.
-- **P048** — Plan for slow adoption of a better slide structure. Its own `operational_mapping.profile_rule` is `false`: a descriptive claim about institutional adoption timelines, not an operative design instruction, so nothing in the profile or a skill treats it as a directive.
-
 ## Equipment, Venue And Contingency
 
 Skill: `equipment-venue-and-contingency`
@@ -344,3 +337,10 @@ Skill: `equipment-venue-and-contingency`
 - **P028** — Never attempt a live demonstration without rehearsing it on the actual equipment.
 - **P053** — Imagine the worst compound case once the structure and slides are set and devise a plan for equipment failure.
 - **P104** — Remove the dependencies that fail in an unfamiliar room.
+
+## Not owned by a skill
+
+These two principles are deliberately outside the skill partition.
+
+- **P036** — Critique a talk from four separate perspectives. Cross-cutting review method, so it sits in the profile's `quality_bar` rather than in one topic skill.
+- **P048** — Plan for slow adoption of a better slide structure. Its own `operational_mapping.profile_rule` is `false`: a descriptive claim about institutional adoption timelines, not an operative design instruction, so nothing in the profile or a skill treats it as a directive.

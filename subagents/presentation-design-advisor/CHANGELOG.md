@@ -3,6 +3,62 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.0] — 2026-07-27
+
+Round-1 review (`reports/review-loop/presentation-design-advisor.r1.review.md`): 2 must-fix, 3
+should-fix, 7 nice. Deterministic gates were already green (0 FAIL). No principle, claim, or evidence
+record was changed, and no claim absent from `principles/principles.yaml` was introduced.
+
+### Fixed
+- **`knowledge_partition.always_on[4]` no longer states the persuasive narrative arc as a universal
+  planning law** (SCOPE_BROADENED, must-fix F1). Open-by-stating-what-is (P087), the call-to-adventure
+  turning point (P116) and the ending on a higher plane (P059) are each scoped by the source to a talk
+  that proposes something new or seeks a decision; all three `applies_when` conditions had been dropped
+  from an always-on paragraph that fires for any planning-from-scratch request, including the
+  scientific-conference talks and lectures the router explicitly serves. All three conditions are
+  restored. `always_on[6]` gets the same restoration for P092/P115/P040/P117 (nice F7).
+- **`skills/persuasion-ethos-pathos-and-logos` Procedure step 2 restores P006's population**
+  (SCOPE_BROADENED). It restated P006 over "technical presenters" and "decisions about technical work";
+  P006's own population is scientists and decisions about science. The same widening was removed from
+  `always_on[6]` in 1.1.0 and 1.2.0 — it survived here only because no audit surface covered skill
+  bodies. Found by the new surface below on its first run.
+- **`handoff_rules[1]` drops its P031 citation** (should-fix F3). P031 is `confidence: medium`, so
+  `compile_invariants` cannot render it into the adapter's Operating Invariants tier; the citation was
+  unresolvable inside the exported adapter, which states that each of its invariants is traceable to a
+  source principle. P009 carries the clause's content. P031 is unchanged and still cited in
+  `always_on[12]` and the format-choice skill, where it is actually used.
+- **`quality_bar[8]` is no longer an orphan field value** (should-fix F4). Tagged inline `(authored
+  output floor; no source principle states it)` and given a `quality_bar` row in the ledger's
+  field-grounding table, cross-referencing `minimum_useful_output`.
+- **`when_to_use[5]` anchored to a "persuasive talk or pitch"** (nice F6), so it cannot be read as
+  generic persuasion review against `when_not_to_use[4]`.
+
+### Added
+- **The faithfulness report gains a skill-body surface** (must-fix F2). Up to 1.2.1 it audited
+  `profile.yaml` fields only — zero entries covered `knowledge_partition.skills` or any `SKILL.md`
+  body, the gap the 1.2.1 ledger recorded as open while shipping `status: ready`. It now carries one
+  finding per skill (`rule_ref: knowledge_partition.skills[N]`) grading that body's Purpose, When to
+  use, Procedure and Anti-patterns against the principles its own frontmatter claims, checking every
+  `applies_when`, every numeric claim and every hedge. Thirteen graded WITHIN_SCOPE or EXACT_SUPPORT;
+  one found the P006 drift fixed above.
+- Mutual boundary pointers between `audience-analysis-and-persona-design` and
+  `persuasion-ethos-pathos-and-logos` (nice F9), mirroring the rehearsal / in-room-delivery / questions
+  triad; explicit trigger clauses in the `description` of the three meta-level skills that carry no
+  concrete domain noun to fire on (nice F10).
+
+### Changed
+- `references/presentation-design-principles-index.md` moves the "Not owned by a skill" section
+  (P036, P048) to the end, so the index reads skill by skill (nice F11).
+- `reports/quote-scan-verified.md` re-run at this version against the warm map-reduce cache.
+
+### Known
+- Phase 8 self-check still returns WARNING: check 14 alone, profile body ~950 words against the
+  800-word *soft* budget (hard fail is 1000). Not a coverage gap — trimming to 800 would cost grounded
+  quality-bar or forbidden-behaviour content, so the overrun is carried deliberately.
+- The advice-only boundary sentence remains duplicated verbatim across all 14 skill `## Output`
+  sections (nice F12, no functional change). A future edit to the profile's `forbidden_behaviours`
+  wording must be propagated to all 14 or they drift from the canonical language.
+
 ## [1.2.1] — 2026-07-27
 
 Adversarial verify pass 1 (`reports/review-loop/presentation-design-advisor.verify1.md`): 3 must-fix,

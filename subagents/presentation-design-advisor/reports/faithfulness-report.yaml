@@ -26,8 +26,10 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P007/P098/P099/P011/P004; within the source's scope, no strengthening. Projection mechanics
-    restated with their conditions (room size, projector and lighting quality, side viewing angles).
+  note: Restates P007/P098/P099/P011/P004/P049; within the source's scope, no strengthening. Projection
+    mechanics restated with their conditions (room size, projector and lighting quality, side viewing
+    angles). The P049 citation behind 'bold type' was added in 1.2.1; round-1 review F8 reported it as
+    still missing, which the 1.2.1 profile shows it is not — no change needed in 1.3.0.
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -154,7 +156,11 @@ findings:
   severity: low
   action: accept_with_note
   note: Restates P006/P038/P119/P092; within the source's scope, no strengthening. Routing trigger grounded
-    in the cited principles.
+    in the cited principles. 1.3.0 anchors the bullet to a 'persuasive talk or pitch' rather than a bare
+    'persuasive case' (round-1 review, F6) — every other when_to_use bullet names a talk, deck, slide, or
+    delivery context, and when_not_to_use[4] excludes a written document with no live presentation at
+    stake, so the unanchored wording read as generic persuasion review and invited exactly the routing the
+    package excludes.
 - rule_ref: when_not_to_use[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -252,8 +258,15 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P009/P031; within the source's scope, no strengthening. Channel choice is named, with
-    its five-advantage / five-disadvantage weighing, but not decided for the caller.
+  note: Restates P009; within the source's scope, no strengthening. Channel choice is named — the content
+    is really a document, a meeting, or a report — but not decided for the caller. 1.3.0 drops the P031
+    citation this rule carried up to 1.2.1 (round-1 review, F3). P031 is confidence:medium, so it is
+    excluded by construction from the adapter's Operating Invariants tier, which compiles only
+    high-confidence profile_rule principles; the citation was therefore unresolvable inside the exported
+    adapter — the one document that states each of its invariants is traceable to a source principle.
+    P009 alone carries the clause's operative content. P031's five-advantage / five-disadvantage weighing
+    is unaffected and stays where it is actually used, in knowledge_partition.always_on[12] and
+    skills/format-choice-and-preparation-planning Procedure step 1.
 - rule_ref: source_of_truth_policy.precedence
   verdict: WITHIN_SCOPE
   distortion:
@@ -294,6 +307,10 @@ findings:
   note: Added in 1.2.0 so the minimum-useful-output floor reaches the exported adapter, which renders
     quality_bar but not minimum_useful_output. Same authored output-floor rule as minimum_useful_output,
     asserting nothing about presentation design and therefore carrying no source claim to over-state.
+    1.3.0 closes the orphan-field gap round-1 review F4 raised — every other uncited profile field either
+    carries an inline authored tag or a row in the ledger's field-grounding table, and this one carried
+    neither. It is now tagged inline '(authored output floor; no source principle states it)' and has a
+    ledger row cross-referencing minimum_useful_output.
 - rule_ref: quality_bar[7]
   verdict: WITHIN_SCOPE
   distortion:
@@ -379,15 +396,27 @@ findings:
     pure black and pure white affording the greatest contrast is P099's; the palette-verified-by-projecting
     requirement is P011's.
 - rule_ref: knowledge_partition.always_on[4]
-  verdict: WITHIN_SCOPE
+  verdict: SCOPE_BROADENED
   distortion:
-  - none
-  severity: low
-  action: accept_with_note
-  note: Story paragraph. Restates P005/P035/P041/P059/P060/P064/P087/P116/P118. The third-or-fourth-round
-    expectation for genuinely clever ideas is P118's own; the what-is opening and its justification are
-    P087's; P041 keeps stories confined to the two jobs it names rather than becoming a general instruction
-    to tell stories.
+  - scope_broadened
+  severity: medium
+  action: add_condition
+  note: 'Story paragraph. Restates P005/P035/P041/P059/P060/P064/P087/P116/P118. Up to 1.2.1 the three
+    narrative-arc clauses were stated unconditionally — it "opens by stating what is", "makes the turning
+    point an explicit, memorable call to adventure", "lands the ending on a higher plane" — while each
+    carrying principle is scoped by its source to a change-seeking talk: P087 applies when the presenter
+    is about to propose something new, P116 when the audience must be moved from complacency into wanting
+    a different reality, P059 to the final movement of a persuasive presentation. The paragraph is always-on
+    for any planning-from-scratch request (when_to_use[2]), which per router_description includes conference
+    talks and lectures that report findings without proposing anything, so a persuasion technique was
+    promoted to a universal planning law. 1.3.0 restores all three conditions and says explicitly that
+    the arc is scoped to the talk that seeks a change. The skill body (skills/story-structure-and-the-big-idea,
+    Procedure steps 5-7) already carried the conditions correctly; the paragraph is now aligned to it.
+    The earlier grade of this entry graded P041''s scope but was silent on P087/P116/P059 — that grade
+    is withdrawn. The remaining content (P005, P035, P060, P118 — big idea, ideation, sticky-note story
+    order) is genuinely unconditional and stays so: the third-or-fourth-round expectation for clever
+    ideas is P118''s own, and P041 keeps stories confined to the two jobs it names rather than becoming
+    a general instruction to tell stories.'
 - rule_ref: knowledge_partition.always_on[5]
   verdict: WITHIN_SCOPE
   distortion:
@@ -400,11 +429,11 @@ findings:
     than throughout. P074 is cited here from version 1.1.0, where it states what it states: the message
     outranks the polish.'
 - rule_ref: knowledge_partition.always_on[6]
-  verdict: WITHIN_SCOPE
+  verdict: SCOPE_BROADENED
   distortion:
-  - none
+  - scope_broadened
   severity: low
-  action: accept_with_note
+  action: add_condition
   note: Persuasion paragraph. Restates P006/P030/P038/P040/P068/P092/P113/P115/P117/P120. Version 1.0.0
     generalised P006's 'science / scientists' to 'technical work', and 1.1.0 widened it again to 'scientific
     and technical presenters' plus an explicit claim that the appeal carries 'beyond the sciences' — a
@@ -412,7 +441,14 @@ findings:
     calibration claim. 1.2.0 restores P006's own population ('scientists', 'decisions about science')
     and states P120 separately as a calibration of where an analytical communicator's material sits,
     not as an extension of P006. P030's 'stacking more proof does not convert a determined skeptic' and
-    P038's override caveat are carried unweakened.
+    P038's override caveat are carried unweakened. Same condition-dropping as always_on[4], at lower
+    risk because this paragraph loads inside the persuasion skill where the conditions are near-always
+    satisfied — up to 1.2.1 'it builds the character appeal deliberately', 'builds common ground' and
+    'it engineers contrast' were stated unconditionally while P092, P115 and P040 each carry an
+    applies_when. 1.3.0 restores all three (audience does not yet accept the speaker's authority; the
+    presenter must establish authority with an audience that does not know them; the idea competes for
+    attention with other messages the audience already receives), plus P117's request condition on the
+    proportional reward.
 - rule_ref: knowledge_partition.always_on[7]
   verdict: WITHIN_SCOPE
   distortion:
@@ -527,3 +563,194 @@ findings:
     to rule on the underlying result, and declining to guarantee approval). The refusal of the outcome
     guarantee is grounded in P038 and P028 exactly as they are stated; the refusal to rule on the data
     is the authored scope boundary and is labelled as such rather than attributed to a principle.
+# --- Skill-body surface (added 1.3.0) ------------------------------------------------------------
+# Round-1 review F2: up to 1.2.1 this report audited profile.yaml fields only — zero entries covered
+# knowledge_partition.skills or any SKILL.md body, which is why two round-1 skill-body drifts survived
+# a must-fix = 0 verdict. Each entry below grades one skill body (Purpose, When to use, Procedure,
+# Anti-patterns) against the principles its own frontmatter claims. rule_ref uses the numeric index into
+# knowledge_partition.skills (the validator resolves numeric list indices, not slug keys); the note names
+# the file. Scope checked per entry: every applies_when the cited principles carry, every numeric claim,
+# and every hedge.
+- rule_ref: knowledge_partition.skills[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/assertion-evidence-slide-structure/SKILL.md. Grades P014/P015/P021/P044/P045/P046/P047/P069/P070/P071/P077/P096.
+    Conditions carried - P014's technical-content trigger is stated in Procedure step 4, P046's three
+    situations (teaching, a complex assertion, a skeptical audience) gate step 9 and its anti-pattern,
+    P077's reviewing-a-failed-persuasive-slide trigger gates step 1. Numbers match their principle - two
+    lines, upper-left, 28 points (P015), over 80 percent of a white screen (P069). P047's comparative
+    claim keeps its full evidentiary frame (controlled comparison, narrated speech held constant,
+    conservative baseline, essay test at p < .01, one to two letter grades) rather than becoming a bare
+    'works better', and its anti-pattern flags exactly that unframed claim. P069's prohibition preserves
+    P046's exception in the same sentence.
+- rule_ref: knowledge_partition.skills[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/slide-density-and-signal-to-noise/SKILL.md. Grades P012/P018/P019/P025/P026/P033/P073/P080/P081/P084/P097/P101.
+    Numbers match - 120 to 140 words a minute (P025), groupings of four or fewer (P084). P073's two-part
+    fix keeps the source's own caveat that splitting without sequencing does not by itself solve density.
+    P081 keeps TED-style simplicity as costing more preparation than an assertion-evidence slide rather
+    than less. Recorded, not corrected - Procedure steps 2 and 3 do not restate P018's applies_when
+    (auditing an existing deck for whether it is a presentation or a document) or P012's (preparing
+    slides for a scientific or technical audience). The operative advice in both steps - cut what is not
+    spoken, treat clutter as the failure - is independently unconditioned in P019, P025 and P101, so the
+    steps are not stronger than the package's own support; re-imposing the conditions would narrow the
+    skill below what those three principles carry.
+- rule_ref: knowledge_partition.skills[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/visual-evidence-analogies-and-graphics/SKILL.md. Grades P001/P002/P034/P042/P078/P091/P100/P102/P103.
+    P078's limit is carried intact in both directions - analogy for how something works, how large it is,
+    how likely it is, and never as support for an assertion in an argument. P100 keeps 'never start from
+    an empty body'. P103 states Prezi's costs (learning time, no focused-scene animation, zoom only) rather
+    than recommending it, matching a conditional principle. P091's chain-of-sub-assertions condition (the
+    audience is not yet positioned to accept the main assertion) gates step 4; P042's unfamiliar-concept
+    condition gates step 5; P102's borrowed-material condition gates step 9.
+- rule_ref: knowledge_partition.skills[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/typography-colour-and-slide-layout/SKILL.md. Grades P004/P007/P008/P011/P017/P023/P049/P098/P099.
+    Every conditional is kept conditional - P098's serif penalty stays tied to a poor projector or poor
+    room lighting and to sharp side angles rather than becoming a blanket ban, P049's boldface stays tied
+    to the larger room, P011's palette check stays tied to the deck being projected, P008's logo rule
+    states the brand-mandate case it is written for. P007 is stated as a floor without inventing a point
+    size the principle does not give. P023's two-to-four-item list bound matches P084's grouping bound
+    used in the density skill.
+- rule_ref: knowledge_partition.skills[4]
+  verdict: EXACT_SUPPORT
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/story-structure-and-the-big-idea/SKILL.md. Grades P005/P035/P041/P059/P060/P064/P087/P116/P118.
+    This is the counter-case to the always_on[4] finding above - Procedure steps 5, 6 and 7 each open with
+    the source condition verbatim in substance ('When about to propose something new', 'When the audience
+    must be moved from complacency into wanting a different reality', 'When writing the final movement of
+    a persuasive presentation'), and steps 1, 2, 3 and 9 carry P060's, P005's, P118's and P064's conditions
+    the same way. The skill body was correct where the profile paragraph was not; 1.3.0 aligns the paragraph
+    to the body rather than the reverse.
+- rule_ref: knowledge_partition.skills[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/audience-analysis-and-persona-design/SKILL.md. Grades P013/P056/P057/P058/P061/P063/P074/P075/P114/P119/P120.
+    P119 is stated with both branches and with the audience-type condition attached to each, which is the
+    drift that had to be corrected in examples[1] at 1.2.1 - the skill body does not repeat it. P013 keeps
+    'no design achieves it'. P075 keeps the known-audience / unknown-audience split. P063 and P064 are
+    confidence:medium and are stated as checks to run, not as findings that settle a diagnosis. P057's
+    jargon claim keeps its stated consequence (help and funding) without generalising it.
+- rule_ref: knowledge_partition.skills[6]
+  verdict: SCOPE_BROADENED
+  distortion:
+  - scope_broadened
+  severity: medium
+  action: downgrade
+  note: skills/persuasion-ethos-pathos-and-logos/SKILL.md. Grades P006/P030/P038/P040/P068/P092/P113/P115/P117.
+    Drift found and corrected in 1.3.0 - Procedure step 2 restated P006 as 'technical presenters
+    systematically underrate the other two' and 'many decisions about technical work are made by
+    non-technical people', where P006's own population is scientists and decisions about science. This is
+    the identical widening that was removed from knowledge_partition.always_on[6] in 1.1.0 and again in
+    1.2.0; because the report had no skill-body surface, the same sentence survived unaudited in the skill
+    that actually loads for a persuasion request. The step now restates P006's own population and says
+    explicitly not to restate the finding over technical work generally. P120's differently-scoped
+    calibration is not grafted on here - P120 belongs to the audience skill's partition, and a skill body
+    cites only its own principle ids. Everything else checks out - P030, P038, P040, P092, P115, P117 and
+    P113 each carry their applies_when in the step that states them, and P068's line against deceiving is
+    stated at full source strength.
+- rule_ref: knowledge_partition.skills[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/talk-organisation-transitions-and-emphasis/SKILL.md. Grades P037/P039/P043/P067/P076/P082/P083/P086/P089/P090.
+    Numbers and their hedges match - P089's thirty to forty seconds stays 'typically' and keeps the
+    no-practical-payoff alternative, P090's recall finding is reported as roughly twice the rate as the
+    source states it rather than as a guarantee. P082's condition (a big-picture occasion or a large scope)
+    gates step 8. P043's three signalling channels and three transition points are enumerated as the
+    principle enumerates them, with 'at least one of three' preserved rather than hardened into all three.
+- rule_ref: knowledge_partition.skills[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/opening-closing-and-framing-slides/SKILL.md. Grades P022/P024/P032/P050/P085/P112. P032's
+    hedge is the load-bearing one and survives - title, outline and conclusion slides are included 'only
+    where each earns its place', with the shorter-talk qualifier and the blank-opening-slide case both
+    kept, so the skill does not turn a conditional into a rule against outline slides. P085's more than
+    twenty or thirty seconds and P112's fifteen to thirty seconds match their principles. P112's press
+    condition gates step 6.
+- rule_ref: knowledge_partition.skills[9]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/rehearsal-and-memorisation/SKILL.md. Grades P020/P052/P054/P072/P094/P095/P105. P095's
+    arithmetic is carried with its premise intact (a fifteen-minute talk at a normal speaking pace runs
+    past two thousand words) rather than as a free-standing word count. P054 stays an exception with its
+    two named cases, not a prohibition. P105 stays 'costly by default' rather than becoming 'never read'.
+    P094 keeps the escape hatch the principle grants for wording that genuinely must be exact.
+- rule_ref: knowledge_partition.skills[10]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/in-room-delivery-and-composure/SKILL.md. Grades P016/P066/P079/P106/P107/P108/P110/P111.
+    Re-checked at 1.3.0 - the 1.2.1 removal of 'only' from step 8 is still in place, so P066 remains a
+    mandatory input to the judgement rather than its sole yardstick, consistent with P063 and P079. P111's
+    about-ten-minutes threshold keeps its 'about' and its longer-than-ten-minute slot condition. P016's
+    'no single delivery style is correct' is stated as the principle states it, and P079 stops where the
+    principle stops (no speaker needs exceptional charisma).
+- rule_ref: knowledge_partition.skills[11]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/questions-challenge-and-composure/SKILL.md. Grades P029/P055/P093/P109. P055's three
+    responses are offered as alternatives ('one of three') rather than a sequence, matching the principle,
+    and each keeps its own caveat including the lowered voice working only while the speaker stays
+    resolute. P093 is gated on the challenge actually being correct. P029 is stated as transparency about
+    failures and difference, not as an obligation to disclose everything, and the skill does not extend it
+    into advice about what the underlying result means.
+- rule_ref: knowledge_partition.skills[12]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/format-choice-and-preparation-planning/SKILL.md. Grades P009/P010/P027/P031/P051/P062/P065/P088.
+    Re-checked at 1.3.0 - the 1.2.1 re-anchoring of the P088 anti-pattern to the talk's own slot is still in
+    place, so eighteen minutes is stated as the source's case observation about the most influential talks
+    (Procedure step 3) and does not fire as a review threshold on the lectures, defences and hour-long slots
+    this package serves. P031 is confidence:medium and is presented as a weighing to perform, not a verdict.
+    P065's 36 to 90 hours keeps its hour-long 30-slide premise. P027 and P051 each keep the occasion
+    conditions that make them applicable at all.
+- rule_ref: knowledge_partition.skills[13]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: skills/equipment-venue-and-contingency/SKILL.md. Grades P003/P028/P053/P104. P028's hedge is the
+    critical one and is carried in the Procedure step itself - rehearsal on the actual equipment guarantees
+    nothing, since practised demonstrations still fail, but it greatly increases the odds - matching
+    forbidden_behaviours[3], which cites P028 for exactly that limit. P104's uncontrolled-room condition
+    and P003's needs-no-visual-support condition gate their steps.

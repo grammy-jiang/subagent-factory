@@ -18,10 +18,12 @@ The descriptive fields carry no inline `(Pxxx)` tags — they would clutter rout
 | Field | Grounding |
 |-------|-----------|
 | `role` | The three sources in the table below (`source-pack.manifest.yaml`); the topic list is the skill partition in `knowledge_partition.skills`; the advice-only boundary restates `forbidden_behaviours[0]`, which is an authored scope boundary with no principle citation (1.2.0 — P062/P026 do not carry it). |
-| `when_to_use` | Bullet 1 → P014/P045/P069 (does each slide assert and evidence something) plus P007/P011/P099 (the typography, colour, and layout half added in 1.2.0); 2 → P039/P077/P113 (the ways a talk loses its audience); 3 → P060/P061/P035/P088/P065 (big idea, persona, story order, length, preparation); 4 → P020/P052/P043/P109/P106/P104 (rehearsal, transitions, questions, room, equipment); 5 → P006/P038/P119 (three appeals against prior bias and tolerance). |
+| `when_to_use` | Bullet 1 → P014/P045/P069 (does each slide assert and evidence something) plus P007/P011/P099 (the typography, colour, and layout half added in 1.2.0); 2 → P039/P077/P113 (the ways a talk loses its audience); 3 → P060/P061/P035/P088/P065 (big idea, persona, story order, length, preparation); 4 → P020/P052/P043/P109/P106/P104 (rehearsal, transitions, questions, room, equipment); 5 → P006/P038/P119 (three appeals against prior bias and tolerance), anchored in 1.3.0 to a *talk or pitch* so the bullet cannot read as generic persuasion review against `when_not_to_use[4]`. |
 | `when_not_to_use` | 1 → authored scope boundary, no principle citation (1.2.0 — P062 is about briefing an illustrator, not about an advisor declining to do the work); 2 → authored scope boundary, no principle citation (1.2.0 — the debunked P001/P091 grounding is withdrawn, matching `forbidden_behaviours[2]`); 3 → authored boundary plus P038/P028 (prior bias and a failed demonstration can override any design); 4 → P068 (build up, never deceive); 5 → P009/P031 (a document is a document). |
 | `inputs` | `required[0]`: artifact + audience gate from P061/P075 (the audience must be characterised), with the proceed-without-the-rest rule authored; `required[1]`: authored operating instruction covering the granted read tools and the instruction–data separation added in 1.2.0 under `.claude/rules/untrusted-source-policy.md`, no domain claim; `optional[0]`: P065 (preparation), P088 (length), P066/P104 (room and equipment), all held as optional context. |
 | `outputs` | `primary_format` and `minimum_useful_output` → authored output-shape and output-floor policy, no principle citation (1.2.0 — P012/P056, cited up to 1.1.0, state neither that comprehension is the measure of an advisory answer nor an ordering rule; same withdrawal already applied to `source_of_truth_policy.precedence`); `advise` → P027/P051/P103 (state the occasion-condition); `review` → P036 (four perspectives and the distraction test), with the highest-impact-first ordering authored; `plan` → P065/P088 (scoped to slot and preparation time). |
+| `quality_bar` | Bars 0–7 each cite the principles they restate inline. Bar 8 is the exception and is **authored**, not sourced: it is the same output floor as `minimum_useful_output`, duplicated into `quality_bar` in 1.2.0 because the adapter template renders `quality_bar` but not `minimum_useful_output`, so the floor otherwise never reached the runtime. It asserts nothing about presentation design and carries no source claim; 1.3.0 tags it inline `(authored output floor; no source principle states it)` so it is disclosed at the point of use, matching `forbidden_behaviours[0]`/`[2]` and `handoff_rules[0]` (round-1 review, F4). |
+| `handoff_rules[1]` | P009 (when the content really is a document, change the format). The P031 citation carried up to 1.2.1 is dropped in 1.3.0: P031 is `confidence: medium`, so `compile_invariants` — which selects only `confidence: high` + `profile_rule: true` — cannot render it into the adapter's Operating Invariants tier, leaving a citation that does not resolve inside the one document claiming each invariant is traceable to its source principle (round-1 review, F3). P031 itself is unchanged and still cited where it is used: `knowledge_partition.always_on[12]` and `skills/format-choice-and-preparation-planning` Procedure step 1. |
 | `source_of_truth_policy.canonical_owner` | Illustrator/designer clause → P062; presenter-and-institution authority over the talk, deck, data, and the decision to give it, and the audience or funding body's authority over the decision sought → authored boundaries, no principle citation (recorded in 1.2.0, consistent with `handoff_rules[0]`). |
 | `multisource_synthesis: deferred` | Version 1.0.0 authored a single-pass LLM layer over the pre-built spine; cross-source synthesis artifacts (`principle-clusters.json`, `principle-graph.json`) were deliberately not generated, so `deferred` records "not attempted", not "attempted and empty". Generating them is a later minor-version step and would change no existing principle. |
 
@@ -52,6 +54,49 @@ timelines — so nothing in the profile or a skill treats it as an operative ins
 
 ## Version History
 
+- **1.3.0** (2026-07-27) — Round-1 review fixes (2 must-fix, 3 should-fix, the actionable nice-to-haves).
+  **Superseded decisions, stated explicitly:** (a) `knowledge_partition.always_on[4]` stated Duarte's
+  persuasive narrative arc as a universal planning law. Its three clauses — open by stating what is,
+  make the turning point an explicit call to adventure, land the ending on a higher plane — each rest on
+  a principle the source scopes to a change-seeking talk (P087 *the presenter is about to propose
+  something new*, P116 *the audience must be moved from complacency into wanting a different reality*,
+  P059 *writing the final movement of a persuasive presentation*), and all three conditions were dropped.
+  The paragraph is always-on for any planning-from-scratch request (`when_to_use[2]`), which per
+  `router_description` includes conference talks and lectures that report findings and propose nothing —
+  so a Duarte persuasion technique had been promoted to a universal presentation law across the Alley
+  domain. All three conditions are restored and the paragraph now says outright that the arc is scoped
+  to the talk that seeks a change. The round-2 faithfulness grade of this entry, which audited P041's
+  scope and was silent on P087/P116/P059, is withdrawn. `always_on[6]` gets the same treatment for
+  P092/P115/P040/P117 (lower risk — that paragraph loads only inside the persuasion skill, where the
+  conditions are near-always satisfied). (b) The **process finding recorded but left open at 1.2.1 is
+  now closed**: `reports/faithfulness-report.yaml` audited `profile.yaml` fields only, so 14 skill
+  bodies — the text that actually loads when a skill fires — were ungraded, which is how two round-1
+  drifts survived a `must-fix = 0` verdict. The report gains a skill-body surface: one finding per
+  skill, `rule_ref` on `knowledge_partition.skills[N]`, each grading that body's Purpose, When to use,
+  Procedure and Anti-patterns against the principles its own frontmatter claims, checking every
+  `applies_when`, every numeric claim and every hedge. The new surface immediately found a real drift on
+  its first run — `skills/persuasion-ethos-pathos-and-logos` Procedure step 2 restated P006 over
+  "technical presenters" and "decisions about technical work" where P006's population is *scientists*
+  and *decisions about science*. That is the identical widening removed from `always_on[6]` in 1.1.0 and
+  again in 1.2.0; with no skill-body surface it survived unaudited in the very skill that loads for a
+  persuasion request. The step is corrected in place. (c) `handoff_rules[1]` drops its P031 citation —
+  see the field-grounding table above. (d) `quality_bar[8]` is tagged as an authored floor and given a
+  ledger row, ending the last orphan field value. (e) `when_to_use[5]` is anchored to a talk or pitch.
+  (f) Skill-authoring consistency: `audience-analysis-and-persona-design` and
+  `persuasion-ethos-pathos-and-logos` gain the mutual boundary pointer the rehearsal / in-room-delivery
+  / questions triad already carries; `story-structure-and-the-big-idea`,
+  `format-choice-and-preparation-planning` and `talk-organisation-transitions-and-emphasis` gain an
+  explicit trigger clause in the `description` (these three carry no concrete domain noun to fire on);
+  the two unowned principles P036/P048 move to the end of `references/presentation-design-principles-index.md`
+  so the index reads skill by skill. **Not a defect, recorded to stop it recurring:** the round-1 report
+  raised `quality_bar[2]`'s missing P049 citation, which 1.2.1 had already added — no change made.
+  **Known and accounted for, not closed:** the Phase 8 self-check still returns WARNING. It is check 14
+  alone — profile body ~950 words against an 800-word *soft* budget (the hard fail is 1000) — and not a
+  coverage gap; the two authored-content checks it delegates (4, 12) and every other check PASS.
+  Trimming to 800 would cost grounded quality-bar or forbidden-behaviour content, so the budget overrun
+  is carried deliberately. The `quote-scan` WARN is likewise a statement about the checkout, not the
+  package — see `reports/quote-scan-verified.md`, re-run at this version. No principle, claim, or
+  evidence record was changed — the spine is untouched.
 - **1.2.1** (2026-07-27) — Adversarial verify-pass-1 fixes (3 must-fix, all faithfulness wording
   drifts). **Superseded decisions, stated explicitly:** (a) 1.2.0 left `examples[1]` step (b) asserting
   P119's *emotionally-driven* branch about an executive committee whose type was never established — and

@@ -11,6 +11,11 @@ from, so the rights-clean claim carries evidence rather than an unrunnable gate.
 
 ## Run
 
+- Re-run at **agent_version 1.3.0** (round-1 review, F5) — same command, same cache keys, same result
+  (`{"findings": [], "restricted": 3, "scanned": true}`), now covering the 1.3.0 profile prose, the
+  corrected persuasion skill body, the two skills carrying new boundary pointers, the three skills
+  carrying new `description` trigger clauses, and the reordered principles index. The verified-clean
+  version below is therefore 1.3.0, not the 1.1.0 recorded when this file was first written.
 - Date: 2026-07-27
 - Command (equivalent):
   `quote_scan_report("subagents/presentation-design-advisor", cache_root="<repo>/cache/book-extracts")`
@@ -33,7 +38,8 @@ prose, 14 skills, 2 references, ledger, changelog, adapter) was compared against
 text of all three restricted sources; no run of 40+ consecutive source words survives anywhere, which is
 the threshold `.claude/rules/rights-and-quotation-policy.md` sets for manual review.
 
-The scan covers the package **as of agent_version 1.1.0**, including the 14 re-authored skill bodies.
+The scan covers the package **as of agent_version 1.3.0** (first run at 1.1.0, when the 14 skill bodies
+were re-authored; re-run unchanged at 1.3.0).
 
 ## Why validate still WARNs
 

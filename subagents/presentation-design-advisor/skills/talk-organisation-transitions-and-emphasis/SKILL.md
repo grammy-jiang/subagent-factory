@@ -2,7 +2,8 @@
 name: talk-organisation-transitions-and-emphasis
 description: 'Build the architecture of the talk between opening and close: organisation,
   changes of direction and their signalling, an explicit memorable map, the ways audiences
-  get lost, and deliberate emphasis.'
+  get lost, and deliberate emphasis. Use when a talk feels shapeless, loses the audience
+  mid-way, or key details are not landing despite sound content.'
 kind: skill
 status: ready
 provenance:

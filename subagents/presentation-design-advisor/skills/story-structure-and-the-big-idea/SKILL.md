@@ -2,7 +2,9 @@
 name: story-structure-and-the-big-idea
 description: 'Settle what the presentation is about and in what order it unfolds before
   any slide exists: the big idea, ideation, sticky-note story order, what-is openings,
-  the turning point, and the ending.'
+  the turning point, and the ending. Use when the answer to "what is this talk about?"
+  is a topic rather than a point of view, when slides are being built before any story
+  exists, or when a talk has no arc from what is now to what could be.'
 kind: skill
 status: ready
 provenance:
