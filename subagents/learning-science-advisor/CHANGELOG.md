@@ -3,6 +3,48 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.0] — 2026-07-27
+
+Review round 2 (`/review-subagent learning-science-advisor`) — all 6 must-fix and all high-value
+should-fix findings applied. See `provenance-ledger.md` § Version History for the supersession
+reasoning behind each change.
+
+### Fixed
+- **39 prefix-truncated skill lines restored across 14 of the 15 skills** (root cause of all 6
+  must-fix findings). Each affected `## Procedure` / anti-pattern line was a strict character prefix
+  of its principle's `statement` — the authoring step cut to a length budget and dropped the tail
+  with no ellipsis and no severed parenthetical, so `validate` and the repo's truncation greps
+  passed green on a corrupted body. All 39 re-rendered from `principles/principles.yaml`. Six were
+  materially wrong, not merely terse: P122 and P078 did not parse; P149 lost the scaffolding limit
+  ("enables, **but does not perform**, the target skill"); P143 lost "**explicitly uncertain**",
+  inverting its hedge; P023 lost the stereotype-salience cue the remediation turns on; P091 lost its
+  "**unless** self-correction is the learning target" exception, leaving a rule stronger than its
+  source support. Verified 0 remaining prefix truncations.
+- **`reports/faithfulness-report.yaml`**: two notes misquoted the profile as saying uncorrected
+  retrieval "reinforces" / "will reinforce" confident errors. The profile reads "**can** reinforce"
+  at both sites, matching P050. Notes corrected.
+
+### Added
+- **`## Worked example` in all 15 skills** — one scenario→correction paragraph each, citing only
+  that skill's own `provenance.principles` (verified mechanically). Previously the only worked
+  examples lived in `profile.yaml.examples` and touched 3 skills.
+- **`forbidden_behaviours`**: fences citing an effect size, statistic, or numeric benchmark not
+  carried in the invoked principle's own statement — a failure mode distinct from over-claiming
+  certainty.
+- **`inputs.required`**: read a principle's statement before citing a code absent from Operating
+  invariants; resolve repository-root-relative `Canonical package` pointers against that root (or
+  locate with Glob) before `Read`, which requires an absolute path.
+
+### Changed
+- Skill `description` frontmatter disambiguated for the overlapping pair
+  `cognitive-load-worked-examples-and-scaffolding` (within a single lesson or task) and
+  `expertise-development-and-transfer` (across a practice regime as expertise develops).
+- `role`, `when_to_use`, `when_not_to_use`, `outputs`, `modes`, `quality_bar`,
+  `forbidden_behaviours`, `handoff_rules`, `source_of_truth_policy` compressed to hold the profile
+  body within budget. Prose only — every principle citation retained.
+- `provenance-ledger.md` records that rights were verified at authoring time, since `quote_scan`
+  cannot run without a rehydrated source cache and its PASS is otherwise vacuous.
+
 ## [1.1.0] — 2026-07-27
 
 Review round 1 (`/review-subagent learning-science-advisor`) — all must-fix and all high-value

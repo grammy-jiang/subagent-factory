@@ -73,6 +73,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - A mnemonic cue system is left in place indefinitely as a permanent crutch, or is expected to work as an effortless shortcut that skips the understanding it is supposed to bridge toward and the fluent performance it is supposed to build, rather than being treated as a practiced, temporary bridge to both (P116).
 - Key ideas are attached to cues in a loose or shifting arrangement, or are cued before the material has actually been understood and synthesized, instead of being placed in a stable, familiar ordered structure only after that synthesis (P119).
 
+## Worked example
+
+A student learns the cranial nerves with a mnemonic, recites the list flawlessly, and cannot say what any of them do. The teacher concludes the mnemonic worked.
+
+Practised cue systems organize and retrieve large bodies of information, but conceptual mastery is assessed separately and has not been evidenced here (P008). The mnemonic is a practised bridge from initial understanding to fluent whole-pattern performance, not an effortless substitute for either (P116); build it after the material is understood and synthesized into key ideas, attaching each idea to a distinctive cue in a stable, familiar ordered structure (P119). If recall later fails, distinguish absent attention, failed encoding, storage loss, and retrieval failure before choosing a remedy (P046).
+
 ## References
 
 See `../../references/learning-science-principles-index.md` for the full principle catalogue grouped by skill, and `../../references/learning-science-evidence-notes.md` for how these principles are grounded and kept faithful to the sources.

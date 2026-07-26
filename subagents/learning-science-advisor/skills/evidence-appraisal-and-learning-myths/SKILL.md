@@ -67,8 +67,8 @@ This skill judges whether a claimed learning technique is actually supported. It
 7. Select teaching and study methods from empirical evidence, not intuition, isolated successes, untested theories, or interested marketing, and revise the choice as evidence changes (P053).
 8. Match study techniques to the instructional objective and their supported conditions; interpret a low or moderate utility rating as a limit on general use, not proof that the technique has no valid niche (P072).
 9. Do not classify learners or prescribe training from left-brain/right-brain stereotypes; complex cognition uses coordinated bilateral networks and informal hemisphere tests lack educational validity (P074).
-10. Do not rely on the mnemonic keyword method for durable vocabulary learning (P084).
-11. Reject modality matching (P103).
+10. Do not rely on the mnemonic keyword method for durable vocabulary learning: it improves recall of definitions and sentence comprehension but fades very quickly, with delayed post-test effects as low as d = 0.19 (P084).
+11. Reject modality matching: instruction matched to a supposed auditory (0.18), visual (0.09) or kinesthetic (0.18) preference yields little or no gain, and the groups overlap so heavily that the preferences are doubtful (P103).
 12. Flag as untested rather than assert the arguments that deep subject knowledge helps a teacher sequence surface-to-deep progressions and give feedback as students struggle (P105).
 13. Do not infer truth from familiarity, vividness, confidence, hindsight, or agreement in collaborative recollection; verify against independent evidence (P109).
 14. Restrict imagery-based text learning to learners able to visualize concrete narratives or spatial content, and expect memory benefits more readily than comprehension, inference, application, or standardized-test gains (P130).
@@ -98,6 +98,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - The claim that deep subject-matter knowledge lets a teacher sequence surface-to-deep progressions and respond to student struggle is asserted as an established finding rather than flagged as untested (P105).
 - A claim or shared memory is accepted as true because it feels familiar, is stated vividly or confidently, seems obvious in hindsight, or is agreed upon by a group, without checking it against independent evidence (P109).
 - Imagery-based text instruction is applied to learners regardless of their ability to visualize concrete or spatial content, or is promoted as boosting comprehension, inference, application, or standardized-test scores rather than the memory benefit it actually supports (P130).
+
+## Worked example
+
+A vendor pitches a platform that measures each learner's modality preference and routes them to matching material, offering enthusiastic pilot testimonials as evidence.
+
+A stated preference is not outcome evidence (P044), and instruction matched to a supposed auditory, visual, or kinesthetic preference yields little or no gain while the groups overlap heavily (P103); differentiated instruction should not be organized around a learning-style category absent a demonstrated stable crossover (P011). Testimonials are the wrong basis for selection: choose methods from empirical evidence rather than intuition, isolated successes, untested theory, or interested marketing, and revise as evidence changes (P053), evaluating across learning conditions, learners, materials, and delayed as well as immediate outcomes (P007). Choose a presentation format because it represents the target content well, handling access needs through learner-specific accessibility accommodation rather than style labels (P017), and do not infer truth from confidence, vividness, or agreement (P109).
 
 ## References
 

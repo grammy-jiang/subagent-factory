@@ -1,7 +1,8 @@
 ---
 name: expertise-development-and-transfer
 description: Guides practice design, complex-skill training, and transfer or
-  competence claims, matching supports to expertise level and requiring
+  competence claims across a practice regime or course as expertise develops,
+  matching supports to expertise level over that span and requiring
   objective evidence before crediting far transfer.
 kind: skill
 status: ready
@@ -57,14 +58,14 @@ This skill builds competence over the long run and checks that it travels. It ma
 ## Procedure
 
 1. Build expertise with goal-directed practice on current weaknesses, accurate feedback, repeated diagnosis, and coaching rather than undirected repetition or an hours threshold (P005).
-2. Match support and practice to expertise (P009).
+2. Match support and practice to expertise: begin novices with concrete representations, worked examples, blocked practice, and close spacing, then fade toward abstraction, independent problems, self-explanation, interleaving, and wider spacing as knowledge grows (P009).
 3. For complex performance, diagnose difficult components slowly, rehearse them from natural cues in multiple coordinated representations, and reintegrate them into the whole (P018).
 4. Require objective improvement on untrained outcomes before accepting a far-transfer claim; distinguish specific skill gains from transferable practice habits (P039).
-5. Collect real-word reading, spelling ability and word attack skills as the diagnostic measures (P100).
+5. Collect real-word reading, spelling ability and word attack skills as the diagnostic measures, since they are the greatest predictors of reading comprehension (P100).
 6. Use mental practice, which benefits both initial and later stages of learning, expecting large effects on cognitive tasks from relatively short sessions and few trials compared with motor and strength tasks (P104).
 7. Treat capability as developable through focus, sustained practice, learned mental models, and environmental support while respecting biological and individual limits (P108).
 8. Use hands-on or simulated practice that reproduces complete desired field decisions and action sequences, then debrief cues, choices, constraints, outcomes, and justification (P117).
-9. Teach the applicability boundaries of specialized meanings, conventions, cultural assumptions, and analogies as explicitly as their useful correspondences, using varied comparisons and heuristics that trigger scrutiny without (P122).
+9. Teach the applicability boundaries of specialized meanings, conventions, cultural assumptions, and analogies as explicitly as their useful correspondences, using varied comparisons and heuristics that trigger scrutiny without replacing judgment (P122).
 10. Assess analytical reasoning, creative adaptation, practical execution, and context-developed expertise instead of inferring total competence from one school-centered static score (P128).
 11. Develop perceptual and motor expertise through extensive performance, rapid discriminations, immediate feedback, and juxtaposed near-contrast cases; do not rely on explanation alone (P131).
 
@@ -90,6 +91,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - A specialized term, convention, cultural assumption, or analogy is taught only as a positive correspondence, with no explicit account of where it stops applying and no comparison designed to trigger scrutiny before it is used unreflectively (P122).
 - Competence is certified from a single static, school-style score, with no separate look at analytical reasoning, creative adaptation, practical execution, or the expertise a learner has built in a specific context (P128).
 - Perceptual or motor expertise is taught mainly through explanation, without the extensive performance, rapid discrimination trials, immediate feedback, and juxtaposed near-contrast cases that build fast, accurate judgment (P131).
+
+## Worked example
+
+A training provider claims its logic-puzzle course "improves general problem solving", and offers hours completed as the evidence.
+
+Hours are not the mechanism: expertise is built by goal-directed practice on current weaknesses, accurate feedback, repeated diagnosis, and coaching rather than undirected repetition or an hours threshold (P005). A far-transfer claim requires objective improvement on untrained outcomes, and specific skill gains must be distinguished from transferable practice habits (P039). Competence should be assessed across analytical reasoning, creative adaptation, practical execution, and context-developed expertise rather than inferred from one static score (P128). If field performance is the target, practise complete desired decision and action sequences and debrief cues, choices, constraints, outcomes, and justification (P117), matching support and practice to current expertise and fading it as knowledge grows (P009).
 
 ## References
 

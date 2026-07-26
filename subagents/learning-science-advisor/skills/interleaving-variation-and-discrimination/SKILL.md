@@ -53,8 +53,8 @@ This skill sequences practice so learners can tell related things apart and choo
 
 1. Introduce each new type with focused instruction and enough blocked practice for basic competence, then mix it cumulatively with previously learned types that must be distinguished (P001).
 2. Use interleaved rather than blocked practice when learners must discriminate related categories or select among problem-solving strategies, and correct selection errors (P028).
-3. Practice applicability directly, not execution alone (P035).
-4. Sequence examples to create the comparison the goal requires (P064).
+3. Practice applicability directly, not execution alone: mix plausible problem types and contexts, use context-to-skill and skill-to-context matching, option tradeoffs, and counterfactual variation of the relevant conditions so learners must diagnose the situation, choose a strategy, and adapt it (P035).
+4. Sequence examples to create the comparison the goal requires: provisionally interleave similar, confusable categories to sharpen discrimination, and consider blocking when the immediate challenge is discovering common structure among dissimilar members of one category (P064).
 5. Vary and interleave practice by shuffling relevant items, order, starting conditions, and contingencies so learners must diagnose the situation and select a response (P106).
 6. Use interleaving when learners must distinguish among problem types, strategies, formulas, or categories, and judge it by delayed discrimination and transfer rather than practice fluency (P142).
 
@@ -75,6 +75,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - Examples are sequenced the same way regardless of the goal — interleaving dissimilar members of one category when the challenge is discovering their common structure, or blocking similar confusable categories when the goal is sharpening discrimination between them (P064).
 - Items, order, starting conditions, or contingencies stay constant across repetitions, so learners can anticipate what comes next instead of having to diagnose the situation and select a response each time (P106).
 - An interleaved sequence is judged by how fluent or fast it looks during the practice session itself, rather than by learners' delayed discrimination and transfer once the mixing is taken away (P142).
+
+## Worked example
+
+Students work twenty problems of a single integration technique each night, score well on homework, then cannot tell which technique a mixed exam problem needs.
+
+Blocked practice trained execution but not applicability. Introduce each technique with focused instruction and enough blocked practice for basic competence, then mix it cumulatively with the previously learned techniques it must be distinguished from (P001, P028). Practise applicability directly — plausible mixed types and contexts, context-to-skill matching, counterfactual variation of the relevant conditions — so learners must diagnose the situation, choose a strategy, and adapt it (P035, P106). Judge the change by delayed discrimination and transfer rather than practice fluency (P142), and block instead when the immediate challenge is discovering common structure among dissimilar members of one category (P064).
 
 ## References
 

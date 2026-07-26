@@ -60,15 +60,15 @@ This skill designs the course-level container. It starts from substantive, demon
 
 1. Translate a general learning principle through its underlying mechanism, then adapt the implementation to the local learners, course format, workload, and institution (P010).
 2. Start technology selection with the learning purpose and required level of thinking, then choose the simplest tool whose stable pedagogical functions meet the need (P030).
-3. Apply universal design as the default framework (P052).
-4. Translate learning research through a two-way partnership (P056).
-5. Judge distance and blended programmes by instructional design and the quality of student interaction with peers and instructors rather than by delivery mode (P062).
-6. Treat personal educational experience as practical context rather than proof (P077).
+3. Apply universal design as the default framework: build flexible, intuitive, perceptible, low-effort, error-tolerant access into the initial design and remove foreseeable barriers, adding practical participation options incrementally while still retaining individual accommodation (P052).
+4. Translate learning research through a two-way partnership: researchers make findings usable and educators contribute constraints, trust-building context, and high-value questions (P056).
+5. Judge distance and blended programmes by instructional design and the quality of student interaction with peers and instructors rather than by delivery mode — interaction facilities are the differentiating quality explaining why post-1998 studies differ from earlier ones — and add in-person or study support when learners lack the needed self-regulation (P062).
+6. Treat personal educational experience as practical context rather than proof: adapt disciplinary expertise and prior teaching methods using evidence about the actual students and setting instead of projecting one's own learning experience (P077).
 7. Use brief objective-focused reflection early and periodically, then close the course by having learners compare their starting point, achievements, and intended application (P081).
 8. Protect teaching vitality by monitoring personal engagement, collaborating with peers, maintaining a professional network, and critically reviewing evolving evidence (P082).
 9. Synthesize learning-technology evidence by feature, goal, learner, task, context, access, and timing rather than ranking broad tool categories (P083).
 10. Start course design with substantive, demonstrable outcomes describing what learners should retain and use, then plan backward (P089).
-11. Require curricula to address how a common conception of progress is built across years (P102).
+11. Require curricula to address how a common conception of progress is built across years, since without it teachers invent their own and those conceptions can differ even between teachers of the same grade in one school (P102).
 12. In high-structure courses, publish objectives, require preparation and pre-result generation, quiz foundations, use learner-built explanations and integrative problems, and revise study from practice-test errors (P111).
 13. Make instructor presence visible through frequent, useful, personal interactions and purpose-driven announcements organized into routines that remain sustainable through the final week (P123).
 
@@ -96,6 +96,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - A curriculum leaves how students are meant to progress year to year unstated, so teachers of the same grade in the same school end up inventing different, uncoordinated conceptions of progress (P102).
 - A course calls itself "high-structure" without actually publishing objectives, requiring preparation and pre-result generation, quizzing foundations, using learner-built explanations and integrative problems, and revising study from practice-test errors — adopting the label without its components (P111).
 - Instructor presence in an online or large course is sparse or purely administrative, or its announcement routine is not sustainable and collapses before the final week, leaving learners unable to infer presence from a shared physical setting (P123).
+
+## Worked example
+
+A department proposes moving a lecture course online and buying a high-end video platform, reasoning that "online is worse, so the technology has to compensate".
+
+Delivery mode is not the determinant: judge distance and blended programmes by instructional design and the quality of student interaction with peers and instructors, adding in-person or study support where learners lack the needed self-regulation (P062). Start from substantive, demonstrable outcomes and plan backward (P089), then choose the simplest tool whose stable pedagogical functions meet the required level of thinking (P030), synthesizing the evidence by feature, goal, learner, task, and context rather than ranking broad tool categories (P083). Build universal-design access into the initial design rather than retrofitting it (P052), and make instructor presence visible through frequent, purposeful interactions organized into routines that stay sustainable to the final week (P123).
 
 ## References
 

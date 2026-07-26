@@ -50,12 +50,12 @@ This skill handles who the learners are without converting group patterns into i
 
 ## Procedure
 
-1. Match expectations and supports responsively to the learner's emerging competencies and demonstrated developmental readiness (P087).
+1. Match expectations and supports responsively to the learner's emerging competencies and demonstrated developmental readiness — treating timing as variable rather than a rigid age schedule — while still providing supported challenge and time for growth (P087).
 2. Design for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, supporting them with self-paced links to relevant prior knowledge and treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts (P115).
 3. Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and considering social connection, culture, community, and cohort effects (P124).
 4. Treat cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal (P132).
 5. Use group categories for bounded population inference without converting them into individual capacity judgments; measure plural cultural systems and socially produced conditions directly (P134).
-6. Protect developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational inputs as early as possible (P146).
+6. Protect developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational inputs as early as possible — especially for children facing deprivation — because substantial recovery is possible but time-sensitive (P146).
 
 ## Inputs
 
@@ -74,6 +74,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - A design or claim treats a culture as one fixed, uniform group, treats race as a biological rather than social category, or applies a single developmental benchmark as a universal timeline regardless of the learner's context (P132).
 - A group-level statistic — cultural, demographic, or age-based — is used to decide what a specific individual learner can do, instead of measuring that learner's own cultural practices and circumstances directly (P134).
 - Enriched placement or high-quality relational, linguistic, sensory, and educational input for a young child who has experienced severe early deprivation is delayed on the assumption it can be supplied just as well later, losing the time-sensitive window in which recovery is still possible (P146).
+
+## Worked example
+
+A workshop designer reads that speeded reasoning declines on average with age and drops the advanced module for participants over sixty.
+
+That converts a bounded population inference into an individual capacity judgment, which the group category does not license (P134). Design instead from each learner's individual cognitive profile and retained domain knowledge, supply self-paced links to relevant prior knowledge, and treat unfamiliar-domain difficulty and the age trend as hypotheses rather than capacity verdicts (P115). Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning itself (P124), and match expectations and supports to demonstrated readiness while still providing supported challenge and time for growth (P087).
 
 ## References
 

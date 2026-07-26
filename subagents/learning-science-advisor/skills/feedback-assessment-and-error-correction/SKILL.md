@@ -52,12 +52,12 @@ This skill makes feedback and assessment do instructional work. It understands f
 
 ## Procedure
 
-1. Support problem solving with the least help needed (P029).
+1. Support problem solving with the least help needed — root-cause questions, learner-generated options, consequence analysis, role-play, and visible progress — so the learner keeps ownership of the resolution rather than receiving a finished answer (P029).
 2. Permit recoverable errors, correct them promptly, and teach learners to use struggle and failure as diagnostic information for the next attempt (P031).
 3. Build task-specific analytic rubrics that separate consequential components, reflect their intended weight, and expose class-wide as well as individual priorities (P036).
 4. Understand feedback's purpose as reducing the discrepancy between current understanding and the learning intention, with the strategy depending on which of four levels it operates at (P051).
 5. Require feedback to give information about the task or learning process that fills the gap between what is understood and what is aimed at, rather than merely reporting correctness (P088).
-6. Supervise early practice closely enough to observe performance, interrupt error before it becomes entrenched, and give milestone feedback that prevents costly drift (P091).
+6. Supervise early practice closely enough to observe performance, interrupt error before it becomes entrenched, and give milestone feedback that prevents costly drift — unless independent error detection and repair are themselves the learning target, in which case delay the intervention (P091).
 7. Return targeted feedback while learners can still apply it to related work; a grade alone is insufficient when further development is possible (P099).
 
 ## Inputs
@@ -78,6 +78,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - Feedback on a learner's performance amounts to a mark, a tick, or a bare correctness judgment, with no information about the task or the learning process that would actually close the gap between what is understood and what is aimed at (P088).
 - Early practice is left unsupervised until a late milestone, so a learner's error becomes entrenched before anyone intervenes, even though the learner cannot yet reliably diagnose the error or habit alone (P091).
 - Feedback on practice work only surfaces after the related work is already finished, or a bare grade is handed back with no further guidance, even though the same knowledge or skill will be used again in later work (P099).
+
+## Worked example
+
+Essays come back at the end of term carrying a single letter grade. The following year the same errors recur.
+
+A grade alone is insufficient where further development is possible, and feedback must return while learners can still apply it to related work (P099). It has to give information about the task or the learning process that fills the gap between what is understood and what is aimed at, rather than reporting correctness (P088, P051). Build a task-specific analytic rubric that separates the consequential components, reflects their intended weight, and exposes class-wide as well as individual priorities (P036). Supervise early drafts closely enough to observe performance and interrupt error before it becomes entrenched — unless independent error detection and repair are themselves the learning target, in which case delay the intervention (P091).
 
 ## References
 

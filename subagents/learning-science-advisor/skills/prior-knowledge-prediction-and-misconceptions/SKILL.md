@@ -56,10 +56,10 @@ This skill opens learning by surfacing what learners already believe and using i
 1. Connect new material to meaningful classifications, language roots, prior knowledge, and repeated use so it can consolidate into an adaptable mental model (P006).
 2. At the opening of new learning, require a brief prediction, attempted answer, problem solution, or skill trial before formal instruction (P025).
 3. Use predictions and pretests to diagnose prior knowledge, misconceptions, expected assessment demands, and mismatched study strategies before substantial instruction (P042).
-4. Correct persistent misconceptions with refutational teaching (P043).
-5. Correct a misconception by eliciting the learner's current model as a prediction, testing it so the consequential discrepancy and its failed assumptions become visible, and then constructing a more adequate alternative the learner (P078).
+4. Correct persistent misconceptions with refutational teaching: lead with the accurate account, name the misconception briefly, explain its failure with evidence, and inoculate against recurring misleading arguments (P043).
+5. Correct a misconception by eliciting the learner's current model as a prediction, testing it so the consequential discrepancy and its failed assumptions become visible, and then constructing a more adequate alternative the learner must justify (P078).
 6. Open learning with a relevant stimulus and ask what learners notice and wonder to activate curiosity, prior knowledge, prediction, retrieval, and connection (P098).
-7. Structure prediction as a complete learning cycle (P114).
+7. Structure prediction as a complete learning cycle: elicit a reasoned commitment before instruction or an outcome, supply corrective content promptly, and require reflection that revises the learner's mental model (P114).
 8. Probe prior knowledge, emotional and cultural context, learner questions, and interpretations rather than assuming that a shared presentation produced shared understanding (P150).
 
 ## Inputs
@@ -81,6 +81,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - A session opens with the explanation or lecture itself rather than a stimulus that asks learners what they notice and wonder, so curiosity, prior knowledge, and prediction are never activated (P098).
 - A prediction is elicited at the start but the corrective content is delayed or the follow-up reflection is skipped, so the cycle stops at the initial guess and never revises the learner's mental model (P114).
 - A single shared presentation is treated as proof that everyone understood, with no probing of learners' actual interpretations, questions, or emotional and cultural context (P150).
+
+## Worked example
+
+A teacher explains clearly that heavier objects do not fall faster. On the test, many students answer that they do.
+
+Explanation alone does not displace a held model. Elicit the learner's current model as a prediction, test it so the consequential discrepancy and its failed assumptions become visible, and have the learner construct a more adequate alternative that they must justify (P078). Deliver the correction refutationally: lead with the accurate account, name the misconception briefly, explain its failure with evidence, and inoculate against the misleading arguments that will recur (P043). Run prediction as a complete cycle — a reasoned commitment before instruction, prompt corrective content, and reflection that revises the mental model (P114) — and use predictions and pretests to diagnose prior knowledge and misconceptions before substantial instruction rather than after it (P042).
 
 ## References
 

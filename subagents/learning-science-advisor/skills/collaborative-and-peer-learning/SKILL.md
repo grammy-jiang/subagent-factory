@@ -52,8 +52,8 @@ This skill makes group work actually produce learning. It imposes structure on p
 1. Run peer instruction as an individual answer, reasoned peer comparison, revised answer, and whole-class debrief, using the revision evidence to advance or reteach (P055).
 2. Train collaboration explicitly with shared understanding, role organization, action protocols, constructive disagreement, monitoring, repair, and safeguards against dominance and nonparticipation (P075).
 3. Use preparation to teach and reciprocal teaching to make learners retrieve, organize, explain, question, clarify, summarize, and predict (P086).
-4. Impose structure on peer learning (P095).
-5. Pair individual accountability with group rewards and script the session (P097).
+4. Impose structure on peer learning, which is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions and success criteria (P095).
+5. Pair individual accountability with group rewards and script the session — formal directions for running it — which helps particularly when new material is organized and elaborated (P097).
 
 ## Inputs
 
@@ -71,6 +71,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - Assigning learners to prepare to teach or run reciprocal teaching without actually monitoring the accuracy of their retrieving, explaining, questioning, clarifying, summarizing, or predicting lets an incorrect peer explanation stand uncorrected (P086).
 - Leaving peer learning unstructured, so groups never articulate the goals, learning intentions, or success criteria for the conversation, removes the mechanism by which students would otherwise collectively catch and learn from each other's errors (P095).
 - Awarding a group grade with no individual accountability mechanism and no scripted directions for running the session drops the structure that helps particularly when new material must be organized and elaborated (P097).
+
+## Worked example
+
+A tutor tells the class to "discuss this in your groups for ten minutes". Two students do the talking, the rest stay silent, and afterwards no group can state what it concluded.
+
+Unstructured group talk is the problem: structure is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions, and success criteria (P095). Run the segment as an individual answer, a reasoned peer comparison, a revised answer, and a whole-class debrief, using the revision evidence to advance or reteach (P055). Pair individual accountability with the group reward and script the session with formal directions for running it (P097), and train the collaboration itself — role organization, action protocols, constructive disagreement, and safeguards against dominance and nonparticipation (P075).
 
 ## References
 

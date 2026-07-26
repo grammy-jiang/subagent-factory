@@ -9,13 +9,14 @@ field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`
 it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs`, and
 `minimum_useful_output` — carry no inline tags, per repo convention.)
 
-Three fields are **authored**, not distilled, and say so inline rather than citing a principle they
+Four fields are **authored**, not distilled, and say so inline rather than citing a principle they
 do not have:
 
 | Field | Kind | Why it carries no principle |
 |-------|------|------------------------------|
 | `quality_bar[6]` ("Output floor") | authored output floor | Restates `outputs.primary_format` + `minimum_useful_output` so the export template, which renders neither, still carries the output floor into the deployed adapter. It is a format rule, not a domain claim. |
-| `forbidden_behaviours[5]` | authored scope boundary | Mirrors `when_not_to_use[4]`. No source principle grants or withholds authority over education law, accreditation, safeguarding, or institutional policy; the boundary is a repo-policy decision. |
+| `forbidden_behaviours[5]` (numeric claims) | authored evidence guardrail | Added at 1.2.0. A ban on citing an effect size, statistic, or numeric benchmark absent from the invoked principle's own statement is a guardrail on the agent's output discipline, not a claim about learning; no source principle states it. Distinct from `forbidden_behaviours[3]`, which fences over-claimed certainty and generality rather than invented precision. |
+| `forbidden_behaviours[6]` | authored scope boundary | Mirrors `when_not_to_use[4]`. No source principle grants or withholds authority over education law, accreditation, safeguarding, or institutional policy; the boundary is a repo-policy decision. |
 | `handoff_rules[2]` | authored scope boundary | The named-authority half of the same boundary. |
 
 Two principles are cited as backing inside `knowledge_partition.always_on` while carrying
@@ -60,6 +61,66 @@ partitioned across 15 skills, each principle owned by exactly one skill; the two
 references index and ground them.
 
 ## Version History
+
+- **1.2.0** (2026-07-27) — Review round 2 (`/review-subagent`), must-fix = 0. Supersedes, and states
+  what it supersedes:
+  - **39 prefix-truncated `## Procedure` / anti-pattern lines across 14 of the 15 skills superseded**
+    by the full `statement` from `principles/principles.yaml`. Every affected line was a strict
+    character prefix of its principle, not a paraphrase — the skill-authoring step cut statements to a
+    length budget and dropped the tail with no ellipsis and no severed parenthetical, so `validate`
+    and the repo's truncation greps passed green on a corrupted body. Six sites were unparseable or
+    lost the rule's operative scope: P122 ("…trigger scrutiny without **replacing judgment**"), P149
+    ("…support that enables, **but does not perform**, the target skill"), P143 (which lost
+    "**explicitly uncertain**" and so inverted the hedge into a claim of retained benefit), P078
+    ("…the learner **must justify**"), P023 (which dropped "**examples, differential treatment, and
+    cues that make a negative group stereotype salient**" — the mechanism the stereotype-threat
+    remediation turns on), and P091 (which dropped "**unless independent error detection and repair
+    are themselves the learning target, in which case delay the intervention**", leaving an
+    unconditional instruction stronger than its source support). `profile.yaml` and both adapters
+    already carried these statements in full, so the running system prompt was never affected. Only
+    the prose changed; frontmatter `provenance` blocks including `authored_from_digest` are untouched.
+  - **`## Worked example` added to all 15 skills.** Worked examples previously existed only in
+    `profile.yaml.examples` (3, touching 3 skills), so ~12 skills carried no illustrated correct-usage
+    scenario. Each new section is one scenario→correction paragraph citing **only** that skill's own
+    `provenance.principles` (verified mechanically); no claim outside the skill's partition was
+    introduced.
+  - **`forbidden_behaviours[5]` added** (authored evidence guardrail): fabricated or ungrounded
+    **numeric** claims were fenced only indirectly, via the over-claim item, which targets
+    certainty and generality rather than invented precision — distinct failure modes, and the
+    profile's own `examples[1]` models the citation of specific effect sizes.
+  - **`inputs.required` extended by two items.** (a) Adapter sections that cite principle codes
+    absent from the Operating-invariants block previously gave the model a bare code with no backing
+    text while modelling the habit of precise citation; the agent must now read the statement in the
+    matching skill file or the principles index before citing such a code. (b) The `Canonical package`
+    pointers are rendered repository-root-relative while `Read` requires an absolute path, so under
+    `export-deployable` or any non-root cwd the "read the matching skill file" instruction silently
+    failed to resolve; the agent must now resolve them against the repository root or locate the file
+    with Glob first.
+  - **Skill `description` frontmatter disambiguated** for the overlapping pair
+    `cognitive-load-worked-examples-and-scaffolding` ("…within a single lesson or task") and
+    `expertise-development-and-transfer` ("…across a practice regime or course as expertise
+    develops"). Both previously fired on "when do I fade scaffolds as expertise grows", and whichever
+    loaded first set the frame.
+  - **`role`, `when_to_use`, `when_not_to_use`, `outputs`, `modes`, `quality_bar`,
+    `forbidden_behaviours`, `handoff_rules`, `source_of_truth_policy` compressed** to absorb the
+    additions within the profile body budget. Prose only: every principle citation is retained, and
+    `role`'s source enumeration was folded into the `sources` table it duplicated.
+  - **`reports/faithfulness-report.yaml` corrected.** The notes on `knowledge_partition.always_on[0]`
+    and `always_on[1]` quoted the profile as saying "uncorrected retrieval **reinforces** / **will
+    reinforce** confident errors" and graded that as a minor flattening of P050. The profile text at
+    both sites reads "**can** reinforce" and has since 1.1.0 — the verdicts were right but the cited
+    evidence was stale, so the misquotes are superseded by notes recording that P050's hedge is
+    carried through unchanged.
+  - **Rights verification (`quote_scan` WARN).** `validate` warns that the verbatim-quote gate could
+    not run: all 12 sources are `distillation-only` but the package ships no `sources/markdown/` and no
+    warm cache module, so the `quote_scan` PASS is vacuous rather than evidence of compliance.
+    Recorded here per `.claude/rules/rights-and-quotation-policy.md`: rights were verified at
+    authoring time — every source was rights-classified `distillation-only` before distillation, and
+    the authored layer paraphrases and restructures the distilled principle statements only, with no
+    verbatim source passage reproduced in any generated artifact. Re-run `quote_scan` against a
+    rehydrated markdown cache before any external release.
+  - Unchanged: the distilled spine (150 principles, 5006 claims, evidence records, anchors), the
+    skill→principle partition, both test suites, and the tool grant (Read/Grep/Glob).
 
 - **1.1.0** (2026-07-27) — Review round 1 (`/review-subagent`), must-fix = 0. Supersedes, and states
   what it supersedes:

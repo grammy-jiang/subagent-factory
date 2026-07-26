@@ -63,7 +63,7 @@ This skill deepens processing by making learners build and articulate structure.
 6. Combine complementary verbal and visual representations for all learners when both add relevant information, make their relationship explicit, and favor accurate simple sketches over decorative artistry (P073).
 7. After foundational knowledge is in place, have learners generate source-checked how-and-why explanations about central relationships, then fade the source and require accurate explanation from memory (P120).
 8. Help learners build structure by retrieving central concepts, separating supporting from incidental detail, stating governing rules, and mapping their connections (P137).
-9. Use self-explanation as a broadly applicable, moderate-utility technique for memory, comprehension, inference, application, and near transfer, while keeping far transfer, durability, classroom generality, and learner moderators (P143).
+9. Use self-explanation as a broadly applicable, moderate-utility technique for memory, comprehension, inference, application, and near transfer, while keeping far transfer, durability, classroom generality, and learner moderators explicitly uncertain (P143).
 10. Prompt learners to explain what they are doing, why they chose it, and which principle applies so they expose and repair the mental model guiding performance (P147).
 
 ## Inputs
@@ -87,6 +87,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - Complex material is left as an undifferentiated list of facts, with no activity that helps learners retrieve the central concepts, separate supporting from incidental detail, state the governing rule, or map how the parts connect (P137).
 - Self-explanation is promoted as a guaranteed route to durable, far-transferring learning for every learner and classroom, rather than as a moderate-utility technique whose benefit is best evidenced for memory, comprehension, inference, application, and near transfer, with far transfer, durability, classroom generality, and learner moderators left an open question (P143).
 - Learners work through problems or examples without ever being asked what they are doing, why they chose that approach, or which principle applies, so a flawed mental model goes undetected and unrepaired (P147).
+
+## Worked example
+
+An instructor presents one fully solved example of a design pattern and expects the general structure to be evident. Students reproduce it only on near-identical problems.
+
+Novices do not infer expert structure from an example, so the organizing relationships must become an explicit object of learner activity (P002). Supply enough varied examples and direct attention explicitly to the relation they share (P004), and have learners compare them side by side while deliberately searching for the shared relational structure (P016). Prompt them to explain each step, and to state what they chose, why, and which principle applies, so the mental model guiding performance is exposed and repairable (P058, P147). Present self-explanation as broadly applicable and of moderate utility, holding far transfer, durability, classroom generality, and learner moderators explicitly uncertain (P143).
 
 ## References
 

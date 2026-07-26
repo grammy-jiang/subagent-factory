@@ -1,6 +1,6 @@
 ---
 name: cognitive-load-worked-examples-and-scaffolding
-description: Manages cognitive load via worked examples, scaffolding, chunking, and prerequisite checks when learners overload, stall, or need a hard procedure faded toward independence.
+description: Manages cognitive load within a single lesson or task via worked examples, scaffolding, chunking, and prerequisite checks when learners overload, stall, or need a hard procedure faded toward independence during that task.
 kind: skill
 status: ready
 provenance:
@@ -57,16 +57,16 @@ This skill manages the limited working memory a learner brings to a task. It acc
 
 1. Teach domain knowledge and reasoning strategies together in contexts where learners use both; external lookup cannot replace knowledge that must participate in ongoing thought (P003).
 2. Build reliable memory for prerequisite facts, concepts, and procedures as a foundation for comprehension and application rather than treating memory and higher-order learning as competing goals (P012).
-3. Introduce difficulty only when the struggle is surmountable, relevant to the target, aligned with current knowledge, and supported by a viable path to progress, so it plausibly improves durability or transfer without avoidable anxiety (P021).
-4. Account for the working-memory cost of transient information (P047).
-5. Organize elements into meaningful chunks grounded in prior knowledge (P063).
+3. Introduce difficulty only when the struggle is surmountable, relevant to the target, aligned with current knowledge, and supported by a viable path to progress, so it plausibly improves durability or transfer without avoidable anxiety or harm (P021).
+4. Account for the working-memory cost of transient information: keep essential state visible and pace multistep work so learners need not hold and integrate more elements than working memory supports (P047).
+5. Organize elements into meaningful chunks grounded in prior knowledge, but do not assume domain-specific memory-span training will improve learning generally (P063).
 6. Scaffold difficult work with models, think-alouds, prompts, checklists, and exemplars; coach performance and fade support as competence grows, restoring it for exceptional difficulty (P067).
 7. Use worked examples — a problem statement plus the steps to its solution — to show what success looks like and reduce cognitive load, so students attend to the process leading to the answer rather than only the answer (P101).
 8. Teach a complex performance in manageable layers with early achievable component practice, gradually increased complexity, and process feedback before harder attempts; fade scaffolds when independent performance becomes appropriate (P112).
 9. Practice stable recurring prerequisites and routines toward automaticity so limited attention remains available for novel and higher-order work (P113).
-10. Make processing the target idea or relation unavoidable in the assigned task (P121).
+10. Make processing the target idea or relation unavoidable in the assigned task, because intention, incentive, exposure, and attention alone do not determine what enters memory (P121).
 11. Before demanding inquiry, critical analysis, or problem solving, verify that learners can retrieve the facts and procedures needed to generate and evaluate an answer (P136).
-12. Continuously calibrate practice challenge to current expertise and use support that enables (P149).
+12. Continuously calibrate practice challenge to current expertise and use support that enables, but does not perform, the target skill (P149).
 
 ## Inputs
 
@@ -91,6 +91,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - Relying on learners' intention, an incentive, or mere exposure and attention to make a target idea or relation stick, instead of designing the task so processing that idea or relation is unavoidable (P121).
 - Assigning inquiry, critical analysis, or problem solving before checking that learners can actually retrieve the facts and procedures the task requires to generate and evaluate an answer (P136).
 - Holding practice challenge fixed regardless of learners' growing expertise, or providing support that performs the target skill for them rather than merely enabling their own performance of it (P149).
+
+## Worked example
+
+A teacher opens a stoichiometry unit by handing out a multi-step problem set with the instruction "work it out — the struggle is good for you". Half the class stalls at step two.
+
+The struggle here is neither surmountable nor supported by a viable path to progress, so it is not the productive kind (P021). Verify first that learners can retrieve the mole relations and unit conversions the problems require before demanding independent problem solving (P136). Lead with worked examples so attention falls on the process leading to the answer rather than the answer alone (P101), keep the given quantities and intermediate results visible so learners need not hold every element in working memory at once (P047), then fade the models, prompts, and checklists as competence grows and restore them where difficulty spikes (P067, P149).
 
 ## References
 

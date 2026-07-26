@@ -59,14 +59,14 @@ This skill schedules practice over time. It treats distributed practice as a hig
 ## Procedure
 
 1. Allow consolidation time, including sleep when schedules permit, and later reconstructive retrieval instead of treating polished rapid repetitions as durable learning (P019).
-2. Space preparation early enough to protect sleep (P024).
+2. Space preparation early enough to protect sleep, because recurring sleep loss impairs cognition and post-learning sleep supports consolidation, understanding, retention, and easier relearning (P024).
 3. Make important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment (P027).
 4. Plan spacing early, review after a modest delay, mix older material into later sessions, and retain a final review without making it the only study opportunity (P040).
 5. Set spacing in relation to the desired retention horizon, using roughly one tenth to one fifth of that horizon as a provisional planning heuristic and adjusting for deadlines and retrieval success (P061).
 6. Introduce spacing with small sustainable cumulative practices such as lagged assignments and brief quizzes spanning prior classes, weeks, and months, including prompts that connect new and old knowledge (P065).
-7. Keep cumulative assessment sustainable by maintaining a reusable pool of essential earlier questions, sampling from it rather than testing everything, and pruning it around enduring themes, essential questions, and future performance (P093).
+7. Keep cumulative assessment sustainable by maintaining a reusable pool of essential earlier questions, sampling from it rather than testing everything, and pruning it around enduring themes, essential questions, and future performance needs when it becomes unwieldy (P093).
 8. Repeat retrieval across intervals that permit some forgetting, keeping each attempt challenging but recoverable (P110).
-9. Schedule retrieval adaptively (P118).
+9. Schedule retrieval adaptively: revisit missed items soon, expand intervals after success, and retain occasional long-interval checks for important material (P118).
 10. Use distributed practice as a high-utility default across ages, materials, and retention periods, while preserving uncertainty for complex structured learning, higher-order outcomes, and moderators beyond age (P125).
 11. Inventory prerequisite cognitive skills during planning, schedule several brief practices before relevant assessments, and verify every important component has been rehearsed multiple times (P129).
 12. Distribute repeated retrievals within and across sessions, lengthening intervals for longer retention goals while keeping retrieval achievable through earlier practice or support (P144).
@@ -96,6 +96,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - An assessment is planned without first inventorying its prerequisite cognitive skills, or an important component enters the assessment having been rehearsed only once or not at all (P129).
 - Retrieval attempts are massed within a single session, or intervals are lengthened for a long-term retention goal without the earlier practice or support needed to keep retrieval achievable at that distance (P144).
 - Information is presented once, in a single context and representation, with no consolidation gap before the next encounter, leaving the knowledge tied to that one episode rather than reusable (P145).
+
+## Worked example
+
+A course reserves cumulative testing for the final exam. Students mass their preparation into the two nights before it and sleep little.
+
+Make important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment (P027), introduced through small sustainable practices such as lagged assignments and brief quizzes spanning prior classes, weeks, and months (P065). Plan spacing early, review after a modest delay, mix older material into later sessions, and keep the final review from being the only study opportunity (P040), setting the gap in relation to the desired retention horizon (P061). Space preparation early enough to protect sleep, because recurring sleep loss impairs cognition and post-learning sleep supports consolidation, understanding, and retention (P024, P019). Revisit missed items soon and expand intervals after success (P118), while preserving uncertainty for complex structured learning and higher-order outcomes (P125).
 
 ## References
 

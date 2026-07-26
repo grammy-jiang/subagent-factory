@@ -60,8 +60,8 @@ This skill diagnoses and supports the motivational and social conditions learnin
 ## Procedure
 
 1. After performance, frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure (P022).
-2. Treat stereotype threat as a situational interaction among identity, task, stereotype awareness, environmental cues, and evaluation demand rather than a fixed learner deficit, and reduce it by auditing task framing, assumptions (P023).
-3. Watch for performance orientation reducing challenge (P037).
+2. Treat stereotype threat as a situational interaction among identity, task, stereotype awareness, environmental cues, and evaluation demand rather than a fixed learner deficit, and reduce it by auditing task framing, assumptions, examples, differential treatment, and cues that make a negative group stereotype salient (P023).
+3. Watch for performance orientation reducing challenge: students focused on proving achievement relative to others may take on easier tasks to demonstrate competence, while mastery-oriented students attend to their own development (P037).
 4. Use belonging and scaffolded early success to build motivation, while continuing to supply the knowledge, practice, resources, and strategies required for actual learning (P038).
 5. Treat motivation and ability beliefs as changeable interpretations shaped by structures, relationships, feedback, and experience rather than fixed learner traits (P057).
 6. Continuously monitor interaction records for exclusion or derogation, intervene to protect belonging and equity, and model inclusive engagement while preserving safely facilitated legitimate disagreement (P069).
@@ -71,7 +71,7 @@ This skill diagnoses and supports the motivational and social conditions learnin
 10. Support persistence with strategy trials, help-seeking, reflection, and improved course conditions rather than effort praise or mindset language alone (P094).
 11. Use small external rewards cautiously for initially low-interest tasks, and avoid rewards large enough to weaken intrinsic motivation that is already present (P096).
 12. Give each learner a genuine challenge that appears attainable, adjusting the task or support when preparation differs materially (P139).
-13. Diagnose motivation across three interacting dimensions (P140).
+13. Diagnose motivation across three interacting dimensions—value, expected success, and perceived support—and target the dimension that is actually limiting engagement (P140).
 14. Make ambiguity safe through structured comparison, evidence standards, and validation of participation without treating unsupported claims as equally strong (P141).
 
 ## Inputs
@@ -99,6 +99,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - The same task and level of support are given to learners whose preparation differs materially, so the challenge lands as unattainable for some and trivial for others instead of genuine and attainable for each (P139).
 - A motivation problem is treated as one undifferentiated thing and answered with a generic pep talk or reward, without first diagnosing whether value, expected success, or perceived support is the dimension actually limiting engagement (P140).
 - An open-ended or ambiguous discussion runs with no structured comparison or evidence standard, so an unsupported claim is treated as carrying the same weight as a well-evidenced one, or participation itself goes unvalidated (P141).
+
+## Worked example
+
+A cohort disengages midway through a course. The instructor adds a growth-mindset slide and starts praising effort.
+
+Diagnose first across the three interacting dimensions — value, expected success, and perceived support — and target the one actually limiting engagement (P140). Effort praise and mindset language alone do not sustain persistence; supply strategy trials, help-seeking, reflection, and improved course conditions (P094), together with belonging and scaffolded early success alongside the knowledge, practice, resources, and strategies learning actually requires (P038). After performance, frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure (P022). Audit task framing, assumptions, examples, differential treatment, and cues that make a negative group stereotype salient (P023), treat belonging as part of instructional responsibility (P070), and raise perceived value by connecting the work to authentic consequences and professional use (P079).
 
 ## References
 

@@ -63,11 +63,11 @@ This skill develops learners who can steer their own learning and judge it accur
 3. Structure reflection as a written or mental reconstruction of what happened, the connections and outcomes involved, and a specific adjustment to test next (P032).
 4. At home, establish an age-appropriate recurring routine that retrieves recent and older learning, connects it with current work, and adds or removes cues according to success (P041).
 5. Make planning explicit for complex tasks, model decomposition and sequencing for novices, then transfer responsibility through assessed learner-created plans (P048).
-6. Make otherwise invisible reasoning inspectable (P049).
+6. Make otherwise invisible reasoning inspectable — through annotations, process logs, think-alouds, or learner-first explanations that state decisions, assumptions, obstacles, and revisions — then use that evidence to target support (P049).
 7. Teach effective learning strategies alongside domain content so learners know what works, when and how to use it, and how it depends on their existing knowledge (P071).
-8. Diagnose an ineffective or missing study routine as an unformed habit and a transfer barrier (P076).
+8. Diagnose an ineffective or missing study routine as an unformed habit and a transfer barrier — setup cost, competing intermittent rewards — rather than as personal or moral failure (P076).
 9. Judge durable learning with delayed retrieval and explanation rather than immediate ease, error-free completion, or other short-term performance cues (P085).
-10. Follow up on whether scheduled study occurred (P090).
+10. Follow up on whether scheduled study occurred, which strategy and attention level it involved, revise ineffective schedules, and plan a concrete response to predictable obstacles (P090).
 11. Judge study methods by delayed performance, not immediate confidence, familiarity, or ease; favor effortful retrieval over consecutive rereading when retention matters, adding support if retrieval almost entirely fails (P126).
 12. Develop self-regulation by giving learners meaningful goals, capacity-matched challenges, targeted feedback, metacognitive prompts, and responsibility for monitoring and adapting progress (P133).
 13. Make study reproduce the target demand using spacing and genuine retrieval as the core, then layer interleaving, accurate explanation and examples, and relevant verbal-visual representations without overstating untested synergies (P148).
@@ -96,6 +96,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - A study method is judged effective because the learner feels confident or because rereading feels familiar and easy, so effortful retrieval practice is dropped in favor of consecutive rereading even when retention is the goal, and no extra support is added when retrieval keeps failing (P126).
 - Learners are expected to self-regulate without meaningful goals, challenges matched to their capacity, targeted feedback, metacognitive prompts, or any genuine responsibility for monitoring and adapting their own progress (P133).
 - A study plan skips spacing and genuine retrieval as its core, or claims that stacking interleaving, explanation, examples, and verbal-visual representations together produces a synergistic boost that has not actually been tested (P148).
+
+## Worked example
+
+A student rereads lecture notes until the material feels familiar, reports being ready, and then scores poorly.
+
+Familiarity and ease are not evidence of learning: judge study methods by delayed retrieval and explanation rather than immediate confidence, familiarity, or error-free completion (P085, P126, P013). Calibrate with domain-specific criteria, unaided retrieval, contextual performance, external feedback, and objective stopping rules (P015). Rebuild the routine so it reproduces the target demand, with spacing and genuine retrieval as the core and interleaving and accurate explanation layered on without overstating untested synergies (P148). Treat the missing routine as an unformed habit and a transfer barrier — setup cost, competing intermittent rewards — rather than a personal or moral failure (P076), and follow up on whether the scheduled study occurred, with which strategy and attention level, revising ineffective schedules and planning a concrete response to predictable obstacles (P090).
 
 ## References
 
