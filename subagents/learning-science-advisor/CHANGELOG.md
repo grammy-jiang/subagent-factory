@@ -3,6 +3,37 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.1] — 2026-07-27
+
+Adversarial verify gate (`reports/review-loop/learning-science-advisor.verify1.md`) — 3 must-fix
+findings, all of one class: boundary rules citing principle codes whose statements do not state them.
+Provenance-only; no behavioural text changed, so the boundary semantics were not re-reviewed.
+
+### Fixed
+- **`forbidden_behaviours[0]`** — dropped `(P010, P077)`, now `(authored scope boundary)`. P010 is
+  mechanism-first translation into a local implementation and P077 is not treating one's own learning
+  history as proof; neither is about *who performs* teaching, delivery, authoring, or marking.
+- **`forbidden_behaviours[2]`** — dropped `(P128, P087)`, now `(authored scope boundary)`. P128 is about
+  *what to assess*, P087 about pacing to demonstrated readiness; neither states an authority boundary on
+  placement, grading, admission, promotion, or employment outcomes.
+- **`handoff_rules[0]`** — ownership clause tagged `(authored scope boundary)`; P010 retained only on the
+  clause it supports (design reasoning adapted through each principle's mechanism to the local learners,
+  format, and institution); P077 dropped.
+- **`handoff_rules[1]`** (verify1 ADVISORY, same defect class) — narrowed to `(P134)` on the group-evidence
+  clause, now stated inline; the specialist and responsible-body allocations tagged
+  `(authored scope boundary)`. P128 dropped.
+
+### Changed
+- **Body-word trims to stay inside the 1000-word profile body gate.** The 1.2.0 body sat at exactly 1000
+  words, so the honest tags plus the two retained grounding clauses pushed it to 1011. Recovered to 998 by
+  trimming wording only — never a citation, hedge, or boundary clause — in `role` (source-type description),
+  `when_to_use[1]`, `inputs.required` 1–5 (phrasing; all guardrail content retained),
+  `outputs.primary_format`, and the `advise` mode output.
+
+No principle statement, skill, reference, test, or invariant changed; the 54-line invariant layer and the
+advice-only boundaries are unaffected. Adapter re-exported from `profile.yaml`; `validate` = 0 FAIL,
+1 pre-existing WARN (quote-scan has no source text in this worktree).
+
 ## [1.2.0] — 2026-07-27
 
 Review round 2 (`/review-subagent learning-science-advisor`) — all 6 must-fix and all high-value

@@ -62,6 +62,42 @@ references index and ground them.
 
 ## Version History
 
+- **1.2.1** (2026-07-27) — Adversarial verify gate (`reports/review-loop/learning-science-advisor.verify1.md`),
+  must-fix = 3, all provenance-only. Supersedes, and states what it supersedes:
+  - **`forbidden_behaviours[0]` citation `(P010, P077)` superseded by `(authored scope boundary)`.**
+    Neither statement is about *who performs* teaching, delivery, authoring, or marking: P010 is
+    mechanism-first translation of a principle into a local implementation, P077 is not treating one's
+    own learning history as proof. The boundary text itself is unchanged and load-bearing; only the
+    false grounding is removed, matching the honest convention already used by `forbidden_behaviours[5]`
+    and `[6]`. The same two IDs remain correctly cited in the course-design `always_on` block.
+  - **`forbidden_behaviours[2]` citation `(P128, P087)` superseded by `(authored scope boundary)`.**
+    P128 governs *what to assess* (plural competence dimensions rather than one static score) and P087
+    the *pacing* of expectations to demonstrated readiness; neither states an authority boundary on
+    placement, grading, admission, promotion, or employment outcomes. Boundary text unchanged.
+  - **`handoff_rules[0]` citation `(P010, P077)` superseded.** Ownership of curriculum, materials,
+    delivery, and marks is tagged `(authored scope boundary)`; P010 is retained attached only to the
+    clause it does support — the design reasoning is adapted through each principle's mechanism to the
+    local learners, format, and institution. P077 dropped (silent on ownership).
+  - **`handoff_rules[1]` citation `(P134, P128)` narrowed to `(P134)` + `(authored scope boundary)`.**
+    P134 grounds the group-evidence half only ("use group categories for bounded population inference
+    without converting them into individual capacity judgments"), which is now stated inline; it does not
+    ground "belongs to a qualified specialist", and P128 grounds neither that nor "to the responsible
+    body". Carried in the same pass as the two must-fix items above (verify1 ADVISORY).
+  - **Body-word trims to stay inside the profile body-size gate.** At 1.2.0 the body stood at exactly
+    1000 words — the `phase8 check 14` FAIL threshold — so the honest citation tags and the two retained
+    grounding clauses (which are longer than the codes they replace) pushed it to 1011. Recovered by
+    trimming wording only, never a citation, hedge, or boundary clause: `role` (source-type description
+    dropped; the `sources` pointer and the "invariants are advisory criteria, not authority to act"
+    disambiguation kept verbatim), `when_to_use[1]` ("hard but ineffective" → "ineffective"),
+    `inputs.required` items 1–5 (phrasing only — the ask-for-missing-context rule, the Glob/Grep and
+    root-relative resolution rules, and the never-cite-a-code-from-memory guardrail all retain their full
+    operative content), `outputs.primary_format`, and the `advise` mode output. Final body: 998 words.
+  - No behavioural text was added, weakened, or strengthened, and no claim absent from
+    `principles/principles.yaml` was introduced — every remaining `P###` in these four rules resolves to
+    a statement that carries the clause it is attached to. Adapter re-exported from the profile;
+    `validate` PASSES with 0 FAIL (1 pre-existing WARN: quote-scan cannot run without source text in
+    this worktree).
+
 - **1.2.0** (2026-07-27) — Review round 2 (`/review-subagent`), must-fix = 0. Supersedes, and states
   what it supersedes:
   - **39 prefix-truncated `## Procedure` / anti-pattern lines across 14 of the 15 skills superseded**
