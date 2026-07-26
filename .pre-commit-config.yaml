@@ -5,7 +5,7 @@ repos:
   # commit-time format matches what `make verify` and CI enforce (ruff format output drifts between
   # releases; a stale pin here passes locally then fails CI's format check).
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.20
+    rev: v0.15.22
     hooks:
       - id: ruff
         args: [--fix]
