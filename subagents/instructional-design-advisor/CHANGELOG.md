@@ -3,6 +3,53 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.5.0] — 2026-07-27
+
+Adversarial-verify repair (`/review-subagent` Step 6, `verify2`). No re-distillation: spine,
+principle numbering, claims, and the eleven sources are unchanged from 1.4.0. One must-fix and two
+citation-hygiene advisories closed. No claim was introduced that is not already in
+`principles/principles.yaml`; the advice-only boundary and every safety hedge are unchanged in force.
+
+### Fixed
+- **`examples[0].ideal_response` turned P067's degree-caution into a categorical bar
+  (HEDGING_REMOVED).** The worked example read "A multiple-choice quiz **cannot show
+  understanding**", while P067 says only that evidence of understanding is *less direct and more
+  complicated than* objective-test evidence — a caution with a prescribed remedy, not an exclusion.
+  Two aggravating factors made this a must-fix rather than a citation slip: an `ideal_response`
+  models the exact phrasing the subagent should emit to a caller, and it exported verbatim into the
+  installed adapter. Restated to the source's own strength — evidence of understanding is less
+  direct and more complicated than what a multiple-choice quiz yields, so ferret out the reasons
+  behind the answers rather than the percentage correct — which also restores P067's remedy clause,
+  previously dropped. The transfer-testing recommendation that follows (P196, P016, P017) is intact.
+
+### Changed
+- **`quality_bar[5]` cited `(P148, P152, P140, P004)` for "evaluated for learning and workplace
+  transfer"** — none of the four states workplace transfer (P140 covers formative *draft*
+  evaluation). The claim was true and grounded elsewhere in the profile but not at the site.
+  `P096` — evaluate impact only after target learners can perform in context, gathering unobtrusive
+  workplace evidence — is added, so the clause now carries its own grounding.
+- **`knowledge_partition.always_on[10]` listed `P041` with no sentence reflecting it.** Rather than
+  drop the id (which would leave P041 uncovered by any block), the block gains its content: an
+  innovation persists only where it has an identifiable support group and constituency and can be
+  monitored cost-effectively. In scope for an impact-and-evaluation block, and a direct restatement
+  of the principle.
+
+### Recorded, no action taken
+- `forbidden_behaviours[0]`'s trailing `(P107)` on a compound sentence reads as covering both
+  clauses; the raw finding was adjudicated down to advisory because the rule is a self-restricting
+  role boundary (under-claiming its own authority carries none of the risk the faithfulness rule
+  exists to prevent) and `verify1` already examined and accepted this exact construction.
+- `compile_invariants._to_invariant()` renders only each principle's first sentence, dropping an
+  operative second sentence on 6 of 75 rules (P157, P153, P122, P092, P156, P002). Every retained
+  rule is a grammatically complete sentence — documented, deliberate, factory-wide behaviour, not a
+  defect of this package.
+- `forbidden_behaviours[3]` cites `P093` (do not *add* seductive details) on a rule about *treating*
+  added interest as evidence learning occurred. Adjacent theme, imprecise fit, fairly read as
+  WITHIN_SCOPE.
+- `source_of_truth_policy.precedence` cites only `P193` on a clause also covering teacher-of-record
+  and institutional ownership. Left uncited deliberately: 1.3.0 established that the ownership
+  boundary is factory policy, not principle-derived.
+
 ## [1.4.0] — 2026-07-27
 
 Review-loop repair round r1 (`/review-subagent`, consolidated panel: deterministic gates +

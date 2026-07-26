@@ -281,3 +281,75 @@ references index and ground them.
   seams would break the 13-skill <-> 13 `knowledge_partition.always_on` 1:1 mapping and force a
   further profile edit under body-size pressure — deferred to a later version as a scoped change of
   its own.
+- **1.5.0** (2026-07-27) — Adversarial-verify repair (`/review-subagent` Step 6, `verify2`); no
+  re-distillation, so the spine, principle numbering, claims, and the eleven sources are unchanged
+  from 1.4.0. The gate consolidated to **1 must-fix**, with one raw must-fix adjudicated down and
+  five advisories. Every edit below either restores a cited principle's own scope condition or
+  attaches a citation to a clause that principle actually states; no claim absent from
+  `principles/principles.yaml` was introduced, and the advice-only ownership and safety hedges are
+  unchanged in force.
+  - **`examples[0].ideal_response` flattened P067's degree-caution into a categorical bar
+    (HEDGING_REMOVED).** The worked example asserted that "A multiple-choice quiz **cannot show
+    understanding**". P067 states something materially weaker: evidence of understanding is *less
+    direct and more complicated than* objective-test evidence, since a right answer can come from
+    rote recall, test-taking skill, or a lucky guess — and *therefore* ferret out the reasons behind
+    answers and the meaning the learner makes of results rather than the percentage correct. It is a
+    directness/complexity caution carrying a remedy, and it does not rule multiple-choice evidence
+    out. The profile kept P067's *reason* clause intact in substance, which is precisely what made
+    the surrounding overclaim read as sourced. Graded must-fix rather than advisory for two reasons
+    that do not apply to the advisories below: an `ideal_response` is a template for the exact
+    phrasing the generated subagent emits to a caller, not citation hygiene; and it survived export
+    verbatim into the installed adapter, so the over-strong form was live in the runtime artifact.
+    It is also the exact failure the evidence protocol names — a hedged source claim rendered as an
+    unconditional rule — and this package's own `forbidden_behaviours[2]` forbids it. Repaired by
+    restating the sentence at the source's strength and restoring the remedy clause the profile had
+    dropped: evidence of understanding is less direct and more complicated than what a
+    multiple-choice quiz yields, so ferret out the reasons behind the answers rather than the
+    percentage correct (P067). The example's rhetorical force and the transfer-testing
+    recommendation that follows (P153, P196, P016, P017) are unchanged.
+  - **`quality_bar[5]` — citation did not cover the "workplace transfer" clause.** The rule cited
+    `(P148, P152, P140, P004)`; P148 is front-end analysis, P152 experiential prototyping, P140
+    formative evaluation of a *draft*, P004 grounding adequacy claims in learning rather than
+    enrolment or satisfaction. None states workplace transfer. The claim was true and grounded
+    elsewhere in the profile (`always_on[10]`, `forbidden_behaviours[1]`) but not at the site, which
+    is the orphan-field pattern `.claude/rules/rights-and-quotation-policy.md` prohibits. `P096` —
+    evaluate impact only after target learners can perform in context, gathering unobtrusive
+    workplace evidence about need resolution, capability use, and performance change — is added to
+    the list. Citation-precision repair; no rule text changed.
+  - **`knowledge_partition.always_on[10]` listed `P041` among its ids with no sentence reflecting
+    it.** Dropping the id would have left P041 covered by no block at all (block membership is how
+    this package accounts for all 200 principles), so the block gains the principle's content
+    instead: an innovation persists only where it has an identifiable support group and constituency
+    and can be monitored cost-effectively. In scope for the impact-and-evaluation block it sits in,
+    and a direct restatement rather than an extension. `always_on` is excluded from the phase-8
+    body-size word count, so this costs no headroom.
+
+  **Adjudicated down at this gate — recorded, not fixed.** The faithfulness reviewer raised
+  `forbidden_behaviours[0]`'s trailing `(P107)` as a second must-fix (SCOPE_BROADENED: P107 grounds
+  the sentence's second clause, "the practitioner makes the teaching theory their own", not the
+  deliverable-building prohibition in the first). Downgraded on two independent grounds. First,
+  direction of claim: the faithfulness rule bars a rule being *stronger* than its evidence — an
+  agent asserting more about the world than the source supports — whereas this is a self-restricting
+  role boundary that forbids the agent from acting, and under-claiming its own authority carries
+  none of the risk the rule exists to prevent. Second, it re-litigates a closed decision: `verify1`
+  examined this exact compound construction, accepted it, and applied the strips at the sites where
+  P107 was grounding an *ownership/authority* claim — the 1.3.0 entry above records that. Real but
+  minor; worth tightening on a future pass.
+
+  **Recorded at this gate, no action taken** — factory- or template-level, or fairly read as
+  in-scope: `compile_invariants._to_invariant()` renders only each principle's first sentence,
+  dropping an operative second sentence on 6 of 75 rules (P157, P153, P122, P092, P156, P002) — but
+  every retained rule is a grammatically complete, self-sufficient sentence with no mid-clause cut,
+  and this is documented, deliberate behaviour systemic across all packages, with P153's and P092's
+  dropped enforcement halves surviving via the quality bar and the skill bodies; invariants inherit
+  the domain's "do the teaching" imperative voice (P033, P037, P018), contained by three explicit
+  precedence guards in the adapter plus the failure-recovery worked example that demonstrates
+  declining exactly that; `forbidden_behaviours[3]` cites `P093` (do not *add* seductive details) on
+  a rule about *treating* added interest as evidence learning occurred — adjacent theme, imprecise
+  fit, fairly read as WITHIN_SCOPE; and `source_of_truth_policy.precedence` cites only `P193` on a
+  clause also covering teacher-of-record and institutional ownership, left uncited deliberately
+  because 1.3.0 established that the ownership boundary is factory policy, not principle-derived.
+  Verify also confirmed clean: 75/75 invariants compiled and rendered with 0 truncation, adapter
+  byte-identical to the package copy, all 22 non-invariant principle ids resolving in the index, the
+  advice-only role holding (every certify/accredit/grade/score occurrence is a negation), and the
+  `Read, Grep, Glob` tool grant unwidened.
