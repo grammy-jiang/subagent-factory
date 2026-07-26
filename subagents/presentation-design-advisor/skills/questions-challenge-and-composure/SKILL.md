@@ -37,7 +37,7 @@ provenance:
 
 ## Purpose
 
-This skill prepares the presenter for the question-and-answer period and for the moment the work is attacked. It works through a single arc: handle each question through its ordered sequence, meet a challenge with one of the tested responses, concede in public where the challenger is right, and stay transparent underneath all three so the audience is watching the idea rather than a performance.
+This skill prepares the presenter for what happens after the talk and when the work is attacked. A question is handled in an order — hear it, clarify, repeat, think, then answer — and a challenge has tested responses that hold the room without creating animosity, conceding included. Use it to rehearse question handling and to meet hostile challenge with transparency rather than defensiveness.
 
 ## When to use
 

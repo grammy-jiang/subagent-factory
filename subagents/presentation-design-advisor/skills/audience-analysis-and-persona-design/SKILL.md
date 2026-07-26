@@ -44,25 +44,7 @@ provenance:
 
 ## Purpose
 
-This skill establishes who the talk is for and builds the design around them, before it lets the
-deck become a vehicle for the presenter's own persona. It answers the seven audience questions and
-builds one persona per distinct audience segment before any slide is built, keeping each persona
-slide at the front of the deck as private working context that is never projected to the room. It
-builds the presentation around what the audience needs and will do rather than the presenter's
-agenda, casts the audience as the hero and the presenter as the mentor, and judges success by what
-they leave holding rather than by how impressive the presenter appeared. It never assumes the
-audience has kept up with the presenter's field, since jargon aimed at nonspecialists costs help and
-funding purely because listeners do not understand it. It discharges the mentor's two duties —
-teaching and gift-giving — by supplying important, useful, previously unknown information plus
-guidance, confidence, and tools. It tests each detail of a known audience's talk against two
-questions — will they understand it, and will they be interested in it — and where the audience is
-unknown, it mingles beforehand or tries the talk on someone of the same background. For a mixed
-audience it abandons the goal of satisfying everyone throughout and aims instead for everyone
-satisfied by the end. It calibrates emotional and evidentiary material to the audience's tolerance
-in both directions, and locates content on the head-heart-gut-groin spectrum to correct whichever
-way the presenter defaults. Where a talk failed to land, it checks the talk against three traits
-rather than blaming delivery alone. And it refuses to let the slides become an extension of the
-presenter's own image, since the top concern is always how well the message communicates.
+This skill establishes who the talk is for and builds the design around them. The audience is the hero and the presenter the mentor, so what they leave holding is the measure rather than how impressive the presenter appeared. Use it to build a persona per segment, test each detail against understanding and interest, handle jargon and mixed audiences, and calibrate how much emotion and evidence this room will take.
 
 ## When to use
 

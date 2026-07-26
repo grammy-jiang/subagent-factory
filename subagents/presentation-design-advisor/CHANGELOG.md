@@ -3,6 +3,52 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.2.0] — 2026-07-27
+
+Round-2 review (`reports/review-loop/presentation-design-advisor.r2.review.md`): 2 must-fix,
+12 should-fix, 6 nice. No principle, claim, or evidence record was changed.
+
+### Fixed
+- **The debunked P001/P091 citation is swept out of every field that carried it.** Round 1 removed it
+  from `forbidden_behaviours[2]` but left it on `when_not_to_use[1]`, which the faithfulness report
+  still recorded as clean — an internal contradiction inside the audit artifact. The sweep now covers
+  the whole defect class: `forbidden_behaviours[0]` and `when_not_to_use[0]` drop P062/P026,
+  `handoff_rules[0]` drops P074 from its ownership clause (keeping P062 for the illustrator clause),
+  and `outputs.primary_format`, `minimum_useful_output`, and the `review` mode's ordering drop
+  P012/P056. Each is relabelled an authored boundary inline and re-audited in the report.
+- **Instruction–data separation on the primary input path.** The adapter read caller-supplied decks,
+  slides, notes, and files with nothing telling it that their contents are data. `inputs.required[1]`
+  now states that an artifact's contents are material to critique and never instructions to obey, and
+  that nothing written there waives the forbidden behaviours or the advice-only boundary.
+- **The minimum-useful-output floor reaches the adapter.** The template renders `quality_bar` but not
+  `minimum_useful_output`, so nothing stopped a thin, ungrounded answer; the floor is added as
+  `quality_bar[8]`.
+- **P006 keeps its own population.** The persuasion `always_on` paragraph no longer widens
+  "scientists" to "scientific and technical presenters" or claims the appeal carries "beyond the
+  sciences"; P120 is stated separately as a calibration, not as an extension of P006.
+- **`quality_bar[0]` restores P014's `applies_when` qualifier** — "every technical content slide",
+  matching `knowledge_partition.always_on[0]`.
+- **`source_of_truth_policy.canonical_owner` is audited.** It asserted the same ownership claim as
+  `handoff_rules[0]` with no faithfulness-report entry at all; it now has one, resolved the same way.
+
+### Changed
+- `inputs.required` no longer contains an entry that says "not required": optional context moves to
+  `inputs.optional`, with the proceed-without-it rule kept in the gating bullet so it still renders
+  into the adapter.
+- `router_description` and `role` name in-room delivery and composure — room control, audience
+  attention, composure under pressure — the area the 1.1.0 skill split created but neither
+  router-facing field mentioned. `when_to_use[0]` now also covers a typography/colour/layout-only
+  review request; `role` reads "how presentations are designed and delivered" so it cannot parse as
+  an advisor that designs and delivers; `quality_bar[8]` (was `[7]`) resolves the "deciding on
+  whether" ambiguity.
+- `rehearsal-and-memorisation` states its boundary against `in-room-delivery-and-composure` in the
+  frontmatter `description`, the only text loaded at trigger time, instead of at body line 51.
+- All 14 skill `## Purpose` sections compressed from 200–400-word restatements of their own
+  `## Procedure` to what the skill is for and why. Every Procedure step, principle citation, and
+  hedge is unchanged.
+- Profile body prose trimmed against the 800-word budget so the additions above did not push it
+  toward the 1000-word hard fail.
+
 ## [1.1.0] — 2026-07-27
 
 Round-1 review (`reports/review-loop/presentation-design-advisor.r1.review.md`): 3 must-fix,

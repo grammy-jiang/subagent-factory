@@ -37,7 +37,7 @@ provenance:
 
 ## Purpose
 
-This skill removes the dependencies that fail in a room or over a link the speaker does not control, by embedding every image and film in a local file with a backup on separate media, keeping a teleconferenced presentation simple, and bringing the speaker's own laptop where the deck needs unusual typefaces, settings, formats, or films (P104). It insists that a live demonstration never proceed without rehearsal on the actual equipment, since an unpractised demonstration can injure the presenter, hijack the lesson, or cost a contract outright at the culminating moment of a bid — while stating plainly that rehearsal guarantees nothing, it only greatly improves the odds (P028). Once the structure and slides are set, it has the presenter imagine the worst compound case and devise a plan for equipment failure: designing the talk so it can be delivered from handouts alone where the equipment is unproven, and carrying a troubleshooting kit of video and audio cables and a small computer-powered speaker, plus the knowledge of how to match the laptop's resolution to the projector (P053). It also treats the screen itself as controllable, blanking it deliberately with the black or white key, or with an inserted black slide when the keyboard is out of reach, wherever a portion of the talk needs no visual support (P003).
+This skill removes the dependencies that fail in rooms the speaker does not control and plans for the failures that remain. Disasters arise from chains of causes rather than single ones, and rehearsal on the actual equipment raises the odds without guaranteeing anything. Use it to localise media, decide what a live demonstration requires, and build the fallback for when the equipment goes.
 
 ## When to use
 

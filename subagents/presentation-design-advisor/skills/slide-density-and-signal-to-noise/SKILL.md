@@ -45,15 +45,7 @@ provenance:
 
 ## Purpose
 
-This skill judges and cuts a slide's density by what the speaker can actually deliver against it,
-rather than by a fixed bullet or word count. Its working measure is time: a slide competes with
-however many words the speaker voices while it stays on screen, so even a slide that obeys a
-conventional bullet-count rule can still carry more text than the talk can absorb. From that
-measure it works outward — stripping content that is not spoken, splitting and sequencing content
-that is, holding groupings to a size an audience can retain, revealing elements only as they are
-addressed, and keeping the balance between what a slide shows and what the speaker says. It also
-treats a minimal, TED-style look as a deliberately engineered outcome with its own preparation
-cost, not a shortcut to less design work.
+This skill reduces what a slide carries to what the speaker can actually deliver against it. Density is a competition between projected words and spoken ones, so the test is what the speaker says while the slide is up rather than a bullet-count rule, and clutter that survives that test is a design failure rather than a full slide. Use it to cut, split, sequence, and rebalance what is said against what is shown.
 
 ## When to use
 

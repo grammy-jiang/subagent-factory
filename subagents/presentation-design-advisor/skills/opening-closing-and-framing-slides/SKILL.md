@@ -39,32 +39,7 @@ provenance:
 
 ## Purpose
 
-This skill designs the slides that frame the talk, from first image to last. It makes the title
-slide orient the audience rather than announce the talk: a relevant image gives the speaker
-several possible entry points — scope, importance, or history — into the same talk for different
-audiences, where the default title-names-institutions slide turns the opening into a hurried
-obligation and leaves the audience disoriented the moment it changes (P050). It spends more than
-twenty or thirty seconds on that slide and answers at least one of the audience's opening
-questions before the first slide change, using the key image as the entry point, because reading
-off title, name, affiliation, date, and logos and then switching leaves those questions
-unanswered while the audience is still adjusting to the speaker (P085). It includes a title,
-outline, or conclusion slide only where it earns its place, since each carries organisation
-rather than content and the shorter the talk the less it is needed — a research-conference talk
-may need no outline slide, and opening on a blank black slide with the focus on the speaker can
-work when the audience already holds a concrete image of the topic (P032). At the other end of
-the talk, it runs a closing sequence that gives the audience time to compose questions: a
-headline beginning "In closing" or "In summary" so they start as the slide appears, a strong
-final sentence, a pause for applause with a thank-you to cue it if none comes, and only then the
-word Questions animated in, because an abrupt ending produces silence that reads as though
-nobody understood or cared (P022). It makes the slide left on screen while questions are taken
-summarise the talk's most important takeaway, since that slide is displayed longest and gives the
-audience content from which to fashion questions; an empty one is worse than a blank screen, a
-Thank You slide wastes the screen when voice and expression convey the thanks better, and a
-Questions slide tells the audience what they already know (P024). Where the talk will be covered
-by press, filmed, or reacted to publicly, it plants a handful of succinct, repeatable sound
-bites, coordinating key phrases word-for-word with the press release and preparing at least one
-fifteen- to thirty-second message salient enough that a reporter will obviously feature it
-(P112).
+This skill designs the slides that frame the talk. A title slide orients rather than announces, and the closing sequence decides whether questions arrive at all, while the final slide stays up longest — displayed throughout the questions it invited. Use it to judge which framing slides earn their place and to design the opening and closing around them.
 
 ## When to use
 

@@ -2,7 +2,8 @@
 name: rehearsal-and-memorisation
 description: 'Plan how the talk is practised before the day: walking it through, practising
   to no notes by memorising organisation, why memorising words and reading a speech
-  fail, and letting the visual evidence trigger what to say.'
+  fail, and letting the visual evidence trigger what to say. For mid-talk nerves,
+  room control, or eye contact, use in-room-delivery-and-composure instead.'
 kind: skill
 status: ready
 provenance:
@@ -40,7 +41,7 @@ provenance:
 
 ## Purpose
 
-This skill governs how the talk is prepared and practised before the day, stopping short of the room itself. It starts by walking through the whole presentation beforehand, even in a mumble, because that rehearsal smooths the transitions between assertions, works out the explanations of difficult concepts, and above all dispels the fear of standing before an audience with nothing to say (P020). It practises toward a no-notes standard by memorising the talk's organisation rather than its wording, using the test that the speaker already knows what the next slide is before advancing to it (P052). That practice is done with the actual slides in front of the speaker, so the visual evidence alone becomes what triggers each thing said — which is what produces delivery that reads as natural rather than recited (P072). Memorising the actual words is kept the exception rather than the standard, reserved for an unusually compressed slot or a short high-stakes fragment such as introducing a colleague or the opening of a difficult talk, while the standard stays a practised but extemporaneous talk delivered with the confidence of knowing and loving the subject (P054). At ordinary presentation length that exception cannot become the rule: a fifteen-minute talk runs past two thousand words at a normal speaking pace, a memorised result cannot be changed mid-stream, and it recalls words faster than an audience can absorb them, so memorising the whole talk is rejected outright (P095). Reading from a script gets the same treatment by default, since it runs too fast for comprehension, fixes the speaker's eyes on the page so neither party can read the other, and leaves the audience wondering whether the speaker actually knows the subject (P105). Finally, the risk of groping for a word mid-talk is answered with repeated practice rather than with a script, on the reasoning that a scientific audience does not expect an actor's fluency and that a properly spaced pause reads as emphasis rather than as failure (P094).
+This skill plans how the talk is practised before the day. Practice smooths transitions and dispels the fear of standing before an audience with nothing to say, and memorising the organisation rather than the words is what keeps the delivery natural and changeable mid-stream. Use it to set the rehearsal plan and to decide what is memorised and what is not.
 
 ## When to use
 

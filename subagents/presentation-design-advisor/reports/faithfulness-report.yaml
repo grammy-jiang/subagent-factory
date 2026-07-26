@@ -9,7 +9,9 @@ findings:
   action: accept_with_note
   note: Restates P014/P045/P071/P069; within the source's scope, no strengthening. The assertion-evidence
     pair and the no-visual-evidence prohibition are stated as the principles state them; P046's evidence-before-assertion
-    exception is preserved in the skill rather than overridden here.
+    exception is preserved in the skill rather than overridden here. 1.2.0 restores P014's applies_when
+    qualifier to the bar's wording ('every technical content slide'), which 1.1.0 had dropped to 'every
+    content slide' across the full router scope.
 - rule_ref: quality_bar[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -66,8 +68,11 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P062/P026; within the source's scope, no strengthening. Boundary restraint; the advisor
-    briefs and reviews rather than producing the artefact.
+  note: Authored scope boundary, no principle citation. Versions up to 1.1.0 cited P062/P026 for the
+    do-not-perform-the-work prohibition; neither carries it — P062 is about briefing an illustrator with
+    the story and trusting their expertise, P026 about slides scaffolding a talk rather than scripting
+    it. The boundary is sound policy but its grounding was invented, so in 1.2.0 the citation is removed
+    rather than re-attached to principles that do not carry it.
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -156,16 +161,20 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P062/P026; within the source's scope, no strengthening. Exclusion grounded in the boundary
-    the cited principles imply; no rule strengthened.
+  note: Authored scope boundary, no principle citation — the routing twin of forbidden_behaviours[0].
+    Versions up to 1.1.0 recorded it as restating P062/P026; neither states that an advisor must not
+    perform the work itself, so in 1.2.0 the grounding is withdrawn rather than re-attached.
 - rule_ref: when_not_to_use[1]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P001/P091; within the source's scope, no strengthening. Exclusion grounded in the boundary
-    the cited principles imply; no rule strengthened.
+  note: Authored scope boundary, no principle citation — the routing twin of forbidden_behaviours[2],
+    and resolved the same way. Versions up to 1.1.0 recorded it as restating P001/P091; P001 fixes the
+    assertion before graphing it and P091 builds a chain of evidenced sub-assertions, so neither states
+    or implies a prohibition on certifying correctness. In 1.2.0 the grounding is withdrawn rather than
+    re-attached to principles that do not carry it.
 - rule_ref: when_not_to_use[2]
   verdict: WITHIN_SCOPE
   distortion:
@@ -196,8 +205,10 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P012/P056; within the source's scope, no strengthening. Per-finding format names the
-    condition and trade-off rather than a verdict or a built deck.
+  note: Authored output-shape rule, no principle citation. Versions up to 1.1.0 cited P012/P056 for it;
+    P012 is about removing what does not change a slide's meaning and P056 about building the presentation
+    around the audience's needs — neither states that audience comprehension is the measure of an advisory
+    answer. Resolved in 1.2.0 the same way as source_of_truth_policy.precedence.
 - rule_ref: outputs.modes[advise].output
   verdict: WITHIN_SCOPE
   distortion:
@@ -212,8 +223,10 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P036/P012; within the source's scope, no strengthening. Findings are ordered by whether
-    the weakness distracts the audience from the content.
+  note: Restates P036 (the four critique perspectives and the distraction test); within the source's scope,
+    no strengthening. The highest-impact-first ordering is an authored presentation rule — P012, cited
+    for it up to 1.1.0, is about removing what does not change a slide's meaning and states no ordering
+    rule, so the citation is withdrawn in 1.2.0.
 - rule_ref: outputs.modes[plan].output
   verdict: WITHIN_SCOPE
   distortion:
@@ -228,8 +241,11 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P062/P074; within the source's scope, no strengthening. Talk, deck, data and artwork
-    stay with the presenter, institution, or illustrator.
+  note: Two clauses, audited separately. The illustrator clause restates P062 (brief with the story, trust
+    their expertise over untrained opinion) within scope. The ownership clause — presenter and institution
+    own the talk, deck, data, and the decision to give it — is an authored boundary. P074, cited for it
+    up to 1.1.0, refuses slides as an extension of the presenter's persona and says nothing about ownership,
+    so that citation is withdrawn in 1.2.0 and the clause is labelled authored in the rule text.
 - rule_ref: handoff_rules[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -248,14 +264,36 @@ findings:
     (carry the source's own hedging); within scope, no strengthening. The conflict tie-breaker — audience
     comprehension decides — cited P012/P056 in 1.0.0, neither of which states a rule for arbitrating between
     principles; in 1.1.0 it is labelled an authored tie-breaker with no principle citation.
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Authored ownership policy, no principle citation, resolved consistently with handoff_rules[0].
+    The illustrator/designer clause is the one part with grounding (P062); presenter-and-institution
+    authority over the talk, deck, data, and the decision to give it, and the audience or funding body's
+    authority over the decision sought, are authored role boundaries no principle states. Recorded in
+    1.2.0 so the section has no unaudited rule.
 - rule_ref: minimum_useful_output
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P012/P056; within the source's scope, no strengthening. Requires the condition or trade-off,
-    which is what keeps the advice at source strength.
+  note: Authored output-floor rule, no principle citation — same withdrawal as outputs.primary_format
+    (P012/P056 do not state that comprehension is the measure of an advisory answer). Requiring the condition
+    or trade-off is what keeps the advice at source strength; it narrows rather than strengthens any
+    source claim.
+- rule_ref: quality_bar[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Added in 1.2.0 so the minimum-useful-output floor reaches the exported adapter, which renders
+    quality_bar but not minimum_useful_output. Same authored output-floor rule as minimum_useful_output,
+    asserting nothing about presentation design and therefore carrying no source claim to over-state.
 - rule_ref: quality_bar[7]
   verdict: WITHIN_SCOPE
   distortion:
@@ -272,7 +310,8 @@ findings:
   severity: low
   action: accept_with_note
   note: 'Authored intake rule, not a domain claim: it names the artifact plus the audience as the only
-    gating context. Narrower than the sources, never stronger; P061''s persona work and P075''s understand/interest
+    gating context and directs the advisor to proceed without the optional context, naming what each
+    would change. Narrower than the sources, never stronger; P061''s persona work and P075''s understand/interest
     test remain available once the extra context arrives.'
 - rule_ref: inputs.required[1]
   verdict: WITHIN_SCOPE
@@ -280,18 +319,20 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Authored intake rule. The occasion, post-talk action, slot length, preparation time and room conditions
-    are marked recommended rather than mandatory, which weakens rather than strengthens the claim that
-    P065/P066/P088 attach to each of them.
-- rule_ref: inputs.required[2]
+  note: Authored operating instruction about reading a caller-supplied file and treating its contents
+    as data to critique rather than instructions to obey (added in 1.2.0 under the repository's untrusted-source
+    policy). It asserts nothing about presentation design and therefore carries no source claim to over-state;
+    recorded here so the section has no unaudited rule.
+- rule_ref: inputs.optional[0]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Authored operating instruction about reading a caller-supplied file. It asserts nothing about
-    presentation design and therefore carries no source claim to over-state; recorded here so the section
-    has no unaudited rule.
+  note: Authored intake rule, moved out of inputs.required in 1.2.0 because it named context that is
+    explicitly not required. The occasion, post-talk action, slot length, preparation time and room conditions
+    stay optional rather than mandatory, which weakens rather than strengthens the claim that P065/P066/P088
+    attach to each of them.
 - rule_ref: knowledge_partition.always_on[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -365,11 +406,13 @@ findings:
   severity: low
   action: accept_with_note
   note: Persuasion paragraph. Restates P006/P030/P038/P040/P068/P092/P113/P115/P117/P120. Version 1.0.0
-    generalised P006's 'science / scientists' to 'technical work' without carrying a principle for the
-    wider domain; 1.1.0 keeps the domain wording of P006 ('scientific and technical presenters') and grounds
-    the broader reach in the Duarte-derived P120, whose claim is that analytical audiences also decide
-    partly on emotion. P030's 'stacking more proof does not convert a determined skeptic' and P038's override
-    caveat are carried unweakened.
+    generalised P006's 'science / scientists' to 'technical work', and 1.1.0 widened it again to 'scientific
+    and technical presenters' plus an explicit claim that the appeal carries 'beyond the sciences' — a
+    scope broadening that stitched P006's domain-scoped empirical claim to P120's differently-scoped
+    calibration claim. 1.2.0 restores P006's own population ('scientists', 'decisions about science')
+    and states P120 separately as a calibration of where an analytical communicator's material sits,
+    not as an extension of P006. P030's 'stacking more proof does not convert a determined skeptic' and
+    P038's override caveat are carried unweakened.
 - rule_ref: knowledge_partition.always_on[7]
   verdict: WITHIN_SCOPE
   distortion:
