@@ -9,12 +9,22 @@ field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`
 it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs`, and
 `minimum_useful_output` — carry no inline tags, per repo convention.)
 
-Six fields are **authored**, not distilled, and say so inline rather than citing a principle they
-do not have:
+Eight fields are **authored**, not distilled, and say so inline rather than citing a principle they
+do not have.
+
+**Inclusion rule for this table (added at 1.4.0, so future audits are mechanical rather than manual):**
+a field belongs here when it is **fully** authored — it carries zero principle citations anywhere in its
+text. A **mixed** field — part principle-cited, part tagged `(authored …)`, e.g. `handoff_rules[0]` and
+`handoff_rules[1]` — correctly stays out, because it is not an orphan: every clause either cites the
+principle it restates or is tagged authored inline. To re-derive the table, list every
+`quality_bar` / `forbidden_behaviours` / `handoff_rules` / `knowledge_partition.always_on` /
+`source_of_truth_policy` value with no `P###` in it; that list must equal the rows below.
 
 | Field | Kind | Why it carries no principle |
 |-------|------|------------------------------|
 | `quality_bar[6]` ("Output floor") | authored output floor | Restates `outputs.primary_format` + `minimum_useful_output` so the export template, which renders neither, still carries the output floor into the deployed adapter. It is a format rule, not a domain claim. |
+| `forbidden_behaviours[0]` (teaching performed) | authored scope boundary | Row added at 1.4.0; the field itself has been uncited since 1.2.1, which superseded its `(P010, P077)` citation with `(authored scope boundary)` but never added the row. Mirrors `when_not_to_use[0]`. No source principle states *who performs* teaching, delivery, authoring, or marking; the boundary is a repo-policy decision. |
+| `forbidden_behaviours[2]` (placement/grading/admission/promotion/employment) | authored scope boundary | Row added at 1.4.0; uncited since 1.2.1, which superseded its `(P128, P087)` citation with `(authored scope boundary)` but never added the row. Mirrors `when_not_to_use[2]`, and `handoff_rules[1]` names the body that owns those decisions. No source principle grants or withholds authority over them. |
 | `forbidden_behaviours[5]` (numeric claims) | authored evidence guardrail | Added at 1.2.0. A ban on citing an effect size, statistic, or numeric benchmark absent from the invoked principle's own statement is a guardrail on the agent's output discipline, not a claim about learning; no source principle states it. Distinct from `forbidden_behaviours[3]`, which fences over-claimed certainty and generality rather than invented precision. |
 | `forbidden_behaviours[6]` | authored scope boundary | Mirrors `when_not_to_use[4]`. No source principle grants or withholds authority over education law, accreditation, safeguarding, or institutional policy; the boundary is a repo-policy decision. |
 | `forbidden_behaviours[7]` (subject-matter rulings) | authored scope boundary | Added at 1.3.0. Mirrors `when_not_to_use[3]`, which until then was the only routing exclusion with no enforceable forbidden-behaviour counterpart. No source principle grants or withholds authority over the subject matter a course teaches; the advice-only/subject-matter split is a repo-policy decision. |
@@ -64,6 +74,107 @@ references index and ground them.
 
 ## Version History
 
+- **1.4.0** (2026-07-27) — Review round r1 fix pass
+  (`reports/review-loop/learning-science-advisor.r1.review.md`), must-fix = 3, all applied, plus every
+  should-fix and the two cheap `nice` audit-trail items. Supersedes, and states what it supersedes:
+  - **F1 — stray `</content>` generation artifact removed** from the last line of
+    `skills/cognitive-load-worked-examples-and-scaffolding/SKILL.md`. Verified the only occurrence in the
+    package; a one-off tool-wrapper leak, not a template defect. No content changed.
+  - **F2 — S3 (the unexercised rights gate) is now CLOSED, not deferred.** The validator's `quote-scan`
+    WARN persists in this worktree because neither `sources/markdown/` nor a local
+    `cache/book-extracts/` exists here, which made the standalone `quote_scan` PASS vacuous and put
+    `status: ready` in direct conflict with 1.3.0's "must be run once … before release". The warm
+    map-reduce cache *does* exist in the main checkout, so the gate was run for real against it:
+    `quote_scan_report(subagents/learning-science-advisor,
+    cache_root=/home/grammy-jiang/projects/subagent-factory/cache/book-extracts)` →
+    `{"restricted": 12, "scanned": true}`, **0 findings**. All twelve `distillation-only` sources were
+    loaded and compared; no 40-word verbatim run from any of them appears anywhere in the package. The
+    surviving validator WARN is now an environment fact about this worktree (no cache under its own
+    root), not an open rights question, and `status: ready` no longer contradicts this ledger.
+  - **F3 — the authored-field exception table superseded: "Six fields" → "Eight fields".**
+    `forbidden_behaviours[0]` and `[2]` have carried zero P-codes since 1.2.1 superseded their
+    `(P010, P077)` and `(P128, P087)` citations with `(authored scope boundary)`; that pass never added
+    the matching table rows, so both were orphan field values under
+    `.claude/rules/rights-and-quotation-policy.md` and falsified this ledger's own completeness claim.
+    Rows added with the same authored-scope-boundary rationale already used for `[6]`/`[7]`. The root
+    cause — no stated inclusion rule, so the audit was manual and recurred — is fixed by the new
+    **inclusion rule** above the table: *fully* authored (zero citations anywhere) belongs in it, *mixed*
+    fields (`handoff_rules[0]`, `[1]`) correctly stay out, and the re-derivation recipe is stated so the
+    check is mechanical. Verified: the mechanical list reproduces exactly the eight rows.
+  - **F4/F5 — P100 rescoped at the source and rehomed, resolving the adapter/charter contradiction that
+    1.3.1 only half-closed.** 1.3.1 dropped P100's `always_on[10]` citation but left the principle in
+    `expertise-development-and-transfer`, which left it charter-orphaned (present in no `always_on` block
+    at all — 149 of 150 principles were carried) and still rendering, in the adapter's precedence-taking
+    *Operating invariants* layer, as imperative individual-diagnostic advice against
+    `router_description`, `when_not_to_use[1]` and `forbidden_behaviours[1]`. Both halves are now fixed:
+    - **Statement rescoped** from "When advising on assessment for a persistent reading difficulty,
+      recommend real-word reading, spelling ability and word attack skills as the diagnostic measures to
+      collect …" to "When **a school or programme team designs what a reading-difficulty assessment or
+      intervention screens for**, recommend that real-word reading, spelling ability and word attack
+      skills **be among the measures collected**, since they are the greatest predictors of reading
+      comprehension." This is a **narrowing**, not a strengthening: the "greatest predictors" clause is
+      carried verbatim from C03615, and the programme-design framing is C04895's own ("assessment and
+      intervention should identify the affected process"). `applies_when[0]` and `[1]` rescoped to match,
+      so the statement stays self-sufficient under the invariant compiler's `applies_when` stripping.
+    - **Rehomed** from `expertise-development-and-transfer` (lens: matching support to growing expertise
+      and validating transfer claims) to `prior-knowledge-prediction-and-misconceptions` (lens: surfacing
+      what learners already hold before instruction), which is where identifying the affected component
+      process belongs. The partition stays 1:1 — 150 principles, each owned by exactly one skill — and
+      P100 regains an `always_on` home: `always_on[4]` gains a matching clause and cites it. The
+      expertise skill's `when to use` trigger, Procedure step, anti-pattern and Provenance list drop it;
+      the prior-knowledge skill gains them, with the referral to a qualified assessor stated explicitly
+      in the Procedure step. `.build/authoring/gen.py`'s `ALWAYS_ON_EXCLUDE` entry is retired (now empty)
+      because the exclusion it encoded no longer exists.
+    - **Derived restatements re-synced:** the `lead()`-truncated P100 entry moved between skill groups in
+      `references/learning-science-principles-index.md`, and `PB-P100` in
+      `tests/principle-behaviour-tests.yaml` re-pointed at the prior-knowledge lens with the rescoped
+      `expected_behaviour`.
+  - **F6 — `handoff_rules[1]` now enumerates "promotion"**, restoring the three-way parallel with
+    `when_not_to_use[2]` and `forbidden_behaviours[2]`. Promotion decisions were forbidden and out of
+    scope but no rule named who owns them; they now route to the responsible body with the rest.
+  - **F7 — `inputs.required[3]` gained a defined fallback**: "If it cannot be located, state the point
+    plainly without the citation and keep the safeguard." Twelve codes cited in `quality_bar` /
+    `forbidden_behaviours` are not in the rendered Operating invariants, so their statements must be read
+    from a skill file or the principles index before citing; until now nothing said what to do when that
+    read fails (standalone `export-deployable` without the `skills/` siblings, moved file, denied read),
+    leaving silent failure as the only defined outcome and the safeguards uncheckable from the adapter
+    text alone.
+  - **F8 — shared boilerplate removed from all 15 `skills/*/SKILL.md`** (DRY; pure context cost at every
+    invocation). The byte-identical second `## Inputs` bullet is dropped — `inputs.required[0]` already
+    carries it; each `## Output` section's four-line paragraph is replaced by a pointer to the profile's
+    `outputs` contract and quality bar, keeping the forbidden-behaviours/handoff-rules sentence verbatim;
+    and each `## Provenance` drops the ~100-word 12-source bibliography (carried by this ledger and
+    `references/learning-science-evidence-notes.md`) while keeping its full `Derived from P0xx…` list and
+    the frontmatter pointer. `gen.py` updated to emit the same shape so a regeneration cannot reintroduce
+    the duplication. **No principle citation, anti-pattern, procedure step or worked example was
+    touched**, and every frontmatter `provenance` block is byte-for-byte unchanged apart from the two
+    `authored_from_digest` re-stamps forced by the P100 statement edit.
+  - **F10/F14 — faithfulness report completed.** Added `rule_ref` entries for the three
+    `outputs.modes[*].trigger` values (named in-scope by the faithfulness-review skill but never covered)
+    and for `router_description`, `role` and `inputs.required`. All six are routing/descriptive prose with
+    no source-attributed claim, so all grade `WITHIN_SCOPE` as not gradable for over-claim — an
+    audit-trail gap, not a live over-claim. `always_on[4]`'s note now lists P100; the
+    `outputs.primary_format` note re-synced to the trimmed field wording.
+  - **F9 — the per-entry body-word-count convention restored** (recorded retrospectively on 1.3.1 above).
+  - **Body-word budget.** F6 (+1) and F7 (+15) had to be paid for in the same pass; recovered by trimming
+    wording only, never a citation, hedge, or boundary clause: `role` (the ledger pointer now names the
+    file, not "recorded in this package's"), `when_to_use[0]`/`[2]`, `inputs.required[0]`–`[2]` (phrasing
+    only — ask-for-missing-context, Glob/Grep + root-relative resolution all retain their full operative
+    content), `outputs.primary_format` and `minimum_useful_output` (neither is rendered by the export
+    template; `quality_bar[6]` carries the output floor into the adapter and is untouched),
+    `handoff_rules[0]` ("residual trade-off" → "trade-off") and `precedence`.
+    **Final body: 993 words.**
+  - **Not applied (r1 `nice`, non-gating, recorded so the next touch can pick them up):** F11 — the
+    `development-diversity-and-individual-differences` slug sits at exactly the 48-char limit (renaming
+    churns the skill directory, its frontmatter, the partition and every cross-reference for 3 characters
+    of margin); F12 — only 1 of 15 skill `description`s carries a "not X" boundary clause, and no
+    mis-triggering has been observed; F13 — `router_description` is a ~165-word paragraph whose 15-clause
+    `Covers:` list works against router matching, but its exclusions are load-bearing and collapsing the
+    list is a behavioural change better made with a triggering measurement behind it.
+  - No claim absent from `principles/principles.yaml` was introduced, and no rule was strengthened — the
+    one behavioural rule that changed (P100) was **narrowed**. No hedge or safety clause was dropped.
+    Adapter re-exported from the profile.
+
 - **1.3.1** (2026-07-27) — Adversarial verify gate #2
   (`reports/review-loop/learning-science-advisor.verify2.md`), must-fix = 1, applied. Both lanes
   converged on P100 from opposite directions. Supersedes, and states what it supersedes:
@@ -109,6 +220,10 @@ references index and ground them.
     caution-preserving, so moving it would create a fresh orphan citation in `always_on[11]` (or cost
     body words to restate it there); and the weak-linkage citations P104 / P141 / P145 / P041, all
     graded no higher than `WITHIN_SCOPE` by the gate.
+  - **Final body: 991 words** against the 1000-word `phase8 check 14` FAIL threshold (unchanged from
+    1.3.0 — 1.3.1 reworded two clauses and dropped one citation at net zero words). Recorded
+    retrospectively at 1.4.0: the 1.3.1 entry originally omitted it, breaking the per-entry convention
+    every other version entry keeps (r1 finding F9).
   - No claim absent from `principles/principles.yaml` was introduced, no rule was strengthened, and no
     hedge or safety clause was dropped. Adapter re-exported from the profile.
 

@@ -3,6 +3,67 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.4.0] — 2026-07-27
+
+Review round r1 (`reports/review-loop/learning-science-advisor.r1.review.md`) — all 3 must-fix findings
+applied, plus every should-fix and the two cheap audit-trail `nice` items. No claim absent from
+`principles/principles.yaml` was introduced; the one behavioural rule that changed (P100) was
+**narrowed**, not strengthened; no hedge or safety clause was dropped.
+
+### Changed
+- **P100 rescoped and rehomed (F4, F5).** Its statement moves from imperative individual-diagnostic
+  advice ("When advising on assessment for a persistent reading difficulty, recommend … the diagnostic
+  measures to collect") to programme-design scope ("When a school or programme team designs what a
+  reading-difficulty assessment or intervention screens for, recommend that … be among the measures
+  collected"), so the adapter's precedence-taking *Operating invariants* layer no longer contradicts
+  `router_description`, `when_not_to_use[1]` and `forbidden_behaviours[1]` — a contradiction that
+  previously only the precedence clause resolved. The "greatest predictors" clause is carried verbatim
+  from C03615 and the programme framing from C04895, so the edit narrows rather than strengthens.
+  `applies_when` rescoped to match. The principle also moves from
+  `expertise-development-and-transfer` to `prior-knowledge-prediction-and-misconceptions`, whose lens
+  actually covers it, and regains an `always_on` home (`always_on[4]` gains a matching clause and cites
+  it) — it had been in no `always_on` block since 1.3.1, leaving 149 of 150 principles carried.
+- **`handoff_rules[1]` now enumerates "promotion" (F6)**, matching `when_not_to_use[2]` and
+  `forbidden_behaviours[2]`; promotion decisions were forbidden but no rule named who owns them.
+- **`inputs.required[3]` gained a cannot-locate fallback (F7)** — "state the point plainly without the
+  citation and keep the safeguard" — so the twelve `quality_bar`/`forbidden_behaviours` codes absent
+  from the rendered invariants no longer have silent failure as their only defined outcome when the
+  principle lookup fails (standalone `export-deployable`, moved file, denied read).
+- **All 15 skill bodies de-duplicated (F8)** — the byte-identical second `## Inputs` bullet dropped,
+  each `## Output` paragraph replaced by a pointer to the profile's `outputs` contract and quality bar,
+  each `## Provenance` bibliography collapsed to a pointer at `provenance-ledger.md` and the evidence
+  notes. No principle citation, procedure step, anti-pattern or worked example touched. `gen.py` emits
+  the same shape so a regeneration cannot reintroduce the duplication.
+- **Body-word budget:** F6/F7 paid for by wording-only trims to `role`, `when_to_use[0]`/`[2]`,
+  `inputs.required[0]`–`[2]`, `outputs.primary_format`, `minimum_useful_output`, `handoff_rules[0]` and
+  `precedence`. Final body: **993 words** (limit 1000).
+
+### Fixed
+- **Stray `</content>` generation artifact (F1)** removed from the last line of
+  `skills/cognitive-load-worked-examples-and-scaffolding/SKILL.md` — the only occurrence in the package.
+- **Rights gate closed (F2).** S3 has been open since 1.3.0 ("must be run once … before release") while
+  `status: ready` asserted release-readiness, because this worktree holds no `sources/markdown/` and no
+  `cache/book-extracts/`, making the standalone `quote_scan` PASS vacuous. The gate was run for real
+  against the warm map-reduce cache in the main checkout: 12 restricted sources loaded, `scanned: true`,
+  **0 findings**. The surviving validator WARN is now an environment fact about this worktree, not an
+  open rights question.
+- **Authored-field exception table completed (F3)** — "Six fields" → "Eight fields", adding
+  `forbidden_behaviours[0]` and `[2]`, uncited since 1.2.1 but never given rows (orphan field values
+  under `.claude/rules/rights-and-quotation-policy.md`). The table now states its inclusion rule —
+  *fully* authored belongs in it, *mixed* fields stay out — plus the re-derivation recipe, so the audit
+  is mechanical rather than manual; that missing rule was the recurrence's root cause.
+- **Faithfulness report completed (F10, F14)** — `rule_ref` entries added for the three
+  `outputs.modes[*].trigger` values and for `router_description`, `role` and `inputs.required`; all
+  routing/descriptive prose with no source-attributed claim, graded `WITHIN_SCOPE` as not gradable for
+  over-claim. `always_on[4]`'s note now lists P100.
+- **Body-word-count convention restored (F9)** — the 1.3.1 ledger entry recorded no measured word count
+  against the 1000-word `phase8 check 14` threshold, breaking a convention every other entry keeps; 991
+  recorded retrospectively.
+
+### Not applied
+- F11 (48-char slug at the limit), F12 (only 1 of 15 skill descriptions carries a "not X" clause) and
+  F13 (`router_description` length) — all `nice`, non-gating, recorded in `provenance-ledger.md`.
+
 ## [1.3.1] — 2026-07-27
 
 Adversarial verify gate #2 (`reports/review-loop/learning-science-advisor.verify2.md`) — 1 must-fix

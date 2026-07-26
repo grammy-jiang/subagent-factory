@@ -54,7 +54,7 @@ SKILLS: list[tuple[str, list[int]]] = [
     ("elaboration-examples-and-self-explanation",
      [2, 4, 16, 58, 68, 73, 120, 137, 143, 147]),
     ("prior-knowledge-prediction-and-misconceptions",
-     [6, 25, 42, 43, 78, 98, 114, 150]),
+     [6, 25, 42, 43, 78, 98, 100, 114, 150]),
     ("cognitive-load-worked-examples-and-scaffolding",
      [3, 12, 21, 47, 63, 67, 101, 112, 113, 121, 136, 149]),
     ("metacognition-study-habits-and-self-regulation",
@@ -66,7 +66,7 @@ SKILLS: list[tuple[str, list[int]]] = [
     ("evidence-appraisal-and-learning-myths",
      [7, 11, 17, 20, 33, 44, 53, 72, 74, 84, 103, 105, 109, 130]),
     ("expertise-development-and-transfer",
-     [5, 9, 18, 39, 100, 104, 108, 117, 122, 128, 131]),
+     [5, 9, 18, 39, 104, 108, 117, 122, 128, 131]),
     ("memory-mnemonics-and-recall-accuracy",
      [8, 45, 46, 116, 119]),
     ("course-design-technology-and-online-teaching",
@@ -232,7 +232,10 @@ THEMES: dict[str, dict] = {
             "tests it so the discrepancy and its failed assumptions become visible, then has the "
             "learner justify a more adequate alternative. It opens with a relevant stimulus and "
             "asks what learners notice and wonder, and connects new material to meaningful "
-            "classifications, language roots, and repeated use so it can consolidate."),
+            "classifications, language roots, and repeated use so it can consolidate. Where a "
+            "school or programme team designs what a reading-difficulty assessment or "
+            "intervention screens for, it recommends that real-word reading, spelling ability, "
+            "and word attack skills be among the measures collected."),
         when=[
             "A unit, lesson, or module is being opened and prior knowledge, curiosity, and "
             "prediction should do work before content is delivered (P025, P098, P114).",
@@ -240,6 +243,8 @@ THEMES: dict[str, dict] = {
             "P078).",
             "Instruction is being planned without knowing what learners already know, expect, or "
             "misread — including cultural and emotional context (P042, P150).",
+            "A school or programme team is deciding what a reading-difficulty assessment or "
+            "intervention should screen for (P100).",
             "New terminology or classification must be connected to what learners already have so "
             "it consolidates into an adaptable model (P006).",
         ],
@@ -436,8 +441,7 @@ THEMES: dict[str, dict] = {
             "debriefed (P018, P131, P117, P104).",
             "A transfer claim is being made, or an analogy or convention is being used outside "
             "where it holds (P039, P122).",
-            "Competence is being assessed or diagnosed, including foundational reading skills "
-            "(P128, P100).",
+            "Competence is being assessed or diagnosed (P128).",
         ],
         input="The target performance and current level, the practice and feedback available, and "
               "the setting the capability must eventually work in."),
@@ -737,17 +741,14 @@ def emit_skills() -> None:
             body.append(f"{i}. {lead(P[pids(n)]['statement'])} ({pids(n)}).")
         body.append("")
         body.append("## Inputs\n")
-        body.append(f"- {th['input']}")
-        body.append("- The reasoning offered for the design or decision under review: the learning "
-                    "goal, the practice currently in place, and any claim about what it achieves.\n")
+        body.append(f"- {th['input']}\n")
         body.append("## Output\n")
+        # DRY: the output contract lives once, in the profile (outputs + quality_bar). Restating it
+        # verbatim in all 15 skills duplicated the profile and cost context at every invocation.
         body.append(
-            "Per finding: name the gap and the principle it engages, give the correction, state the "
-            "residual trade-off or the referral to make, and end with a concrete next step. Order "
-            "findings highest-impact first, and mark where the evidence is uncertain or "
-            "context-bound rather than presenting it as settled. This skill advises on learning "
-            "and teaching practice; it does not teach the subject matter, deliver the course, mark "
-            "the work, or diagnose a learning disability or clinical condition.\n")
+            "As set by the profile's `outputs` contract and quality bar. Advice only — the "
+            "profile's forbidden behaviours and handoff rules govern what this skill will not "
+            "do.\n")
         body.append("## Anti-patterns to flag\n")
         for n in nums[: min(7, len(nums))]:
             body.append(f"- Overlooking {pids(n)}: {lead(P[pids(n)]['statement'], 150)}.")
@@ -759,8 +760,10 @@ def emit_skills() -> None:
             "kept faithful to the sources.\n")
         body.append("## Provenance\n")
         idlist = ", ".join(pids(n) for n in nums)
+        # DRY: the 12-source bibliography lives in provenance-ledger.md and the evidence notes.
         body.append(
-            f"Derived from {idlist}, {_SRC_LINE}. The frontmatter `provenance` block lists the exact "
+            f"Derived from {idlist}; full source grounding in `../../provenance-ledger.md` and "
+            f"`../../references/{REFS[1]}.md`. The frontmatter `provenance` block lists the exact "
             "principle and claim ids, which resolve into `principles/principles.yaml` and "
             "`analysis/claims.jsonl`.\n")
         w(BASE / "skills" / slug / "SKILL.md", "\n".join(body))
@@ -827,11 +830,7 @@ def emit_refs() -> None:
 # A skill may legitimately route on a principle that its one-paragraph always_on purpose never
 # restates. Citing it there is a false provenance link — the reader follows the id and lands on an
 # unrelated rule. Excluded per (skill, principle); the skill itself keeps the principle.
-ALWAYS_ON_EXCLUDE = {
-    # P100 is reading-diagnostic measure selection; the expertise/transfer paragraph is about
-    # goal-directed practice, feedback, simulation, transfer and multi-dimensional competence.
-    ("expertise-development-and-transfer", 100),
-}
+ALWAYS_ON_EXCLUDE: set[tuple[str, int]] = set()
 
 
 def _always_on() -> list[str]:

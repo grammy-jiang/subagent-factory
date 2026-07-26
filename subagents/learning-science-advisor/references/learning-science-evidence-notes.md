@@ -157,7 +157,7 @@ provenance:
   claims: []
   evidence: []
   source_anchors: []
-  authored_from_digest: df9b6263d51c924f3192be7e1d444f5088890a359052a31819690c2c8838e82d
+  authored_from_digest: d4523e8d3958ef4a3a68bc059d6b8336892907c7fba00b00145d950022a242f5
 ---
 
 # Learning-Science Evidence Notes

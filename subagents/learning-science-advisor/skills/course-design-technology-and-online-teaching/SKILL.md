@@ -41,7 +41,6 @@ provenance:
   authored_from_digest: ce1ff1595a1d5727841d01088d399ba5072db4b19cbd850551f78ea18cd6da61
 ---
 
-
 # Course Design, Technology And Online Teaching
 
 ## Purpose
@@ -86,11 +85,10 @@ This skill advises instructors, course designers, and programme leads on course-
 ## Inputs
 
 - The course or programme as designed, its intended outcomes and delivery mode, and the real constraints on learners and staff.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -120,4 +118,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P010, P030, P052, P056, P062, P077, P081, P082, P083, P089, P102, P111, P123, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P010, P030, P052, P056, P062, P077, P081, P082, P083, P089, P102, P111, P123; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

@@ -12,7 +12,6 @@ provenance:
   - P009
   - P018
   - P039
-  - P100
   - P104
   - P108
   - P117
@@ -38,7 +37,7 @@ provenance:
   - C00508
   evidence: []
   source_anchors: []
-  authored_from_digest: 2707f21c59e37977c0733d99166c8da8f37d58474aed7fc65b2b8808cb0d5260
+  authored_from_digest: 4bcec1830b432fb1a6a4e12dfbbdd6a4230d3ba872c6d942d2389aca5cd12913
 ---
 
 # Expertise Development And Transfer
@@ -52,7 +51,7 @@ This skill advises the instructor, coach, or course designer on matching practic
 - A practice regime or curriculum must carry learners from novice to competent, and supports must be matched and faded (P009, P005, P108).
 - A complex physical, perceptual, or professional performance must be trained and debriefed (P018, P131, P117, P104).
 - A transfer claim is being made, or an analogy or convention is being used outside where it holds (P039, P122).
-- Competence is being assessed or diagnosed, including foundational reading skills (P128, P100).
+- Competence is being assessed or diagnosed (P128).
 
 ## Procedure
 
@@ -77,16 +76,14 @@ This skill advises the instructor, coach, or course designer on matching practic
 ### Diagnose and assess competence
 
 1. Recommend assessing analytical reasoning, creative adaptation, practical execution, and context-developed expertise instead of inferring total competence from one school-centered static score (P128).
-2. For diagnosing a reading difficulty, recommend collecting real-word reading, spelling ability, and word attack skills as the diagnostic measures, since they are the greatest predictors of reading comprehension (P100).
 
 ## Inputs
 
 - The target performance and current level, the practice and feedback available, and the setting the capability must eventually work in.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -94,7 +91,6 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 - Novices are handed independent, unscaffolded problems, or experts are still walked through concrete worked examples with close spacing, because support and practice were never faded to match how much expertise the learner has actually built (P009).
 - A complex performance is rehearsed only as a whole, so a struggling component never gets its own slow, natural-cue rehearsal across the representations that must eventually coordinate before it is reintegrated (P018).
 - A claim that practicing one skill improved a different, untrained outcome is accepted on the trained task's own gains alone, with no objective evidence that the untrained outcome moved and no attempt to rule out a general practice habit as the real cause (P039).
-- A reading difficulty is diagnosed from comprehension performance alone, without measuring the word-level reading, spelling, and word-attack skills that are its greatest predictors (P100).
 - Mental, imagery-only rehearsal is skipped or dismissed as ineffective, even though it can produce large gains on cognitive tasks from comparatively short sessions and few trials (P104).
 - A skill is written off as fixed and untrainable, or pushed with effort alone and no supporting practice structure, mental model, or environmental scaffold, ignoring both real biological limits and real room to develop (P108).
 - Training stays confined to explanation, isolated drills, or lecture, so learners never rehearse the complete field decision-and-action sequence, or the hands-on practice happens but is never debriefed against the cues, choices, constraints, and outcomes that occurred (P117).
@@ -114,4 +110,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P005, P009, P018, P039, P100, P104, P108, P117, P122, P128, P131, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P005, P009, P018, P039, P104, P108, P117, P122, P128, P131; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

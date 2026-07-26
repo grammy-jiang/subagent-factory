@@ -1,6 +1,8 @@
 ---
 name: cognitive-load-worked-examples-and-scaffolding
-description: Manages cognitive load within a single lesson or task via worked examples, scaffolding, chunking, and prerequisite checks when learners overload, stall, or need a hard procedure faded toward independence during that task.
+description: Manages cognitive load within a single lesson or task via worked examples,
+  scaffolding, chunking, and prerequisite checks when learners overload, stall, or
+  need a hard procedure faded toward independence during that task.
 kind: skill
 status: ready
 provenance:
@@ -38,7 +40,6 @@ provenance:
   source_anchors: []
   authored_from_digest: d03d9cea3bc38b4b2ca97c750eecccd2d058593abff2efb87aa3b75f2dbf90cb
 ---
-
 
 # Cognitive Load, Worked Examples And Scaffolding
 
@@ -82,11 +83,10 @@ This skill advises the instructor or task designer on managing the working-memor
 ## Inputs
 
 - The task or lesson as currently set, the prerequisite knowledge learners actually hold, and the support materials available.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -115,5 +115,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P003, P012, P021, P047, P063, P067, P101, P112, P113, P121, P136, P149, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
-</content>
+Derived from P003, P012, P021, P047, P063, P067, P101, P112, P113, P121, P136, P149; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

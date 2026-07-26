@@ -1,7 +1,7 @@
 ---
 name: collaborative-and-peer-learning
-description: Guides structuring group work, peer instruction, and reciprocal or
-  prepare-to-teach activities so peer learning is accountable, scripted, and produces visible understanding.
+description: Guides structuring group work, peer instruction, and reciprocal or prepare-to-teach
+  activities so peer learning is accountable, scripted, and produces visible understanding.
 kind: skill
 status: ready
 provenance:
@@ -32,7 +32,6 @@ provenance:
   source_anchors: []
   authored_from_digest: b6a02ce94642619746607b3833f6742ece380128ff9964eb1a7ab9ceeacf1917
 ---
-
 
 # Collaborative And Peer Learning
 
@@ -66,11 +65,10 @@ This skill helps an instructor or course designer turn group work, peer instruct
 ## Inputs
 
 - The group activity as run, how individual contribution and understanding are made visible, and what the group work is meant to achieve.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -92,4 +90,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P055, P075, P086, P095, P097, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P055, P075, P086, P095, P097; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

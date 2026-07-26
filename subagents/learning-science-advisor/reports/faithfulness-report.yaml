@@ -197,8 +197,15 @@ findings:
     exclusion previously described in this finding''s note has moved to the new quality_bar[6] ''Output
     floor'' entry (authored, carries this field forward into the adapter); outputs.primary_format''s own
     current text now states only the positive structure — findings name the gap and its principle, give
-    the correction, and state the condition or residual trade-off — which restates P072''s match-technique-to-condition
+    the correction, and state the condition or trade-off — which restates P072''s match-technique-to-condition
     framing and P010''s adapt-implementation framing without overstating them.'
+- rule_ref: outputs.modes[advise].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Routing prose, not a source-attributed claim: it names the situation in which the advise mode fires (a teaching, study, or learning-design decision) and asserts nothing about learning. Carries no principle by design, so it cannot be stronger than source support. Grade WITHIN_SCOPE.'
 - rule_ref: outputs.modes[advise].output
   verdict: WITHIN_SCOPE
   distortion:
@@ -207,6 +214,13 @@ findings:
   action: accept_with_note
   note: Restates P072/P009; within the source's scope, no strengthening. Requires the condition a technique
     depends on to be stated with the recommendation.
+- rule_ref: outputs.modes[review].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Routing prose, not a source-attributed claim: it names what the caller submits for critique and asserts nothing about learning. Carries no principle by design, so it cannot be stronger than source support. Grade WITHIN_SCOPE.'
 - rule_ref: outputs.modes[review].output
   verdict: WITHIN_SCOPE
   distortion:
@@ -215,6 +229,13 @@ findings:
   action: accept_with_note
   note: Restates P051/P088; within the source's scope, no strengthening. Findings close the gap to the
     learning intention rather than reporting correctness.
+- rule_ref: outputs.modes[plan].trigger
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Routing prose, not a source-attributed claim: it names the artefact being built and asserts nothing about learning. Carries no principle by design, so it cannot be stronger than source support. Grade WITHIN_SCOPE.'
 - rule_ref: outputs.modes[plan].output
   verdict: WITHIN_SCOPE
   distortion:
@@ -306,9 +327,10 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P006/P025/P042/P043/P078/P098/P114/P150; within the source's scope, no strengthening.
-    The refutational-correction sequence (P043) and the predict-then-reflect cycle (P114) are restated
-    in the source's own order and content.
+  note: Restates P006/P025/P042/P043/P078/P098/P100/P114/P150; within the source's scope, no
+    strengthening. The refutational-correction sequence (P043) and the predict-then-reflect cycle
+    (P114) are restated in the source's own order and content; P100 (moved into this skill at 1.4.0)
+    is restated at its rescoped programme-design strength, not as individual-learner diagnostic advice.
 - rule_ref: knowledge_partition.always_on[5]
   verdict: WITHIN_SCOPE
   distortion:
@@ -515,3 +537,24 @@ findings:
     authority only for the advisory criteria invoked. Every clause withholds authority from the advisor
     rather than asserting a source-backed claim, so it cannot be stronger than source support. Grade
     WITHIN_SCOPE. Its sibling source_of_truth_policy.precedence is principle-cited and graded separately.
+- rule_ref: router_description
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Descriptive routing field: an identity clause, the exclusions, and a coverage list naming this package''s 15 skill areas. It makes no empirical claim about learning, so nothing in it can exceed source support; its exclusions only withhold authority. Grade WITHIN_SCOPE.'
+- rule_ref: role
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Descriptive identity field. It states who the advisor serves, points at provenance-ledger.md for the twelve sources, and subordinates the invariants to the advice-only boundary and forbidden behaviours. No source-attributed claim, and its only operative clause narrows the agent''s authority rather than widening it. Grade WITHIN_SCOPE.'
+- rule_ref: inputs.required
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Operating instructions for the agent (what context to require, how to locate a named file, and the never-cite-a-principle-code-from-memory guardrail plus its cannot-locate fallback added at 1.4.0). These govern the agent''s own procedure rather than making a claim about learning, so none can be stronger than source support; the citation guardrail and its fallback are conservative. Grade WITHIN_SCOPE.'

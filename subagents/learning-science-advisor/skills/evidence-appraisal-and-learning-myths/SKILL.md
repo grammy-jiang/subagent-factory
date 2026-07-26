@@ -1,9 +1,9 @@
 ---
 name: evidence-appraisal-and-learning-myths
 description: Appraises whether a claimed learning technique, teaching myth, or brain-based
-  claim is supported by evidence, triggered when adopting, keeping, or debunking a method —
-  not the design detail of a technique (e.g. spaced or distributed practice) that already
-  has its own skill in this package.
+  claim is supported by evidence, triggered when adopting, keeping, or debunking a
+  method — not the design detail of a technique (e.g. spaced or distributed practice)
+  that already has its own skill in this package.
 kind: skill
 status: ready
 provenance:
@@ -43,7 +43,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 9b3f2a0eeba5d1c82b49c5959da4f773c46f68ba36043043e1310e77304e4d7a
 ---
-
 
 # Evidence Appraisal And Learning Myths
 
@@ -89,11 +88,10 @@ This skill appraises whether a claimed learning technique, teaching myth, or bra
 ## Inputs
 
 - The claim, product, or practice being proposed, the evidence offered for it, and the outcome it is supposed to improve.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -124,4 +122,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P007, P011, P017, P020, P033, P044, P053, P072, P074, P084, P103, P105, P109, P130, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P007, P011, P017, P020, P033, P044, P053, P072, P074, P084, P103, P105, P109, P130; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

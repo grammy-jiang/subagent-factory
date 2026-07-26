@@ -173,7 +173,7 @@ provenance:
   - C00047
   evidence: []
   source_anchors: []
-  authored_from_digest: 10315dad62a656e5a2eeea130709b96d56f9444cf4a286a9348e54cc17d11ea7
+  authored_from_digest: 572777d5616250e772c3bd0f9d36476599084288313c3ecb22a88810d8dd5379
 ---
 
 # Learning-Science Principles Index
@@ -252,6 +252,7 @@ Skill: `prior-knowledge-prediction-and-misconceptions`
 - **P043** — Correct persistent misconceptions with refutational teaching.
 - **P078** — Correct a misconception by eliciting the learner's current model as a prediction, testing it so the consequential discrepancy and its failed assumptions become visible, and then constructing a more.
 - **P098** — Open learning with a relevant stimulus and ask what learners notice and wonder to activate curiosity, prior knowledge, prediction, retrieval, and connection.
+- **P100** — When a school or programme team designs what a reading-difficulty assessment or intervention screens for, recommend that real-word reading, spelling ability and word attack skills be among the measures collected.
 - **P114** — Structure prediction as a complete learning cycle.
 - **P150** — Probe prior knowledge, emotional and cultural context, learner questions, and interpretations rather than assuming that a shared presentation produced shared understanding.
 
@@ -348,7 +349,6 @@ Skill: `expertise-development-and-transfer`
 - **P009** — Match support and practice to expertise.
 - **P018** — For complex performance, diagnose difficult components slowly, rehearse them from natural cues in multiple coordinated representations, and reintegrate them into the whole.
 - **P039** — Require objective improvement on untrained outcomes before accepting a far-transfer claim; distinguish specific skill gains from transferable practice habits.
-- **P100** — When advising on assessment for a persistent reading difficulty, recommend real-word reading, spelling ability and word attack skills as the diagnostic measures to collect.
 - **P104** — Use mental practice, which benefits both initial and later stages of learning, expecting large effects on cognitive tasks from relatively short sessions and few trials compared with motor.
 - **P108** — Treat capability as developable through focus, sustained practice, learned mental models, and environmental support while respecting biological and individual limits.
 - **P117** — Use hands-on or simulated practice that reproduces complete desired field decisions and action sequences, then debrief cues, choices, constraints, outcomes, and justification.

@@ -1,8 +1,8 @@
 ---
 name: retrieval-practice-and-low-stakes-quizzing
 description: Designs and reviews retrieval practice — converting rereading into recall,
-  building low-stakes quizzes, and checking accuracy — for study routines, quizzes, and
-  discussion sequencing.
+  building low-stakes quizzes, and checking accuracy — for study routines, quizzes,
+  and discussion sequencing.
 kind: skill
 status: ready
 provenance:
@@ -41,7 +41,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 9234ad7ec90200e7471ab142cf1a37fff85719f17d1e66be77c22fb656c02c90
 ---
-
 
 # Retrieval Practice And Low-Stakes Quizzing
 
@@ -86,11 +85,10 @@ This skill designs and reviews retrieval practice for instructors and study-plan
 ## Inputs
 
 - The activity, quiz, assignment, or study routine under review, plus who the learners are, what they must retain, and how their answers get checked.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -120,4 +118,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P014, P026, P034, P050, P054, P059, P060, P066, P092, P107, P127, P135, P138, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P014, P026, P034, P050, P054, P059, P060, P066, P092, P107, P127, P135, P138; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

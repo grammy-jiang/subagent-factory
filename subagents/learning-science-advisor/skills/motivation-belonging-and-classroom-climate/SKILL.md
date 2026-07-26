@@ -1,8 +1,8 @@
 ---
 name: motivation-belonging-and-classroom-climate
-description: Diagnoses and supports learner motivation, belonging, and classroom
-  climate, including value, expectancy, feedback framing, and stereotype threat,
-  when engagement or inclusion is at risk.
+description: Diagnoses and supports learner motivation, belonging, and classroom climate,
+  including value, expectancy, feedback framing, and stereotype threat, when engagement
+  or inclusion is at risk.
 kind: skill
 status: ready
 provenance:
@@ -42,7 +42,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 1dbb511acef46f08a8f2b29b7e814a93871763593389d848d4fed68651dc6a57
 ---
-
 
 # Motivation, Belonging And Classroom Climate
 
@@ -89,11 +88,10 @@ This skill helps an instructor or course designer diagnose which motivational di
 ## Inputs
 
 - What learners are actually doing or avoiding, how the task and policies are framed for them, and what the climate and interactions look like in practice.
-- The reasoning offered for the design or decision under review: the learning goal, the practice currently in place, and any claim about what it achieves.
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
+As set by the profile's `outputs` contract and quality bar. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -124,4 +122,4 @@ See `../../references/learning-science-principles-index.md` for the full princip
 
 ## Provenance
 
-Derived from P022, P023, P037, P038, P057, P069, P070, P079, P080, P094, P096, P139, P140, P141, grounded in twelve distillation-only sources on the science of learning and its classroom application (Dunlosky et al.'s techniques review; *Make It Stick*; *Understanding How We Learn*; Rosenshine's *Principles of Instruction*; *How Learning Works*; *Why Don't Students Like School?*; *Powerful Teaching*; *Small Teaching* and *Small Teaching Online*; Hattie's *Visible Learning*; the Deans for Impact *Science of Learning*; and the National Academies' *How People Learn II*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P022, P023, P037, P038, P057, P069, P070, P079, P080, P094, P096, P139, P140, P141; full source grounding in `../../provenance-ledger.md` and `../../references/learning-science-evidence-notes.md`. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
