@@ -1,5 +1,8 @@
 ---
 name: motivation-and-learner-engagement
+description: Diagnoses motivation and engagement gaps in a course design and prescribes
+  attention/relevance/confidence/satisfaction fixes; use when engagement, challenge
+  calibration, autonomy, or surface-vs-deep learning is at issue.
 kind: skill
 status: ready
 provenance:
@@ -32,7 +35,6 @@ provenance:
   authored_from_digest: 52411a3482df3c7817c05a084ea6b579bac4f0e8aa5ade657b61e751d6a7c3d6
 ---
 
-
 # Motivation And Learner Engagement
 
 ## Purpose
@@ -48,12 +50,12 @@ This skill treats motivation as a design variable rather than a learner trait. I
 
 ## Procedure
 
-1. Set the challenge from accurate information about what these students can and cannot do at the start, so it stretches them a bit but not too far, and always pair a challenging activity with activities that build the skills needed (P030).
-2. Organise motivational design under attention, relevance, confidence, and satisfaction (P049).
-3. Build motivation by connecting intended learning to goals learners value and by making success credible, rather than manufacturing urgency through threatening assessment (P080).
-4. Read the standard cluster of student symptoms (P100).
-5. Treat deep and surface approaches as task-and-context dependent (P133).
-6. Combine autonomy and trust with clear goals, organised support, and fair safeguards; avoid intimidation, arbitrary control, or cynical busy-work that redirects attention toward compliance or escape (P169).
+1. Before introducing a demanding task, establish accurate information about what these particular students can and cannot do, set the challenge to stretch them somewhat but not too far, and pair the challenging activity with activities that build the skills needed to meet it; check that learners can safely make choices and inspect results during instruction (P030).
+2. When planning motivation as part of the instructional design, organise the design under attention, relevance, confidence, and satisfaction: capture interest, let learners set their own goals, provide practice with a high degree of success, and reward good performance, so students give the time and intensity of effort the learning requires (P049).
+3. When learners do not initially perceive value or attainable success, or lack initial interest or confidence, build motivation by connecting the intended learning to goals the learners value and by making success credible, rather than manufacturing urgency through threatening assessment (P080).
+4. When a teacher reports poor student outcomes, low engagement, or poor retention, and especially when the stated course goals exceed understand-and-remember, read the standard cluster of symptoms — falling attendance, unread assignments, low discussion energy, grade focus, minimal out-of-class study — as evidence about the design, not about the students, since students disengage from learning they see no reason for (P100).
+5. When interpreting learner study behaviour or approach-to-learning data, treat deep and surface approaches as task-and-context dependent: diagnose whether the learner's activity matches the required performance and read course-level patterns as feedback on the environment (P133).
+6. When shaping classroom rules, communication, and learner responsibility, combine autonomy and trust with clear goals, organised support, and fair safeguards, and avoid intimidation, arbitrary control, or cynical busy-work that redirects attention toward compliance or escape (P169).
 
 ## Inputs
 
@@ -66,12 +68,14 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P030: Set the challenge from accurate information about what these students can and cannot do at the start, so it stretches them a bit but not too far.
-- Overlooking P049: Organise motivational design under attention, relevance, confidence, and satisfaction.
-- Overlooking P080: Build motivation by connecting intended learning to goals learners value and by making success credible, rather than manufacturing urgency through.
-- Overlooking P100: Read the standard cluster of student symptoms.
-- Overlooking P133: Treat deep and surface approaches as task-and-context dependent.
-- Overlooking P169: Combine autonomy and trust with clear goals, organised support, and fair safeguards; avoid intimidation, arbitrary control, or cynical busy-work.
+Every principle in this skill has a matching failure mode below.
+
+- A demanding task is introduced without first checking what these particular students can and cannot do, so the challenge overshoots (or undershoots) their level, or it arrives with no accompanying activity to build the skills it requires (P030).
+- The motivational design addresses only one of attention, relevance, confidence, or satisfaction (for example, it captures interest but gives learners no practice with a realistic chance of success, or no way to set their own goals) (P049).
+- The design tries to manufacture urgency through threatening assessment instead of connecting the learning to goals the learners already value or making success feel attainable (P080).
+- Falling attendance, unread assignments, low discussion energy, grade-grubbing, or minimal out-of-class study are attributed to the students' character or effort rather than treated as evidence about the design itself (P100).
+- Deep versus surface learning behaviour is judged as a fixed trait of the learners rather than diagnosed against whether the task and context actually demand and support a deep approach (P133).
+- Classroom rules and communication rely on intimidation, arbitrary control, or busy-work that redirects effort toward compliance or escape, instead of combining autonomy and trust with clear goals, organised support, and fair safeguards (P169).
 
 ## References
 
@@ -79,4 +83,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P030, P049, P080, P100, P133, P169, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P030, P049, P080, P100, P133, P169. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.

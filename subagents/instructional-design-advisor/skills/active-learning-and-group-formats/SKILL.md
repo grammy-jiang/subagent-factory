@@ -1,5 +1,7 @@
 ---
 name: active-learning-and-group-formats
+description: Guides design of group work, peer teaching, project- and problem-based
+  learning, practica, and extended research or writing tasks needing active participation.
 kind: skill
 status: ready
 provenance:
@@ -43,7 +45,6 @@ provenance:
   authored_from_digest: 92e9a05988fcaa829b29ab59c1acdbf69439650f15a8d8e4aecdbcb661e07098
 ---
 
-
 # Active Learning And Group Formats
 
 ## Purpose
@@ -67,13 +68,13 @@ This skill designs what learners do together and over extended work. It treats b
 6. Design peer-teaching programmes around explicit outcomes and roles, select and train suitable leaders, support them continuously, and use their feedback to improve the live course (P136).
 7. Educate professionals for informed action by combining a sound knowledge base with repeated authentic performance of the outcome before final assessment (P137).
 8. Teach creativity through sufficient disciplinary knowledge, open-ended creation, iterative performance and reflection, exploratory consequences, peer feedback, and a climate safe for unusual hypotheses (P138).
-9. Design PBL from its intended outcomes (P139).
+9. When adopting problem-based learning rather than isolated problem-solving, design it from its intended outcomes: use consequential, authentic problems to build usable knowledge, reasoning, self-direction, motivation, and collaboration, and calibrate the problem's ambiguity and the guidance given to learner readiness (P139).
 10. Before grading learner choice among project options, calibrate options for cognitive demand, workload, required knowledge, support, and scoring, and explain those differences before selection (P164).
 11. Treat broad formats as settings, select different learner activities for different outcomes, and use lectures selectively for distinctive live value rather than routine information transfer (P166).
 12. For written or oral creation, interpret the full product demand, introduce purpose, audience, content, organization, and criteria early, and explicitly teach any rubric learners cannot yet use (P168).
-13. Align the whole PBL system (P175).
+13. When implementing PBL within conventional departmental structures, align the whole system: have tutors facilitate rather than dominate, make assessment reward application, have teachers integrate across specialties, and secure organisational boundaries that permit authentic multidisciplinary problems (P175).
 14. Make practica reproduce professional behaviours and standards, normalise observation and formative feedback before summative judgement, and combine trustworthy evidence sources under shared outcomes and rubrics (P176).
-15. Teach research as distinct judgments and procedures (P177).
+15. When learners must research, categorize evidence, and divide themes for a later product, teach research as distinct judgments and procedures: have them evaluate source relevance and accessibility, record usable sources, keep sortable notes atomic, and scaffold theme discovery only after they have made meaningful effort on their own (P177).
 16. Embed authentic complex performance in a coherent context, coordinate its component knowledge and processes, and share functional product criteria before learners begin (P183).
 17. Gate drafting and creation on verified adequate, relevant, and accessible source material, then deliberately shift from enabling research procedures to the culminating product (P186).
 
@@ -88,13 +89,16 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P061: Build authentic project environments with clear process scaffolds, examples, policies, job aids, purposeful teams, and the full specialist.
-- Overlooking P083: Launch authentic projects through a credible example and learner participation, investigate audience and product possibilities before fixing.
-- Overlooking P103: Structure group learning so members have relevant resources, responsibility, psychological room to test interpretations, and a cognitively demanding.
-- Overlooking P108: For large classes, choose rapid formats that still elicit intended structure or functioning, and use group evidence only with visible contribution.
-- Overlooking P126: In large classes, establish stable peer support, gather rapid formative evidence, and embed work-along or note-revision activity so learners'.
-- Overlooking P136: Design peer-teaching programmes around explicit outcomes and roles, select and train suitable leaders, support them continuously, and use.
-- Overlooking P137: Educate professionals for informed action by combining a sound knowledge base with repeated authentic performance of the outcome before final.
+The following are the highest-impact failure modes for this skill; the full set of 17 principles is covered in ## Procedure above.
+
+- A group task keeps everyone busy but never asks for demanding analysis, application, or judgement, or gives members no psychological room to test their interpretations (P103).
+- A common group grade rests on the group product alone, with no visible individual contribution, whole-task understanding check, individual reflection, or safeguard against free-riding (P108).
+- Peer teachers are handed a topic and turned loose without selection, training, ongoing support, or any channel to feed their experience back into the live course (P136).
+- Learners choose among project options that clearly differ in cognitive demand, workload, or required knowledge, but the options are graded on one common scale with no explanation of those differences (P164).
+- Learners are set a written or oral product without purpose, audience, content, organisation, and criteria surfaced up front, or are handed a rubric they cannot yet read or apply (P168).
+- A PBL programme is bolted onto conventional departmental structures where tutors lecture rather than facilitate, assessment still rewards recall over application, or organisational boundaries block authentic multidisciplinary problems (P175).
+- Learners are pushed into drafting or creating before their source material has been verified as adequate, relevant, and accessible (P186).
+- The "problem" driving PBL is really a tidy, single-answer exercise rather than a consequential authentic problem, or its ambiguity and guidance are fixed rather than calibrated to learner readiness (P139).
 
 ## References
 
@@ -102,4 +106,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P061, P083, P103, P108, P126, P136, P137, P138, P139, P164, P166, P168, P175, P176, P177, P183, P186, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P061, P083, P103, P108, P126, P136, P137, P138, P139, P164, P166, P168, P175, P176, P177, P183, P186. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.

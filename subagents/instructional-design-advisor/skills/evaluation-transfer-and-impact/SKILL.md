@@ -1,5 +1,8 @@
 ---
 name: evaluation-transfer-and-impact
+description: Evaluates whether a design achieved learning transfer and impact, guiding
+  formative/summative evaluation, expert-judgment screening, and impact-study design
+  and reporting.
 kind: skill
 status: ready
 provenance:
@@ -44,7 +47,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 6b770823f35f938017f54171719192672c9d7257e75d7273e757baa40ad8a76e
 ---
-
 
 # Evaluation Transfer And Impact
 
@@ -92,13 +94,17 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P041: Expect an innovation to persist only when it has an identifiable support group and constituency and can be monitored cost-effectively; several.
-- Overlooking P062: Measure workplace use separately for each learned capability by degree, frequency, context, and prior use, and diagnose nonuse across relevance.
-- Overlooking P066: Tie organizational impact to concrete use of learned capability, investigating adoption perceptions and social exchange while triangulating objective.
-- Overlooking P069: Interpret transfer as the interaction of instructional relevance and practice, learner ability and motivation, and workplace opportunity, feedback.
-- Overlooking P071: Combine achievement with structured and open learner reactions, investigate reported ambiguity, and map each diagnosed issue to an evidence-supported.
-- Overlooking P072: Screen instruction first for congruence with organizational needs, content completeness against validated analysis, and strategy fit to outcomes.
-- Overlooking P082: Triangulate impact evidence across learners and relevant workplace observers, time measurement to the work and skill, and sample the differences most.
+The bullets below are a curated, highest-impact subset; the full set of 19 principles is covered in ## Procedure.
+
+- The design or programme has no identifiable support group, constituency, or cost-effective monitoring plan to sustain it once its initial development funding ends (P041).
+- Workplace use is reported as a single adoption yes/no instead of broken out by degree, frequency, context, and prior use, so nonuse causes such as missing permission, support, or resources are never diagnosed (P062).
+- An organizational-impact claim rests on completion or satisfaction data alone, with no triangulation of objective indicators, workplace observers, or records showing the capability is actually being used (P066).
+- An impact or effectiveness study is funded before existing instruction is screened for congruence with organizational needs, content completeness, and strategy fit, so the study risks evaluating a design that was already mismatched (P072).
+- Two interventions are compared before both are mature enough for routine use, or a stakeholder with a vested interest in the outcome is used as evaluator for a high-stakes summative judgment (P091).
+- Impact evaluation is scheduled before target learners have had any opportunity to perform the capability in its work context, so the evidence gathered cannot yet reflect real use (P096).
+- Absent workplace behavior is labeled a "transfer failure" without first establishing, through valid posttest evidence, that learners had actually acquired every main goal performance (P109).
+- A draft moves straight to full-scale delivery with no one-to-one, small-group, or field tryout, so any learner difficulty that appears later can never be traced back to the design assumption that caused it (P140).
+- A summative evaluation report omits the executive summary or leaves out the limits introduced by scope compromises, so decision-makers cannot judge how much weight the findings can bear (P194).
 
 ## References
 
@@ -106,4 +112,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P041, P062, P066, P069, P071, P072, P082, P091, P094, P096, P099, P104, P106, P109, P140, P145, P149, P178, P194, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P041, P062, P066, P069, P071, P072, P082, P091, P094, P096, P099, P104, P106, P109, P140, P145, P149, P178, P194. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.

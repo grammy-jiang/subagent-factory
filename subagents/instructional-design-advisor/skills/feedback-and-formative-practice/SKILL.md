@@ -1,5 +1,8 @@
 ---
 name: feedback-and-formative-practice
+description: Covers designing feedback loops, formative checks, and revision cycles;
+  triggers when reviewing whether feedback is timely, gap-closing, correctness-bearing,
+  and revisable.
 kind: skill
 status: ready
 provenance:
@@ -32,12 +35,11 @@ provenance:
   authored_from_digest: 1e842e2111cf48f5c39c7c4cde4ffdc1593b7300aebe8f07e222115ac43a8c0b
 ---
 
-
 # Feedback And Formative Practice
 
 ## Purpose
 
-This skill builds the loop between performance and improvement: cycles of performance, feedback, revision, and new performance; feedback that tells the learner the degree of correctness of what they did, whether built into the medium, learner-initiated, or supplied later; immediate self-checkable feedback inside embedded practice grounded in the authentic goal; and shared quality criteria used consistently across instructor, peer, and self-review as learners' judgment develops. It keeps formative feedback timely, two-way, and gap-closing — exposing both current performance and the intended standard while learners can still act on it — and treats a plan that cannot absorb feedback as a defect rather than a virtue.
+This skill builds the loop between performance and improvement: cycles of performance, feedback, revision, and new performance; feedback that tells the learner the degree of correctness of what they did, whether built into the medium, learner-initiated, or supplied later; and shared quality criteria used consistently across instructor, peer, and self-review as learners' judgment develops. It keeps formative feedback timely, two-way, and gap-closing — exposing both current performance and the intended standard while learners can still act on it — and treats a plan that cannot absorb feedback as a defect rather than a virtue. When formative evidence exposes a relevance or fairness problem, it repairs that by grounding examples and practice in the authentic goal and supplying immediate self-checkable feedback during embedded assessment.
 
 ## When to use
 
@@ -48,12 +50,12 @@ This skill builds the loop between performance and improvement: cycles of perfor
 
 ## Procedure
 
-1. Plan for adjustment in light of goals, feedback, and predictable problems (P022).
-2. Give students opportunities to rehearse, consult resources, get feedback, and refine, and run learning as cycles of performance, feedback, revision, and new performance; the secure secret test retains a role but must coexist (P033).
-3. Make feedback inform the learner of the degree of correctness of their performance; its delivery may be built into the medium, learner-initiated and immediate, or supplied later by an instructor (P057).
-4. Use shared quality criteria for instructor, peer, and self-review, collecting successive authentic products and adapting checklists as learners' judgment develops (P113).
-5. Make formative feedback timely, two-way, and gap-closing (P130).
-6. Repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate self-checkable feedback during embedded assessment (P165).
+1. Plan for adjustment in light of goals, feedback, and predictable problems; treat a plan that cannot absorb feedback as a defect, not a virtue, since better results depend on improved diagnostic skill and adaptive planning (P022).
+2. Give students opportunities to rehearse, consult resources, get feedback, and refine, running learning as cycles of performance, feedback, revision, and new performance; keep a role for the secure secret test but pair it with educative assessment if performance is to improve (P033).
+3. Make feedback inform the learner of the degree of correctness of their performance, whether delivery is built into the medium, learner-initiated and immediate, or supplied later by an instructor; the correctness information itself is never optional (P057).
+4. Use shared quality criteria for instructor, peer, and self-review, collect successive authentic products, and adapt the checklists as learners' judgment develops (P113).
+5. Make formative feedback timely, two-way, and gap-closing: expose both current performance and the intended standard, combine informed sources, and let teachers adapt while learners can still revise (P130).
+6. When formative evidence exposes context, fairness, or correction problems, repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate self-checkable feedback during embedded assessment (P165).
 
 ## Inputs
 
@@ -66,12 +68,14 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P022: Plan for adjustment in light of goals, feedback, and predictable problems.
-- Overlooking P033: Give students opportunities to rehearse, consult resources, get feedback, and refine, and run learning as cycles of performance, feedback, revision.
-- Overlooking P057: Make feedback inform the learner of the degree of correctness of their performance; its delivery may be built into the medium, learner-initiated.
-- Overlooking P113: Use shared quality criteria for instructor, peer, and self-review, collecting successive authentic products and adapting checklists as learners'.
-- Overlooking P130: Make formative feedback timely, two-way, and gap-closing.
-- Overlooking P165: Repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate.
+Every principle in this skill has a matching failure mode below.
+
+- The plan has no adjustment points: nothing names when or how the design changes in response to formative evidence or predictable problems (P022).
+- Learners get only one closed-book shot at the performance, with no rehearsal, resource consultation, feedback, or chance to refine before it counts (P033).
+- Feedback reports only a score or right/wrong verdict and never indicates the degree of correctness, so learners cannot tell how far off their performance was (P057).
+- Instructor, peer, and self-review each apply different, unstated criteria, so the same product would be scored inconsistently depending on who reviews it (P113).
+- Feedback arrives after the point where learners could still revise, or it reports current performance without naming the intended standard learners are meant to close the gap toward (P130).
+- Embedded practice examples are detached from the authentic goal, or distractors trade on unfair, untaught distinctions instead of fair, taught ones, and self-checkable feedback is missing (P165).
 
 ## References
 
@@ -79,4 +83,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P022, P033, P057, P113, P130, P165, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P022, P033, P057, P113, P130, P165. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.
