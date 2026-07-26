@@ -1,32 +1,142 @@
 {
-  "223": {"action": "confirm", "canonical": "Bound the planner–evaluator reasoning loop with an explicit maximum-iteration cap: the evaluator either returns success or routes structured feedback back to the planner, which consumes it to revise the plan."},
-  "224": {"action": "split", "subgroups": [[398], [411]]},
-  "226": {"action": "split", "subgroups": [[403, 409], [429]]},
-  "229": {"action": "split", "subgroups": [[419], [420]]},
-  "237": {"action": "split", "subgroups": [[434], [435], [437], [440]]},
-  "241": {"action": "split", "subgroups": [[442], [443]]},
-  "242": {"action": "split", "subgroups": [[444], [482], [584]]},
-  "246": {"action": "split", "subgroups": [[448], [471]]},
-  "248": {"action": "split", "subgroups": [[450], [460], [464], [509]]},
-  "260": {"action": "confirm", "canonical": "Treat the spec diff (the docs/specification/draft change) as ground truth for a SEP's normative requirements: read the RFC-2119 sentences yourself rather than trusting the SEP summary or PR description, and flag any table/prose mismatch as a spec gap rather than silently resolving it."},
-  "261": {"action": "confirm", "canonical": "Ship every conformance scenario with both a passing example (run green against a real implementation such as the everything-server or an external SDK) and a negative test that pins the specific failing check slugs it must catch — a green run alone only proves no false positive, and asserting failure-count > 0 does not prove the check works."},
-  "263": {"action": "split", "subgroups": [[467], [635]]},
-  "265": {"action": "split", "subgroups": [[469], [470]]},
-  "268": {"action": "split", "subgroups": [[474], [475]]},
-  "270": {"action": "split", "subgroups": [[477], [486]]},
-  "271": {"action": "split", "subgroups": [[478], [487], [581]]},
-  "274": {"action": "split", "subgroups": [[481], [484], [488], [494]]},
-  "279": {"action": "split", "subgroups": [[492], [493]]},
-  "281": {"action": "split", "subgroups": [[496], [497], [499], [500]]},
-  "285": {"action": "split", "subgroups": [[504], [506]]},
-  "286": {"action": "split", "subgroups": [[505], [507], [516], [517]]},
-  "296": {"action": "split", "subgroups": [[520], [525], [529]]},
-  "298": {"action": "split", "subgroups": [[522], [524]]},
-  "306": {"action": "split", "subgroups": [[535], [544]]},
-  "308": {"action": "split", "subgroups": [[537], [617]]},
-  "309": {"action": "split", "subgroups": [[538], [540]]},
-  "313": {"action": "split", "subgroups": [[543], [545], [546], [559]]},
-  "317": {"action": "split", "subgroups": [[550], [580]]},
-  "322": {"action": "split", "subgroups": [[555], [574]]},
-  "327": {"action": "split", "subgroups": [[563], [572]]}
+  "223": {
+    "action": "confirm",
+    "canonical": "Bound the agent reasoning loop with an explicit maximum-iteration cap, and on retry have the evaluator return structured feedback that the planner consumes to revise the plan."
+  },
+  "224": {
+    "action": "split",
+    "subgroups": []
+  },
+  "226": {
+    "action": "split",
+    "subgroups": [
+      [
+        403,
+        409
+      ]
+    ]
+  },
+  "229": {
+    "action": "split",
+    "subgroups": []
+  },
+  "237": {
+    "action": "split",
+    "subgroups": [
+      [
+        434,
+        435
+      ]
+    ]
+  },
+  "241": {
+    "action": "split",
+    "subgroups": []
+  },
+  "242": {
+    "action": "split",
+    "subgroups": []
+  },
+  "246": {
+    "action": "split",
+    "subgroups": []
+  },
+  "248": {
+    "action": "split",
+    "subgroups": []
+  },
+  "260": {
+    "action": "confirm",
+    "canonical": "Use the spec diff's RFC-2119 requirement text as ground truth for SEP requirement levels and conformance cases, not the SEP summary or PR description."
+  },
+  "261": {
+    "action": "confirm",
+    "canonical": "Ship each new conformance scenario with proof it runs green against a real implementation plus a negative test that asserts the specific expected failing check."
+  },
+  "263": {
+    "action": "split",
+    "subgroups": []
+  },
+  "265": {
+    "action": "confirm",
+    "canonical": "Import protocol types from the vendored spec-types version that matches the scenario or connection lifecycle, and refresh those generated files rather than hand-editing them."
+  },
+  "268": {
+    "action": "split",
+    "subgroups": []
+  },
+  "270": {
+    "action": "split",
+    "subgroups": []
+  },
+  "271": {
+    "action": "split",
+    "subgroups": [
+      [
+        478,
+        487
+      ]
+    ]
+  },
+  "274": {
+    "action": "split",
+    "subgroups": []
+  },
+  "279": {
+    "action": "confirm",
+    "canonical": "Implement SSE streams with unique stream IDs, retry and priming events, and reconnection/resumption support using Last-Event-ID, including replay after mid-operation stream closure."
+  },
+  "281": {
+    "action": "split",
+    "subgroups": [
+      [
+        496,
+        499
+      ]
+    ]
+  },
+  "285": {
+    "action": "split",
+    "subgroups": []
+  },
+  "286": {
+    "action": "confirm",
+    "canonical": "Assess SDK tier gates from the required conformance pass rates, triage and P0 responsiveness, stable release status, documentation, dependency policy, and roadmap obligations for Tier 1 or Tier 2; otherwise classify the SDK as Tier 3."
+  },
+  "296": {
+    "action": "confirm",
+    "canonical": "Author traceability YAML by mapping each spec-diff normative sentence exactly to a check or excluded reason, leaving TODO rows for ambiguity and flagging paraphrases or unsupported keyword levels."
+  },
+  "298": {
+    "action": "split",
+    "subgroups": []
+  },
+  "306": {
+    "action": "split",
+    "subgroups": []
+  },
+  "308": {
+    "action": "split",
+    "subgroups": []
+  },
+  "309": {
+    "action": "confirm",
+    "canonical": "In an Inspector session, first verify connectivity and capability negotiation, then exercise each advertised capability surface through its dedicated tab with real inputs and observed results."
+  },
+  "313": {
+    "action": "split",
+    "subgroups": []
+  },
+  "317": {
+    "action": "split",
+    "subgroups": []
+  },
+  "322": {
+    "action": "split",
+    "subgroups": []
+  },
+  "327": {
+    "action": "split",
+    "subgroups": []
+  }
 }

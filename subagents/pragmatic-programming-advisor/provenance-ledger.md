@@ -41,6 +41,10 @@ reference cites principle (`P###`) and claim (`C#####`) ids that exist in this p
 
 Supersession rule: prior decisions stay visible; new versions are appended, not overwritten.
 
+### 0.3.1 — 2026-07-25
+
+- Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 ### 0.3.0 — 2026-06-28
 
 - Distilled layer rebuilt via per-book map → reduce: 381 globally-renumbered claims

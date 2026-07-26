@@ -1,7 +1,43 @@
-# Conversion report: building-effective-a-bb93dea1
+# Conversion Report — building-effective-a-bb93dea1
 
-- source_id: building-effective-a-bb93dea1
-- sha256: bb93dea1c13293a91657d16b42d26096ad70386bf5377872fdb0a4e148fecbce
-- word_count: 2739
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.082106+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2739 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

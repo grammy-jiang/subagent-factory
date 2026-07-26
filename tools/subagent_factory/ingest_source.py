@@ -12,7 +12,7 @@ from tools.subagent_factory.convert_document import convert_document
 from tools.subagent_factory.convert_pdf import preferred_pdf_converter as _preferred_pdf_converter
 from tools.subagent_factory.detect_file_type import detect_file_type
 from tools.subagent_factory.extract_assets import extract_assets
-from tools.subagent_factory.fetch_url import fetch_url
+from tools.subagent_factory.fetch_url import cache_config_from_env, fetch_url
 from tools.subagent_factory.generate_conversion_report import generate_conversion_report
 from tools.subagent_factory.generate_manifest import generate_manifest
 from tools.subagent_factory.generate_metadata import generate_metadata
@@ -70,7 +70,11 @@ def _resolve_source_file(
     if is_url:
         snapshots_dir = subagent_path / "sources" / "snapshots"
         snapshots_dir.mkdir(parents=True, exist_ok=True)
-        fetch_result = fetch_url(source_input, snapshots_dir)
+        # Cache/offline come from the environment so a network-denied author session (run with
+        # SUBAGENT_FACTORY_OFFLINE=1 after a prefetch) serves the URL from the warmed cache instead
+        # of fetching. Unset env → (None, False) → unchanged live-fetch behaviour.
+        cache_dir, offline = cache_config_from_env()
+        fetch_result = fetch_url(source_input, snapshots_dir, cache_dir=cache_dir, offline=offline)
         if fetch_result.get("needs_auth"):
             return None, {"needs_auth": True, "error": fetch_result["error"]}
         if fetch_result.get("error"):
@@ -207,7 +211,10 @@ def ingest_source(
     sha256 = _sha256_file(source_file)
     manifest_path = subagent_path / "source-pack.manifest.yaml"
     if manifest_path.exists():
-        existing_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        try:
+            existing_manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        except (OSError, yaml.YAMLError):
+            existing_manifest = {}  # unparseable own manifest → no dedup match, proceed (as cross-pkg)
         for existing_source in existing_manifest.get("sources", []):
             if existing_source.get("sha256") == sha256:
                 # Early return shares the same result shape as the happy path (every key is

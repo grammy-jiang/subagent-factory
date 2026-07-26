@@ -1,7 +1,43 @@
-# Conversion report: copilot-customizatio-c2aa0db4
+# Conversion Report — copilot-customizatio-c2aa0db4
 
-- source_id: copilot-customizatio-c2aa0db4
-- sha256: c2aa0db4cadbe2fec2deae28a2350cfe44a27551da6482d3049c986075821185
-- word_count: 885
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.150175+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 885 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

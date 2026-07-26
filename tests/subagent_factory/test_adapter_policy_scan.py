@@ -207,3 +207,27 @@ def test_corrupt_profile_with_adapter_fails_closed(tmp_path):
     (base / "adapters" / "claude-code" / "demo.md").write_text(adapter, encoding="utf-8")
     f = adapter_policy_scan(base)
     assert any(x["level"] == "FAIL" for x in f)
+
+
+def test_unlisted_frontmatter_key_fails_via_allowlist(tmp_path):
+    """A frontmatter key outside the allowlist FAILs even when it is NOT a known escalation token —
+    the allowlist is strictly stronger than the former known-bad-token denylist."""
+    adapter = (
+        "---\nname: demo\ndescription: d\ntools: Read\nmodel: sonnet\ninjectedkey: x\n---\n\n"
+        "## Role\nx\n"
+    )
+    f = adapter_policy_scan(_pkg_raw_adapter(tmp_path, _READONLY_PROFILE, adapter))
+    assert any(x["kind"] == "escalation" and x["level"] == "FAIL" for x in f)
+
+
+def test_scan_rendered_adapter_gates_before_write():
+    """scan_rendered_adapter (export's pre-write gate) flags widening + escalation on a raw string."""
+    from tools.subagent_factory.adapter_policy_scan import scan_rendered_adapter
+
+    allowed = {"Read", "Grep", "Glob"}
+    good = "---\nname: x\ndescription: d\ntools: Read, Grep, Glob\nmodel: sonnet\n---\n# b\n"
+    wide = "---\nname: x\ndescription: d\ntools: Read, Bash\nmodel: sonnet\n---\n"
+    esc = "---\nname: x\ndescription: d\ntools: Read\nmodel: sonnet\nmcpServers: {}\n---\n"
+    assert scan_rendered_adapter(good, allowed) == []
+    assert any(f["kind"] == "tool-grant" for f in scan_rendered_adapter(wide, allowed))
+    assert any(f["kind"] == "escalation" for f in scan_rendered_adapter(esc, allowed))

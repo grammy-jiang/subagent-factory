@@ -1,32 +1,159 @@
 {
-  "49": {"action": "confirm", "canonical": "Use reference trajectories only as one sufficient evidence trace for solvability checks, tool-dependence validation, and post-failure diagnostics — never as a pass/fail scoring target; score with claim-based checks to avoid path bias."},
-  "59": {"action": "split", "subgroups": [[93], [287]]},
-  "60": {"action": "split", "subgroups": [[94], [95], [97]]},
-  "61": {"action": "split", "subgroups": [[98], [99]]},
-  "67": {"action": "split", "subgroups": [[109], [135]]},
-  "69": {"action": "split", "subgroups": [[112], [113], [142], [143]]},
-  "72": {"action": "split", "subgroups": [[116], [117], [126], [138]]},
-  "73": {"action": "split", "subgroups": [[119], [271]]},
-  "76": {"action": "split", "subgroups": [[127], [134]]},
-  "80": {"action": "split", "subgroups": [[131], [147]]},
-  "81": {"action": "split", "subgroups": [[132], [152]]},
-  "82": {"action": "split", "subgroups": [[133], [136]]},
-  "85": {"action": "split", "subgroups": [[140], [141]]},
-  "86": {"action": "split", "subgroups": [[144], [288]]},
-  "89": {"action": "split", "subgroups": [[148], [149], [154], [223], [306], [326], [399], [418], [626]]},
-  "91": {"action": "split", "subgroups": [[151], [503]]},
-  "97": {"action": "split", "subgroups": [[163], [177]]},
-  "98": {"action": "split", "subgroups": [[165], [170], [173]]},
-  "99": {"action": "split", "subgroups": [[166], [183], [184], [194], [199], [204]]},
-  "102": {"action": "split", "subgroups": [[171, 187], [186]]},
-  "103": {"action": "split", "subgroups": [[172, 191], [200]]},
-  "104": {"action": "split", "subgroups": [[174], [179], [222]]},
-  "110": {"action": "split", "subgroups": [[188], [201]]},
-  "112": {"action": "split", "subgroups": [[190], [210]]},
-  "116": {"action": "confirm", "canonical": "Adopt source-code grounding of tool descriptions as a reliability safeguard (not a guaranteed performance gain): it most improves faithfulness and scoring reliability for behavior- and input-tied components like Parameter Explanation, and matters most for rare, proprietary, or out-of-distribution tools."},
-  "119": {"action": "split", "subgroups": [[206], [390]]},
-  "120": {"action": "split", "subgroups": [[333, 354], [309, 432], [430, 431], [209], [361]]},
-  "128": {"action": "split", "subgroups": [[220], [221]]},
-  "129": {"action": "split", "subgroups": [[224], [231], [232], [234], [235], [237], [246], [249]]},
-  "130": {"action": "split", "subgroups": [[226], [590]]}
+  "102": {
+    "action": "confirm",
+    "canonical": "Treat tool-description augmentation as useful but not universal or free: apply it adaptively by domain and model while budgeting for higher execution steps and token use and watching for regressions."
+  },
+  "103": {
+    "action": "split",
+    "subgroups": [
+      [
+        172,
+        191
+      ]
+    ]
+  },
+  "104": {
+    "action": "split",
+    "subgroups": []
+  },
+  "110": {
+    "action": "confirm",
+    "canonical": "Write tool descriptions with all core quality components present and viable: purpose, usage guidance, limitations, parameter details, and self-sufficient prose, with examples only supplementing the description."
+  },
+  "112": {
+    "action": "confirm",
+    "canonical": "Keep tool descriptions accurate and precise: state only implemented behavior, concrete constraints, parameter meanings, and boundaries, while removing ambiguous, contradictory, or self-referential wording."
+  },
+  "116": {
+    "action": "confirm",
+    "canonical": "Use source-code grounding as a reliability safeguard for tool-description faithfulness, especially for behavior- and input-tied components, while not assuming it will always improve task success."
+  },
+  "119": {
+    "action": "split",
+    "subgroups": []
+  },
+  "120": {
+    "action": "split",
+    "subgroups": [
+      [
+        333,
+        354,
+        430,
+        431
+      ],
+      [
+        309,
+        361,
+        432
+      ]
+    ]
+  },
+  "128": {
+    "action": "split",
+    "subgroups": []
+  },
+  "129": {
+    "action": "split",
+    "subgroups": [
+      [
+        231,
+        232
+      ]
+    ]
+  },
+  "130": {
+    "action": "conflict"
+  },
+  "49": {
+    "action": "confirm",
+    "canonical": "Use reference trajectories for solvability checks and post-hoc diagnostics only; score pass/fail by grounded claims so valid alternative paths are not penalized."
+  },
+  "59": {
+    "action": "split",
+    "subgroups": []
+  },
+  "60": {
+    "action": "confirm",
+    "canonical": "Structure diagnostic judging around the verified evidence trace, expected claims, missed claims, and actual behavior so failures are localized without penalizing alternative valid plans."
+  },
+  "61": {
+    "action": "confirm",
+    "canonical": "Use one shared failure-mode vocabulary for human reviewers and automated diagnostic judges, assigning the primary root-cause mode plus contributing modes with explicit confidence and disambiguation rules."
+  },
+  "67": {
+    "action": "split",
+    "subgroups": []
+  },
+  "69": {
+    "action": "split",
+    "subgroups": []
+  },
+  "72": {
+    "action": "split",
+    "subgroups": [
+      [
+        116,
+        117,
+        138
+      ]
+    ]
+  },
+  "73": {
+    "action": "split",
+    "subgroups": []
+  },
+  "76": {
+    "action": "split",
+    "subgroups": []
+  },
+  "80": {
+    "action": "split",
+    "subgroups": []
+  },
+  "81": {
+    "action": "split",
+    "subgroups": []
+  },
+  "82": {
+    "action": "confirm",
+    "canonical": "Before trusting poor eval scores, verify that the tasks and graders are fair, unambiguous, and correctly configured so failures reflect agent behavior rather than broken evaluation."
+  },
+  "85": {
+    "action": "confirm",
+    "canonical": "Treat evaluations as routine development artifacts: define realistic capability evals early, iterate on them like unit tests, and use them to make progress and unstated expectations visible."
+  },
+  "86": {
+    "action": "split",
+    "subgroups": []
+  },
+  "89": {
+    "action": "split",
+    "subgroups": [
+      [
+        149,
+        154
+      ]
+    ]
+  },
+  "91": {
+    "action": "split",
+    "subgroups": []
+  },
+  "97": {
+    "action": "split",
+    "subgroups": []
+  },
+  "98": {
+    "action": "split",
+    "subgroups": []
+  },
+  "99": {
+    "action": "split",
+    "subgroups": [
+      [
+        166,
+        184
+      ]
+    ]
+  }
 }

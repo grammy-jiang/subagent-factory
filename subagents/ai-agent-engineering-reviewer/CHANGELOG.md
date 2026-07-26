@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.3.1] — 2026-07-25
+
+### Added
+- `router_description` in `profile.yaml`: the adapter frontmatter `description` is the string the
+  runtime routes on, and without this field the exporter composes it from the role plus only the
+  first two `when_to_use` triggers and the first `when_not_to_use` exclusion — silently dropping the
+  remaining domains. The authored description names the full remit and boundary. Adapter
+  re-exported; no principle, rule, or skill changed.
+
 ## [0.3.0] - 2026-07-03
 
 - Rebuilt the LLM-authored layer to match the current 60-principle spine after it was left missing/stale by the map→reduce assemble: reconstructed `source-pack.manifest.yaml` from the eight source metadata records, hand-derived `profile.yaml` (role, scope, five principle-cited quality bars, eight always-on knowledge buckets covering all 60 principles), and regenerated the faithfulness report and test suites.

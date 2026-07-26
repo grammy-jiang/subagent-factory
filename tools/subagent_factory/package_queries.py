@@ -27,8 +27,8 @@ def anchor_ids(base: Path) -> set[str]:
                 continue
             try:
                 ids.add(json.loads(line)["anchor_id"])
-            except (json.JSONDecodeError, KeyError):
-                continue
+            except (json.JSONDecodeError, KeyError, TypeError):
+                continue  # garbled line, non-object JSON, or missing key — skip, never raise
     return ids
 
 
@@ -44,8 +44,8 @@ def claim_ids(base: Path) -> set[str]:
             continue
         try:
             ids.add(json.loads(line)["claim_id"])
-        except (json.JSONDecodeError, KeyError):
-            continue
+        except (json.JSONDecodeError, KeyError, TypeError):
+            continue  # garbled line, non-object JSON, or missing key — skip, never raise
     return ids
 
 
@@ -58,7 +58,13 @@ def manifest_source_ids(base: Path) -> set[str]:
         manifest = yaml.safe_load(mp.read_text(encoding="utf-8")) or {}
     except yaml.YAMLError:
         return set()
-    return {str(s.get("source_id")) for s in (manifest.get("sources") or []) if s.get("source_id")}
+    if not isinstance(manifest, dict):
+        return set()
+    return {
+        str(s["source_id"])
+        for s in (manifest.get("sources") or [])
+        if isinstance(s, dict) and s.get("source_id")
+    }
 
 
 def principle_ids(principles_dir: Path) -> set[str]:
@@ -66,7 +72,14 @@ def principle_ids(principles_dir: Path) -> set[str]:
     pp = principles_dir / "principles.yaml"
     if not pp.exists():
         return set()
-    data = yaml.safe_load(pp.read_text(encoding="utf-8")) or {}
+    try:
+        data = yaml.safe_load(pp.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError:
+        return set()  # garbled YAML — honor the never-raise contract (as manifest_source_ids does)
+    if not isinstance(data, dict):
+        return set()
     return {
-        str(p.get("principle_id")) for p in (data.get("principles") or []) if p.get("principle_id")
+        str(p["principle_id"])
+        for p in (data.get("principles") or [])
+        if isinstance(p, dict) and p.get("principle_id")
     }

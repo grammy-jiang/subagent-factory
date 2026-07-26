@@ -8,6 +8,13 @@ No polluted or over-claimed subagent can be released: ingested source content is
 scanned for injection, the exported adapter is scanned for contamination, and every
 profile rule is checked against the source for being **stronger than its evidence**.
 
+> **Scope note.** This spec covers the **classic** path — `prompt_injection_scan` over per-package
+> `sources/markdown/`. The real corpus builds Tier-1+ packages by map-reduce and keeps no verbatim
+> `sources/markdown/`, so that scan is vacuous there. The cache-level analogue (scan at chunk time →
+> gate → in-session triage → redact → verify) is documented separately in
+> [`../map-reduce-injection-safety.md`](../map-reduce-injection-safety.md). Both feed the same
+> `source-safety-reviewer` triage and the same triage-not-block rationale.
+
 ## New files
 | Path | Kind | Responsibility |
 |------|------|----------------|

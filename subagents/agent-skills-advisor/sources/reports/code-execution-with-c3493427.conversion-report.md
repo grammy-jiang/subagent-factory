@@ -1,7 +1,43 @@
-# Conversion report: code-execution-with-c3493427
+# Conversion Report — code-execution-with-c3493427
 
-- source_id: code-execution-with-c3493427
-- sha256: c3493427a148095cabbc68cdc21f8c014036da87e9971b2abcbe2ca62f7f9ac3
-- word_count: 1966
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.084701+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1966 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

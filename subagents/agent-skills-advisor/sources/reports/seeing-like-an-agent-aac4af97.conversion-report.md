@@ -1,7 +1,43 @@
-# Conversion report: seeing-like-an-agent-aac4af97
+# Conversion Report — seeing-like-an-agent-aac4af97
 
-- source_id: seeing-like-an-agent-aac4af97
-- sha256: aac4af976e527f60ad378c7a9071aaf26c035f1f2908287214768eedd6de7a37
-- word_count: 1560
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.005510+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1560 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

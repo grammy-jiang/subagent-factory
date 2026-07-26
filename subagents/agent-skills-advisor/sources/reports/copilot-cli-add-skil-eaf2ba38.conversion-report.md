@@ -1,7 +1,43 @@
-# Conversion report: copilot-cli-add-skil-eaf2ba38
+# Conversion Report — copilot-cli-add-skil-eaf2ba38
 
-- source_id: copilot-cli-add-skil-eaf2ba38
-- sha256: eaf2ba3869ce44a2e5539f5df346da67081a177358284b98c714ed20d5eca0ea
-- word_count: 1309
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.153019+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1309 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

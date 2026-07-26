@@ -1,7 +1,43 @@
-# Conversion report: mcp-inspector-docs-2eae1d32
+# Conversion Report — mcp-inspector-docs-2eae1d32
 
-- source_id: mcp-inspector-docs-2eae1d32
-- sha256: 2eae1d32cf3d5fbd06ff59a1dfe77df27ecdd35074aa9fbbc93e8696f3a11693
-- word_count: 464
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.403420+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 464 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -1,0 +1,836 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: research-career-advisor
+generated_at: '2026-07-25'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Brainstorm without immediate judgment, preserve every candidate, and reveal
+    existing solutions only after participants have independently attacked the problem.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P001.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P002
+  principle_id: P002
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where presenting and engaging
+    with research is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build a research talk as one rehearsed scientific story whose opening establishes
+    the question, context, and importance at a depth appropriate to the audience, then connects methods
+    and results to their significance.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P002.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P003
+  principle_id: P003
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Before submission, expose every premise and logical link, distinguish assumptions
+    from established results, and disclose known weaknesses rather than strengthening claims beyond the
+    evidence.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P003.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P004
+  principle_id: P004
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where early-career positioning
+    and negotiation is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use collaboration without surrendering research identity.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P004.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P005
+  principle_id: P005
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where funding, grants, and
+    research proposals is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build an early-career grant around important, achievable projects, treating
+    a major long-term idea as exploratory and including enough advanced work to demonstrate results within
+    the award cycle.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P005.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P006
+  principle_id: P006
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make a paper''s significance discoverable at every entry point with an accurate
+    title, a brief results-focused abstract, and an introduction that explains the question, contribution,
+    and change in understanding.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P006.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P007
+  principle_id: P007
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where presenting and engaging
+    with research is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Communicate important ideas through formal talks, written reports, and timely
+    informal explanation; improve by critiquing real presentations and adapting effective techniques.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P007.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P008
+  principle_id: P008
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Preserve reproducibility without sacrificing readability by publishing the
+    methodological detail needed for independent evaluation and separating optional specialist depth from
+    the main argument.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P008.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P009
+  principle_id: P009
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Obtain demanding local review before submission, including language editing
+    when needed, and treat a referee''s misunderstanding as a prompt to improve exposition unless it reveals
+    a substantive research flaw.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P009.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P010
+  principle_id: P010
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where choosing advisers, groups,
+    and positions is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer an established adviser when other mentoring qualities are comparable.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P010.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P011
+  principle_id: P011
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where choosing advisers, groups,
+    and positions is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Research the prospective group, ask informed questions, and explain a genuine
+    complement between the candidate''s goals and the group''s work; prepare the teaching contribution
+    as well for faculty roles.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P011.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P012
+  principle_id: P012
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prefer a small portfolio of high-quality, influential papers over fragmenting
+    a strong contribution into many weak publications.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P012.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P013
+  principle_id: P013
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build a doctoral dissertation as a coherent, logically ordered body of substantial
+    advances around one explicit thesis, excluding unrelated or merely incremental work and supplying
+    the problem, prior solutions, candidate contribution, and necessary evidence.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P013.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P014
+  principle_id: P014
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where experimental design
+    and measurement is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assume reported precision may be optimistic until the uncertainty process
+    accounts for apparatus tuning and selection effects and is checked by independent, holdout, or later
+    measurements.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P014.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P015
+  principle_id: P015
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Orient a scientific program around consequential questions the researcher
+    can explain and partly own; let those problems determine the techniques, learning capabilities central
+    to independence, collaborating for others, and honoring commitments when changing methods.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P015.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P016
+  principle_id: P016
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where early-career positioning
+    and negotiation is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Research prospective colleagues and present evidence of initiative, intellectual
+    leadership, collegiality, and a concrete first two-to-three-year agenda rather than unfocused breadth
+    or willingness to do anything assigned.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P016.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P017
+  principle_id: P017
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Decompose a long research agenda into complete, distinct, publishable milestones,
+    explain how each advances the larger goal, disseminate defensible advances promptly, and never pad
+    the record with repetitive fragments.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P017.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P018
+  principle_id: P018
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Develop tacit professional and systems judgment through technically grounded
+    practice, varied cases, mixed-experience work, and timely critique that preserves real context.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P018.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P019
+  principle_id: P019
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where early-career positioning
+    and negotiation is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Align each main project''s expected output with the appointment horizon; require
+    a credible publication and support plan, pair long work with shorter results, and move groups if timely
+    progress cannot be protected.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P019.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P020
+  principle_id: P020
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where funding, grants, and
+    research proposals is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Search and credit related work, explain the proposal''s distinct contribution,
+    join credible group bids without surrendering needed evidence of individual initiative, and apply
+    to every genuinely fitting funder permitted by the rules.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P020.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P021
+  principle_id: P021
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where choosing advisers, groups,
+    and positions is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Select a postdoctoral position for the trainee''s career needs.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P021.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P022
+  principle_id: P022
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose worthy, demanding goals, prepare steadily for chance opportunities,
+    and revisit a future plan so daily choices and self-development accumulate toward the intended life.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P022.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P023
+  principle_id: P023
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Reserve recurring strategic time to audit field direction and maintain a portfolio
+    of important problems, ranking them by credible growth and attackability and moving quickly when a
+    clue changes the ranking.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P023.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P024
+  principle_id: P024
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where choosing advisers, groups,
+    and positions is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Consider building a peer-recognized publication record in a research laboratory
+    before seeking a senior academic role.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P024.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P025
+  principle_id: P025
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Map important problems against methods, compare along both dimensions, and
+    validate promising empty regions through sustained work that builds distinctive methodological command
+    and a recognizable research identity.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P025.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P026
+  principle_id: P026
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where early-career positioning
+    and negotiation is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Negotiate a result-oriented start-up package before committing.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P026.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P027
+  principle_id: P027
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where presenting and engaging
+    with research is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use every slide to advance the scientific argument, omit filler, and include
+    technical detail only when it is necessary for the intended audience to understand a novel method
+    or result.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P027.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P028
+  principle_id: P028
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Prepare people for changing future conditions by cultivating learning-to-learn,
+    durable fundamentals, integrated competence, and the ability to formulate problems beyond isolated
+    tests.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P028.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P029
+  principle_id: P029
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Treat every evaluative metric as an intervention.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P029.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P030
+  principle_id: P030
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Align early selection and evaluation with capabilities needed later, retaining
+    precise execution, synthesis, and prudent experimentation rather than filtering future leaders through
+    only entry-stage traits.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P030.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P031
+  principle_id: P031
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where funding, grants, and
+    research proposals is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assess impact through the work''s ability to open a direction, support broad
+    follow-on use, solve an important class of problems, or deliver a material advantage over established
+    methods.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P031.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P032
+  principle_id: P032
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make the abstract a self-contained account of problem, gap, contribution,
+    evidence, impact, and material limitation, then expand those points in the same order in the introduction
+    with background and motivation.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P032.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P033
+  principle_id: P033
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where choosing advisers, groups,
+    and positions is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Evaluate an adviser through trainee evidence.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P033.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P034
+  principle_id: P034
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where choosing advisers, groups,
+    and positions is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Investigate how a prospective laboratory manages priorities, resources, performance,
+    collaboration, and internal mobility.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P034.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P035
+  principle_id: P035
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Begin significant work without waiting for ideal conditions, persist through
+    expected uncertainty, and abandon the problem or attack when evidence shows that persistence has become
+    a trap.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P035.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P036
+  principle_id: P036
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use expertise with explicit humility.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P036.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P037
+  principle_id: P037
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Connect local work to valuable delivered system behavior, widening the stakeholder
+    boundary and time horizon rather than optimizing activity volume or systems rhetoric.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P037.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P038
+  principle_id: P038
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where evaluation metrics and
+    research judgment is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: When people must be ranked for scarce roles, make the reduction to a scale
+    explicit, deliberate, and reviewable rather than pretending the score captures the whole person.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P038.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P039
+  principle_id: P039
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where presenting and engaging
+    with research is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Read for research in layers.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P039.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P040
+  principle_id: P040
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where experimental design
+    and measurement is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: For null-hypothesis testing, obtain an appropriate null sampling distribution,
+    express the observed deviation in standard-error units when applicable, and reject only under a preselected
+    unlikely region.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P040.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P041
+  principle_id: P041
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where experimental design
+    and measurement is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use a fully crossed factorial design only for factor combinations and interactions
+    that answer the research claims; split the study when unneeded higher-order interactions would make
+    the trial count excessive.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P041.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P042
+  principle_id: P042
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where early-career positioning
+    and negotiation is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Deliberately learn the professional skills that technical training omits,
+    and cultivate an experienced mentor outside the direct authority chain for candid career advice.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P042.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P043
+  principle_id: P043
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where research program and
+    problem selection is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Maintain a manageable portfolio of projects so blocks, field decline, or lost
+    publication priority in one do not halt output, while protecting rigor and the ability to finish.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P043.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P044
+  principle_id: P044
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where funding, grants, and
+    research proposals is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Judge creativity by useful value and meaningful recombination, not by novelty,
+    execution difficulty, or immediate popularity alone.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P044.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P045
+  principle_id: P045
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where funding, grants, and
+    research proposals is at issue. What should we check for, what is the correction, and what residual
+    trade-off or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Challenge an impossibility claim by enumerating its assumptions, testing their
+    applicability, and obtaining another perspective when the frame may be narrow.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P045.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P046
+  principle_id: P046
+  mode: advise
+  prompt: We are working on a research-career or empirical-methods question where writing and publishing
+    scientific work is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: After finding a result, clean and explain its logic, then recast it into the
+    broadest form genuinely supported without hiding scope or limitations.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P046.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P047
+  principle_id: P047
+  mode: review
+  prompt: We are working on a research-career or empirical-methods question where experimental design
+    and measurement is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Validate instruments, test apparatus, and self-generated telemetry independently
+    before treating them as more trustworthy than the system they measure.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P047.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.
+- test_id: PB-P048
+  principle_id: P048
+  mode: plan
+  prompt: We are working on a research-career or empirical-methods question where experimental design
+    and measurement is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: When intended service life exceeds the validation window, treat accelerated-test
+    extrapolation as uncertain, plan validation explicitly, and build reliability into the design.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P048.
+  must_not:
+  - Run the study, write the paper or grant, or make the hiring, admission, funding, or tenure decision
+    for the caller.
+  - State the rule more strongly than the source supports, guarantee a career outcome, or give binding
+    legal, financial, or immigration advice.

@@ -1,7 +1,43 @@
-# Conversion report: effective-harnesses-f71acdfe
+# Conversion Report — effective-harnesses-f71acdfe
 
-- source_id: effective-harnesses-f71acdfe
-- sha256: f71acdfed13fb1545d93698b57d2d443fb7c013ed4a6276fc2a55a6bb7212a59
-- word_count: 2160
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.097505+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2160 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

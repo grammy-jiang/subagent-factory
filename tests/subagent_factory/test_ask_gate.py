@@ -11,6 +11,7 @@ from tools.subagent_factory.ask_gate import (
     Slot,
     already_asked,
     ask_f1,
+    evaluate_tests,
     filled_slots,
     gate,
     replay_conversation,
@@ -277,3 +278,147 @@ def test_ask_f1_penalizes_over_and_under_ask() -> None:
     assert m["tp"] == 0 and m["fp"] == 1 and m["fn"] == 1
     assert m["f1"] == 0.0
     assert m["exact_match"] is False
+
+
+# --- evaluate_tests (the Step-13 CLI measurement surface: gate over a package's own tests) -----
+
+_SLOT = ["the target database engine"]
+
+
+def test_evaluate_tests_silent_commit_all_ask() -> None:
+    # A missing-context test whose prompt omits the declared slot → the gate must ASK.
+    mc = [{"test_id": "MC-1", "prompt": "how do I speed this up?", "must_ask_for": _SLOT}]
+    r = evaluate_tests(mc)
+    assert r["silent_commit"]["asked"] == 1 and r["silent_commit"]["misses"] == []
+    assert r["silent_commit"]["f1"]["f1"] == 1.0  # ASK-F1 == ask-recall when every expected == ask
+
+
+def test_evaluate_tests_false_fill_is_a_miss() -> None:
+    # A missing-context test whose prompt LEXICALLY names the slot is a false-fill: the gate can't
+    # tell context is missing and answers — recorded as a silent-commit miss, not silently passed.
+    mc = [
+        {"test_id": "ok", "prompt": "how do I speed this up?", "must_ask_for": _SLOT},
+        {
+            "test_id": "leak",
+            "prompt": "for the target database engine, how?",
+            "must_ask_for": _SLOT,
+        },
+    ]
+    r = evaluate_tests(mc)
+    assert r["silent_commit"]["asked"] == 1
+    assert [m["test_id"] for m in r["silent_commit"]["misses"]] == ["leak"]
+    assert r["silent_commit"]["f1"]["recall"] == 0.5
+
+
+def test_evaluate_tests_twin_over_ask_is_diagnostic() -> None:
+    # An answerable twin that names the slot → gate answers; one that signals sufficiency only in
+    # prose → lexical over-ask (the schema-free-approximation diagnostic, not a failure).
+    twins = [
+        {
+            "test_id": "named",
+            "prompt": "the target database engine is postgres; advise",
+            "must_ask_for": _SLOT,
+        },
+        {
+            "test_id": "prose",
+            "prompt": "(every specific is provided) advise",
+            "must_ask_for": _SLOT,
+        },
+    ]
+    r = evaluate_tests([], twins)
+    assert r["over_ask"]["answered"] == 1
+    assert [t["test_id"] for t in r["over_ask"]["over_asked"]] == ["prose"]
+
+
+def test_evaluate_tests_empty_is_clean() -> None:
+    r = evaluate_tests([], [])
+    assert r["silent_commit"]["total"] == 0 and r["over_ask"]["total"] == 0
+    assert r["silent_commit"]["f1"]["f1"] == 1.0  # no tests → vacuously perfect, not undefined
+
+
+def test_evaluate_tests_none_prompt_is_empty_not_literal_none() -> None:
+    # S5: an explicit ``prompt: None`` must become an EMPTY turn, not the literal "None" — which would
+    # false-fill a slot named "none" and make the gate wrongly answer instead of ask.
+    r = evaluate_tests([{"test_id": "t", "prompt": None, "must_ask_for": ["none"]}])
+    assert r["silent_commit"]["asked"] == 1  # empty prompt → slot unfilled → ask (not a false-fill)
+
+
+# --- load_gate_tests: surface a broken suite, never silently shrink it (M1 / dup id / dangling twin) ---
+
+
+def _suite(tmp_path, data) -> object:
+    import yaml
+
+    (tmp_path / "tests").mkdir(exist_ok=True)
+    (tmp_path / "tests" / "behaviour-tests.yaml").write_text(yaml.safe_dump(data), encoding="utf-8")
+    return tmp_path
+
+
+def test_load_gate_tests_surfaces_corrupted_file(tmp_path) -> None:
+    from tools.subagent_factory.behaviour_replay import load_gate_tests
+
+    (tmp_path / "tests").mkdir()
+    (tmp_path / "tests" / "behaviour-tests.yaml").write_text(
+        "missing_context_tests: [unclosed\n", encoding="utf-8"
+    )
+    mc, _tw, problems = load_gate_tests(tmp_path)
+    assert mc == [] and any("unparseable" in p for p in problems)  # skipped BUT surfaced
+
+
+def test_load_gate_tests_surfaces_duplicate_test_id(tmp_path) -> None:
+    from tools.subagent_factory.behaviour_replay import load_gate_tests
+
+    _suite(
+        tmp_path,
+        {
+            "missing_context_tests": [
+                {"test_id": "MC-1", "prompt": "a?", "must_ask_for": ["x"]},
+                {"test_id": "MC-1", "prompt": "b?", "must_ask_for": ["y"]},
+            ]
+        },
+    )
+    _mc, _tw, problems = load_gate_tests(tmp_path)
+    assert any("duplicate test_id" in p for p in problems)
+
+
+def test_load_gate_tests_surfaces_dangling_twin(tmp_path) -> None:
+    from tools.subagent_factory.behaviour_replay import load_gate_tests
+
+    _suite(
+        tmp_path,
+        {
+            "missing_context_tests": [{"test_id": "MC-1", "prompt": "a?", "must_ask_for": ["x"]}],
+            "golden_tests": [{"test_id": "GT-1", "prompt": "ctx", "twin_of": "MC-UNKNOWN"}],
+        },
+    )
+    _mc, _tw, problems = load_gate_tests(tmp_path)
+    assert any("unknown twin_of" in p for p in problems)
+
+
+def test_ask_gate_cli_reports_and_exits_zero() -> None:
+    # End-to-end wiring: the `ask-gate <slug>` command loads a real package's tests, runs the gate,
+    # and reports the silent-commit guard. Report-only mode always exits 0.
+    from click.testing import CliRunner
+
+    from tools.subagent_factory.cli_measure import cmd_ask_gate
+
+    res = CliRunner().invoke(cmd_ask_gate, ["software-design"])
+    assert res.exit_code == 0
+    assert "silent-commit guard" in res.output
+
+
+def test_ask_gate_cli_strict_fails_on_broken_suite(tmp_path, monkeypatch) -> None:
+    # M1: the old code returned "no opt-in" on a corrupted suite BEFORE the --strict check, so
+    # `ask-gate <slug> --strict` exited 0 on a broken suite. It must now fail closed and surface it.
+    from click.testing import CliRunner
+
+    import tools.subagent_factory.cli_measure as clim
+
+    pkg = tmp_path / "sub"
+    (pkg / "tests").mkdir(parents=True)
+    (pkg / "tests" / "behaviour-tests.yaml").write_text(
+        "missing_context_tests: [oops\n", encoding="utf-8"
+    )
+    monkeypatch.setattr(clim, "subagent_path", lambda slug: pkg)
+    res = CliRunner().invoke(clim.cmd_ask_gate, ["sub", "--strict"])
+    assert res.exit_code == 1 and "suite problem" in res.output

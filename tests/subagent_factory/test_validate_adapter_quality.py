@@ -69,6 +69,36 @@ def test_lowercase_placeholder_word_in_prose_passes(tmp_path):
     )
 
 
+def test_stub_token_inside_compiled_invariant_line_passes(tmp_path):
+    # Compiled ``- **[Pxxx]** …`` lines are rendered verbatim from an already-validated spine, so a
+    # stub token there is grounded source content, not an unfinished profile field. Regression:
+    # mcp-quality-advisor's P167 legitimately reads "leaving TODO rows for ambiguity", and failing
+    # on it drove the package to set ``attach_invariants: false``, dropping its whole must-hold layer.
+    body = (
+        _GOOD
+        + "\n## Operating invariants (must hold)\n\n"
+        + "- **[P167]** Author traceability YAML mapping each normative sentence to a check, "
+        + "leaving TODO rows for ambiguity\n"
+    )
+    assert not any(
+        lvl == "FAIL" and "TODO" in m
+        for lvl, m in validate_adapter_quality(_adapter(tmp_path, body))
+    )
+
+
+def test_stub_token_in_invariant_section_prose_still_fails(tmp_path):
+    # Only the compiled ``- **[Pxxx]** …`` lines are exempt — prose inside the same section is not.
+    body = (
+        _GOOD
+        + "\n## Operating invariants (must hold)\n\nTODO: write the invariant preamble.\n\n"
+        + "- **[P001]** Do the grounded thing\n"
+    )
+    assert any(
+        lvl == "FAIL" and "TODO" in m
+        for lvl, m in validate_adapter_quality(_adapter(tmp_path, body))
+    )
+
+
 def test_stub_status_marker_fails(tmp_path):
     base = _adapter(tmp_path, _GOOD + "\n> **STATUS: STUB**\n")
     assert any(lvl == "FAIL" and "STATUS: STUB" in m for lvl, m in validate_adapter_quality(base))

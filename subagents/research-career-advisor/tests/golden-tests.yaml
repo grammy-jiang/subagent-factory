@@ -1,0 +1,184 @@
+schema_version: golden-tests-v1
+subagent_slug: research-career-advisor
+generated_at: '2026-07-25'
+profile_version: 1.4.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — review a paper's framing and publication strategy
+  prompt: Here is our draft paper. Review the title, abstract, and introduction, and tell us whether to
+    split it into two papers.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Check the title, abstract, and introduction make the question, contribution, and change in understanding
+    discoverable
+  - Require exposing premises and disclosing known weaknesses rather than overstating
+  - Advise preferring a small portfolio of high-quality papers over fragmentation
+  - Advise recasting the result into its broadest genuinely-supported form
+  must_not_do:
+  - Write the paper's sections for them
+  - Guarantee acceptance at a given venue
+  principle_coverage:
+  - P006
+  - P032
+  - P003
+  - P012
+  - P046
+- test_id: GT-002
+  description: Positive routing — choose and scope a thesis problem
+  prompt: I have three possible thesis problems and can't decide. Help me pick one and plan it.
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Map the candidate problems against methods and look for a promising under-worked region
+  - Rank by importance and attackability and centre a consequential, ownable question
+  - Decompose the chosen agenda into complete, publishable milestones
+  - Set begin/persist/abandon criteria and keep a manageable multi-project portfolio
+  must_not_do:
+  - Make the choice for the caller
+  - Present one problem as guaranteed to succeed
+  principle_coverage:
+  - P015
+  - P025
+  - P023
+  - P031
+  - P017
+  - P035
+- test_id: GT-003
+  description: Positive routing — evaluate an adviser and lab before committing
+  prompt: I got a PhD offer. Review this adviser and lab for me — is it a good place to do my PhD?
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Judge the adviser by access, real guidance, continuity, and independent recognition, using trainee
+    evidence
+  - Investigate how the lab manages priorities, resources, and internal mobility
+  - Weigh whether members understand the larger scientific purpose
+  - State trade-offs and leave the decision with the caller
+  must_not_do:
+  - Guarantee the adviser will lead to a faculty job
+  - Make the accept/decline decision for the caller
+  principle_coverage:
+  - P010
+  - P033
+  - P034
+  - P021
+- test_id: GT-004
+  description: Positive routing — plan an early-career job search and first agenda
+  prompt: I'm about to go on the academic job market. Help me plan my applications and my first-agenda.
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Recommend presenting evidence of initiative, leadership, and collegiality
+  - Recommend a concrete first two-to-three-year research agenda over unfocused breadth
+  - Advise scoping projects to the appointment horizon, pairing long work with shorter results
+  - Advise negotiating and confirming the start-up package in writing while leverage remains
+  must_not_do:
+  - Present one fixed career path as universally correct
+  - Give binding legal or immigration advice on the contract
+  principle_coverage:
+  - P016
+  - P019
+  - P026
+  - P042
+  - P017
+- test_id: GT-005
+  description: Positive routing — review an empirical evaluation and statistics
+  prompt: Our new method scores 2% higher on the benchmark with p<0.05. Review the evaluation before we
+    submit.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Treat reported precision as possibly optimistic until uncertainty accounts for tuning and selection
+    effects and is independently checked
+  - Check the null sampling distribution, standard-error framing, and a preselected rejection region
+  - Check a factorial design keeps only the interactions the claim needs
+  - Require validating the benchmark and self-generated telemetry independently
+  must_not_do:
+  - Declare the result significant on the p-value alone
+  - Certify the method as better without the uncertainty check
+  principle_coverage:
+  - P014
+  - P040
+  - P041
+  - P047
+- test_id: GT-006
+  description: Positive routing — an evaluation metric that can be gamed
+  prompt: We're going to rank our researchers by number of publications for promotion. Is that a good
+    metric?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Treat the metric as an intervention and test it for relevance and gameability
+  - Simulate participant adaptation and time-horizon effects
+  - Prefer delivered outcome quality over an inflatable production count
+  - Make the reduction to a rank explicit, deliberate, and reviewable
+  must_not_do:
+  - Endorse the count as a full measure of the researchers
+  - Make the promotion decisions for them
+  principle_coverage:
+  - P029
+  - P037
+  - P038
+  - P030
+- test_id: GT-007
+  description: Positive routing — frame a grant proposal's importance and feasibility
+  prompt: I'm writing my first grant. How do I frame the importance and show it's achievable in three
+    years?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Advise building the grant around important, achievable projects deliverable within the award cycle
+  - Advise crediting related work and explaining the distinct contribution
+  - Argue impact by direction-opening, follow-on use, or advantage over prior methods
+  - If feasibility is doubted, enumerate and test the impossibility assumptions
+  must_not_do:
+  - Write the proposal for the caller
+  - Predict that the grant will be funded
+  principle_coverage:
+  - P005
+  - P020
+  - P031
+  - P045
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the research output to be produced, not research-career or methods advice.
+  prompt: Write the introduction section of my paper on graph neural networks for me.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: A domain-science question with a knowable answer, no research-career or empirical-methods
+    dimension.
+  prompt: Are graph neural networks more accurate than transformers for molecular property prediction?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Should I take this postdoc?
+  expected_route: invoke
+  must_ask_for:
+  - The field and how quickly you would get access to significant work
+  - The path to a completed, credited result within the appointment term
+  - The visibility it would give you for your next role, and how the group actually works
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Is my experiment valid?
+  expected_route: invoke
+  must_ask_for:
+  - The specific claim the experiment must support
+  - The null hypothesis and the sampling-distribution method used
+  - How measurement uncertainty is estimated and independently checked, and how instruments are validated

@@ -1,7 +1,43 @@
-# Conversion report: mcp-typescript-sdk-i-911ddde2
+# Conversion Report — mcp-typescript-sdk-i-911ddde2
 
-- source_id: mcp-typescript-sdk-i-911ddde2
-- sha256: 911ddde28216acd5d2321f4c63b8307a223b99393d0a761f50c855babbd69d8f
-- word_count: 1305
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.418729+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1305 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

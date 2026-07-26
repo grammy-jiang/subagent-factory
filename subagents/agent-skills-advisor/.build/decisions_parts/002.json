@@ -1,32 +1,160 @@
 {
-  "126": {"action": "split", "subgroups": [[226], [572], [573], [669], [823]]},
-  "128": {"action": "split", "subgroups": [[228], [806]]},
-  "130": {"action": "split", "subgroups": [[230], [617]]},
-  "133": {"action": "split", "subgroups": [[233], [237]]},
-  "142": {"action": "confirm", "canonical": "Never let the agent self-certify its own work: before treating a task as done, spawn a dedicated adversarial reviewer subagent that inspects the output and acceptance criteria in a fresh context, fix any blocking correctness/requirement findings, and re-review."},
-  "143": {"action": "split", "subgroups": [[245], [250], [254], [258]]},
-  "146": {"action": "split", "subgroups": [[248], [257]]},
-  "150": {"action": "split", "subgroups": [[253], [256], [357]]},
-  "152": {"action": "split", "subgroups": [[260, 435, 456, 759, 768, 853]]},
-  "153": {"action": "split", "subgroups": [[261, 288, 293]]},
-  "154": {"action": "confirm", "canonical": "Do not rely on Zero Data Retention for Agent Skills: Skill definitions and execution data fall under Anthropic's standard retention policy, so keep ZDR-required sensitive data out of Skills."},
-  "155": {"action": "split", "subgroups": [[270], [351], [439]]},
-  "156": {"action": "confirm", "canonical": "Test each Skill against every model it will run on and write instructions that work across all target models, giving enough concrete detail for the least-capable model without over-explaining for the strongest."},
-  "157": {"action": "confirm", "canonical": "Author valid SKILL.md frontmatter: a name of at most 64 characters using only lowercase letters, numbers, and hyphens with no XML tags or reserved words ('anthropic'/'claude'), and a non-empty description of at most 1024 characters with no XML tags."},
-  "158": {"action": "split", "subgroups": [[280], [459]]},
-  "159": {"action": "split", "subgroups": [[281], [471], [472]]},
-  "160": {"action": "confirm", "canonical": "Always use forward-slash file paths in skill instructions and references so skills work across platforms."},
-  "161": {"action": "confirm", "canonical": "When multiple tools or approaches could work, give one sensible default with an escape hatch, mentioning alternatives only briefly rather than presenting many equal options."},
-  "162": {"action": "split", "subgroups": [[286], [454], [478], [479]]},
-  "163": {"action": "confirm", "canonical": "Bundle reusable deterministic scripts for recurring, mechanically-checkable operations and instruct the agent to run them by default instead of regenerating or reading equivalent code, because bundled scripts are more reliable, token-cheaper, faster, and more consistent."},
-  "164": {"action": "confirm", "canonical": "When inputs can be rendered as images, have Claude analyze them visually to reason about spatial layout, form structure, and other visual properties."},
-  "165": {"action": "split", "subgroups": [[290, 482, 789]]},
-  "167": {"action": "split", "subgroups": [[294, 486]]},
-  "168": {"action": "split", "subgroups": [[296, 348]]},
-  "170": {"action": "confirm", "canonical": "Retrieve a Skill-generated file through the Files API: extract its file ID from the code-execution tool result (checking both Python and bash result block types) and download the content."},
-  "176": {"action": "split", "subgroups": [[317, 342]]},
-  "178": {"action": "split", "subgroups": [[322, 887]]},
-  "179": {"action": "split", "subgroups": [[403, 908]]},
-  "184": {"action": "split", "subgroups": [[328], [723]]},
-  "187": {"action": "split", "subgroups": [[333], [343], [749], [872]]}
+  "123": {
+    "action": "split",
+    "subgroups": []
+  },
+  "125": {
+    "action": "split",
+    "subgroups": []
+  },
+  "126": {
+    "action": "split",
+    "subgroups": []
+  },
+  "128": {
+    "action": "split",
+    "subgroups": []
+  },
+  "130": {
+    "action": "split",
+    "subgroups": []
+  },
+  "133": {
+    "action": "split",
+    "subgroups": []
+  },
+  "142": {
+    "action": "split",
+    "subgroups": []
+  },
+  "143": {
+    "action": "split",
+    "subgroups": []
+  },
+  "146": {
+    "action": "split",
+    "subgroups": []
+  },
+  "150": {
+    "action": "split",
+    "subgroups": []
+  },
+  "152": {
+    "action": "split",
+    "subgroups": [
+      [
+        260,
+        435,
+        759,
+        768,
+        853,
+        934
+      ]
+    ]
+  },
+  "153": {
+    "action": "split",
+    "subgroups": [
+      [
+        261,
+        288,
+        293
+      ]
+    ]
+  },
+  "154": {
+    "action": "confirm"
+  },
+  "155": {
+    "action": "split",
+    "subgroups": []
+  },
+  "156": {
+    "action": "confirm"
+  },
+  "157": {
+    "action": "confirm"
+  },
+  "158": {
+    "action": "split",
+    "subgroups": []
+  },
+  "159": {
+    "action": "split",
+    "subgroups": []
+  },
+  "160": {
+    "action": "confirm"
+  },
+  "161": {
+    "action": "confirm"
+  },
+  "162": {
+    "action": "split",
+    "subgroups": []
+  },
+  "163": {
+    "action": "confirm"
+  },
+  "164": {
+    "action": "confirm"
+  },
+  "165": {
+    "action": "split",
+    "subgroups": [
+      [
+        290,
+        482,
+        789
+      ]
+    ]
+  },
+  "167": {
+    "action": "split",
+    "subgroups": [
+      [
+        294,
+        486
+      ]
+    ]
+  },
+  "168": {
+    "action": "split",
+    "subgroups": [
+      [
+        296,
+        348
+      ]
+    ]
+  },
+  "170": {
+    "action": "split",
+    "subgroups": [
+      [
+        300,
+        350
+      ]
+    ]
+  },
+  "176": {
+    "action": "conflict"
+  },
+  "178": {
+    "action": "split",
+    "subgroups": [
+      [
+        322,
+        887
+      ]
+    ]
+  },
+  "179": {
+    "action": "split",
+    "subgroups": [
+      [
+        403,
+        908
+      ]
+    ]
+  }
 }

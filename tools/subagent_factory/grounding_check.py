@@ -29,6 +29,7 @@ from pathlib import Path
 
 import yaml
 
+from tools.subagent_factory._common import atomic_write_text
 from tools.subagent_factory.claim_recall import _STOPWORDS
 
 _MIN_SALIENCE = 2  # a review bigram must appear at least this many times to be "leaned on"
@@ -321,7 +322,8 @@ def record_baseline(
         )
     recs = load_baseline(p)
     recs.append({"slug": slug, "doc": doc or "", "coverage": round(float(coverage), 3)})
-    p.write_text(json.dumps(recs, indent=2) + "\n", encoding="utf-8")
+    # Atomic write: the corruption guard above is defeated if a crash mid-write truncates the file.
+    atomic_write_text(p, json.dumps(recs, indent=2) + "\n")
 
 
 def grounding_richness(subagent_dir: str | Path) -> dict:

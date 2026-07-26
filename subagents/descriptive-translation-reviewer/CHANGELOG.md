@@ -3,6 +3,15 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.11.1] — 2026-07-25
+
+### Added
+- `router_description` in `profile.yaml`: the adapter frontmatter `description` is the string the
+  runtime routes on, and without this field the exporter composes it from the role plus only the
+  first two `when_to_use` triggers and the first `when_not_to_use` exclusion — silently dropping the
+  remaining domains and every sibling hand-off. The authored description names the full remit and boundary. Adapter
+  re-exported; no principle, rule, or skill changed.
+
 ## [1.11.0] — 2026-07-12
 
 Review-loop round r3 (`reports/review-loop/descriptive-translation-reviewer.r3.review.md`): this round is the

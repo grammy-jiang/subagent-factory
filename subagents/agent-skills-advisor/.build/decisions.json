@@ -4,17 +4,18 @@
     "subgroups": [
       [
         0,
-        12,
         22,
         38,
-        71,
-        86,
-        272,
-        316
+        71
       ],
       [
         5,
         349
+      ],
+      [
+        12,
+        86,
+        272
       ]
     ]
   },
@@ -28,19 +29,6 @@
       [
         4,
         44
-      ],
-      [
-        49,
-        113
-      ],
-      [
-        7,
-        267,
-        347
-      ],
-      [
-        268,
-        291
       ]
     ]
   },
@@ -49,7 +37,6 @@
     "subgroups": [
       [
         106,
-        769,
         770
       ]
     ]
@@ -71,7 +58,6 @@
       [
         17,
         194,
-        376,
         505,
         654
       ]
@@ -79,14 +65,7 @@
   },
   "9": {
     "action": "split",
-    "subgroups": [
-      [
-        23
-      ],
-      [
-        193
-      ]
-    ]
+    "subgroups": []
   },
   "10": {
     "action": "split",
@@ -94,8 +73,7 @@
       [
         26,
         282,
-        474,
-        602
+        474
       ]
     ]
   },
@@ -119,26 +97,20 @@
       [
         28,
         31,
-        74,
         262,
-        464,
         814,
-        846
+        846,
+        849
       ]
     ]
   },
   "13": {
     "action": "confirm",
-    "canonical": "Treat third-party skills as untrusted code: install only from trusted sources (self-authored or Anthropic), and before using a skill from an untrusted or unknown source, audit every bundled file (SKILL.md, scripts, resources) for behaviour that does not match its stated purpose, treating skills that fetch external URLs as higher risk."
+    "canonical": "Treat Skills as executable software: install only from trusted sources, and before using any unknown or untrusted Skill, audit every bundled file and scrutinize external network fetches."
   },
   "15": {
     "action": "split",
-    "subgroups": [
-      [
-        34,
-        751
-      ]
-    ]
+    "subgroups": []
   },
   "16": {
     "action": "split",
@@ -152,28 +124,11 @@
   },
   "17": {
     "action": "split",
-    "subgroups": [
-      [
-        37
-      ],
-      [
-        778
-      ],
-      [
-        779
-      ]
-    ]
+    "subgroups": []
   },
   "20": {
     "action": "split",
-    "subgroups": [
-      [
-        42
-      ],
-      [
-        164
-      ]
-    ]
+    "subgroups": []
   },
   "21": {
     "action": "split",
@@ -199,54 +154,19 @@
   },
   "23": {
     "action": "split",
-    "subgroups": [
-      [
-        46
-      ],
-      [
-        92
-      ],
-      [
-        101
-      ],
-      [
-        259
-      ]
-    ]
+    "subgroups": []
   },
   "25": {
     "action": "split",
-    "subgroups": [
-      [
-        48,
-        473
-      ]
-    ]
+    "subgroups": []
   },
   "26": {
     "action": "split",
-    "subgroups": [
-      [
-        50
-      ],
-      [
-        51
-      ],
-      [
-        53
-      ]
-    ]
+    "subgroups": []
   },
   "28": {
-    "action": "split",
-    "subgroups": [
-      [
-        55
-      ],
-      [
-        574
-      ]
-    ]
+    "action": "confirm",
+    "canonical": "Maintain regression evals and rerun them when models or surrounding infrastructure change so behavioral regressions are visible before shipping."
   },
   "31": {
     "action": "split",
@@ -259,32 +179,15 @@
   },
   "32": {
     "action": "confirm",
-    "canonical": "Use blind A/B comparison \u2014 presenting both outputs without revealing which skill version (or skill/no-skill variant) produced which \u2014 to decide whether a skill change actually improves outputs."
+    "canonical": "Use an independent, blinded A/B comparison to judge whether one Skill version or a Skill-enabled run is genuinely better than the alternative."
   },
   "33": {
     "action": "split",
-    "subgroups": [
-      [
-        64
-      ],
-      [
-        295
-      ],
-      [
-        807
-      ]
-    ]
+    "subgroups": []
   },
   "36": {
     "action": "split",
-    "subgroups": [
-      [
-        68
-      ],
-      [
-        407
-      ]
-    ]
+    "subgroups": []
   },
   "38": {
     "action": "split",
@@ -297,46 +200,20 @@
   },
   "40": {
     "action": "split",
-    "subgroups": [
-      [
-        77
-      ],
-      [
-        842
-      ]
-    ]
+    "subgroups": []
   },
   "42": {
     "action": "split",
-    "subgroups": [
-      [
-        80
-      ],
-      [
-        864
-      ],
-      [
-        870
-      ]
-    ]
+    "subgroups": []
   },
   "44": {
     "action": "split",
-    "subgroups": [
-      [
-        84
-      ],
-      [
-        548
-      ]
-    ]
+    "subgroups": []
   },
   "45": {
     "action": "split",
     "subgroups": [
       [
-        85,
-        304,
         356,
         398,
         764,
@@ -355,17 +232,7 @@
   },
   "47": {
     "action": "split",
-    "subgroups": [
-      [
-        89
-      ],
-      [
-        166
-      ],
-      [
-        638
-      ]
-    ]
+    "subgroups": []
   },
   "49": {
     "action": "split",
@@ -373,10 +240,6 @@
       [
         99,
         100
-      ],
-      [
-        97,
-        105
       ]
     ]
   },
@@ -391,281 +254,103 @@
   },
   "52": {
     "action": "split",
-    "subgroups": [
-      [
-        107
-      ],
-      [
-        108
-      ],
-      [
-        111
-      ]
-    ]
+    "subgroups": []
   },
   "53": {
     "action": "split",
-    "subgroups": [
-      [
-        110
-      ],
-      [
-        339
-      ],
-      [
-        866
-      ]
-    ]
+    "subgroups": []
   },
   "54": {
     "action": "confirm",
-    "canonical": "Author skills against the open Agent Skills standard so they stay portable across AI platforms and systems that implement it, rather than tied to a single tool."
+    "canonical": "Author skills against the open Agent Skills specification to keep them portable across compatible AI platforms."
   },
   "55": {
     "action": "split",
-    "subgroups": [
-      [
-        115
-      ],
-      [
-        273
-      ]
-    ]
+    "subgroups": []
   },
   "57": {
     "action": "split",
-    "subgroups": [
-      [
-        117
-      ],
-      [
-        318
-      ]
-    ]
+    "subgroups": []
   },
   "59": {
     "action": "split",
-    "subgroups": [
-      [
-        121
-      ],
-      [
-        309
-      ],
-      [
-        874
-      ]
-    ]
+    "subgroups": []
   },
   "60": {
     "action": "split",
-    "subgroups": [
-      [
-        123
-      ],
-      [
-        124
-      ],
-      [
-        714
-      ]
-    ]
+    "subgroups": []
   },
   "61": {
     "action": "split",
-    "subgroups": [
-      [
-        125
-      ],
-      [
-        190
-      ]
-    ]
+    "subgroups": []
+  },
+  "63": {
+    "action": "split",
+    "subgroups": []
   },
   "65": {
     "action": "split",
-    "subgroups": [
-      [
-        130,
-        506
-      ]
-    ]
+    "subgroups": []
   },
   "69": {
     "action": "split",
-    "subgroups": [
-      [
-        134
-      ],
-      [
-        139
-      ]
-    ]
+    "subgroups": []
   },
   "73": {
     "action": "split",
-    "subgroups": [
-      [
-        141
-      ],
-      [
-        496
-      ],
-      [
-        499
-      ]
-    ]
+    "subgroups": []
   },
   "74": {
     "action": "split",
-    "subgroups": [
-      [
-        142
-      ],
-      [
-        143
-      ],
-      [
-        149
-      ]
-    ]
+    "subgroups": []
   },
   "75": {
     "action": "split",
-    "subgroups": [
-      [
-        144
-      ],
-      [
-        150
-      ],
-      [
-        536
-      ]
-    ]
+    "subgroups": []
   },
   "76": {
     "action": "split",
-    "subgroups": [
-      [
-        145
-      ],
-      [
-        146
-      ],
-      [
-        147
-      ]
-    ]
+    "subgroups": []
   },
   "78": {
     "action": "split",
-    "subgroups": [
-      [
-        151
-      ],
-      [
-        153
-      ]
-    ]
+    "subgroups": []
   },
   "82": {
     "action": "split",
-    "subgroups": [
-      [
-        156
-      ],
-      [
-        158
-      ],
-      [
-        159
-      ],
-      [
-        540
-      ]
-    ]
+    "subgroups": []
   },
   "84": {
     "action": "split",
-    "subgroups": [
-      [
-        161,
-        169
-      ]
-    ]
+    "subgroups": []
   },
   "85": {
     "action": "split",
-    "subgroups": [
-      [
-        162
-      ],
-      [
-        171
-      ]
-    ]
+    "subgroups": []
   },
   "89": {
     "action": "split",
-    "subgroups": [
-      [
-        173
-      ],
-      [
-        175
-      ],
-      [
-        187
-      ]
-    ]
+    "subgroups": []
   },
   "91": {
     "action": "split",
-    "subgroups": [
-      [
-        177
-      ],
-      [
-        206
-      ],
-      [
-        303
-      ]
-    ]
+    "subgroups": []
   },
   "92": {
     "action": "split",
-    "subgroups": [
-      [
-        178
-      ],
-      [
-        546
-      ]
-    ]
+    "subgroups": []
   },
   "101": {
     "action": "split",
-    "subgroups": [
-      [
-        192
-      ],
-      [
-        719
-      ]
-    ]
+    "subgroups": []
+  },
+  "105": {
+    "action": "split",
+    "subgroups": []
   },
   "110": {
     "action": "split",
-    "subgroups": [
-      [
-        205
-      ],
-      [
-        581
-      ]
-    ]
+    "subgroups": []
   },
   "113": {
     "action": "split",
@@ -678,135 +363,47 @@
   },
   "118": {
     "action": "split",
-    "subgroups": [
-      [
-        217
-      ],
-      [
-        242
-      ]
-    ]
+    "subgroups": []
   },
   "123": {
     "action": "split",
-    "subgroups": [
-      [
-        223
-      ],
-      [
-        535
-      ]
-    ]
+    "subgroups": []
   },
   "125": {
     "action": "split",
-    "subgroups": [
-      [
-        225
-      ],
-      [
-        266
-      ]
-    ]
+    "subgroups": []
   },
   "126": {
     "action": "split",
-    "subgroups": [
-      [
-        226
-      ],
-      [
-        572
-      ],
-      [
-        573
-      ],
-      [
-        669
-      ],
-      [
-        823
-      ]
-    ]
+    "subgroups": []
   },
   "128": {
     "action": "split",
-    "subgroups": [
-      [
-        228
-      ],
-      [
-        806
-      ]
-    ]
+    "subgroups": []
   },
   "130": {
     "action": "split",
-    "subgroups": [
-      [
-        230
-      ],
-      [
-        617
-      ]
-    ]
+    "subgroups": []
   },
   "133": {
     "action": "split",
-    "subgroups": [
-      [
-        233
-      ],
-      [
-        237
-      ]
-    ]
+    "subgroups": []
   },
   "142": {
-    "action": "confirm",
-    "canonical": "Never let the agent self-certify its own work: before treating a task as done, spawn a dedicated adversarial reviewer subagent that inspects the output and acceptance criteria in a fresh context, fix any blocking correctness/requirement findings, and re-review."
+    "action": "split",
+    "subgroups": []
   },
   "143": {
     "action": "split",
-    "subgroups": [
-      [
-        245
-      ],
-      [
-        250
-      ],
-      [
-        254
-      ],
-      [
-        258
-      ]
-    ]
+    "subgroups": []
   },
   "146": {
     "action": "split",
-    "subgroups": [
-      [
-        248
-      ],
-      [
-        257
-      ]
-    ]
+    "subgroups": []
   },
   "150": {
     "action": "split",
-    "subgroups": [
-      [
-        253
-      ],
-      [
-        256
-      ],
-      [
-        357
-      ]
-    ]
+    "subgroups": []
   },
   "152": {
     "action": "split",
@@ -814,10 +411,10 @@
       [
         260,
         435,
-        456,
         759,
         768,
-        853
+        853,
+        934
       ]
     ]
   },
@@ -832,88 +429,41 @@
     ]
   },
   "154": {
-    "action": "confirm",
-    "canonical": "Do not rely on Zero Data Retention for Agent Skills: Skill definitions and execution data fall under Anthropic's standard retention policy, so keep ZDR-required sensitive data out of Skills."
+    "action": "confirm"
   },
   "155": {
     "action": "split",
-    "subgroups": [
-      [
-        270
-      ],
-      [
-        351
-      ],
-      [
-        439
-      ]
-    ]
+    "subgroups": []
   },
   "156": {
-    "action": "confirm",
-    "canonical": "Test each Skill against every model it will run on and write instructions that work across all target models, giving enough concrete detail for the least-capable model without over-explaining for the strongest."
+    "action": "confirm"
   },
   "157": {
-    "action": "confirm",
-    "canonical": "Author valid SKILL.md frontmatter: a name of at most 64 characters using only lowercase letters, numbers, and hyphens with no XML tags or reserved words ('anthropic'/'claude'), and a non-empty description of at most 1024 characters with no XML tags."
+    "action": "confirm"
   },
   "158": {
     "action": "split",
-    "subgroups": [
-      [
-        280
-      ],
-      [
-        459
-      ]
-    ]
+    "subgroups": []
   },
   "159": {
     "action": "split",
-    "subgroups": [
-      [
-        281
-      ],
-      [
-        471
-      ],
-      [
-        472
-      ]
-    ]
+    "subgroups": []
   },
   "160": {
-    "action": "confirm",
-    "canonical": "Always use forward-slash file paths in skill instructions and references so skills work across platforms."
+    "action": "confirm"
   },
   "161": {
-    "action": "confirm",
-    "canonical": "When multiple tools or approaches could work, give one sensible default with an escape hatch, mentioning alternatives only briefly rather than presenting many equal options."
+    "action": "confirm"
   },
   "162": {
     "action": "split",
-    "subgroups": [
-      [
-        286
-      ],
-      [
-        454
-      ],
-      [
-        478
-      ],
-      [
-        479
-      ]
-    ]
+    "subgroups": []
   },
   "163": {
-    "action": "confirm",
-    "canonical": "Bundle reusable deterministic scripts for recurring, mechanically-checkable operations and instruct the agent to run them by default instead of regenerating or reading equivalent code, because bundled scripts are more reliable, token-cheaper, faster, and more consistent."
+    "action": "confirm"
   },
   "164": {
-    "action": "confirm",
-    "canonical": "When inputs can be rendered as images, have Claude analyze them visually to reason about spatial layout, form structure, and other visual properties."
+    "action": "confirm"
   },
   "165": {
     "action": "split",
@@ -944,17 +494,16 @@
     ]
   },
   "170": {
-    "action": "confirm",
-    "canonical": "Retrieve a Skill-generated file through the Files API: extract its file ID from the code-execution tool result (checking both Python and bash result block types) and download the content."
-  },
-  "176": {
     "action": "split",
     "subgroups": [
       [
-        317,
-        342
+        300,
+        350
       ]
     ]
+  },
+  "176": {
+    "action": "conflict"
   },
   "178": {
     "action": "split",
@@ -976,81 +525,27 @@
   },
   "184": {
     "action": "split",
-    "subgroups": [
-      [
-        328
-      ],
-      [
-        723
-      ]
-    ]
+    "subgroups": []
   },
   "187": {
     "action": "split",
-    "subgroups": [
-      [
-        333
-      ],
-      [
-        343
-      ],
-      [
-        749
-      ],
-      [
-        872
-      ]
-    ]
+    "subgroups": []
   },
   "188": {
     "action": "split",
-    "subgroups": [
-      [
-        334,
-        875,
-        888
-      ]
-    ]
+    "subgroups": []
   },
   "190": {
     "action": "split",
-    "subgroups": [
-      [
-        341
-      ],
-      [
-        607
-      ],
-      [
-        793
-      ],
-      [
-        795
-      ]
-    ]
+    "subgroups": []
   },
   "191": {
     "action": "split",
-    "subgroups": [
-      [
-        345
-      ],
-      [
-        360
-      ],
-      [
-        852
-      ]
-    ]
+    "subgroups": []
   },
   "194": {
     "action": "split",
-    "subgroups": [
-      [
-        354,
-        373
-      ]
-    ]
+    "subgroups": []
   },
   "195": {
     "action": "split",
@@ -1065,77 +560,41 @@
     "action": "split",
     "subgroups": [
       [
-        359,
-        372,
         399,
-        880,
-        885,
         904
       ]
     ]
   },
   "197": {
     "action": "split",
-    "subgroups": [
-      [
-        361
-      ],
-      [
-        375
-      ]
-    ]
+    "subgroups": []
   },
   "198": {
     "action": "split",
-    "subgroups": [
-      [
-        362
-      ],
-      [
-        792
-      ]
-    ]
+    "subgroups": []
+  },
+  "199": {
+    "action": "split",
+    "subgroups": []
   },
   "201": {
     "action": "split",
-    "subgroups": [
-      [
-        367,
-        378
-      ],
-      [
-        389,
-        427
-      ]
-    ]
+    "subgroups": []
   },
   "203": {
     "action": "split",
-    "subgroups": [
-      [
-        379,
-        394
-      ]
-    ]
+    "subgroups": []
   },
   "204": {
     "action": "split",
-    "subgroups": [
-      [
-        381
-      ],
-      [
-        396
-      ]
-    ]
+    "subgroups": []
   },
   "213": {
     "action": "split",
     "subgroups": [
       [
         402,
-        442,
-        886
+        442
       ],
       [
         884,
@@ -1145,23 +604,7 @@
   },
   "216": {
     "action": "split",
-    "subgroups": [
-      [
-        409
-      ],
-      [
-        433
-      ],
-      [
-        488
-      ],
-      [
-        900
-      ],
-      [
-        912
-      ]
-    ]
+    "subgroups": []
   },
   "218": {
     "action": "split",
@@ -1174,62 +617,31 @@
   },
   "220": {
     "action": "split",
-    "subgroups": [
-      [
-        415
-      ],
-      [
-        422
-      ]
-    ]
+    "subgroups": []
   },
   "222": {
     "action": "confirm",
-    "canonical": "Use prompt files (*.prompt.md, stored at .github/prompts/) for reusable, task-specific chat interactions run repeatedly with different inputs, kept distinct from codebase-wide custom instructions and invoked manually."
+    "canonical": "Use manually invoked prompt files (*.prompt.md) for reusable, focused single-task chat interactions repeated with different inputs; keep them distinct from codebase-wide custom instructions, store repository prompt files under .github/prompts/, and verify that the target IDE supports them."
   },
   "230": {
     "action": "split",
-    "subgroups": [
-      [
-        440
-      ],
-      [
-        450
-      ],
-      [
-        794
-      ]
-    ]
+    "subgroups": []
   },
   "232": {
     "action": "confirm",
-    "canonical": "Build a validation feedback loop into quality-critical or refinement workflows: define quality criteria, run validation, fix the concrete failures, and repeat until the gate passes before finalizing."
+    "canonical": "For quality-critical refinement workflows, define a validation gate, check results immediately, fix concrete failures, and repeat until the gate or stop condition passes before finalizing."
   },
   "234": {
     "action": "split",
-    "subgroups": [
-      [
-        449
-      ],
-      [
-        562
-      ]
-    ]
+    "subgroups": []
   },
   "239": {
     "action": "split",
-    "subgroups": [
-      [
-        460
-      ],
-      [
-        750
-      ]
-    ]
+    "subgroups": []
   },
   "240": {
     "action": "confirm",
-    "canonical": "Match instruction strictness to task fragility: use heuristic prose for open-ended judgment where multiple approaches are valid, parameterized patterns for a preferred approach that tolerates variation, and exact/prescriptive commands that forbid deviation for fragile operations or fixed sequences."
+    "canonical": "Match instruction strictness to task risk and fragility: allow judgment and explain the purpose when multiple approaches are valid, provide parameterized patterns for preferred approaches, and prescribe exact commands or fixed sequences when consistency matters or deviation is unsafe."
   },
   "241": {
     "action": "split",
@@ -1242,52 +654,27 @@
   },
   "243": {
     "action": "split",
-    "subgroups": [
-      [
-        477
-      ],
-      [
-        555
-      ],
-      [
-        898
-      ]
-    ]
+    "subgroups": []
   },
   "244": {
     "action": "split",
-    "subgroups": [
-      [
-        483
-      ],
-      [
-        831
-      ]
-    ]
+    "subgroups": []
   },
   "245": {
     "action": "split",
-    "subgroups": [
-      [
-        484,
-        495
-      ]
-    ]
+    "subgroups": []
+  },
+  "248": {
+    "action": "split",
+    "subgroups": []
   },
   "249": {
     "action": "split",
-    "subgroups": [
-      [
-        492
-      ],
-      [
-        640
-      ]
-    ]
+    "subgroups": []
   },
   "253": {
     "action": "confirm",
-    "canonical": "Match scaffolding to model capability and re-evaluate it whenever a more capable model ships \u2014 a stronger model needs less scaffolding, so strip pieces that are no longer load-bearing and add pieces that unlock newly-possible capability \u2014 while keeping the design grounded in what has been tested for the task."
+    "canonical": "As model capability improves, re-evaluate the harness against tested task performance, removing scaffolding that is no longer load-bearing and adding only pieces that unlock demonstrated capability."
   },
   "254": {
     "action": "split",
@@ -1304,130 +691,52 @@
   },
   "256": {
     "action": "split",
-    "subgroups": [
-      [
-        503
-      ],
-      [
-        527
-      ]
-    ]
+    "subgroups": []
   },
   "259": {
     "action": "split",
-    "subgroups": [
-      [
-        508
-      ],
-      [
-        511
-      ],
-      [
-        512
-      ],
-      [
-        560
-      ]
-    ]
+    "subgroups": []
   },
   "261": {
     "action": "split",
-    "subgroups": [
-      [
-        513
-      ],
-      [
-        601
-      ],
-      [
-        604
-      ]
-    ]
+    "subgroups": []
   },
   "263": {
     "action": "split",
-    "subgroups": [
-      [
-        515
-      ],
-      [
-        526
-      ]
-    ]
+    "subgroups": []
   },
   "267": {
     "action": "confirm",
-    "canonical": "Bound and paginate tool/script output to protect the agent's context budget \u2014 default to a summary or limit, support pagination (offset/range) and filtering, and account for harness truncation (~10-30K characters) \u2014 since many harnesses truncate large output."
+    "canonical": "Keep tool and script output predictable and context-safe with bounded summary defaults, filtering or range selection, truncation guidance, and pagination."
   },
   "269": {
-    "action": "split",
-    "subgroups": [
-      [
-        522
-      ],
-      [
-        525
-      ],
-      [
-        529
-      ]
-    ]
+    "action": "conflict"
   },
   "270": {
     "action": "split",
     "subgroups": [
       [
         523,
-        524
+        524,
+        918
       ]
     ]
   },
   "272": {
     "action": "split",
-    "subgroups": [
-      [
-        530
-      ],
-      [
-        565
-      ]
-    ]
+    "subgroups": []
   },
   "275": {
     "action": "split",
-    "subgroups": [
-      [
-        533
-      ],
-      [
-        542
-      ],
-      [
-        666
-      ]
-    ]
+    "subgroups": []
   },
   "279": {
     "action": "split",
-    "subgroups": [
-      [
-        544
-      ],
-      [
-        545
-      ]
-    ]
+    "subgroups": []
   },
   "283": {
     "action": "split",
-    "subgroups": [
-      [
-        552
-      ],
-      [
-        553
-      ]
-    ]
+    "subgroups": []
   },
   "285": {
     "action": "split",
@@ -1439,124 +748,43 @@
     ]
   },
   "289": {
-    "action": "split",
-    "subgroups": [
-      [
-        569
-      ],
-      [
-        609
-      ]
-    ]
+    "action": "confirm",
+    "canonical": "Evaluate and improve the model together with its harness, because the surrounding scaffold is a first-class determinant of agent behavior and long-running task outcomes."
   },
   "290": {
     "action": "split",
-    "subgroups": [
-      [
-        570
-      ],
-      [
-        596
-      ]
-    ]
+    "subgroups": []
   },
   "294": {
     "action": "split",
-    "subgroups": [
-      [
-        577
-      ],
-      [
-        578
-      ],
-      [
-        587
-      ],
-      [
-        599
-      ]
-    ]
+    "subgroups": []
   },
   "295": {
     "action": "split",
-    "subgroups": [
-      [
-        579
-      ],
-      [
-        737
-      ]
-    ]
+    "subgroups": []
   },
   "300": {
     "action": "split",
-    "subgroups": [
-      [
-        586
-      ],
-      [
-        588
-      ],
-      [
-        592
-      ],
-      [
-        594
-      ],
-      [
-        766
-      ],
-      [
-        772
-      ]
-    ]
+    "subgroups": []
   },
   "303": {
     "action": "split",
-    "subgroups": [
-      [
-        591
-      ],
-      [
-        597
-      ]
-    ]
+    "subgroups": []
   },
   "304": {
     "action": "conflict"
   },
   "306": {
     "action": "split",
-    "subgroups": [
-      [
-        598
-      ],
-      [
-        805
-      ]
-    ]
+    "subgroups": []
   },
   "307": {
     "action": "split",
-    "subgroups": [
-      [
-        600
-      ],
-      [
-        748
-      ]
-    ]
+    "subgroups": []
   },
   "318": {
     "action": "split",
-    "subgroups": [
-      [
-        620
-      ],
-      [
-        621
-      ]
-    ]
+    "subgroups": []
   },
   "336": {
     "action": "split",
@@ -1578,25 +806,11 @@
   },
   "350": {
     "action": "split",
-    "subgroups": [
-      [
-        662
-      ],
-      [
-        717
-      ]
-    ]
+    "subgroups": []
   },
   "359": {
     "action": "split",
-    "subgroups": [
-      [
-        677
-      ],
-      [
-        696
-      ]
-    ]
+    "subgroups": []
   },
   "361": {
     "action": "split",
@@ -1609,128 +823,62 @@
   },
   "362": {
     "action": "split",
-    "subgroups": [
-      [
-        680
-      ],
-      [
-        689
-      ]
-    ]
+    "subgroups": []
   },
   "371": {
     "action": "split",
-    "subgroups": [
-      [
-        695
-      ],
-      [
-        699
-      ],
-      [
-        705
-      ]
-    ]
+    "subgroups": []
   },
   "411": {
     "action": "split",
-    "subgroups": [
-      [
-        760
-      ],
-      [
-        790
-      ],
-      [
-        835
-      ],
-      [
-        837
-      ]
-    ]
+    "subgroups": []
   },
   "412": {
     "action": "split",
-    "subgroups": [
-      [
-        763
-      ],
-      [
-        833
-      ],
-      [
-        905
-      ]
-    ]
+    "subgroups": []
+  },
+  "417": {
+    "action": "split",
+    "subgroups": []
+  },
+  "418": {
+    "action": "confirm",
+    "canonical": "Capture each run's total token count and duration immediately when the completion notification arrives, because those metrics are not persisted elsewhere."
+  },
+  "419": {
+    "action": "confirm",
+    "canonical": "Use specific, objectively verifiable assertions and reusable scripts for programmatic checks; leave subjective qualities such as style or visual design to human review."
   },
   "426": {
     "action": "split",
-    "subgroups": [
-      [
-        810
-      ],
-      [
-        873
-      ]
-    ]
+    "subgroups": []
   },
   "429": {
     "action": "split",
-    "subgroups": [
-      [
-        816
-      ],
-      [
-        847
-      ]
-    ]
+    "subgroups": []
   },
   "431": {
     "action": "split",
-    "subgroups": [
-      [
-        819
-      ],
-      [
-        829
-      ]
-    ]
+    "subgroups": []
+  },
+  "432": {
+    "action": "confirm",
+    "canonical": "Before optimizing a Skill description, build about 20 realistic trigger-evaluation queries balanced between should-trigger cases and genuine should-not-trigger near-misses."
   },
   "433": {
     "action": "split",
-    "subgroups": [
-      [
-        821
-      ],
-      [
-        827
-      ]
-    ]
+    "subgroups": []
   },
   "446": {
-    "action": "confirm",
-    "canonical": "Name every skill in lowercase letters, numbers, and hyphens, under 64 characters with no slashes, colons, dots, or namespace prefixes, and make the SKILL.md 'name' field exactly match its parent directory name \u2014 invalid or mismatched names can make the skill silently fail to load."
+    "action": "split",
+    "subgroups": []
   },
   "450": {
     "action": "split",
-    "subgroups": [
-      [
-        860
-      ],
-      [
-        862
-      ]
-    ]
+    "subgroups": []
   },
   "458": {
     "action": "split",
-    "subgroups": [
-      [
-        901
-      ],
-      [
-        902
-      ]
-    ]
+    "subgroups": []
   }
 }

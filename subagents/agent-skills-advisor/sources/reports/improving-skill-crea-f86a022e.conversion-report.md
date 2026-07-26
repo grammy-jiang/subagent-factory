@@ -1,7 +1,43 @@
-# Conversion report: improving-skill-crea-f86a022e
+# Conversion Report — improving-skill-crea-f86a022e
 
-- source_id: improving-skill-crea-f86a022e
-- sha256: f86a022e76ca48af7b04f2bafce7c1dc0e93f6edd9c3079a0317258f25724515
-- word_count: 853
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:35.984824+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 853 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

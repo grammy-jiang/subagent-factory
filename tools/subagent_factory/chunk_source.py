@@ -30,6 +30,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from tools.subagent_factory._common import CHARS_PER_TOKEN
+from tools.subagent_factory.prompt_injection_scan import scan_book_module
 
 # ATX heading. The trailing group strips ONLY a true ATX closing sequence — a whitespace-preceded
 # `#` run (`# Title ###` -> "Title") — not a `#` fused to the title text (`# C#` stays "C#").
@@ -195,8 +196,17 @@ def chunk_markdown(
         breadcrumb = " > ".join(path) if path else "(preamble)"
         header = f"<!-- chunk {i} context: {breadcrumb} -->\n\n"
         if overlap_chars and prev_body:
+            # Start the overlap at a WHOLE-LINE boundary. A raw char slice can cut mid-line, leaving a
+            # truncated suffix of a (possibly injection-flagged) line in the next chunk's header that
+            # whole-line redaction/verification cannot match (SEC-4). Dropping the partial leading line
+            # guarantees the overlap carries only complete lines, so a flagged line here is redacted
+            # like any other. If the slice holds no newline (a single line longer than overlap_chars),
+            # there is no whole line to keep, so the overlap is omitted for that boundary.
             tail = prev_body[-overlap_chars:]
-            header += f"<!-- neighbour-overlap (prev chunk tail, for context only) -->\n{tail}\n<!-- begin new content -->\n\n"
+            nl = tail.find("\n")
+            tail = tail[nl + 1 :] if nl != -1 else ""
+            if tail:
+                header += f"<!-- neighbour-overlap (prev chunk tail, for context only) -->\n{tail}\n<!-- begin new content -->\n\n"
         fed = header + body
         chunks.append(
             Chunk(
@@ -253,6 +263,17 @@ def write_book_module(
             )
         )
     (base / "chunks.jsonl").write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
+
+    # Injection scan AT CHUNK TIME (approach A): the map-reduce path never populates per-package
+    # sources/markdown/, so the classic prompt_injection_scan is vacuous there. Scan the untrusted
+    # book text HERE — deterministically, before any MAP `claude -p` session reads it — and record
+    # findings as a module artifact. Advisory (non-blocking): map_book.sh gates/triage on it. Always
+    # written (0 lines when clean) so a downstream reader can tell "scanned, clean" from "not scanned".
+    injection = scan_book_module(base)
+    (base / "injection-scan.jsonl").write_text(
+        "".join(json.dumps(f, ensure_ascii=False) + "\n" for f in injection), encoding="utf-8"
+    )
+
     total_tok = sum(c.est_tokens for c in chunks)
     return {
         "sha": sha,
@@ -261,6 +282,7 @@ def write_book_module(
         "n_chunks": len(chunks),
         "est_tokens": total_tok,
         "module": str(base),
+        "n_injection_findings": len(injection),
     }
 
 

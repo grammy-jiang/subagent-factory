@@ -14,6 +14,8 @@ import argparse
 import json
 from pathlib import Path
 
+from tools.subagent_factory._common import atomic_write_text
+
 
 def emit_anchors(module_dir: str | Path) -> list[dict]:
     d = Path(module_dir)
@@ -46,8 +48,8 @@ def emit_anchors(module_dir: str | Path) -> list[dict]:
                 "page_number": None,
             }
         )
-    (d / "anchors.jsonl").write_text(
-        "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in records), encoding="utf-8"
+    atomic_write_text(
+        d / "anchors.jsonl", "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in records)
     )
     return records
 

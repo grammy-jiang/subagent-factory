@@ -1,7 +1,43 @@
-# Conversion report: how-anthropic-enable-8375b55a
+# Conversion Report — how-anthropic-enable-8375b55a
 
-- source_id: how-anthropic-enable-8375b55a
-- sha256: 8375b55a8551c947f8033eb022cec391217c347aaecad40ffd03299326f07850
-- word_count: 4932
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.023600+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 4932 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

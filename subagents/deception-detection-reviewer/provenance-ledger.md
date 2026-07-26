@@ -60,6 +60,10 @@ weigh, not doctrine.
 
 ## Version History
 
+### 1.0.4 — 2026-07-25
+
+- Added `router_description` to `profile.yaml`. The adapter frontmatter `description` is the string the runtime routes on; without this field the exporter composed it from the role plus only the first two `when_to_use` triggers and the first `when_not_to_use` exclusion, dropping the remaining domains from the routing signal. The authored description states the full remit and the advice-only boundary; adapter re-exported. No principle, rule, skill, or source changed — no prior profile decision is superseded.
+
 ### v1.0.3 — 2026-07-11
 
 Residual-fix phase + independent faithfulness verification. Restored the reviewer-only authority

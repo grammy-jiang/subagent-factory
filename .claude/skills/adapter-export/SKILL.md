@@ -1,3 +1,8 @@
+---
+name: adapter-export
+description: "Export a generated subagent package (subagents/<slug>/) into its installed runtime adapter, rendered deterministically from the package's profile.yaml. Use when a profile changes and the derived adapter must be regenerated and reinstalled — the export step (Step 8) of the authoring pipeline. Re-run after any profile.yaml edit."
+---
+
 # Skill: adapter-export
 
 **Purpose:** Export generated subagent package into a Claude Code runtime adapter.
