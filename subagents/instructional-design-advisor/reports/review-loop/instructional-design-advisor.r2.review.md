@@ -1,18 +1,21 @@
 # Review — instructional-design-advisor (round 2)
 
-Package: `subagents/instructional-design-advisor/` (agent_version 1.2.0)
-Mode: review-only. No package file was edited by this pass.
+Package: `subagents/instructional-design-advisor/` (agent_version 1.4.0)
+Mode: review only — no package file edited by this pass except this report.
+Lenses: deterministic gates + agent-skills-advisor, profile-reviewer, faithfulness-reviewer,
+ai-agent-engineering-reviewer (run in parallel, each given only its scope).
 
 ## Deterministic gates
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **PASS** — 81 OK checks, 0 FAIL. One informational `phase8: Phase 8 self-check WARNING` (see S-1). |
-| `quote_scan` | **PASS** — no potential verbatim quotation found |
-| truncation gate — `…` ellipsis in skill bodies / adapter | **PASS** — no hits |
-| truncation gate — adapter invariant severed inside a parenthetical | **PASS** — no hits |
+| `validate_generated_package` | **VALIDATION PASSED** — all checks OK, 0 FAIL |
+| `quote_scan` | **PASS** — no potential verbatim quotation |
+| truncation gate — `…` ellipsis in skill bodies / adapter | **PASS** — 0 hits |
+| truncation gate — adapter invariant severed inside a parenthetical | **PASS** — 0 hits |
 
-Deterministic FAILs: **0**.
+Deterministic FAILs: **0**. One gate reports informationally,
+`phase8: Phase 8 self-check WARNING`, emitted as `[OK]` rather than a FAIL — see S-1.
 
 ## Reviewer panel
 
@@ -23,79 +26,131 @@ Deterministic FAILs: **0**.
 | faithfulness-reviewer | profile rules vs `principles/principles.yaml` + prior report | 0 |
 | ai-agent-engineering-reviewer | installed adapter + profile | 0 |
 
+Positive verifications worth recording — each independently re-derived this round, not taken
+on trust from the prior report:
+
+- **Principle partition is clean.** All 200 principle IDs P001–P200 appear in exactly one
+  skill's provenance block, and the partition matches `profile.yaml`'s
+  `knowledge_partition.skills` exactly.
+- **No sibling routing** in `profile.yaml`, `when_not_to_use`, or the adapter — every referral
+  names a human role (teacher of record, institution, accrediting body, qualified content
+  expert). Complies with the standing subagent-independence rule.
+- **Tool boundary holds.** Adapter frontmatter grants `Read, Grep, Glob` only; nothing in the
+  role, invariants, modes, quality bar, or worked examples implies write/edit/execute/network
+  action by the agent. Imperative worked-example language ("rewrite the unit outcome...") is
+  advice addressed to the caller, and both examples close with an explicit ownership statement.
+- **Hedges intact.** The load-bearing conditionals survive into the profile unweakened: P153
+  ("retention evidence *alone*"), P163 ("*solely* from prior attainment"), P157 ("*in a
+  system-paced presentation*"), P165's conditional trigger, P006, P196, P056. No invented
+  thresholds leaked — P155's "75 percent more time" and P038's "five to seven chunks" stay in
+  the principle layer and are not asserted in the profile.
+- **Ledger consistent with the file.** Every citation change the ledger claims for 1.2.0–1.4.0
+  matches the current `profile.yaml` text byte-for-byte; supersession is explicit, not silent.
+- **Adapter hygiene.** `<!-- GENERATED FILE. DO NOT EDIT DIRECTLY. -->` at line 8; description
+  matches `router_description`; no dangling or truncated invariant lines.
+
 ## Findings — most severe first
 
 ### must-fix
 
 None.
 
----
-
 ### should-fix
 
-**S-1 — profile body is 987 words: 13 words below the hard-FAIL ceiling**
-`subagents/instructional-design-advisor/profile.yaml` (aggregate of the body-size fields: `role` L16-22, `when_to_use` L23-32, `when_not_to_use` L33-40, `inputs.required` L41-45, `outputs.primary_format` L47-49, `outputs.modes` L50-64, `quality_bar` L65-79, `minimum_useful_output` L80-81, `forbidden_behaviours` L82-97, `handoff_rules` L98-104, `source_of_truth_policy.precedence` L115-119)
+**S-1 | `profile.yaml` (body) — Phase 8 body-size margin is thin**
+Problem: profile body is 935 words against a soft budget of 800 and a hard FAIL at 1000; this is
+the source of the `phase8` WARNING. It is a documented, accepted release state
+(`provenance-ledger.md:245-257`), but the 65-word margin means the next added citation or clause
+hard-fails validation, and the ledger itself records that the "remaining weight is irreducible
+without dropping grounded content".
+Fix: not a release blocker. Before the next content edit, restructure the body (compress prose,
+not citations) to recover margin, rather than trimming reactively at FAIL time.
 
-*Problem.* This is the source of the `phase8` WARNING the validator reports. Field-by-field the body totals **987 words** (role 91 + when_to_use 82 + when_not_to_use 81 + inputs 37 + primary_format 36 + modes 128 + quality_bar 163 + minimum_useful_output 19 + forbidden_behaviours 199 + handoff_rules 70 + precedence 81), matching the ledger's own "~987 words" claim (`provenance-ledger.md:123`). That is 187 over the 800-word WARN threshold and only 13 under the 1000-word hard FAIL. The next fold-in or any wording addition flips a currently-green gate to blocking. A named driver of the bloat: `outputs.primary_format` (L47-49) and `outputs.modes[0].output` (L53-54) both carry the identical 12-word clause "never a bare good/bad verdict, a built deliverable, or a promise of effectiveness" — the ledger's 1.2.0 entry (L107-111) records that this duplication was deliberate because `primary_format` / `minimum_useful_output` have no adapter-template rendering slot.
+**S-2 | `profile.yaml:77-78` + `.claude/agents/generated/instructional-design-advisor.md:208-227` — `minimum_useful_output` never reaches the model**
+Problem: the canonical profile declares an output floor ("At least one finding that names an
+instructional-design practice, its principle, and the residual trade-off or referral to make").
+The shared adapter template has no slot for it, so the deployed agent has no floor to self-check
+against at runtime. Raised independently by the profile and agent-design lenses.
+Fix: render `minimum_useful_output` into the adapter's "Supported modes and outputs" section via
+the shared template. **Factory-level template gap, not a package defect** — check whether sibling
+adapters drop it too and fix once upstream.
 
-*Fix.* De-duplicate the repeated constraint clause: state it once in `primary_format` and have each mode's `output` refer to it briefly rather than restate it. Then tighten the two heaviest sections, `forbidden_behaviours` (199w) and `quality_bar` (163w), whose citation-heavy sentences carry the most compressible prose. Target comfortably under 800 words to restore real margin. Note the interaction with S-2: the correct fix for S-2 is to give `minimum_useful_output` a real adapter slot, which also removes the motive for the copy-paste that inflates this count.
+**S-3 | all 13 `skills/*/SKILL.md:3-5` (`description:`) — no triggering-time boundary clause**
+Problem: no skill description carries a non-trigger clause, though `forbidden_behaviours`
+(`profile.yaml:79-92`) hard-stops "build the deliverable", "grade learners", and "certify
+effectiveness". "Build me a rubric for X" reads as a clean on-trigger match for
+`assessment-design-and-authentic-tasks` ("Designs and reviews authentic assessment tasks,
+rubrics..."). The disambiguation lives only in the body's `Output` section — read *after* load,
+so it cannot do triggering-time work.
+Fix: append a short boundary clause to the most exposed descriptions — at minimum
+`assessment-design-and-authentic-tasks`, `multimedia-and-elearning-design`,
+`active-learning-and-group-formats`, `iterative-prototyping-and-development` — e.g.
+"(reviews and guides; does not author the artefact itself)".
 
-**S-2 — `minimum_useful_output` never reaches the model; the adapter has no stated floor for underspecified requests**
-`subagents/instructional-design-advisor/profile.yaml:80-81` vs. `.claude/agents/generated/instructional-design-advisor.md` (whole body)
+**S-4 | ~8 of 13 `skills/*/SKILL.md` — mixed British/American spelling**
+Problem: `organise/organize`, `recognise/recognize`, `prioritise/prioritize` mixed, sometimes
+within one file — `backward-design-and-constructive-alignment/SKILL.md:5` "prioritizing" vs `:75`
+"prioritise"; `needs-and-context-analysis/SKILL.md:65,67,68` "organizational" vs `:73,89`
+"organisational". Cosmetic, but it breaks an otherwise uniform authored voice.
+Fix: normalise to one variant (the corpus leans American) in a single pass across all 13 files.
 
-*Problem.* The profile defines the fallback bar `minimum_useful_output: At least one finding that names an instructional-design practice, its principle, and the residual trade-off or referral to make.` The adapter template renders no slot for it, so the system prompt the agent actually runs on states no floor for a thin or underspecified request — the ask/abstain/answer decision has no textual anchor in the adapter at all. Same root cause as the duplication in S-1.
-
-*Fix.* Render `minimum_useful_output` into the adapter as its own short heading (or fold it into "Supported modes and outputs"), so the constraint reaches the model instead of living only in the canonical profile. This is an adapter-template change plus re-export, not a hand edit of the adapter.
-
-**S-3 — `when_not_to_use` omits the "deliver / facilitate / teach the session" exclusion that `role` and `router_description` both promise**
-`subagents/instructional-design-advisor/profile.yaml:33-40` vs. `:14-15` (`router_description` "Not for: … teaching or grading learners…") and `:22` (`role` "never builds the course, teaches it, grades learners, or certifies a programme")
-
-*Problem.* `role` and `router_description` name three exclusions — building, teaching/delivering, grading/certifying. The enumerated `when_not_to_use` list covers only two: bullet 1 excludes building the deliverable, bullet 3 excludes grading/certifying. Nothing matches a caller asking the advisor to *deliver or facilitate* the session ("run this workshop for us"), even though two other fields promise it is out of scope. Check 3 of the deterministic self-check only counts bullets (≥2), so the content gap is not caught structurally.
-
-*Fix.* Add a `when_not_to_use` bullet: "The caller wants the session delivered, facilitated, or taught by the advisor — that is the instructor's role; this advisor designs and reviews the instruction, it does not deliver it." Keep it short given S-1's word budget.
-
-**S-4 — the shared output/boundary paragraph is copy-pasted verbatim into all 13 skill bodies**
-`subagents/instructional-design-advisor/skills/*/SKILL.md`, the `## Output` paragraph and the second `## Inputs` bullet in every file — e.g. `backward-design-and-constructive-alignment/SKILL.md:84`, `learning-outcomes-and-taxonomy/SKILL.md:86`, `assessment-design-and-authentic-tasks/SKILL.md:100`, `feedback-and-formative-practice/SKILL.md:65`, `teaching-for-understanding-and-transfer/SKILL.md:89`, `multimedia-and-elearning-design/SKILL.md:86`, `instructional-strategy-and-events/SKILL.md:138`, `motivation-and-learner-engagement/SKILL.md:66`, `needs-and-context-analysis/SKILL.md:78`, `iterative-prototyping-and-development/SKILL.md:72`, `evaluation-transfer-and-impact/SKILL.md:92`, `active-learning-and-group-formats/SKILL.md:88`, `teaching-scholarship-and-quality/SKILL.md:72`
-
-*Problem.* The identical sentence ("Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first. This skill advises on instructional design; it does not build the course, materials, or item bank for the caller, teach or grade learners, or certify a programme or its subject-matter content.") appears in all 13 skills, and it restates what `profile.yaml` already carries once in `outputs.primary_format`, `outputs.modes`, and `forbidden_behaviours`. The profile's `review` mode (`profile.yaml:57`) is explicitly designed to span several areas at once, so a real review loads several of these bodies together and the agent sees the same paragraph N times with zero new signal after the first. Classic "skill restates the profile" anti-pattern; costs context for nothing.
-
-*Fix.* Replace the duplicated closing paragraph in each skill with a one-line pointer ("Output format and scope boundary: see the agent's charter."), leaving `profile.yaml`'s `outputs` / `forbidden_behaviours` as the single home for the shared boundary language. Keep only genuinely skill-specific output nuance inline. Same treatment for the duplicated `## Inputs` bullet.
-
-**S-5 — Quality bar / Forbidden behaviours / Handoff rules cite principle IDs the adapter never defines**
-`.claude/agents/generated/instructional-design-advisor.md:233-243`, `:246-260`, `:262-267`
-
-*Problem.* These sections cite P008, P077, P098, P167, P148, P152, P140, P100, P021, P172, P107, P193, P096, P109, P191, P187, P062, P134 — none of which appear in the adapter's own "Operating invariants" section, which renders only a curated subset. The prose around each citation is self-contained, so nothing breaks at runtime, but the system prompt asserts traceability to principle text the agent has never seen and cannot resolve from context; resolving it would require reading a package file that may not exist on a deployment target.
-
-*Fix.* Either promote the principles cited downstream into the "Operating invariants" list so every ID used is defined once upstream in the same context window, or drop the bare P-numbers from those three sections since the prose already carries the operative instruction. Prefer the second given S-1's word pressure. Either way this is a template/profile change followed by re-export.
-
----
+**S-5 | `provenance-ledger.md:13-26` — structural-policy carve-out documented in the wrong place**
+Problem: two profile clauses (the "final authority... rests with the teacher of record and the
+institution" sentence in `canonical_owner`, and the advisor-boundary half of
+`forbidden_behaviours[0]`) are declared an intentional uncited carve-out from the "No orphan
+field values" hard rule in `.claude/rules/rights-and-quotation-policy.md`. The reasoning is sound
+— these are authority/ownership statements, not instructional-design claims, and two prior
+versions tried and rejected fabricated citations for them — but the exception is declared only in
+*this package's* ledger, not in the rule it exempts itself from.
+Fix: promote the carve-out into `.claude/rules/rights-and-quotation-policy.md` (or
+`evidence-protocol.md`) as a named exception category, so the next package hitting this tension
+need not re-derive its legitimacy. Repo-level, not package-level.
 
 ### nice
 
-**N-1 — `role`'s "judge transfer and impact" reads as certifying**
-`.claude/agents/generated/instructional-design-advisor.md:19`
+**N-1 | `profile.yaml` `examples[0].ideal_response`, clause (3) — HEDGING_REMOVED in example prose**
+Asserts "A multiple-choice quiz *cannot* show understanding". P067 states the weaker claim:
+expect evidence of understanding to be "less direct and more complicated" than objective-test
+evidence, and a right answer "can" come from rote recall, test-taking skill, or a lucky guess.
+The source never says a multiple-choice test *cannot* show understanding.
+Not must-fix: illustrative example prose, not a `quality_bar`, `forbidden_behaviours`,
+`always_on`, or mode-trigger rule. Still worth fixing — it is exactly the over-claim the
+package's own `forbidden_behaviours[2]` forbids.
+Fix: "A multiple-choice quiz is weak evidence of understanding — a right answer can come from
+rote recall, test-taking skill, or a lucky guess (P067)."
 
-In isolation the clause implies the agent pronounces whether transfer/impact occurred, colliding with Forbidden behaviours (`:251`, impact is evaluated only after target learners perform in context) and the Handoff rule (`:267`, impact judgments wait on evaluation evidence). The following sentence resolves it, but the verb invites a naive misread of the role's first paragraph. Reword to "review whether transfer and impact are validly assessed" (fix in `profile.yaml` `role`, then re-export).
+**N-2 | `skills/instructional-strategy-and-events/SKILL.md` — partition imbalance (35 principles)**
+More than double the next-largest skill (35 vs 19). Mitigated by internal `###` subsections and
+specific `When to use` bullets; already scoped as a deferred split at
+`provenance-ledger.md:279-283`. Raised by both the skills and profile lenses.
+Fix: if it over-triggers or under-scans in practice, split along the existing subsection
+boundaries (sequencing / nine-events vs outcome-type technique matching + scaffolding).
 
-**N-2 — `instructional-strategy-and-events` has a broader triggering surface than any sibling**
-`subagents/instructional-design-advisor/skills/instructional-strategy-and-events/SKILL.md:1-167`
+**N-3 | `profile.yaml:45-47` (`outputs.primary_format`) vs adapter**
+The "never a bare good/bad verdict" constraint is not rendered as one consolidated adapter
+statement, though each of the three modes restates an equivalent clause (adapter lines 214, 220,
+226). Coverage is functionally present. Same template root cause as S-2.
+Fix: render one top-level anti-verdict statement so the constraint survives a skim that skips a
+mode block.
 
-~2× the size of any sibling: 35 principles / 35 procedure steps over four distinct sub-topics under their own `###` headings (nine-events framing, sequencing/prerequisite order, technique-by-outcome-type matching, scaffolding/practice/retrieval). Still inside the body budget and internally well organised, but one `description` must cover all four sub-scopes. If it grows further, split along the existing `###` boundaries into two or three narrower skills with sharper descriptions.
+**N-4 | `.claude/agents/generated/instructional-design-advisor.md:26-174` — invariants block size**
+62 short imperative bullets with no grouping or priority ordering inside the block (grouping
+exists one level up, in the skill files). Large single system-prompt segment, but the three-mode
+structure and Quality Bar give the model a usable frame, and the pattern matches already-shipped
+sibling packages — not a novel defect.
+Fix: none required now; revisit if the block grows.
 
-**N-3 — template inconsistency in one anti-patterns intro**
-`subagents/instructional-design-advisor/skills/assessment-design-and-authentic-tasks/SKILL.md:104`
+**N-5 | all 13 `skills/*/SKILL.md` — ~80 words of byte-identical `Inputs`/`Output` boilerplate**
+Duplicated across 13 files. Not a context-budget problem (one skill loads at a time), but a
+future wording change means 13 hand edits.
+Fix: optional — factor into the shared reference with a pointer, or accept as a deliberate
+self-containment trade-off (each skill stays independently readable).
 
-Only this skill uses the markdown link form `[Procedure](#procedure)`; the other 12 use plain `## Procedure` (e.g. `backward-design-and-constructive-alignment/SKILL.md:88`, `learning-outcomes-and-taxonomy/SKILL.md:90`). No functional impact. Normalise to the plain-text form.
+## Verdict
 
----
-
-## Verified clean (no finding)
-
-- **Faithfulness / over-claim.** Every principle ID cited by `quality_bar[0-5]`, `forbidden_behaviours[0-5]`, `handoff_rules`, `source_of_truth_policy`, `outputs.modes`, and all 13 `knowledge_partition.always_on` paragraphs exists in `principles.yaml` and is supported at equal or narrower strength — checked individually, not sampled. No SCOPE_BROADENED, HEDGING_REMOVED, or CONTRADICTED. The four v1.1.0→v1.2.0 hedge repairs recorded in `reports/faithfulness-report.yaml` were independently re-verified as actually present in the v1.2.0 text: P153 "retention evidence *alone*" (`profile.yaml:135`), P165 conditioned on formative evidence exposing a relevance/fairness problem (`:159-161`), P163 "*solely* from prior attainment" (`:170`), P157 narration-over-onscreen-text bounded to a *system-paced* presentation (`:178-180`). The usual over-claim sites (Mayer effects, Gagné nine events as "checklist… not a mandatory script", Merrill method-situation pairing, Hattie-style synthesis) all retain their source hedges.
-- **Subagent independence (standing rule).** No sibling-routing language anywhere in `profile.yaml` or the adapter. Every handoff targets a *human* role (teacher of record, institution, content expert), not another generated subagent.
-- **Tool boundary.** Adapter grants exactly Read/Grep/Glob. No Bash/Write/Edit, and no "implement" / "apply the fix" / "commit" authority-creep language.
-- **Adapter integrity.** Installed adapter matches canonical and matches a fresh render of `profile.yaml`. Operating invariants lead with the precedence statement before the list, so the load-bearing constraint is not buried. Both worked examples correctly refuse to build the deliverable or certify effectiveness and return ownership to the caller.
-- **Skill structure.** All 13 skills: valid frontmatter (unique lowercase-hyphen name, within length limits, no reserved words, no XML tags); all required sections present (Purpose, When to use, Procedure, Inputs, Output, Anti-patterns to flag, References, Provenance); each skill's frontmatter principle-id list maps 1:1 to its numbered Procedure steps and to the count stated in its anti-patterns intro; bodies are procedural ("when X, do Y, because Z (Pnnn)") not fact dumps; the principle catalogue and evidence notes live in `references/` rather than inlined. `knowledge_partition.skills` matches the 13 discovered directories exactly — no orphans. The multimedia/e-learning skill is in-lens, not drift: Mayer and Clark & Mayer are declared sources (`profile.yaml:383-394`).
-- **Provenance.** `agent_version: 1.2.0` (`profile.yaml:4`) is recorded in `provenance-ledger.md`'s Version History (`:67`); every load-bearing rule field carries inline P-citations traceable to the 200-principle spine; no orphan field values.
+Release-ready. Zero deterministic FAILs, zero must-fix across four independent lenses. Of the
+five should-fix items, **two (S-2, S-5) are factory/repo-level rather than package defects**, and
+one (S-1) is an accepted-and-documented state that constrains the *next* edit rather than this
+release.
 
 MUST_FIX_COUNT: 0
