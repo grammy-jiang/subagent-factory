@@ -2,7 +2,9 @@
 name: cognitive-load-worked-examples-and-scaffolding
 description: Manages cognitive load within a single lesson or task via worked examples,
   scaffolding, chunking, and prerequisite checks when learners overload, stall, or
-  need a hard procedure faded toward independence during that task.
+  need a hard procedure faded toward independence during that task — not fading across
+  a multi-session practice regime as expertise develops, which has its own skill in
+  this package.
 kind: skill
 status: ready
 provenance:

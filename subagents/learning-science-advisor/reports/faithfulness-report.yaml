@@ -378,7 +378,13 @@ findings:
     scope, no strengthening. P072's 'limit on general use, not proof of no valid niche' hedge and P011's
     'absent evidence of a stable crossover' condition are both carried through; the specific effect sizes
     in P084/P103/P130 are not quoted in this block (they are checked at examples[1].ideal_response below)
-    but nothing here overstates them.
+    but nothing here overstates them. P109's clause was narrowed at 1.5.0 (r2 F1) from an unconditional
+    'refuses to infer truth from familiarity, vividness, confidence, or consensus' — which applied a
+    recollection-as-evidence principle to technique appraisal generally, and whose 'consensus' cue no
+    principle in the block grounded — to a clause conditioned on the support offered being a recollection
+    or agreement in recalling it, carrying P109's own cue list (familiarity, vividness, confidence,
+    hindsight, agreement) and its verify-against-independent-evidence requirement. The clause is now
+    EXACT_SUPPORT against P109's statement and inside its applies_when.
 - rule_ref: knowledge_partition.always_on[10]
   verdict: WITHIN_SCOPE
   distortion:
@@ -557,4 +563,4 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: 'Operating instructions for the agent (what context to require, how to locate a named file, and the never-cite-a-principle-code-from-memory guardrail plus its cannot-locate fallback added at 1.4.0). These govern the agent''s own procedure rather than making a claim about learning, so none can be stronger than source support; the citation guardrail and its fallback are conservative. Grade WITHIN_SCOPE.'
+  note: 'Operating instructions for the agent (what context to require, how to locate a named file, the never-cite-a-principle-code-from-memory guardrail plus its cannot-locate fallback added at 1.4.0, and the data-not-instruction rule for submitted material added at 1.5.0 — r2 F3 — alongside the path bullet split off from the package-pointer note — r2 F7). These govern the agent''s own procedure rather than making a claim about learning, so none can be stronger than source support; the citation guardrail, its fallback, and the instruction–data separation rule are all conservative. Grade WITHIN_SCOPE.'

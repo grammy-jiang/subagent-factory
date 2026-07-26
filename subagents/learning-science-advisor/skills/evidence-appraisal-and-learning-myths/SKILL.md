@@ -55,14 +55,14 @@ This skill appraises whether a claimed learning technique, teaching myth, or bra
 - A technique, product, or training is being adopted and its evidence base must be appraised (P053, P007, P072, P020).
 - Learning styles, modality matching, or left/right-brain claims are driving an instructional decision (P011, P044, P103, P074, P017).
 - A brain-based, far-transfer, or 'works for everything' claim is being made (P033, P105).
-- A technique's advertised benefit must be checked against its actual scope and durability (P084, P130, P109).
+- A technique's advertised benefit must be checked against its actual scope and durability, or the support offered for it is recollection and reported agreement rather than independent evidence (P084, P130, P109).
 
 ## Procedure
 
 ### Establish the evidence standard
 
 1. Advise selecting teaching and study methods from empirical evidence, not intuition, isolated successes, untested theories, or interested marketing, and revising the choice as evidence changes (P053).
-2. Do not let a claim or shared memory pass as true because it feels familiar, is stated vividly or confidently, seems obvious in hindsight, or is agreed upon by a group; verify it against independent evidence (P109).
+2. Where the support offered is a recollection — what people remember happening, or their agreement in recalling it — do not let it pass as true because it feels familiar, is recalled vividly or confidently, seems obvious in hindsight, or is agreed on; verify it against independent evidence (P109).
 
 ### Test the claim's breadth
 
@@ -107,14 +107,14 @@ As set by the profile's `outputs` contract and quality bar. Advice only — the 
 - The keyword mnemonic is kept as the primary strategy for durable vocabulary learning on the strength of its immediate-test gains, ignoring how quickly that benefit fades (P084).
 - A lesson is redesigned to match learners' self-reported auditory, visual, or kinesthetic preference on the assumption that this reliably improves outcomes (P103).
 - The claim that deep subject-matter knowledge lets a teacher sequence surface-to-deep progressions and respond to student struggle is asserted as an established finding rather than flagged as untested (P105).
-- A claim or shared memory is accepted as true because it feels familiar, is stated vividly or confidently, seems obvious in hindsight, or is agreed upon by a group, without checking it against independent evidence (P109).
+- A recollection of the technique working — one person's vivid memory of it, or several people agreeing on what they remember — is accepted as true because it feels familiar, confident, or obvious in hindsight, without being checked against independent evidence (P109).
 - Imagery-based text instruction is applied to learners regardless of their ability to visualize concrete or spatial content, or is promoted as boosting comprehension, inference, application, or standardized-test scores rather than the memory benefit it actually supports (P130).
 
 ## Worked example
 
 A vendor pitches a platform that measures each learner's modality preference and routes them to matching material, offering enthusiastic pilot testimonials as evidence.
 
-A stated preference is not outcome evidence (P044), and instruction matched to a supposed auditory, visual, or kinesthetic preference yields little or no gain while the groups overlap heavily (P103); differentiated instruction should not be organized around a learning-style category absent a demonstrated stable crossover (P011). Testimonials are the wrong basis for selection: choose methods from empirical evidence rather than intuition, isolated successes, untested theory, or interested marketing, and revise as evidence changes (P053), evaluating across learning conditions, learners, materials, and delayed as well as immediate outcomes (P007). Choose a presentation format because it represents the target content well, handling access needs through learner-specific accessibility accommodation rather than style labels (P017), and do not infer truth from confidence, vividness, or agreement (P109).
+A stated preference is not outcome evidence (P044), and instruction matched to a supposed auditory, visual, or kinesthetic preference yields little or no gain while the groups overlap heavily (P103); differentiated instruction should not be organized around a learning-style category absent a demonstrated stable crossover (P011). Testimonials are the wrong basis for selection: choose methods from empirical evidence rather than intuition, isolated successes, untested theory, or interested marketing, and revise as evidence changes (P053), evaluating across learning conditions, learners, materials, and delayed as well as immediate outcomes (P007). Choose a presentation format because it represents the target content well, handling access needs through learner-specific accessibility accommodation rather than style labels (P017). The pilot testimonials are recollections of what happened, so their confidence, vividness, or agreement does not make the claimed effect true — check it against independent evidence (P109).
 
 ## References
 

@@ -398,8 +398,11 @@ THEMES: dict[str, dict] = {
             "cognitive bridge; presentation modality is chosen because it represents the content "
             "well, with accessibility accommodations provided on their own footing. It holds narrow "
             "or fast-fading techniques to their real limits, requires objective improvement on "
-            "untrained outcomes before a far-transfer claim, flags untested arguments as untested, "
-            "and refuses to infer truth from familiarity, vividness, confidence, or consensus."),
+            "untrained outcomes before a far-transfer claim, and flags untested arguments as "
+            "untested. Where the support offered for a technique is recollection — what people "
+            "remember happening, or their agreement in recalling it — it does not infer truth from "
+            "familiarity, vividness, confidence, hindsight, or that agreement, and verifies against "
+            "independent evidence."),
         when=[
             "A technique, product, or training is being adopted and its evidence base must be "
             "appraised (P053, P007, P072, P020).",
@@ -408,7 +411,8 @@ THEMES: dict[str, dict] = {
             "A brain-based, far-transfer, or 'works for everything' claim is being made (P033, "
             "P039, P105).",
             "A technique's advertised benefit must be checked against its actual scope and "
-            "durability (P084, P130, P109).",
+            "durability, or the support offered for it is recollection and reported agreement "
+            "rather than independent evidence (P084, P130, P109).",
         ],
         input="The claim, product, or practice being proposed, the evidence offered for it, and the "
               "outcome it is supposed to improve."),

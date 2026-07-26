@@ -1,11 +1,10 @@
 FIXED
 
-Restored 39 prefix-truncated principle statements across 14 of the 15 skill bodies (root cause of all
-6 must-fix findings, including the unparseable P122/P078 steps, P149's lost scaffolding limit, P143's
-inverted hedge, P023's dropped stereotype-salience cue, and P091's lost self-correction exception),
-added a grounded `## Worked example` to all 15 skills, fenced ungrounded numeric claims in
-`forbidden_behaviours`, added principle-code-verification and absolute-path resolution rules to
-`inputs.required`, disambiguated the two overlapping skill descriptions, corrected two stale quotes in
-the faithfulness report, recorded authoring-time rights verification in the ledger, and bumped to
-1.2.0 with CHANGELOG + provenance-ledger Version History entries and a re-exported adapter —
+Applied r2 must-fix F1 (narrowed `always_on[9]`'s P109 clause to P109's own recollection-as-evidence
+scope, dropping the ungrounded "consensus" cue, and re-synced the skill's three P109 restatements and
+`gen.py`), plus should-fix F3 (data-not-instruction rule in `inputs.required`), F4 (expertise
+`## Procedure` renumbered 1–10), F7 (caller-path bullet split from the package-pointer note) and nice
+F6 (cognitive-load description disambiguated), with F2 (801–1000-word WARN band accepted), F5 (rights
+gate re-run against the warm cache: 12 restricted, 0 findings), F8 and F9 recorded in the ledger —
+bumped to 1.5.0 with CHANGELOG + provenance-ledger Version History entries, adapter re-exported, and
 `validate_generated_package` PASSES with 0 FAIL.

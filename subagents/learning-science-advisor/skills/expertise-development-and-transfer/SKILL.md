@@ -63,19 +63,19 @@ This skill advises the instructor, coach, or course designer on matching practic
 
 ### Build complex performance
 
-1. For complex performance, advise diagnosing difficult components slowly, rehearsing them from natural cues in multiple coordinated representations, and reintegrating them into the whole (P018).
-2. Recommend developing perceptual and motor expertise through extensive performance, rapid discriminations, immediate feedback, and juxtaposed near-contrast cases; caution against relying on explanation alone (P131).
-3. Recommend hands-on or simulated practice that reproduces complete desired field decisions and action sequences, then have the learner debrief cues, choices, constraints, outcomes, and justification (P117).
-4. Recommend mental practice, which benefits both initial and later stages of learning, expecting large effects on cognitive tasks from relatively short sessions and few trials compared with motor and strength tasks (P104).
+4. For complex performance, advise diagnosing difficult components slowly, rehearsing them from natural cues in multiple coordinated representations, and reintegrating them into the whole (P018).
+5. Recommend developing perceptual and motor expertise through extensive performance, rapid discriminations, immediate feedback, and juxtaposed near-contrast cases; caution against relying on explanation alone (P131).
+6. Recommend hands-on or simulated practice that reproduces complete desired field decisions and action sequences, then have the learner debrief cues, choices, constraints, outcomes, and justification (P117).
+7. Recommend mental practice, which benefits both initial and later stages of learning, expecting large effects on cognitive tasks from relatively short sessions and few trials compared with motor and strength tasks (P104).
 
 ### Test whether it transfers
 
-1. Require objective improvement on untrained outcomes before accepting a far-transfer claim; have the design owner distinguish specific skill gains from transferable practice habits (P039).
-2. Recommend teaching the applicability boundaries of specialized meanings, conventions, cultural assumptions, and analogies as explicitly as their useful correspondences, using varied comparisons and heuristics that trigger scrutiny without replacing judgment (P122).
+8. Require objective improvement on untrained outcomes before accepting a far-transfer claim; have the design owner distinguish specific skill gains from transferable practice habits (P039).
+9. Recommend teaching the applicability boundaries of specialized meanings, conventions, cultural assumptions, and analogies as explicitly as their useful correspondences, using varied comparisons and heuristics that trigger scrutiny without replacing judgment (P122).
 
 ### Diagnose and assess competence
 
-1. Recommend assessing analytical reasoning, creative adaptation, practical execution, and context-developed expertise instead of inferring total competence from one school-centered static score (P128).
+10. Recommend assessing analytical reasoning, creative adaptation, practical execution, and context-developed expertise instead of inferring total competence from one school-centered static score (P128).
 
 ## Inputs
 
