@@ -1,6 +1,7 @@
 ---
 name: active-learning-and-group-formats
-description: Guides design of group work, peer teaching, project- and problem-based learning, practica, and extended research or writing tasks needing active participation.
+description: Guides design of group work, peer teaching, project- and problem-based
+  learning, practica, and extended research or writing tasks needing active participation.
 kind: skill
 status: ready
 provenance:
@@ -43,7 +44,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 92e9a05988fcaa829b29ab59c1acdbf69439650f15a8d8e4aecdbcb661e07098
 ---
-
 
 # Active Learning And Group Formats
 

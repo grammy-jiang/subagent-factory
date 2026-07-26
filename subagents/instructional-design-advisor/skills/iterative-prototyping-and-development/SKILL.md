@@ -1,6 +1,8 @@
 ---
 name: iterative-prototyping-and-development
-description: 'Guides iterative, evidence-gated prototyping and development: release gates, learner testing, cycle evaluation, and honest cost estimation; use when reviewing or choosing a development approach.'
+description: 'Guides iterative, evidence-gated prototyping and development: release
+  gates, learner testing, cycle evaluation, and honest cost estimation; use when reviewing
+  or choosing a development approach.'
 kind: skill
 status: ready
 provenance:
@@ -35,7 +37,6 @@ provenance:
   source_anchors: []
   authored_from_digest: f2c5076438395d17316f95bc234ffb06ae0f0fcc28550721a4ed442db7943459
 ---
-
 
 # Iterative Prototyping And Development
 

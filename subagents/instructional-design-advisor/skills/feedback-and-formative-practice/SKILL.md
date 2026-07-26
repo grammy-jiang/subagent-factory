@@ -1,6 +1,8 @@
 ---
 name: feedback-and-formative-practice
-description: Covers designing feedback loops, formative checks, and revision cycles; triggers when reviewing whether feedback is timely, gap-closing, correctness-bearing, and revisable.
+description: Covers designing feedback loops, formative checks, and revision cycles;
+  triggers when reviewing whether feedback is timely, gap-closing, correctness-bearing,
+  and revisable.
 kind: skill
 status: ready
 provenance:

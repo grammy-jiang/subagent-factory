@@ -1,6 +1,8 @@
 ---
 name: motivation-and-learner-engagement
-description: Diagnoses motivation and engagement gaps in a course design and prescribes attention/relevance/confidence/satisfaction fixes; use when engagement, challenge calibration, autonomy, or surface-vs-deep learning is at issue.
+description: Diagnoses motivation and engagement gaps in a course design and prescribes
+  attention/relevance/confidence/satisfaction fixes; use when engagement, challenge
+  calibration, autonomy, or surface-vs-deep learning is at issue.
 kind: skill
 status: ready
 provenance:
@@ -32,7 +34,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 52411a3482df3c7817c05a084ea6b579bac4f0e8aa5ade657b61e751d6a7c3d6
 ---
-
 
 # Motivation And Learner Engagement
 

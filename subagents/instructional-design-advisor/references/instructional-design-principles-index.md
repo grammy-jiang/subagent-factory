@@ -223,9 +223,8 @@ provenance:
   - C00033
   evidence: []
   source_anchors: []
-  authored_from_digest: a950c4f35be00a0a4237d2dbe94228c3684c9701fd5e83372c2a6132256fcb4c
+  authored_from_digest: c180a116833b03cd64ce660c9340ca7c2b539dadb713445443c362b776c7915d
 ---
-
 
 # Instructional-Design Principles Index
 
@@ -349,7 +348,7 @@ Skill: `multimedia-and-elearning-design`
 - **P124** — Match graphic type to what is being taught.
 - **P155** — Set practice quantity from task criticality and the automaticity requirement, weighing learner time.
 - **P156** — Analyse a multimedia message by how the learner processes it.
-- **P157** — Route words away from the visual channel when a graphic is present.
+- **P157** — In a system-paced presentation, route words away from the visual channel when a graphic is present.
 - **P158** — Treat the design problem as guiding appropriate cognitive processing without exceeding working-memory capacity, and remember that the three demands.
 - **P159** — Contiguity principle 1.
 - **P160** — Eliminate split attention wherever it appears in the interface.

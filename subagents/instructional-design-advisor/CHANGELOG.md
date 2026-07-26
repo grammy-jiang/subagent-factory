@@ -3,6 +3,40 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.0] — 2026-07-27
+
+Adversarial-verify repair (`/review-subagent` Step 6, `verify1`). No re-distillation: spine,
+principle numbering, claims, and the eleven sources are unchanged. Two must-fix findings closed.
+
+### Fixed
+- **P157 invariant lost its scope condition (SCOPE_BROADENED, non-negotiable tier).**
+  `compile_invariants._to_invariant` reduces a principle statement to its first sentence, and
+  P157's bound ("in a system-paced presentation") lived in the second sentence — so the adapter
+  carried the modality prescription unconditioned at its highest precedence, while `profile.yaml`
+  and `skills/multimedia-and-elearning-design/SKILL.md` all kept the bound. The P157 *statement*
+  in `principles/principles.yaml` is reordered so its first sentence is self-sufficient ("In a
+  system-paced presentation, route words away from the visual channel when a graphic is
+  present: ... Prefer narration over concurrent onscreen text."). Same claim, same scope, no new
+  content — the adapter invariant now carries the pacing condition. The multimedia skill and the
+  two references were re-stamped (`detect_stale --stamp`): they cite P157 and their bodies already
+  stated the bound, so only the upstream digest moved.
+- **P107/P134 cited to ground ownership and authority claims they do not state (mis-citation,
+  four sites in `profile.yaml`).** P107 covers making the teaching theory explicit and adapting it
+  to local learners; P134 covers systematic action-research cycles. Neither says who *owns* the
+  course, the grades, the subject matter, or the decision to run it.
+  - `source_of_truth_policy.precedence` — dropped `P107`; `P193` now attaches only to the
+    subject-matter-referral clause it supports. The ownership clause stands as factory policy.
+  - `handoff_rules[0]` — dropped `P107, P134`; `P021` retained on the criterion-based
+    outcome-judgement clause.
+  - `source_of_truth_policy.canonical_owner` — split, so `(P107, P134)` attaches only to the
+    make-the-theory-explicit / adapt-through-systematic-cycles clause; final authority over the
+    course is stated separately and uncited.
+  - `forbidden_behaviours[4]` — dropped the spurious `P107`; `P021` and `P172` already ground it
+    fully.
+
+  The advice-only ownership boundary is unchanged in force — it is now stated as policy rather
+  than dressed as principle-derived.
+
 ## [1.2.0] — 2026-07-27
 
 Review-loop repair round 1 (`/review-subagent`). No re-distillation: spine, principle numbering,

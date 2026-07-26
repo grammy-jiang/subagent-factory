@@ -1,6 +1,7 @@
 ---
 name: teaching-scholarship-and-quality
-description: Checks that teaching-quality claims rest on learning evidence, not enrolment or habit, and guides systematic action-research improvement cycles.
+description: Checks that teaching-quality claims rest on learning evidence, not enrolment
+  or habit, and guides systematic action-research improvement cycles.
 kind: skill
 status: ready
 provenance:
@@ -35,7 +36,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 67a2be8732ef5ebb2c968b1a65d8f5a871d83136cb99e6541ce496bad3411063
 ---
-
 
 # Teaching Scholarship And Quality
 

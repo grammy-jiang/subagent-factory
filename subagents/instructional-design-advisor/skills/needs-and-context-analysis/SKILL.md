@@ -1,6 +1,7 @@
 ---
 name: needs-and-context-analysis
-description: Analyzes a performance or training request's goal, learners, and context, and diagnoses whether instruction is warranted before design begins.
+description: Analyzes a performance or training request's goal, learners, and context,
+  and diagnoses whether instruction is warranted before design begins.
 kind: skill
 status: ready
 provenance:
@@ -38,7 +39,6 @@ provenance:
   source_anchors: []
   authored_from_digest: b64e482b306ccad2de626894ae9e2ce873caa6119ab18a30f1bada735ded11b4
 ---
-
 
 # Needs And Context Analysis
 

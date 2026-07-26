@@ -1,6 +1,8 @@
 ---
 name: learning-outcomes-and-taxonomy
-description: Covers wording and classifying learning outcome/objective statements by knowledge subtype and cognitive-process level, and resolving conflicting signals across intent, activity, assessment, and scoring.
+description: Covers wording and classifying learning outcome/objective statements
+  by knowledge subtype and cognitive-process level, and resolving conflicting signals
+  across intent, activity, assessment, and scoring.
 kind: skill
 status: ready
 provenance:
@@ -42,7 +44,6 @@ provenance:
   source_anchors: []
   authored_from_digest: d5813ac978ea7425668feb2a4ac42534fdcca6201f36499f2c2dd41ea50ca370
 ---
-
 
 # Learning Outcomes And Taxonomy
 

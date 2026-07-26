@@ -1,6 +1,8 @@
 ---
 name: multimedia-and-elearning-design
-description: Reviews words-plus-graphics and e-learning designs for dual-channel, working-memory, contiguity, and seductive-detail violations when a lesson, slide set, or interface is designed or critiqued.
+description: Reviews words-plus-graphics and e-learning designs for dual-channel,
+  working-memory, contiguity, and seductive-detail violations when a lesson, slide
+  set, or interface is designed or critiqued.
 kind: skill
 status: ready
 provenance:
@@ -40,9 +42,8 @@ provenance:
   - C06185
   evidence: []
   source_anchors: []
-  authored_from_digest: 491a6a20909d252eb34d8b01684333a4d9b3d726c25adab13b22a74aef15b186
+  authored_from_digest: c1fcce88e09b348ae5a4e17ff8ee65078ba0ae51b016a3c373c0f92ffc325951
 ---
-
 
 # Multimedia And E-Learning Design
 

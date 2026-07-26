@@ -129,3 +129,90 @@ references index and ground them.
   invariants needs a generator-level notion of "cross-cutting" that does not exist; doing it from
   this package alone would either drop must-hold rules or desync the coverage gate. Recorded as a
   factory-level change, not a package edit.
+- **1.3.0** (2026-07-27) — Adversarial-verify repair (`/review-subagent` Step 6, `verify1`); no
+  re-distillation, so the spine, principle numbering, claims, and source set are unchanged from
+  1.2.0. Two must-fix findings, both closed:
+  - **P157's invariant dropped the scope condition that bounds it (SCOPE_BROADENED, non-negotiable
+    tier).** `compile_invariants._to_invariant` reduces a principle to its **first sentence**, and
+    P157's bound ("in a system-paced presentation") sat in the second sentence — so the adapter
+    stated the narration-over-onscreen-text prescription unconditioned, at the tier the adapter
+    itself labels non-negotiable, while `profile.yaml:179` and
+    `skills/multimedia-and-elearning-design/SKILL.md` all retained the bound. That tripped the
+    package's own `forbidden_behaviours[2]` ("omitting the conditions that make a rule hold"), and
+    P011 — "state the conditions with the rule" — is itself an invariant. Repaired at the root, not
+    in the adapter: P157's `statement` in `principles/principles.yaml` is reordered so its first
+    sentence is self-sufficient. Nothing was added to or removed from the claim — the same two
+    clauses, with the condition moved to the front — and the exported invariant now opens "In a
+    system-paced presentation". The one-line P157 restatement in
+    `references/instructional-design-principles-index.md` was given the same bound. Three authored
+    docs whose digest moved (`multimedia-and-elearning-design` and both references) were re-stamped
+    via `detect_stale --stamp`; their bodies already stated the bound, so their grounding did not
+    change, only the upstream digest. A sweep of all 75 invariants found P157 the only statement
+    whose dropped tail narrowed scope (P092's tail adds an action, so its retained clause is not
+    broadened).
+  - **P107/P134 cited to ground ownership and authority claims they do not state (mis-citation,
+    four sites in `profile.yaml`).** P107 = make the teaching theory explicit, then diagnose and
+    adapt to local learners and constraints; P134 = improve teaching through systematic
+    action-research cycles. Neither states who *owns* the course, the subject matter, the grades, or
+    the decision to run it, so the advice-only ownership boundary was an orphan field value dressed
+    as principle-derived (`.claude/rules/rights-and-quotation-policy.md`, Provenance requirement).
+    The boundary itself is legitimate factory policy and is unchanged in force; only its false
+    grounding is removed. `source_of_truth_policy.precedence` drops `P107` and leaves `P193`
+    attached to the subject-matter-referral clause alone. `handoff_rules[0]` drops `P107, P134`,
+    keeping `P021` on the criterion-based outcome-judgement clause it does ground.
+    `source_of_truth_policy.canonical_owner` is split so `(P107, P134)` attaches only to the
+    make-the-theory-explicit / adapt-to-local-constraints clause, with final authority over the
+    course and its materials stated separately and uncited as policy. `forbidden_behaviours[4]`
+    drops the spurious `P107`, being already fully grounded by `P021` and `P172`. All four sites
+    *restrict* the advisor rather than widening a design claim, so no advice behaviour changed —
+    this is a provenance repair. This supersedes the 1.2.0 decision to cite `(P107, P134, P193,
+    P021, P172)` across `canonical_owner` as orphan-field closure: the citation set was right for
+    the pedagogical clauses and wrong for the ownership clauses, which carry no principle support.
+
+  **Recorded at this gate, no action taken** — all template- or factory-level rather than package
+  defects: the invariant-preamble carve-out at `templates/claude-agent-adapter.md.j2:23` names only
+  Role and Forbidden behaviours, omitting `When NOT to use`, `Handoff rules`, and
+  `Source of truth policy` (neutralised in practice by the Role paragraph); and
+  `minimum_useful_output` / `outputs.primary_format` still have no template block in any package.
+  Verify also confirmed clean: 0/75 truncated invariants, adapter vs `compile_invariants`
+  byte-identical, all 97 inline `PNNN` citations resolving, profile→adapter fidelity verbatim across
+  every rendered block, and the `Read, Grep, Glob` tool grant unwidened.
+[38;2;102;102;102m-[39m[38;2;187;187;187m [39m[38;2;102;102;102m**[39m[38;2;102;102;102m1.3[39m[38;2;102;102;102m.0[39m[38;2;102;102;102m**[39m[38;2;187;187;187m [39m([38;2;102;102;102m2026[39m[38;2;102;102;102m-[39m[38;2;102;102;102m07[39m[38;2;102;102;102m-[39m[38;2;102;102;102m27[39m)[38;2;187;187;187m [39m—[38;2;187;187;187m [39mAdversarial[38;2;102;102;102m-[39mverify[38;2;187;187;187m [39m[38;2;170;34;255;01mrepair[39;00m[38;2;187;187;187m [39m(`/review-subagent`[38;2;187;187;187m [39mStep[38;2;187;187;187m [39m[38;2;102;102;102m6[39m,[38;2;187;187;187m [39m`verify1`);[38;2;187;187;187m [39m[38;2;170;34;255;01mno[39;00m
+[38;2;187;187;187m  [39mre[38;2;102;102;102m-[39mdistillation,[38;2;187;187;187m [39mso[38;2;187;187;187m [39mthe[38;2;187;187;187m [39mspine,[38;2;187;187;187m [39mprinciple[38;2;187;187;187m [39mnumbering,[38;2;187;187;187m [39mclaims,[38;2;187;187;187m [39m[38;2;170;34;255;01mand[39;00m[38;2;187;187;187m [39m[38;2;170;34;255;01msource[39;00m[38;2;187;187;187m [39m[38;2;170;34;255;01mset[39;00m[38;2;187;187;187m [39mare[38;2;187;187;187m [39munchanged[38;2;187;187;187m [39m[38;2;170;34;255;01mfrom[39;00m
+[38;2;187;187;187m  [39m[38;2;102;102;102m1.2[39m[38;2;102;102;102m.0[39m.[38;2;187;187;187m [39mTwo[38;2;187;187;187m [39mmust[38;2;102;102;102m-[39mfix[38;2;187;187;187m [39mfindings,[38;2;187;187;187m [39m[38;2;170;34;255;01mboth[39;00m[38;2;187;187;187m [39mclosed[38;2;102;102;102m:[39m
+[38;2;187;187;187m  [39m[38;2;102;102;102m-[39m[38;2;187;187;187m [39m[38;2;102;102;102m**[39mP157[38;2;187;187;187m [39minvariant[38;2;187;187;187m [39mdropped[38;2;187;187;187m [39mthe[38;2;187;187;187m [39mscope[38;2;187;187;187m [39m[38;2;170;34;255;01mcondition[39;00m[38;2;187;187;187m [39mthat[38;2;187;187;187m [39mbounds[38;2;187;187;187m [39mit[38;2;187;187;187m [39m(SCOPE_BROADENED,[38;2;187;187;187m [39mnon[38;2;102;102;102m-[39mnegotiable
+[38;2;187;187;187m    [39mtier).[38;2;102;102;102m**[39m[38;2;187;187;187m [39m`compile_invariants._to_invariant`[38;2;187;187;187m [39mreduces[38;2;187;187;187m [39ma[38;2;187;187;187m [39mprinciple[38;2;187;187;187m [39m[38;2;170;34;255;01mto[39;00m[38;2;187;187;187m [39mits[38;2;187;187;187m [39m[38;2;102;102;102m**[39m[38;2;170;34;255;01mfirst[39;00m[38;2;187;187;187m [39msentence[38;2;102;102;102m**[39m;
+[38;2;187;187;187m    [39mP157[38;2;187;68;68m'[39m[38;2;187;68;68ms bound ("in a system-paced presentation") sat in the second sentence, so the adapter[39m
+[38;2;187;68;68m    stated the narration-over-onscreen-text prescription unconditioned, at the tier the adapter[39m
+[38;2;187;68;68m    itself labels non-negotiable — while `profile.yaml` and[39m
+[38;2;187;68;68m    `skills/multimedia-and-elearning-design/SKILL.md` all retained the bound. This tripped the[39m
+[38;2;187;68;68m    package[39m[38;2;187;68;68m'[39ms[38;2;187;187;187m [39mown[38;2;187;187;187m [39m`forbidden_behaviours[2]`[38;2;187;187;187m [39m([38;2;187;68;68m"[39m[38;2;187;68;68momitting the conditions that make a rule hold[39m[38;2;187;68;68m"[39m).
+[38;2;187;187;187m    [39mRepaired[38;2;187;187;187m [39m[38;2;170;34;255;01mat[39;00m[38;2;187;187;187m [39mthe[38;2;187;187;187m [39mroot,[38;2;187;187;187m [39m[38;2;170;34;255;01mnot[39;00m[38;2;187;187;187m [39m[38;2;170;34;255;01min[39;00m[38;2;187;187;187m [39mthe[38;2;187;187;187m [39madapter[38;2;102;102;102m:[39m[38;2;187;187;187m [39mP157[38;2;187;68;68m'[39m[38;2;187;68;68ms `statement` in[39m
+[38;2;187;68;68m    `principles/principles.yaml` is reordered so the first sentence is self-sufficient. Nothing[39m
+[38;2;187;68;68m    was added or removed from the claim — the same two clauses, the condition moved to the front —[39m
+[38;2;187;68;68m    and the exported invariant now carries "In a system-paced presentation". Re-stamped the three[39m
+[38;2;187;68;68m    authored docs whose digest moved (`multimedia-and-elearning-design` and both references); their[39m
+[38;2;187;68;68m    bodies already stated the bound, so only the upstream digest changed, not their grounding.[39m
+[38;2;187;68;68m  - **P107/P134 cited to ground ownership and authority claims they do not state (mis-citation,[39m
+[38;2;187;68;68m    four sites).** P107 = make the teaching theory explicit and adapt it to local learners and[39m
+[38;2;187;68;68m    constraints; P134 = improve teaching through systematic action-research cycles. Neither states[39m
+[38;2;187;68;68m    who owns the course, the subject matter, the grades, or the decision to run it, so the[39m
+[38;2;187;68;68m    advice-only ownership boundary was an orphan field value dressed as principle-derived[39m
+[38;2;187;68;68m    (`.claude/rules/rights-and-quotation-policy.md`, Provenance requirement). The boundary itself is[39m
+[38;2;187;68;68m    legitimate factory policy and is unchanged in force; only its false grounding is removed:[39m
+[38;2;187;68;68m    `source_of_truth_policy.precedence` drops `P107` and leaves `P193` on the subject-matter-referral[39m
+[38;2;187;68;68m    clause alone; `handoff_rules[0]` drops `P107, P134` and keeps `P021` on the criterion-based[39m
+[38;2;187;68;68m    outcome-judgement clause; `source_of_truth_policy.canonical_owner` is split so `(P107, P134)`[39m
+[38;2;187;68;68m    attaches only to the make-explicit/adapt clause, with final authority over the course stated[39m
+[38;2;187;68;68m    separately and uncited; `forbidden_behaviours[4]` drops the spurious `P107`, already fully[39m
+[38;2;187;68;68m    grounded by `P021` and `P172`. All four sites *restrict* the advisor, so no advice-quality[39m
+[38;2;187;68;68m    behaviour changed — this is a provenance repair.[39m
+
+[38;2;187;68;68m  **Recorded, no action at this gate** (from the same verify pass, all template- or factory-level[39m
+[38;2;187;68;68m  rather than package defects): the invariant-preamble carve-out at[39m
+[38;2;187;68;68m  `templates/claude-agent-adapter.md.j2:23` names only Role and Forbidden behaviours, omitting[39m
+[38;2;187;68;68m  `When NOT to use`, `Handoff rules`, and `Source of truth policy` — neutralised in practice by the[39m
+[38;2;187;68;68m  Role paragraph; and `minimum_useful_output` / `outputs.primary_format` still have no template[39m
+[38;2;187;68;68m  block in any package. Verify also confirmed clean: 0/75 truncated invariants, adapter-vs-[39m
+[38;2;187;68;68m  `compile_invariants` byte-identical, all 97 inline `PNNN` citations resolving, profile→adapter[39m
+[38;2;187;68;68m  fidelity verbatim across all rendered blocks, and the `Read, Grep, Glob` tool grant.[39m

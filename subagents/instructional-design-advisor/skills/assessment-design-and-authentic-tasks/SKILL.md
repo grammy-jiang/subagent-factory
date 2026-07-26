@@ -1,6 +1,8 @@
 ---
 name: assessment-design-and-authentic-tasks
-description: Designs and reviews authentic assessment tasks, rubrics, portfolios, and examinations; triggers when tasks, criteria, grades, or standards are being designed, scored, or defended.
+description: Designs and reviews authentic assessment tasks, rubrics, portfolios,
+  and examinations; triggers when tasks, criteria, grades, or standards are being
+  designed, scored, or defended.
 kind: skill
 status: ready
 provenance:
@@ -49,7 +51,6 @@ provenance:
   source_anchors: []
   authored_from_digest: e159393b854260f7ea8c00c119ac5fca8312ffd83ef4a2970811a20260bd1f3f
 ---
-
 
 # Assessment Design And Authentic Tasks
 

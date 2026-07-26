@@ -1,6 +1,8 @@
 ---
 name: instructional-strategy-and-events
-description: Selects and sequences instructional techniques, the nine events, and outcome-specific methods for a lesson or course's activities, examples, practice, and order.
+description: Selects and sequences instructional techniques, the nine events, and
+  outcome-specific methods for a lesson or course's activities, examples, practice,
+  and order.
 kind: skill
 status: ready
 provenance:
@@ -61,7 +63,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 7a1417b5b3a4ee2d6ba6e6273d47283d730957f81fd3c3404367e520a5cac594
 ---
-
 
 # Instructional Strategy And Events
 

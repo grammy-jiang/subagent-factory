@@ -1,6 +1,8 @@
 ---
 name: teaching-for-understanding-and-transfer
-description: Reviews whether instruction itself builds durable, transferable understanding via big ideas, essential questions, misconception repair, metacognition, and spaced revisiting.
+description: Reviews whether instruction itself builds durable, transferable understanding
+  via big ideas, essential questions, misconception repair, metacognition, and spaced
+  revisiting.
 kind: skill
 status: ready
 provenance:
@@ -43,7 +45,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 77359f362a74809fa42e96bae9480bfbdd5391da88f5832f05f43c44ccfc4aab
 ---
-
 
 # Teaching For Understanding And Transfer
 

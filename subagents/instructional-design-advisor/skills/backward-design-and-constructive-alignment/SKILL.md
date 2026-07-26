@@ -1,6 +1,8 @@
 ---
 name: backward-design-and-constructive-alignment
-description: Guides ordering course, unit, and programme design backward from desired results and assessment evidence, aligning outcomes, activities, and assessment, and prioritizing content deliberately.
+description: Guides ordering course, unit, and programme design backward from desired
+  results and assessment evidence, aligning outcomes, activities, and assessment,
+  and prioritizing content deliberately.
 kind: skill
 status: ready
 provenance:
@@ -41,7 +43,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 3002e7f0b1145ff805fc07e3309efc09b10d15d7fd5f2e8237e1fb3f4eaccc65
 ---
-
 
 # Backward Design And Constructive Alignment
 

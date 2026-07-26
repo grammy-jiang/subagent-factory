@@ -1,6 +1,8 @@
 ---
 name: evaluation-transfer-and-impact
-description: Evaluates whether a design achieved learning transfer and impact, guiding formative/summative evaluation, expert-judgment screening, and impact-study design and reporting.
+description: Evaluates whether a design achieved learning transfer and impact, guiding
+  formative/summative evaluation, expert-judgment screening, and impact-study design
+  and reporting.
 kind: skill
 status: ready
 provenance:
@@ -45,7 +47,6 @@ provenance:
   source_anchors: []
   authored_from_digest: 6b770823f35f938017f54171719192672c9d7257e75d7273e757baa40ad8a76e
 ---
-
 
 # Evaluation Transfer And Impact
 
