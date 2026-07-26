@@ -3,6 +3,66 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.4.0] — 2026-07-27
+
+Review-loop repair round r1 (`/review-subagent`, consolidated panel: deterministic gates +
+agent-skills-advisor + profile-reviewer + faithfulness-reviewer + ai-agent-engineering-reviewer).
+No re-distillation: spine, principle numbering, claims, and the eleven sources are unchanged.
+Three must-fix and four should-fix findings closed.
+
+### Fixed
+- **11 of 13 `SKILL.md` files ended with a stray unmatched `</content>` tag** — an authoring-wrapper
+  delimiter that leaked from the skill-author step into the shipped bodies, which load verbatim into
+  model context at trigger time. Stripped from all 11; each file now ends at its "Derived from …"
+  provenance sentence. No other content in any skill body was touched.
+- **`provenance-ledger.md` tail was a terminal-colorized diff paste — 38 raw ANSI escape sequences**
+  (lines 180–218), a second, control-character-laden restatement of the 1.3.0 Version History entry
+  that already existed cleanly at 132–179. The corrupted duplicate is deleted; the clean entry stands.
+  `grep -c $'\x1b' provenance-ledger.md` → 0.
+- **`reports/faithfulness-report.yaml` was stale at four sites** — it was last regenerated at 1.2.0 and
+  still described the pre-1.3.0 citations that the adversarial-verify round removed
+  (`handoff_rules[0]`, `source_of_truth_policy.precedence`, `forbidden_behaviours[4]`,
+  `source_of_truth_policy.canonical_owner`). All four entries are rewritten in the
+  `"REPAIRED in 1.x.0 … Now WITHIN_SCOPE"` pattern already used for the `always_on` entries, so the
+  1.3.0 repair is recorded rather than leaving pre-fix prose in place.
+- **`forbidden_behaviours[0]` stretched `P193` onto a clause it does not ground.** P193 is specifically
+  about giving a *qualified content expert* validated goals and skill frameworks as explicit review
+  standards for subject-matter correctness (used correctly at `forbidden_behaviours[5]` and
+  `handoff_rules[1]`); here it was carrying the general advisor-supplies-criteria-rather-than-building
+  boundary, which no principle states. `P193` is dropped; `P107` keeps the "practitioner makes the
+  teaching theory their own" half, and the advisor-boundary half stands as uncited structural policy
+  (see the carve-out below). No advice behaviour changes — the clause is an advisory restriction.
+
+### Changed
+- **Profile body trimmed 994 → 935 words** to restore headroom under the 1000-word hard-FAIL cap: at
+  994 the package had a 6-word margin, so any future citation addition would have blocked validation.
+  Redundant prose only — the enumerated advice-only tail of `role` (restated in full by
+  `when_not_to_use` and `forbidden_behaviours`), the "built deliverable / promise of effectiveness"
+  tails duplicated across `outputs.primary_format` and `modes[advise]` (stated in full at
+  `forbidden_behaviours[0]` and `[1]`), and clause-level compression in `quality_bar`,
+  `forbidden_behaviours`, and `handoff_rules[0]`. Every `P`-id citation and every distinct rule is
+  retained; the phase-8 body-size WARNING is accepted at 935 words (65-word margin) and recorded as
+  such in the ledger.
+- **`source_of_truth_policy.canonical_owner` gained a citation-discipline clause** closing the
+  finding that ~30 principle IDs are cited in the adapter's Quality bar / Forbidden behaviours /
+  worked examples whose text never appears in the loaded prompt (the printed invariants list covers
+  only a curated subset), so the agent could attach a fabricated gloss to a real-looking ID. It now
+  directs the agent to read `references/instructional-design-principles-index.md` for any cited ID
+  not spelled out in the invariants list rather than asserting from memory what the ID says.
+  Placed in `canonical_owner` because that field renders into the adapter and is excluded from the
+  body-size budget, so the fix costs no headroom.
+
+### Recorded, no action taken
+- **`outputs.primary_format` and `minimum_useful_output` still render nowhere in the adapter** — the
+  shared template has no slot for either (confirmed again against
+  `templates/claude-agent-adapter.md.j2`); their distinctive content stays duplicated into
+  `outputs.modes[*].output` so it reaches the model. Factory-level template gap, re-flagged at this
+  bump rather than silently carried.
+- **`instructional-strategy-and-events` loads 35 principles on any trigger**, ~2× the next-largest
+  sibling. A split along its existing `###` seams would break the 13-skill ↔ 13
+  `knowledge_partition.always_on` 1:1 mapping and force a profile edit under body-size pressure;
+  deferred to a later version as a scoped change of its own.
+
 ## [1.3.0] — 2026-07-27
 
 Adversarial-verify repair (`/review-subagent` Step 6, `verify1`). No re-distillation: spine,

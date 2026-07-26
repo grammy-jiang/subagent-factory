@@ -1,15 +1,13 @@
 FIXED
 
-Re-authored all 13 skill bodies from the full principle statements (101 truncated Procedure steps
-and 87 truncated anti-pattern bullets repaired, anti-patterns re-curated and scaled to skill size,
-`description:` frontmatter added, provenance blocks preserved byte-for-byte), repaired five profile
-over-claims/mis-citations found by the extended faithfulness pass (always_on[1], [3], [4], [5] and
-`source_of_truth_policy.canonical_owner`), added the two missing `forbidden_behaviours`, routed the
-"never a bare verdict" constraint into the rendered `modes`, extended the faithfulness report from
-19 to 43 rule locations (all WITHIN_SCOPE), warmed the source cache so the rights/quote gate
-actually ran over all 11 distillation-only sources, bumped to 1.2.0 with CHANGELOG + ledger entries,
-re-exported the adapter, and validated to VALIDATION PASSED (81 OK, 0 FAIL, 0 WARN).
-
-Deferred with reason (recorded in provenance-ledger.md): finding 8, tiering the adapter's ~90-bullet
-always-on invariant layer — that set is compiled deterministically by `compile_invariants` and gated
-by `validate_invariant_coverage`, so tiering needs a generator-level change, not a package edit.
+All 3 must-fix and 4 high-value should-fix findings from the r1 review applied and validated at
+v1.4.0: stripped the stray unmatched `</content>` wrapper tag from 11 of 13 SKILL.md files, deleted
+the 38-ANSI-escape colorized-diff duplicate from the tail of provenance-ledger.md, refreshed the 4
+stale faithfulness-report entries (plus 3 whose quoted profile wording changed) into the
+"REPAIRED … Now WITHIN_SCOPE" pattern, dropped the ungrounded P193 from forbidden_behaviours[0],
+trimmed the profile body 994 -> 935 words for real headroom under the 1000-word hard FAIL, added a
+citation-discipline clause to source_of_truth_policy.canonical_owner (renders into the adapter,
+costs no body-size budget) so the agent reads the principles index instead of glossing an undefined
+principle ID from memory, and declared the uncited advisor-boundary/ownership clauses an accepted
+structural-policy carve-out in the ledger — CHANGELOG + ledger Version History entries added,
+adapter re-exported, `validate_generated_package` PASSES with 0 FAIL.

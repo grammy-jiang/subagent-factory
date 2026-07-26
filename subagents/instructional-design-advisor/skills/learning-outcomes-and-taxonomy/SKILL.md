@@ -106,4 +106,3 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 ## Provenance
 
 Derived from P001, P031, P076, P077, P105, P115, P141, P142, P153, P161, P170, P173, P179, P182, P184, P188. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.
-</content>

@@ -55,7 +55,13 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P193/P107; within the source's scope, no strengthening. Boundary restraint; no over-claim.
+  note: 'P193 (''Give a qualified content expert validated goals and skill frameworks as explicit review
+    standards'') was stretched here to cover the general advisor-supplies-criteria-rather-than-building-the-deliverable
+    boundary, which no current principle states. REPAIRED in 1.4.0: P193 dropped; P107 grounds the ''the
+    practitioner makes the teaching theory their own'' half, and the build-the-deliverable boundary stands
+    as factory-level structural policy, uncited (declared in provenance-ledger.md, 1.4.0). Not a strength
+    over-claim in either form -- the clause is an advisory restriction. Restates P107; boundary restraint,
+    no over-claim. Now WITHIN_SCOPE.'
 - rule_ref: forbidden_behaviours[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -126,16 +132,20 @@ findings:
   severity: low
   action: accept_with_note
   note: Restates P017/P130; within the source's scope, no strengthening. Per-finding format with explicit
-    criteria and a gap-closing correction; names the trade-off or referral rather than a bare verdict
-    or a built deliverable.
+    criteria and a gap-closing correction; names the trade-off or referral rather than a bare verdict.
+    Trimmed in 1.4.0 for profile body-size headroom -- the dropped 'built deliverable / promise of effectiveness'
+    tail is stated in full at forbidden_behaviours[0] and [1]; no grounding changed.
 - rule_ref: handoff_rules[0]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P107/P021/P134; within the source's scope, no strengthening. Ownership handed to the
-    teacher of record, the design team, and the institution.
+  note: 'The 1.2.0 entry recorded this rule as restating P107/P021/P134. REPAIRED in 1.3.0 (report refreshed
+    in 1.4.0): P107 and P134 were removed -- neither states who owns the course, the grades, or the decision
+    to run it -- leaving P021 on the criterion-based outcome-judgement clause it does ground. The ownership
+    sentence is factory-level structural policy, uncited (declared in provenance-ledger.md, 1.4.0). Restates
+    P021; within the source''s scope, no strengthening. Now WITHIN_SCOPE.'
 - rule_ref: handoff_rules[1]
   verdict: WITHIN_SCOPE
   distortion:
@@ -151,9 +161,12 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P013/P172/P011/P122/P107/P193; within the source's scope, no strengthening. Backward-design
-    ordering + state-the-conditions-and-situation (no over-claim) + practitioner-and-institution-own-the-course,
-    all source-grounded.
+  note: 'The 1.2.0 entry listed P107 among this rule''s citations. REPAIRED in 1.3.0 (report refreshed
+    in 1.4.0): P107 was removed. The rule now restates P013/P172 (backward-design ordering), P011/P122
+    (state the conditions and the situation that bound a rule -- no over-claim), and P193 (subject-matter
+    accuracy referred to a qualified content expert against explicit review criteria); the practitioner-and-institution-own-the-course
+    clause is uncited factory-level structural policy (declared in provenance-ledger.md, 1.4.0). Within
+    the source''s scope, no strengthening. Now WITHIN_SCOPE.'
 - rule_ref: knowledge_partition.always_on[0]
   verdict: WITHIN_SCOPE
   distortion:
@@ -347,12 +360,12 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P021 (protect criterion-based outcome judgement from administrative constraints; convert
+  note: 'Restates P021 (protect criterion-based outcome judgement from administrative constraints; convert
     qualitative grades to numbers only after substantive judgement) and P172 (convert the judgement through
     defensible grading rules) as an advisor boundary -- the advisor never performs that judgement itself.
-    P107 (make teaching theory explicit, adapt to local learners) is a weak, tangential citation here
-    -- it supports no part of this specific grading-boundary clause -- but its presence does not strengthen
-    the claim beyond what P021 and P172 already support.
+    The 1.2.0 entry also recorded a weak, tangential P107 citation here, supporting no part of this grading-boundary
+    clause. REPAIRED in 1.3.0 (report refreshed in 1.4.0): P107 was removed, leaving the clause grounded
+    by P021 and P172 alone. Now WITHIN_SCOPE.'
 - rule_ref: forbidden_behaviours[5]
   verdict: WITHIN_SCOPE
   distortion:
@@ -369,12 +382,15 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: The clause 'The teacher of record and the design team hold final authority over the course...making
-    the teaching theory that shapes it explicit and adapting it to local learners and constraints (P107,
-    P134)' -- P107 and P134 ground the practice content (make teaching theory explicit; adapt via evidence
-    to local learners; action-research triangulation) but not literally an authority claim -- ownership/authority
-    is the profile's own advice-only boundary framing, consistent with the already-accepted handoff_rules[0],
-    which uses the same P107/P021/P134 combination for the same ownership assertion.
+  note: 'The 1.2.0 entry quoted this field as ''The teacher of record and the design team hold final authority
+    over the course...making the teaching theory that shapes it explicit and adapting it to local learners
+    and constraints (P107, P134)'' and accepted P107/P134 as grounding the practice content but not literally
+    an authority claim. REPAIRED in 1.3.0 (report refreshed in 1.4.0): the field is split, so (P107, P134)
+    now attach only to the make-the-teaching-theory-explicit / adapt-through-systematic-evidence-grounded-cycles
+    clause they do ground, and the authority sentence -- final authority over the course, its materials,
+    and what is taught resting with the teacher of record and the institution -- stands separately and
+    uncited as factory-level structural policy (declared in provenance-ledger.md, 1.4.0). The quoted sentence
+    structure no longer exists. Now WITHIN_SCOPE.'
 - rule_ref: source_of_truth_policy.canonical_owner
   verdict: WITHIN_SCOPE
   distortion:
@@ -400,8 +416,9 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: The added clause ('...never a bare good/bad verdict, a built deliverable, or a promise of effectiveness')
-    restates outputs.primary_format verbatim, which is itself grounded in P017 (explicit criteria; strengths
+  note: The added clause ('...never a bare good/bad verdict'; trimmed in 1.4.0 from '...never a bare good/bad
+    verdict, a built deliverable, or a promise of effectiveness') restates outputs.primary_format verbatim,
+    which is itself grounded in P017 (explicit criteria; strengths
     and weaknesses identified before judgment) and P130 (gap-closing feedback exposing current performance
     and the intended standard). Extending the same output-format constraint to the advise mode adds no
     new claim beyond primary_format's existing grounding.
@@ -411,7 +428,7 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: The added clause ('...never a bare good/bad verdict on the artifact as a whole') is the same output-format
+  note: The added clause ('...never a bare verdict on the artifact as a whole') is the same output-format
     constraint already grounded, via outputs.primary_format, in P017 and P130. Applying it to a whole-artifact
     review is a same-strength restatement, not a broadening.
 - rule_ref: outputs.modes[plan]

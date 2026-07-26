@@ -1,309 +1,279 @@
-# Review — `instructional-design-advisor` (round 1)
+# Review — `instructional-design-advisor` (round r1)
 
-Package: `subagents/instructional-design-advisor/` (agent_version 1.1.0, 11 sources, 200 principles, 13 skills)
+Package: `subagents/instructional-design-advisor/` (agent_version **1.3.0**, tier 2, 11 sources, 200 principles, 13 skills)
 Date: 2026-07-27
 Lenses: deterministic gates + agent-skills-advisor (skill authoring) + profile-reviewer (release readiness)
 + faithfulness-reviewer (over-claim) + ai-agent-engineering-reviewer (agent design)
+
+> This path previously held the round-1 report against **v1.1.0**; that content is superseded and
+> overwritten here per the review instruction. Its findings (mid-clause truncation in 4 skills,
+> etc.) were addressed by the 1.2.0/1.3.0 rounds — re-checked below and no longer present.
+
+Every must-fix below was re-verified by the consolidator with direct greps, not accepted on the
+reviewing agent's word.
 
 ## Deterministic gate results
 
 | Gate | Result |
 |------|--------|
-| `validate_generated_package` | **VALIDATION PASSED** — 0 FAIL, 1 WARN |
+| `validate_generated_package` | **VALIDATION PASSED** — 0 FAIL |
 | `quote_scan` | **PASS** — no potential verbatim quotation found |
 | truncation gate: `…` ellipsis in skills/adapter | no hits |
 | truncation gate: severed invariant parenthetical in adapter | no hits |
+| adapter-sync / adapter-fresh / injection-scan / stale-maintenance | all OK |
 
-WARNs (not must-fix, carried below as should-fix): `quote-scan: rights NOT verified` (11
-restricted sources, no `sources/markdown/` and no warm cache module — the verbatim-quote gate
-could not actually run); `phase8: Phase 8 self-check WARNING`.
+Non-fatal: `phase8: Phase 8 self-check WARNING` — carried below as should-fix #4 (body-size 994w).
 
-**Note — the truncation gate has a blind spot.** It found nothing, yet 10+ genuine truncations
-exist (findings 1 and 2). The generator truncates at a *clean sentence boundary* with a
-terminal period and no ellipsis, so neither `…` nor an unterminated `(` is emitted. The gate as
-written cannot see this class. See finding 3.
+**Deterministic FAIL count: 0.**
 
----
-
-## Findings
-
-### 1 — MUST-FIX · Procedure steps truncated mid-clause in 4 skills
-
-**Where:**
-- `skills/multimedia-and-elearning-design/SKILL.md:74` — "…and remember that the three demands (P158)." — the three demands are never named.
-- `skills/multimedia-and-elearning-design/SKILL.md:75` — "Contiguity principle 1 (P159)." — a bare label, not an instruction; zero operational content.
-- `skills/instructional-strategy-and-events/SKILL.md:88` — "…so the definition labels something already seen and the new content is (P032)." — cut after "is".
-- `skills/instructional-strategy-and-events/SKILL.md:91` — "…and ensure (P037)." — cut after "ensure".
-- `skills/instructional-strategy-and-events/SKILL.md:96` — "…and several sequences are (P054)." — cut after "are".
-- `skills/needs-and-context-analysis/SKILL.md:62` — "…job analysis, and authoritative (P095)." — noun missing; `profile.yaml` `always_on` has the complete form ("authoritative procedures").
-
-**Problem:** These are load-bearing `## Procedure` steps that terminate before their clause
-completes. A model reading step 15 of the multimedia skill gets the string "Contiguity
-principle 1" and no procedure at all. All six verified by direct read.
-
-**Fix:** Regenerate each step from the full source claim / the matching complete prose in
-`profile.yaml` `knowledge_partition.always_on` (which holds the untruncated versions), rather
-than from a length-capped prefix.
+Follow-up on the previous round's gate blind spot (truncation at a clean sentence boundary, which
+emits neither `…` nor an unterminated `(`): re-probed with a dangling-connective pattern
+(`such as|including|e.g.|rather than|so that|which|the` immediately before a terminal period)
+across all 13 `SKILL.md` files — **no hits**. That class appears repaired. The gate's inability to
+see it remains a factory-level weakness, not a package defect.
 
 ---
 
-### 2 — MUST-FIX · "Anti-patterns to flag" bullets truncated mid-clause across all 13 skills
+## must-fix
 
-**Where:** every `## Anti-patterns to flag` section; 90 bullets total (7 per skill, 6 in
-`feedback-and-formative-practice` and `motivation-and-learner-engagement`). Verified samples:
-- `skills/learning-outcomes-and-taxonomy/SKILL.md:95` — "…require recognition of the problem type, selection or construction." — cut before "of a fitting method, adaptation, and execution".
-- `skills/assessment-design-and-authentic-tasks/SKILL.md:108` — "…are valid but less consistently reliable, and separate." — dangling verb, no object.
-- `skills/needs-and-context-analysis/SKILL.md:86` — "…through self-performance." — list cut before the remaining four evidence sources.
-- `skills/evaluation-transfer-and-impact/SKILL.md:101` — "…and sample the differences most." — cut after "most".
+### 1 — MUST-FIX · 11 of 13 `SKILL.md` files end with a stray unmatched `</content>` tag
 
-**Problem:** Same root defect as finding 1 (length-capped prefix, terminal period added), but
-in the section whose whole job is to state a checkable failure mode. A truncated anti-pattern
-is not checkable. Systemic — not a one-off.
+**Where:** `skills/*/SKILL.md`, final line of each —
+`active-learning-and-group-formats:110`, `assessment-design-and-authentic-tasks:126`,
+`backward-design-and-constructive-alignment:107`, `evaluation-transfer-and-impact:116`,
+`feedback-and-formative-practice:87`, `iterative-prototyping-and-development:96`,
+`learning-outcomes-and-taxonomy:109`, `motivation-and-learner-engagement:87`,
+`multimedia-and-elearning-design:109`, `needs-and-context-analysis:99`,
+`teaching-for-understanding-and-transfer:112`.
 
-**Fix:** Same as finding 1 — take the complete clause. Then add a post-generation assertion
-that no `## Procedure` step and no anti-pattern bullet ends on a dangling conjunction,
-preposition, or transitive verb before its `(Pxxx)` citation.
+**Problem:** Verified — `grep -rln '</content>' skills/*/SKILL.md` returns 11 files. Each ends in a
+closing `</content>` with no opening tag anywhere in the file: an unstripped authoring-wrapper
+delimiter leaked from the skill-author step into the shipped skill body. `instructional-strategy-and-events`
+and `teaching-scholarship-and-quality` are clean, so the post-processing ran but missed 85% of the
+set. These bodies load verbatim into model context at trigger time, so a dangling XML-ish tag is
+uninterpretable noise in every one of them. `validate_generated_package` does not catch it.
 
----
+**Fix:** Strip the trailing `</content>` line from all 11 files so each ends at its "Derived from …"
+provenance sentence. Add a generation-pipeline/validator check that FAILs on an unmatched
+`<content>`/`</content>` (or any unmatched wrapper tag) in an exported `SKILL.md`, so the next
+fold-in or regen cannot reintroduce it silently.
 
-### 3 — MUST-FIX · `always_on` multimedia rule drops the source's pacing boundary condition (SCOPE_BROADENED)
+### 2 — MUST-FIX · `provenance-ledger.md` tail is a colorized-diff paste — 38 raw ANSI escape sequences
 
-**Where:** `profile.yaml:170-171`, `knowledge_partition.always_on[5]`
-(multimedia-and-elearning-design).
+**Where:** `provenance-ledger.md:180-218` (file is 218 lines; ANSI runs from 180 to EOF).
 
-**Rule as written:** "…routes words away from the visual channel by preferring narration to
-concurrent on-screen text when a graphic must be processed at the same time."
+**Problem:** Verified — `grep -c $'\x1b' provenance-ledger.md` → 38, all within 180-218, and it is the
+only file in the package containing ANSI bytes. The block is a terminal-colorized `git`/`delta` diff
+of the 1.3.0 edit pasted straight into the canonical ledger, producing a second, control-character-laden,
+reworded restatement of the 1.3.0 Version History entry that already exists cleanly at lines 132-179.
+The ledger is the canonical audit record under `.claude/rules/generated-artifact-policy.md`: ANSI bytes
+break plain-text tooling (grep/diff/quote_scan) run against it, and the duplicate gives one version two
+inconsistent histories — the corrupted copy also drops the precise `profile.yaml:179` locator the clean
+copy carries.
 
-**Source support:** P157 (`principles/principles.yaml:3486-3491`) states "Prefer narration over
-concurrent onscreen text **in a system-paced presentation**", and its own `applies_when` repeats
-the same bound. Learner-paced presentation is a documented condition where the modality effect
-weakens or reverses.
+**Fix:** Delete lines 180-218; the clean 1.3.0 entry at 132-179 already covers the content. Verify
+`grep -c $'\x1b' provenance-ledger.md` → 0 before release. Root cause is the known ANSI-paste class
+(colorized command output captured into file content) — compose ledger entries with the Write tool or
+`git --no-color`.
 
-**Level:** SCOPE_BROADENED — a pacing-conditioned rule rendered unconditioned.
+### 3 — MUST-FIX · `reports/faithfulness-report.yaml` is stale — 4 entries describe citations v1.3.0 no longer has
 
-**Why it matters here specifically:** this profile's own `forbidden_behaviours[2]` prohibits
-"stating a design principle more strongly than its source supports — omitting the conditions
-that make a rule hold". The line violates the profile's own stated prohibition.
+**Where:** `reports/faithfulness-report.yaml:131-138` (`handoff_rules[0]`), `:148-156`
+(`source_of_truth_policy.precedence`), `:344-355` (`forbidden_behaviours[4]`), `:366-377`
+(`source_of_truth_policy.canonical_owner`) — vs `profile.yaml:98-101`, `:116-121`, `:93-95`, `:105-114`.
 
-**Fix:** append the condition — "…when a graphic must be processed at the same time **in a
-system-paced presentation**." Note this text is mirrored into the skill body and the adapter, so
-re-export after the profile edit.
+**Problem:** Verified by direct comparison of both files. The 1.3.0 adversarial-verify round removed
+`P107`/`P134` from these sites; the report was last regenerated at 1.2.0 and still describes the pre-fix
+state:
 
----
+- report:137 — `handoff_rules[0]` "Restates **P107**/P021/**P134**"; profile:101 now cites `(P021)` only.
+- report:154 — `precedence` "Restates P013/P172/P011/P122/**P107**/P193"; profile:116-121 has no `P107`.
+- report:353 — `forbidden_behaviours[4]` "**P107** … is a weak, tangential citation here"; profile:95
+  cites `(P021, P172)` — no `P107` is present to be tangential about.
+- report:372-374 — quotes `canonical_owner` as *"The teacher of record and the design team hold final
+  authority over the course…(P107, P134)"*; profile:106-109 now **splits** that: `(P107, P134)` attaches
+  to the "makes the teaching theory explicit / adapts through evidence-grounded cycles" practice clause,
+  and the authority sentence is deliberately uncited. The quoted sentence structure no longer exists.
 
-### 4 — MUST-FIX · `faithfulness-report.yaml` never reviewed the `knowledge_partition.always_on` block
+The faithfulness report is the tier-2 artifact of record for whether shipped rules over-claim. A reader
+trusting it would believe a mis-citation is still live at four sites when it was fixed, and would be
+reading the wrong text for `canonical_owner`.
 
-**Where:** `reports/faithfulness-report.yaml` (whole file) vs `profile.yaml:114-283`.
-
-**Problem:** The report covers 19 rule locations — `quality_bar[0-5]`,
-`forbidden_behaviours[0-3]`, `when_to_use[0-4]`, `outputs.primary_format`, `handoff_rules[0-1]`,
-`source_of_truth_policy.precedence` — and **zero** entries for `knowledge_partition.always_on`.
-That block is 13 dense paragraphs compressing all 200 principles, and it is by far the densest
-place for a dropped hedge. Finding 3 lives there and was invisible to the report. The block's
-apparent "clean" status is *unverified*, not confirmed — this is a coverage gap in the gate,
-not merely a mis-verdict.
-
-**Fix:** extend the faithfulness pass to emit a per-entry verdict for
-`knowledge_partition.always_on[0]`–`[12]` (per-clause for the denser ones) before the report is
-treated as covering the package.
-
-**Independently confirmed clean:** a spot-check of ~34 cited principles across the region the
-report *did* cover (P013, P008, P172, P077, P115, P153, P001, P016, P017, P098, P199, P167,
-P196, P056, P198, P067, P093, P159, P157, P053, P042, P092, P148, P152, P140, P004, P193, P107,
-P096, P109, P011, P122, P100, P090) matched every `WITHIN_SCOPE` verdict. No disagreement in the
-reviewed region.
-
----
-
-### 5 — SHOULD-FIX · Two role-level prohibitions absent from `forbidden_behaviours`
-
-**Where:** `profile.yaml:83-93` vs `:21-22` (role) and `:36-38` (when_not_to_use).
-
-**Problem:** "grades learners" and "rules on subject-matter correctness" are stated in the role
-paragraph and in `when_not_to_use`, but — unlike the two other boundaries named in the same
-breath ("building the deliverable", "certifying effective/accredited", which *do* get
-principle-cited `forbidden_behaviours` entries at `:84-88`) — they never reach the enforcement
-list. Asymmetric gap in exactly the two prohibitions this domain most needs enforced.
-
-**Fix:** add two entries mirroring the existing pattern: (a) never assigns a grade or score to a
-learner's work — that belongs to the teacher of record; (b) never rules on subject-matter
-correctness — refer to a qualified content expert. Cite the principles already used in
-`handoff_rules` (P107, P021, P134, P193).
+**Fix:** Regenerate the report against the current profile (or hand-edit these four entries), using the
+`"REPAIRED in 1.x.0 … Now WITHIN_SCOPE"` note pattern already used for the
+`knowledge_partition.always_on[1]/[3]/[4]` entries, so the 1.3.0 repair is recorded rather than leaving
+pre-fix prose in place. Add "regenerate faithfulness report" to the version-bump checklist — a profile
+citation edit that skips it is the recurring failure mode this finding represents.
 
 ---
 
-### 6 — SHOULD-FIX · `outputs.primary_format` and `minimum_useful_output` never render into the adapter
+## should-fix
 
-**Where:** `profile.yaml:47-50` and `:81-82` vs `.claude/agents/generated/instructional-design-advisor.md` (whole file).
+### 4 — SHOULD-FIX · Profile body 994 words — 6 words below the hard-FAIL cap (the phase8 WARNING)
 
-**Problem:** Sibling fields at the same level (`inputs.required`, `outputs.modes`) do get
-template slots and appear in the adapter at `:202-228`, so this reads as an incomplete render,
-not a deliberate omission. Most of the content is redundantly covered by Forbidden behaviours
-(`:249, :251`), but the "never a bare good/bad verdict" constraint is unique to the dropped
-field and appears nowhere in what the model actually sees.
+**Where:** `profile.yaml` (fields summed by `profile_self_check` check 14); heaviest —
+`forbidden_behaviours` 198w, `quality_bar` 163w, `modes` 128w.
 
-**Fix:** add a template slot rendering `outputs.primary_format` and `minimum_useful_output`, or
-strike the fields from `profile.yaml` so canonical and adapter don't drift.
+**Problem:** Confirmed by running the check directly:
+`[WARNING] 14. body-size: profile body ~994 words (> 800); 194 over the 800-word budget`.
+Soft budget 800, WARN band 801-1000, hard FAIL >1000. At 994 the package has a **6-word margin** — any
+future citation or clause addition trips a hard FAIL and blocks validation. The ledger's 1.2.0 entry
+records trimming to "~987 words to stay inside the budget" but never states that the residual WARNING is
+a known, accepted release state, so the next reviewer must re-derive it.
 
----
+**Fix:** Trim `forbidden_behaviours` and `quality_bar` (each bullet can shed a clause without losing a
+`P`-id) to restore real headroom — ideally under 800. If the WARNING is accepted as-is, add one ledger
+line saying so and why, and flag the 6-word margin as a maintenance hazard.
 
-### 7 — SHOULD-FIX · `quote-scan` rights gate could not actually run
+### 5 — SHOULD-FIX · Adapter cites ~30 principle IDs whose text never appears in the loaded prompt
 
-**Where:** validator WARN — "rights NOT verified — 11 restricted source(s) but no source text
-available (no `sources/markdown/`, no warm cache module)".
+**Where:** `.claude/agents/generated/instructional-design-advisor.md` — Quality bar `:233-243`,
+Forbidden behaviours `:249-259`, Handoff rules `:265-267`, Worked examples `:277,:284`,
+Source-of-truth policy `:289-291`.
 
-**Problem:** All 11 sources are `distillation-only`, meaning no verbatim quotation is permitted
-anywhere in generated artifacts (`.claude/rules/rights-and-quotation-policy.md`). The
-`quote_scan PASS` above is vacuous: it had no source text to compare against. The rights
-obligation is currently unverified for the highest-risk source class.
+**Problem:** Spot-verified against the bracket form `[Pnnn]` used by the printed invariants list: P096,
+P109, P148, P187, P021, P193, P107 each appear 1-5× in the body and **0×** as a defined invariant. The
+printed "Operating invariants (must hold)" list (`:26-174`) covers only a curated subset. So the two
+highest-authority sections — Quality bar and Forbidden behaviours, the material defining what "good"
+means and what the agent must never do — cite principle numbers whose content the model never sees, and
+the worked examples model the behaviour of citing them ("per P096, P109"). At runtime the agent can
+attach a fabricated or misremembered gloss to a real-looking citation. The "Canonical package" pointer
+(`:293-331`) exists but is phrased as optional ("For deeper context, read…"). This is a citation-apparatus
+completeness gap, not a content-faithfulness one — the plain-English rule text stands alone and stays
+obeyable.
 
-**Fix:** warm the source-markdown cache (or restore `sources/markdown/`) and re-run
-`python -m tools.subagent_factory.quote_scan subagents/instructional-design-advisor` so the
-40-consecutive-word gate actually executes before release.
+**Fix:** Either (a) add a compact one-line-gloss appendix covering every ID cited outside the invariants
+list, or (b) — cheaper, and preferred given #4's body-size pressure — add one preamble line: *"If you cite
+a principle ID not defined above, Read the principles-index reference first and quote its stated content;
+never assert from memory what an ID says."* The change belongs in `profile.yaml` / the render template and
+must be re-exported; never edit the generated adapter (`generated-artifact-policy.md`).
 
----
+### 6 — SHOULD-FIX · `forbidden_behaviours[0]` stretches `P193` onto a clause it does not ground
 
-### 8 — SHOULD-FIX · Adapter always-on layer is ~90 invariant bullets loaded on every invocation
+**Where:** `profile.yaml:83-85` — *"…the advisor supplies review criteria and the practitioner makes the
+teaching theory and the design their own **(P193, P107)**"*; cf. `faithfulness-report.yaml:52-58`.
 
-**Where:** `.claude/agents/generated/instructional-design-advisor.md:21-174`.
+**Problem:** `P193` is specifically about giving a **qualified content expert** validated goals and skill
+frameworks as explicit review standards for **subject-matter correctness** — used correctly for exactly
+that at `forbidden_behaviours[5]` and `handoff_rules[1]`. Here it is stretched to cover the general
+"the advisor supplies review criteria rather than building the deliverable" boundary, which no current
+principle states. Same category as the tangential-`P107` citations the 1.3.0 round removed at four other
+sites; this instance was missed, and the report marks the entry `WITHIN_SCOPE` with no note on `P193`'s
+fit. Not a strength over-claim (the clause is an advisory *restriction*, so a weak citation cannot make it
+stronger than source), hence should-fix rather than must-fix.
 
-**Problem:** ~3,000+ words of principle bullets load regardless of which of the 13 skills the
-task touches — a rubric review pulls in multimedia-channel invariants (P157-P160) just as a
-needs-analysis task pulls in motor-skill sequencing (P028). It is by far the largest adapter
-section and duplicates material the 13 progressively-disclosed SKILL.md files already carry in
-more depth. Undercuts the progressive-disclosure design the package otherwise implements well.
+**Fix:** Drop `P193` from `forbidden_behaviours[0]` — `P107` already grounds the "practitioner makes the
+teaching theory their own" half — and let the advisor-boundary half stand as uncited factory policy,
+consistent with how 1.3.0 treated the analogous `canonical_owner` ownership clause. Record the carve-out
+in the ledger (see #7).
 
-**Fix:** tier it — promote only the ~15-20 genuinely cross-cutting invariants (backward-design
-order, evidence-of-learning standard, taxonomy discipline, the "conditions bound the rule"
-caveat) to always-on; leave the rest in their owning skill file, loaded on demand.
+### 7 — SHOULD-FIX · Uncited ownership clause in `canonical_owner` is correct but not declared an accepted exception
 
----
+**Where:** `profile.yaml:107-109` — *"final authority over the course, its materials, and what is taught
+rests with the teacher of record and the institution"* (no `P`-id).
 
-### 9 — SHOULD-FIX · Anti-pattern lists capped at 7 bullets regardless of skill size
+**Problem:** `.claude/rules/rights-and-quotation-policy.md` requires every profile field be traceable to a
+source and QID ("No orphan field values"). This clause is deliberately uncited — 1.3.0 removed a wrong
+`(P107, P134)` rather than substituting a false one, which was the right call — but the ledger explains it
+only as inline changelog prose ("uncited as policy"), never declaring it an accepted structural-policy
+exception. The next reviewer cannot distinguish "intentional carve-out" from "orphan gap". The same
+ambiguity will apply to the #6 fix.
 
-**Where:** `skills/instructional-strategy-and-events/SKILL.md:127-133` (7 of 35 principles,
-20%); `skills/assessment-design-and-authentic-tasks/SKILL.md:103-109` (7 of 23, 30%);
-`skills/active-learning-and-group-formats/SKILL.md:91-97` (7 of 17, 41%).
+**Fix:** Add one ledger sentence declaring that advisor-boundary / ownership statements (the
+`canonical_owner` authority clause, and `forbidden_behaviours[0]` once #6 is applied) are factory-level
+structural policy — the same category as the advice-only boundary applied to every specialist package —
+and therefore exempt from per-principle QID citation.
 
-**Problem:** A fixed cap means the largest, most-used skills get the *thinnest* anti-pattern
-checklist, while small skills reach near-full coverage by accident of size.
+### 8 — SHOULD-FIX · `instructional-strategy-and-events` loads 35 principles on any trigger
 
-**Fix:** either cover all principles in the skill, or deliberately curate the highest-impact
-subset — don't truncate at a constant.
+**Where:** `skills/instructional-strategy-and-events/SKILL.md:80-161` (`## Procedure`, 35 numbered steps
+across 5 `###` subsections).
 
----
+**Problem:** ~2× the next-largest sibling (23 in `assessment-design-and-authentic-tasks`; package median
+~15-17). The `###` structure (nine-events frame / sequencing / technique-matching / scaffolding / time
+budgeting) helps scanability, but the whole body still loads on any trigger, including a request touching
+only one subsection. Cuts against progressive disclosure, which the package's own P001/P003/P007/P022/P079
+endorse.
 
-### 10 — SHOULD-FIX · Three Procedure steps restate a principle label with no operational detail
+**Fix:** Consider splitting along the existing `###` seams — e.g. `instructional-sequencing-and-events`
+(nine-events + sequencing/prerequisites, ~17 principles) and `technique-matching-and-scaffolding`
+(outcome-type matching + scaffolding/practice/retrieval + time budgeting, ~18 principles), each with its
+own scoped description. **Caveat:** a split breaks the 13-skill ↔ 13 `knowledge_partition.always_on` 1:1
+mapping and forces a profile edit under #4's body-size pressure — weigh against deferring to a later
+version.
 
-**Where:** `skills/active-learning-and-group-formats/SKILL.md:70` ("Design PBL from its intended
-outcomes (P139)."), `:74` ("Align the whole PBL system (P175)."), `:76` ("Teach research as
-distinct judgments and procedures (P177).").
+### 9 — SHOULD-FIX · `outputs.primary_format` and `minimum_useful_output` render nowhere in the adapter
 
-**Problem:** Distinct from the truncation defect — these are complete sentences that carry no
-procedure. Neighbouring steps run 3–4 clauses; these say what to do without saying how.
+**Where:** `profile.yaml:46-49`, `:80-81`.
 
-**Fix:** expand from the source claim text to match neighbouring density.
+**Problem:** Per the ledger's 1.2.0 entry (reaffirmed "recorded, no action" at 1.3.0), the adapter template
+has no slot for these two fields; their distinctive "never a bare good/bad verdict" content was duplicated
+into each `outputs.modes[*].output` so it would reach the model. They now exist mainly to satisfy phase8
+checks 6 and 8 (non-empty) while consuming body-size budget (#4) for content the runtime never sees.
+Correctly deferred — a factory-level template gap, not a package defect.
 
----
-
-### 11 — SHOULD-FIX · `source_of_truth_policy.canonical_owner` carries no principle citations
-
-**Where:** `profile.yaml:102-106` vs `provenance-ledger.md:7-8`.
-
-**Problem:** The ledger claims *every* `source_of_truth_policy` value cites the principle it
-restates, carving out only `role`/`when_to_use`/`inputs`/`outputs`. `canonical_owner` cites
-nothing, while its sibling `precedence` (`:108-113`) cites P013, P172, P011, P122, P107, P193.
-Either an orphan field value (against the rights-and-quotation-policy "no orphan field values"
-rule) or an overstated ledger claim.
-
-**Fix:** add citations to `canonical_owner`, or narrow the ledger's carve-out at
-`provenance-ledger.md:9-10` to also exclude it as a real-world-authority statement.
-
----
-
-### 12 — SHOULD-FIX · No `description` in SKILL.md frontmatter (all 13 files)
-
-**Where:** frontmatter of every `skills/*/SKILL.md` — carries `name`, `kind`, `status`,
-`provenance` only.
-
-**Problem:** Triggering rests entirely on the in-body `## When to use` prose. Fine if these are
-subagent-internal, but it diverges from the Agent Skills discovery contract, where `description`
-is the load-time triggering signal.
-
-**Fix:** add `description` if the skills are meant to be portable/standalone-loadable; otherwise
-record explicitly that they are subagent-internal, so a future reviewer doesn't read it as an
-oversight.
-
----
-
-### 13 — SHOULD-FIX · `instructional-strategy-and-events` bundles 35 principles into one skill
-
-**Where:** `skills/instructional-strategy-and-events/SKILL.md` — 35 procedure steps spanning
-nine-events checklist, concept/rule/verbal-information/attitude/motor-skill technique matching,
-scaffolding, spaced retrieval, and time budgeting. 5–6× the size of most siblings (which cover
-6–23 principles around one coherent sub-topic).
-
-**Fix:** split into e.g. `instructional-events-and-sequencing` + `outcome-type-technique-matching`,
-or at minimum add `###` sub-headers grouping the 35 steps by theme.
+**Fix:** No package change required. Keep flagging it at every version bump until the shared adapter
+template gains a slot, so it is not silently forgotten. If trimming for #4, this duplicated content is the
+cheapest place to cut.
 
 ---
 
-### 14 — NICE · Full 11-source citation list repeated verbatim in all 13 skill Provenance sections
+## nice
 
-**Where:** e.g. `skills/feedback-and-formative-practice/SKILL.md:82` lists all 11 book titles for
-a skill drawing on 6 principles; the identical ~130-word block appears in every file, directly
-after a `## References` section that already points to the shared index.
-
-**Fix:** reduce Provenance to the principle-id list plus a pointer to
-`references/instructional-design-principles-index.md`.
-
----
-
-### 15 — NICE · Duplicate step inside `teaching-scholarship-and-quality`
-
-**Where:** `skills/teaching-scholarship-and-quality/SKILL.md:61` (step 8, P162) vs `:60` (step 7,
-P134) — step 7 already fully describes the iterative evidence cycle.
-
-**Fix:** merge, or differentiate what P162 adds beyond P134.
-
----
-
-### 16 — NICE · `when to use` overlap between two sibling skills
-
-**Where:** `skills/learning-outcomes-and-taxonomy/SKILL.md:57` vs
-`skills/teaching-for-understanding-and-transfer/SKILL.md:56` — both lead on "transfer".
-Distinguishable on close read (outcome-statement wording vs instruction evaluation), but a model
-skimming triggers could hesitate.
+- `skills/assessment-design-and-authentic-tasks/SKILL.md:105` — the only skill whose curated-subset
+  disclaimer uses a Markdown link `[Procedure](#procedure)`; the other 12 use plain-text `## Procedure`.
+  Anchor is valid; purely stylistic. Normalize to the 12-file majority.
+- Skill frontmatter `description` across all 13 skills — about half carry an explicit "use when / triggers
+  when" clause, half rely on the capability verb phrase alone. None are vague and all fire correctly, but
+  descriptions are the sole triggering signal, so uniformity is worth an eventual pass.
+- `.claude/agents/generated/instructional-design-advisor.md:3` — routing description opens with twelve
+  comma-separated topic nouns before any usage trigger. Coherent (all twelve map to this profile's own
+  skills), but scenario-first framing routes task-shaped borderline requests better. Optional; the trailing
+  "Use when / Not for" clauses already carry the operative signal. Any change goes in `profile.yaml` +
+  re-export.
+- `profile.yaml:332-335` (example 2) — paraphrase of P062 drops "learning" from its six-item list
+  ("relevance, **learning**, permission, support, resources, adaptation opportunity"). An omission, not an
+  over-claim.
 
 ---
 
-### 17 — NICE · Role paragraph verb reads as build authority
+## Checked clean (recorded so a later round need not re-derive)
 
-**Where:** `.claude/agents/generated/instructional-design-advisor.md:19` / `profile.yaml:19` —
-"helps… prototype materials". Defused by the immediately-following override clause and by
-`forbidden_behaviours` (`:249`), so low risk.
-
-**Fix:** reword to "advises on prototyping materials".
+- **Subagent independence** — verified across profile and adapter: `when_not_to_use`, `handoff_rules`,
+  `router_description`, and adapter body name only human/institutional roles (teacher of record,
+  institution, accrediting body, qualified content expert). No `routes to <other>-advisor`. The one
+  `-advisor|route` grep hit in the adapter is domain content (P157, "route words away from the visual
+  channel").
+- **Tool boundary** — write/build/produce/edit verbs in the adapter body are all either the caller's
+  deliverable (explicitly declined at `:193`, `:280-284`) or quoted domain content. Nothing implies a tool
+  beyond `Read, Grep, Glob`.
+- **Authority creep** — `forbidden_behaviours` bars building the deliverable, certifying
+  effectiveness/accreditation, grading learners, and ruling on subject-matter correctness; matches the
+  frontmatter "Not for" clause in substance, with no contradicting section elsewhere.
+- **Adapter structural integrity** — `<!-- GENERATED FILE. DO NOT EDIT DIRECTLY. -->` present in the first
+  20 lines with correct source-package / profile / regenerate-command / version / timestamp fields; no
+  severed instruction lines on a full read; the "eleven sources" role claim matches the 11-entry `sources:`
+  list.
+- **Renumbering hazard (the known fold-in trap)** — every inline `(Pxxx)` group in `quality_bar`,
+  `forbidden_behaviours`, `handoff_rules`, `source_of_truth_policy`, both worked examples, and the two
+  densest `always_on` blocks was checked against the actual principle statements. **No wrong-principle
+  citation survived the 1.1.0 renumber** — the re-derivation against P001–P200 was done correctly.
+  (Findings #3 and #6 are citation *currency* and citation *fit*, not renumber drift.)
+- **Skill ↔ principle integrity** — every skill's frontmatter `provenance.principles` matches its inline
+  `(Pxxx)` citations exactly; no orphaned or invented IDs; no principle ID duplicated across skills.
+- **Cross-references** — both `references/*.md` exist and are populated; the relative path resolves from
+  every skill directory. No dead links.
+- **Lens fit** — the 13 skills map 1:1 to the 13 `knowledge_partition.always_on` blocks in order; siblings
+  with overlap risk disambiguate each other explicitly in "When to use".
+- **Version consistency** — `agent_version: 1.3.0` matches the ledger Version History (1.0.0 → 1.1.0 →
+  1.2.0 → 1.3.0, each substantive, none silently overwritten) and `CHANGELOG.md [1.3.0]`.
 
 ---
 
-### 18 — NICE · `multisource_synthesis: deferred` unexplained
+## Fix ordering note
 
-**Where:** `profile.yaml:7`. No note anywhere says what "deferred" signals for an 11-source
-fold-in-built package. A later reviewer can't tell stale template field from intentional flag.
+#1, #2, #3 are mechanical and independent — none touches `profile.yaml`, so none re-triggers the 6-word
+body-size margin in #4. Apply them first. #4 / #6 / #7 / #9 all edit `profile.yaml` and must be batched
+into one MINOR-or-PATCH bump + `cli export` + `validate`; #8 rides that same bump if taken at all.
 
-**Fix:** add a one-line note in the ledger, or drop the field if no downstream tool reads it.
-
----
-
-## Confirmed clean
-
-- **Deterministic:** validator 0 FAIL; adapter-sync, adapter-fresh, adapter-quality, injection-scan, tier-consistency, all 11 anchor files, all 13 skills + 2 references authored, all 15 stale-maintenance checks (grounding unchanged).
-- **Agent design (adapter):** role coherence; tool boundary (`Read, Grep, Glob` at `:4`, no instruction in the body requires a tool the agent lacks); authority creep well defended — `forbidden_behaviours` at `:246-256` blocks building deliverables, certifying effectiveness/accreditation/competence, and treating enrolment/satisfaction/engagement as evidence of learning; when-to-use / when-not-to-use routable at `:176-199`; DO-NOT-EDIT header present at `:8-15`; no contradiction between always-on and mode/skill layers.
-- **Profile release readiness:** role crisp and single; `agent_version 1.1.0` matches ledger Version History; 200-principle / 7860-claim / 13-skill figures consistent across profile and ledger; `always_on` has exactly 13 entries matching the 13 skill slugs; all 11 sources `rights_status: distillation-only`, matching the ledger 1:1 including the documented `mayer-multimedia-lea-*` rename; supersession rule respected. `quality_bar` bullets all checkable and principle-cited. Modes advise/review/plan each give trigger + output shape.
-- **STANDING subagent-independence rule:** clean — no sibling subagent is named in `router_description`, `when_not_to_use`, or `handoff_rules`; every exclusion is stated by capability.
-- **Skill lens-fit:** clean — every skill's `## Output` restates the advise-don't-build boundary matching `forbidden_behaviours`; no Procedure step instructs the agent to author a deliverable.
-- **No placeholder text:** TODO / PLACEHOLDER / TBD / FIXME / XXX — zero matches across all 13 skills.
-- **Skill partition:** maps cleanly to `knowledge_partition` with non-overlapping principle sets.
-
-MUST_FIX_COUNT: 4
+MUST_FIX_COUNT: 3

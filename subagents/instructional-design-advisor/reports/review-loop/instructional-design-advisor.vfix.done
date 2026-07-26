@@ -1,0 +1,75 @@
+FIXED
+
+instructional-design-advisor — verify1 must-fix repair. agent_version 1.2.0 -> 1.3.0.
+`validate_generated_package` -> VALIDATION PASSED (0 FAIL). No other subagent touched.
+No claim introduced that is not already in `principles/principles.yaml`; every edit either
+restores a cited principle's own scope condition or removes a citation that never supported the
+clause. The advice-only ownership/safety hedge is intact and unweakened.
+
+## MUST-FIX 1 — P157 invariant dropped its scope condition (SCOPE_BROADENED, non-negotiable tier)
+
+Root cause: `compile_invariants._to_invariant` reduces a principle to its **first sentence**;
+P157's bound ("in a system-paced presentation") lived in the second sentence, so the adapter
+carried the narration-over-onscreen-text prescription unconditioned at its highest-precedence tier
+while `profile.yaml` and `skills/multimedia-and-elearning-design/SKILL.md` both kept the bound.
+
+Fix (root, not adapter): reordered P157's `statement` in `principles/principles.yaml` so the first
+sentence is self-sufficient. Same two clauses, same claim, condition moved to the front:
+
+  "In a system-paced presentation, route words away from the visual channel when a graphic is
+   present: pictures load the visual/pictorial channel and spoken words the auditory/verbal
+   channel, but printed and onscreen text enters through the eyes first and competes with the
+   graphic for the same limited channel. Prefer narration over concurrent onscreen text."
+
+Confirmed: `compile_invariants ... | grep P157` and `adapter:158` now both open "In a system-paced
+presentation". Also gave the one-line P157 restatement in
+`references/instructional-design-principles-index.md` the same bound.
+
+Digest fallout handled: the three authored docs citing P157 (`multimedia-and-elearning-design` and
+both references) went STALE on the statement change and were re-stamped with
+`detect_stale --stamp`. Their bodies already stated "system-paced", so grounding did not move —
+only the upstream digest. `detect_stale` is clean (all OK).
+
+## MUST-FIX 2 — P107/P134 cited to ground ownership/authority claims they do not state
+
+P107 grounds making the teaching theory explicit and adapting to local learners/constraints; P134
+grounds systematic action-research cycles. Neither states who *owns* the course, the subject
+matter, the grades, or the decision to run it. All four sites fixed in `profile.yaml`:
+
+1. `source_of_truth_policy.precedence` — dropped `P107`; `P193` now attaches only to the
+   subject-matter-referral clause it supports. Ownership clause stands unmarked as factory policy.
+2. `handoff_rules[0]` — dropped `P107, P134`; `P021` retained on the criterion-based
+   outcome-judgement clause.
+3. `source_of_truth_policy.canonical_owner` — split, so `(P107, P134)` attaches only to the
+   make-the-theory-explicit / adapt-through-systematic-evidence-grounded-cycles clause; final
+   authority over the course, its materials, and what is taught is now stated separately and
+   uncited.
+4. `forbidden_behaviours[4]` — dropped the spurious `P107`; `P021` + `P172` already ground it fully.
+
+Force of the boundary is unchanged — the advisor still never builds, teaches, grades, or certifies.
+Only the false grounding was removed, so the hedge is stated as policy instead of as
+principle-derived (`.claude/rules/rights-and-quotation-policy.md`, "No orphan field values").
+
+## Bookkeeping
+
+- `profile.yaml` `agent_version`: 1.2.0 -> 1.3.0 (MINOR).
+- `CHANGELOG.md`: `## [1.3.0] — 2026-07-27` entry added.
+- `provenance-ledger.md`: Version History `**1.3.0**` entry added, recording both fixes, the
+  supersession of the 1.2.0 `canonical_owner` citation decision, and the recorded-not-fixed items.
+- `python -m tools.subagent_factory.cli export instructional-design-advisor` re-run; package and
+  installed adapter regenerated.
+
+## Gate state
+
+- `validate_generated_package subagents/instructional-design-advisor` -> **VALIDATION PASSED**, 0 FAIL.
+- Phase 8 verdict WARNING, unchanged in kind from baseline: only `body-size` (~994 words vs the
+  800-word budget; hard fail is >1000). Baseline before this round was ~987; two prose trims kept
+  the net growth to +7 with no citation dropped.
+- `detect_stale` -> all OK, no STALE/WARN.
+
+## Not fixed (from the verify report's own "no action required" list)
+
+- Invariant-preamble carve-out (`templates/claude-agent-adapter.md.j2:23`) omits `When NOT to use`,
+  `Handoff rules`, `Source of truth policy` — template-wide, not this package.
+- `minimum_useful_output` / `outputs.primary_format` have no template block in any package.
+- P092's dropped tail adds an action rather than narrowing scope; retained clause not broadened.

@@ -10,6 +10,21 @@ field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`
 restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
 tags, per repo convention.)
 
+**Declared exception — structural-policy clauses (since 1.4.0).** Two clauses are deliberately
+uncited and are *not* orphan field values: the authority sentence in
+`source_of_truth_policy.canonical_owner` ("final authority over the course, its materials, and what
+is taught rests with the teacher of record and the institution") and the advisor-boundary half of
+`forbidden_behaviours[0]` ("the advisor supplies review criteria" rather than building the
+deliverable). These state *who owns the work and what this agent may do*, not a claim about
+instructional design. They are factory-level structural policy — the same category as the
+advice-only boundary applied to every specialist package — and are therefore exempt from
+per-principle QID citation under `.claude/rules/rights-and-quotation-policy.md`. The alternative
+was worse and was tried: 1.2.0 cited them to `P107`/`P134`/`P193`, principles about making teaching
+theory explicit, action-research cycles, and giving a content expert explicit review standards —
+none of which states who owns a course. 1.3.0 and 1.4.0 removed that false grounding rather than
+substituting another. A future reviewer should read these two clauses as an intentional carve-out,
+not a citation gap.
+
 `multisource_synthesis: deferred` in `profile.yaml` records that no *cross-source synthesis pass*
 was run: the eleven sources were folded into one spine by the map->reduce build and de-duplicated by
 principle clustering, so a principle can be grounded in several sources, but no separate artifact
@@ -177,42 +192,92 @@ references index and ground them.
   Verify also confirmed clean: 0/75 truncated invariants, adapter vs `compile_invariants`
   byte-identical, all 97 inline `PNNN` citations resolving, profile→adapter fidelity verbatim across
   every rendered block, and the `Read, Grep, Glob` tool grant unwidened.
-[38;2;102;102;102m-[39m[38;2;187;187;187m [39m[38;2;102;102;102m**[39m[38;2;102;102;102m1.3[39m[38;2;102;102;102m.0[39m[38;2;102;102;102m**[39m[38;2;187;187;187m [39m([38;2;102;102;102m2026[39m[38;2;102;102;102m-[39m[38;2;102;102;102m07[39m[38;2;102;102;102m-[39m[38;2;102;102;102m27[39m)[38;2;187;187;187m [39m—[38;2;187;187;187m [39mAdversarial[38;2;102;102;102m-[39mverify[38;2;187;187;187m [39m[38;2;170;34;255;01mrepair[39;00m[38;2;187;187;187m [39m(`/review-subagent`[38;2;187;187;187m [39mStep[38;2;187;187;187m [39m[38;2;102;102;102m6[39m,[38;2;187;187;187m [39m`verify1`);[38;2;187;187;187m [39m[38;2;170;34;255;01mno[39;00m
-[38;2;187;187;187m  [39mre[38;2;102;102;102m-[39mdistillation,[38;2;187;187;187m [39mso[38;2;187;187;187m [39mthe[38;2;187;187;187m [39mspine,[38;2;187;187;187m [39mprinciple[38;2;187;187;187m [39mnumbering,[38;2;187;187;187m [39mclaims,[38;2;187;187;187m [39m[38;2;170;34;255;01mand[39;00m[38;2;187;187;187m [39m[38;2;170;34;255;01msource[39;00m[38;2;187;187;187m [39m[38;2;170;34;255;01mset[39;00m[38;2;187;187;187m [39mare[38;2;187;187;187m [39munchanged[38;2;187;187;187m [39m[38;2;170;34;255;01mfrom[39;00m
-[38;2;187;187;187m  [39m[38;2;102;102;102m1.2[39m[38;2;102;102;102m.0[39m.[38;2;187;187;187m [39mTwo[38;2;187;187;187m [39mmust[38;2;102;102;102m-[39mfix[38;2;187;187;187m [39mfindings,[38;2;187;187;187m [39m[38;2;170;34;255;01mboth[39;00m[38;2;187;187;187m [39mclosed[38;2;102;102;102m:[39m
-[38;2;187;187;187m  [39m[38;2;102;102;102m-[39m[38;2;187;187;187m [39m[38;2;102;102;102m**[39mP157[38;2;187;187;187m [39minvariant[38;2;187;187;187m [39mdropped[38;2;187;187;187m [39mthe[38;2;187;187;187m [39mscope[38;2;187;187;187m [39m[38;2;170;34;255;01mcondition[39;00m[38;2;187;187;187m [39mthat[38;2;187;187;187m [39mbounds[38;2;187;187;187m [39mit[38;2;187;187;187m [39m(SCOPE_BROADENED,[38;2;187;187;187m [39mnon[38;2;102;102;102m-[39mnegotiable
-[38;2;187;187;187m    [39mtier).[38;2;102;102;102m**[39m[38;2;187;187;187m [39m`compile_invariants._to_invariant`[38;2;187;187;187m [39mreduces[38;2;187;187;187m [39ma[38;2;187;187;187m [39mprinciple[38;2;187;187;187m [39m[38;2;170;34;255;01mto[39;00m[38;2;187;187;187m [39mits[38;2;187;187;187m [39m[38;2;102;102;102m**[39m[38;2;170;34;255;01mfirst[39;00m[38;2;187;187;187m [39msentence[38;2;102;102;102m**[39m;
-[38;2;187;187;187m    [39mP157[38;2;187;68;68m'[39m[38;2;187;68;68ms bound ("in a system-paced presentation") sat in the second sentence, so the adapter[39m
-[38;2;187;68;68m    stated the narration-over-onscreen-text prescription unconditioned, at the tier the adapter[39m
-[38;2;187;68;68m    itself labels non-negotiable — while `profile.yaml` and[39m
-[38;2;187;68;68m    `skills/multimedia-and-elearning-design/SKILL.md` all retained the bound. This tripped the[39m
-[38;2;187;68;68m    package[39m[38;2;187;68;68m'[39ms[38;2;187;187;187m [39mown[38;2;187;187;187m [39m`forbidden_behaviours[2]`[38;2;187;187;187m [39m([38;2;187;68;68m"[39m[38;2;187;68;68momitting the conditions that make a rule hold[39m[38;2;187;68;68m"[39m).
-[38;2;187;187;187m    [39mRepaired[38;2;187;187;187m [39m[38;2;170;34;255;01mat[39;00m[38;2;187;187;187m [39mthe[38;2;187;187;187m [39mroot,[38;2;187;187;187m [39m[38;2;170;34;255;01mnot[39;00m[38;2;187;187;187m [39m[38;2;170;34;255;01min[39;00m[38;2;187;187;187m [39mthe[38;2;187;187;187m [39madapter[38;2;102;102;102m:[39m[38;2;187;187;187m [39mP157[38;2;187;68;68m'[39m[38;2;187;68;68ms `statement` in[39m
-[38;2;187;68;68m    `principles/principles.yaml` is reordered so the first sentence is self-sufficient. Nothing[39m
-[38;2;187;68;68m    was added or removed from the claim — the same two clauses, the condition moved to the front —[39m
-[38;2;187;68;68m    and the exported invariant now carries "In a system-paced presentation". Re-stamped the three[39m
-[38;2;187;68;68m    authored docs whose digest moved (`multimedia-and-elearning-design` and both references); their[39m
-[38;2;187;68;68m    bodies already stated the bound, so only the upstream digest changed, not their grounding.[39m
-[38;2;187;68;68m  - **P107/P134 cited to ground ownership and authority claims they do not state (mis-citation,[39m
-[38;2;187;68;68m    four sites).** P107 = make the teaching theory explicit and adapt it to local learners and[39m
-[38;2;187;68;68m    constraints; P134 = improve teaching through systematic action-research cycles. Neither states[39m
-[38;2;187;68;68m    who owns the course, the subject matter, the grades, or the decision to run it, so the[39m
-[38;2;187;68;68m    advice-only ownership boundary was an orphan field value dressed as principle-derived[39m
-[38;2;187;68;68m    (`.claude/rules/rights-and-quotation-policy.md`, Provenance requirement). The boundary itself is[39m
-[38;2;187;68;68m    legitimate factory policy and is unchanged in force; only its false grounding is removed:[39m
-[38;2;187;68;68m    `source_of_truth_policy.precedence` drops `P107` and leaves `P193` on the subject-matter-referral[39m
-[38;2;187;68;68m    clause alone; `handoff_rules[0]` drops `P107, P134` and keeps `P021` on the criterion-based[39m
-[38;2;187;68;68m    outcome-judgement clause; `source_of_truth_policy.canonical_owner` is split so `(P107, P134)`[39m
-[38;2;187;68;68m    attaches only to the make-explicit/adapt clause, with final authority over the course stated[39m
-[38;2;187;68;68m    separately and uncited; `forbidden_behaviours[4]` drops the spurious `P107`, already fully[39m
-[38;2;187;68;68m    grounded by `P021` and `P172`. All four sites *restrict* the advisor, so no advice-quality[39m
-[38;2;187;68;68m    behaviour changed — this is a provenance repair.[39m
+- **1.4.0** (2026-07-27) — Review-loop repair round r1 (`/review-subagent`; consolidated panel of
+  deterministic gates + agent-skills-advisor + profile-reviewer + faithfulness-reviewer +
+  ai-agent-engineering-reviewer). No re-distillation, so the spine, principle numbering, claims, and
+  the eleven sources are unchanged from 1.3.0. Three must-fix and four should-fix findings closed:
+  - **Stray `</content>` wrapper tag shipped in 11 of the 13 `SKILL.md` files.** Each file ended in a
+    closing tag with no opening tag anywhere in it — an authoring-wrapper delimiter that leaked out
+    of the skill-author step and survived post-processing (only `instructional-strategy-and-events`
+    and `teaching-scholarship-and-quality` were clean). Skill bodies load verbatim into model context
+    at trigger time, so this was uninterpretable noise in 85% of them; `validate_generated_package`
+    has no check for an unmatched wrapper tag. The trailing line is stripped from all 11 files, each
+    of which now ends at its "Derived from …" provenance sentence. Nothing else in any body changed:
+    every frontmatter `provenance` block and every inline `(Pxxx)` citation is byte-identical.
+  - **`provenance-ledger.md` carried a colorized-diff paste — 38 raw ANSI escape sequences** across
+    lines 180-218, the only ANSI bytes in the package. The block was a terminal-rendered `git`/`delta`
+    diff of the 1.3.0 edit captured into the canonical ledger, giving one version two histories: a
+    clean entry at 132-179 and a control-character-laden, reworded restatement after it that had also
+    lost the precise `profile.yaml:179` locator. Because the ledger is the canonical audit record
+    (`.claude/rules/generated-artifact-policy.md`), ANSI bytes break every plain-text tool run against
+    it. The duplicate is deleted; the clean 1.3.0 entry is authoritative and unchanged. Root cause is
+    the known ANSI-paste class — compose ledger entries with the Write tool or `git --no-color`.
+  - **`reports/faithfulness-report.yaml` was stale at four sites.** It was last regenerated at 1.2.0,
+    so it still described the pre-1.3.0 citations that the adversarial-verify round had already
+    removed: `handoff_rules[0]` ("Restates P107/P021/P134"), `source_of_truth_policy.precedence`
+    (P107 in the citation list), `forbidden_behaviours[4]` ("P107 … is a weak, tangential citation
+    here"), and `source_of_truth_policy.canonical_owner` (quoting a sentence structure that the 1.3.0
+    split no longer produces). As the tier-2 artifact of record for whether shipped rules over-claim,
+    it would have told a reader that a mis-citation was still live at four sites after it was fixed.
+    All four entries are rewritten in the `"REPAIRED in 1.x.0 … Now WITHIN_SCOPE"` pattern already
+    used for the `knowledge_partition.always_on[1]/[3]/[4]` entries, so the repair is recorded rather
+    than the pre-fix prose left standing. **Regenerating or hand-refreshing the faithfulness report is
+    now part of the version-bump checklist** — a profile citation edit that skips it is the recurring
+    failure mode this finding represents.
+  - **`forbidden_behaviours[0]` stretched `P193` onto a clause it does not ground.** P193 is
+    specifically about giving a *qualified content expert* validated goals and skill frameworks as
+    explicit review standards for subject-matter correctness — used correctly for exactly that at
+    `forbidden_behaviours[5]` and `handoff_rules[1]`. Here it was carrying the general
+    "advisor supplies review criteria rather than building the deliverable" boundary, which no
+    principle states. This is the same category as the tangential `P107` citations 1.3.0 removed at
+    four other sites; this instance was missed then. `P193` is dropped; `P107` already grounds the
+    "practitioner makes the teaching theory their own" half, and the advisor-boundary half now stands
+    as uncited structural policy under the carve-out declared at the head of this ledger. Not a
+    strength over-claim in either form — the clause is an advisory *restriction*, so a weak citation
+    could not make it stronger than source; no advice behaviour changed.
+  - **Uncited ownership clauses declared an accepted exception, not an orphan gap.** 1.3.0 removed a
+    wrong `(P107, P134)` from the `canonical_owner` authority sentence rather than substituting a
+    false one, but recorded that only as inline changelog prose, leaving the next reviewer unable to
+    tell an intentional carve-out from a missed citation — and the `forbidden_behaviours[0]` fix above
+    creates a second instance. Both are now declared at the head of this ledger as factory-level
+    structural policy, exempt from the per-principle QID requirement in
+    `.claude/rules/rights-and-quotation-policy.md`.
+  - **Profile body trimmed 994 -> 935 words.** The phase-8 soft budget is 800 with a hard FAIL above
+    1000, so at 994 the package had a **6-word margin**: any future citation or clause addition would
+    have blocked validation, and the 1.2.0 entry recorded the trim to "~987 words" without ever
+    stating that the residual WARNING was an accepted release state. Only redundant prose was cut —
+    the enumerated advice-only tail of `role` (restated in full by `when_not_to_use` and
+    `forbidden_behaviours`), the "built deliverable / promise of effectiveness" tails duplicated
+    across `outputs.primary_format` and `modes[advise]` (stated in full at `forbidden_behaviours[0]`
+    and `[1]`), and clause-level compression in `quality_bar[0]`/`[1]`, `forbidden_behaviours[2]`/`[4]`,
+    and `handoff_rules[0]`. Every `P`-id citation and every distinct rule survives; the three
+    faithfulness entries quoting the changed wording were updated with it. **The phase-8 body-size
+    WARNING is accepted as a known release state at 935 words (65-word margin to the hard FAIL);** the
+    remaining weight is irreducible without dropping grounded content, since each surviving clause
+    carries the substance of the principle it cites.
+  - **Citation-discipline clause added to `source_of_truth_policy.canonical_owner`.** The adapter
+    cites ~30 principle IDs — across Quality bar, Forbidden behaviours, handoff rules, both worked
+    examples, and the source-of-truth policy — whose text never appears in the loaded prompt, because
+    the printed "Operating invariants (must hold)" list covers only the curated
+    `confidence: high` + `profile_rule: true` subset. Spot-verified: P096, P109, P148, P187, P021,
+    P193, and P107 each appear 1-5x in the adapter body and 0x as a defined invariant, and the worked
+    examples model the behaviour of citing them. The runtime risk is a fabricated or misremembered
+    gloss attached to a real-looking ID. Rather than an ID-gloss appendix (which would consume the
+    body-size budget the finding above is trying to protect), the field now directs the agent to read
+    `references/instructional-design-principles-index.md` for any cited ID not spelled out in the
+    invariants list and use its stated content. `canonical_owner` was chosen because it renders into
+    the adapter *and* is excluded from the phase-8 body-size word count, so the fix costs no headroom.
+    This is a citation-apparatus completeness fix, not a content-faithfulness one — the plain-English
+    rule text already stood alone and stayed obeyable.
 
-[38;2;187;68;68m  **Recorded, no action at this gate** (from the same verify pass, all template- or factory-level[39m
-[38;2;187;68;68m  rather than package defects): the invariant-preamble carve-out at[39m
-[38;2;187;68;68m  `templates/claude-agent-adapter.md.j2:23` names only Role and Forbidden behaviours, omitting[39m
-[38;2;187;68;68m  `When NOT to use`, `Handoff rules`, and `Source of truth policy` — neutralised in practice by the[39m
-[38;2;187;68;68m  Role paragraph; and `minimum_useful_output` / `outputs.primary_format` still have no template[39m
-[38;2;187;68;68m  block in any package. Verify also confirmed clean: 0/75 truncated invariants, adapter-vs-[39m
-[38;2;187;68;68m  `compile_invariants` byte-identical, all 97 inline `PNNN` citations resolving, profile→adapter[39m
-[38;2;187;68;68m  fidelity verbatim across all rendered blocks, and the `Read, Grep, Glob` tool grant.[39m
+  **Recorded at this gate, no action taken** — factory- or template-level rather than package
+  defects: `outputs.primary_format` and `minimum_useful_output` still render nowhere in the adapter
+  (re-confirmed against `templates/claude-agent-adapter.md.j2`, which has slots for
+  `canonical_owner` and `precedence` only), so their content stays duplicated into
+  `outputs.modes[*].output` to reach the model — re-flagged here rather than silently carried; the
+  validator has no check that FAILs on an unmatched `<content>`/`</content>` wrapper in an exported
+  `SKILL.md`, which is what let the finding above ship; and `instructional-strategy-and-events` loads
+  35 principles on any trigger (~2x its largest sibling), where a split along its five existing `###`
+  seams would break the 13-skill <-> 13 `knowledge_partition.always_on` 1:1 mapping and force a
+  further profile edit under body-size pressure — deferred to a later version as a scoped change of
+  its own.
