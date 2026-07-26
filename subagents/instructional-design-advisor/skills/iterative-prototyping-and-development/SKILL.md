@@ -4,14 +4,24 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P023
-  - P050
-  - P056
-  - P070
+  - P010
+  - P068
   - P073
-  - P133
-  - P175
+  - P085
+  - P087
+  - P119
+  - P151
+  - P152
+  - P195
   claims:
+  - C03130
+  - C03131
+  - C03132
+  - C03138
+  - C03139
+  - C03140
+  - C03141
+  - C04209
   - C04842
   - C04843
   - C04850
@@ -20,17 +30,9 @@ provenance:
   - C04853
   - C04854
   - C04855
-  - C04862
-  - C04878
-  - C04880
-  - C05015
-  - C05016
-  - C05017
-  - C05018
-  - C05019
   evidence: []
   source_anchors: []
-  authored_from_digest: 512d27ca75c66aec5f463c5e85af4b5ee1c18977ccd7055020b13f6b7a492912
+  authored_from_digest: f2c5076438395d17316f95bc234ffb06ae0f0fcc28550721a4ed442db7943459
 ---
 
 
@@ -38,28 +40,30 @@ provenance:
 
 ## Purpose
 
-This skill manages the build as successive approximation rather than a single specification handoff. It sets goals through early design-prototype-evaluation cycles and stabilises behavioural objectives before detailed development; uses experiential prototypes instead of specification-only approval to align stakeholders and test timing, transitions, media, interaction, and integration; involves recent and representative learners while fundamental change is still affordable; maps objectives to treatments and reuses treatments where context and criteria permit; and moves through progressive release gates — design proof, alpha, beta — converging as evidence stabilises, resisting perfectionism and unplanned refinement, releasing something fit for responsible use with correction capacity, and reopening approved design only for unacceptable defects. It treats the whole instructional system as interdependent and revised from outcome feedback.
+This skill develops the design in small, evidence-tested increments rather than by specification sign-off. It begins and ends every cycle with evaluation and keeps the first cycle to a thin slice connecting performance goals, objectives, appraisal, practical media, and representative treatments and content; uses experiential prototypes to align stakeholder expectations and test timing, transitions, media, interaction, and integration before misunderstanding reaches costly development; involves recent and representative learners while fundamental changes remain affordable, shifting review focus from treatment to wording, media, interface, navigation, and feedback as fidelity rises; drafts only enough objectives to prototype representative cases and prototypes each distinct objective-activity type rather than every instance; gates release progressively through design proof, alpha, and beta; converges as evidence stabilises and resists perfection and unplanned refinement; and estimates cost and duration honestly, phasing delivery or cutting to a coherent effective core rather than underfunding the whole solution.
 
 ## When to use
 
-- A development effort must move from analysis and objectives into building materials.
-- Stakeholders are approving specifications they cannot yet experience, or scope is expanding through unplanned refinement.
-- Prototypes need learner exposure while change is still affordable.
-- Release readiness must be judged and the design frozen or reopened.
+- A development approach must be chosen, or a project is heading for specification sign-off without a testable artefact.
+- Prototypes, review cycles, or release gates need designing or are being skipped.
+- Scope, cost, or schedule pressure is about to spread inadequate funding across the whole solution.
+- A design is being refined past the point where evidence still justifies the change.
 
 ## Procedure
 
-1. Set goals through early design-prototype-evaluation cycles, then stabilize behavioral objectives that specify observable performance, its conditions, and success criteria before detailed design (P023).
-2. Design instruction as a dynamic system whose interdependent people, materials, activities, delivery mechanisms, and environments are monitored and revised from outcome feedback (P050).
-3. Use progressive release gates (P056).
-4. Converge as evidence stabilizes, resist perfection and unplanned refinements, release a solution fit for responsible use with correction capacity, and reopen approved design only for unacceptable defects or risks (P070).
-5. Involve recent and representative learners while fundamental changes remain affordable; let them experience rough prototypes authentically, explain incompleteness only as needed, and shift review focus from treatment to wording (P073).
-6. Use experiential prototypes rather than specification-only approval to align stakeholder expectations and test timing, transitions, media, interaction, and integration before misunderstanding reaches costly development (P133).
-7. Map objectives to treatments, reuse treatments where context and criteria permit, draft only enough objectives to prototype representative cases initially, and prototype each distinct objective-activity type rather than every instance (P175).
+1. Choose representative samples of objectives within each outcome domain at intermediate planning levels rather than listing complete performance objectives everywhere, while recognising the fuller procedure can be followed and is (P010).
+2. Design instruction as a dynamic system whose interdependent people, materials, activities, delivery mechanisms, and environments are monitored and revised from outcome feedback (P068).
+3. Use progressive release gates (P073).
+4. Converge as evidence stabilizes, resist perfection and unplanned refinements, release a solution fit for responsible use with correction capacity, and reopen approved design only for unacceptable defects or risks (P085).
+5. Involve recent and representative learners while fundamental changes remain affordable; let them experience rough prototypes authentically, explain incompleteness only as needed, and shift review focus from treatment to wording (P087).
+6. Begin and end every cycle with evaluation; keep the first cycle to a thin slice connecting performance goals, behavioral objectives, appraisal, practical media, representative treatments, and representative content (P119).
+7. Estimate cost and duration from backgrounding, representative prototypes, treatment coverage, and committed resources; when funding is inadequate, reduce to a coherent effective core or phase delivery instead of underfunding the whole (P151).
+8. Use experiential prototypes rather than specification-only approval to align stakeholder expectations and test timing, transitions, media, interaction, and integration before misunderstanding reaches costly development (P152).
+9. Map objectives to treatments, reuse treatments where context and criteria permit, draft only enough objectives to prototype representative cases initially, and prototype each distinct objective-activity type rather than every instance (P195).
 
 ## Inputs
 
-- The current state of the build, the objectives and treatments planned, the stakeholders and learners available for review, and the release constraints.
+- The development plan, the artefacts produced so far, who reviews them and when, and the resources and schedule committed.
 - The reasoning offered for the design decision under review: the intended learning, the learners and setting, the evidence already gathered, and any claim of alignment, effectiveness, or readiness made.
 
 ## Output
@@ -68,13 +72,13 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P023: Set goals through early design-prototype-evaluation cycles, then stabilize behavioral objectives that specify observable performance, its conditions.
-- Overlooking P050: Design instruction as a dynamic system whose interdependent people, materials, activities, delivery mechanisms, and environments are monitored.
-- Overlooking P056: Use progressive release gates.
-- Overlooking P070: Converge as evidence stabilizes, resist perfection and unplanned refinements, release a solution fit for responsible use with correction capacity.
-- Overlooking P073: Involve recent and representative learners while fundamental changes remain affordable; let them experience rough prototypes authentically, explain.
-- Overlooking P133: Use experiential prototypes rather than specification-only approval to align stakeholder expectations and test timing, transitions, media.
-- Overlooking P175: Map objectives to treatments, reuse treatments where context and criteria permit, draft only enough objectives to prototype representative cases.
+- Overlooking P010: Choose representative samples of objectives within each outcome domain at intermediate planning levels rather than listing complete performance.
+- Overlooking P068: Design instruction as a dynamic system whose interdependent people, materials, activities, delivery mechanisms, and environments are monitored.
+- Overlooking P073: Use progressive release gates.
+- Overlooking P085: Converge as evidence stabilizes, resist perfection and unplanned refinements, release a solution fit for responsible use with correction capacity.
+- Overlooking P087: Involve recent and representative learners while fundamental changes remain affordable; let them experience rough prototypes authentically, explain.
+- Overlooking P119: Begin and end every cycle with evaluation; keep the first cycle to a thin slice connecting performance goals, behavioral objectives, appraisal.
+- Overlooking P151: Estimate cost and duration from backgrounding, representative prototypes, treatment coverage, and committed resources; when funding is inadequate.
 
 ## References
 
@@ -82,4 +86,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P023, P050, P056, P070, P073, P133, P175, grounded in the ten distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; and *e-Learning and the Science of Instruction*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P010, P068, P073, P085, P087, P119, P151, P152, P195, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

@@ -9,6 +9,6 @@
 ## Behaviour test suites
 
 - `tests/golden-tests.yaml` — 7 golden, 3 negative-routing, 3 missing-context.
-- `tests/principle-behaviour-tests.yaml` — one behaviour test per principle (180 total; all 52 high-confidence principles covered).
+- `tests/principle-behaviour-tests.yaml` — one behaviour test per principle (200 total; all 75 high-confidence principles covered).
 
 Every `principle_id` and `principle_coverage` id resolves into `principles/principles.yaml`.

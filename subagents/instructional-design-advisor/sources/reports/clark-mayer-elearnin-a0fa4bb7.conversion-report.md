@@ -1,9 +1,9 @@
 # Conversion Report — clark-mayer-elearnin-a0fa4bb7
 
-**Source:** clark-mayer-elearning-science-of-instruction.md
+**Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-26T10:28:27.032600+00:00
+**Generated:** 2026-07-26T12:51:14.860412+00:00
 
 ---
 

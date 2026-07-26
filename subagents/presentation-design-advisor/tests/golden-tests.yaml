@@ -1,0 +1,217 @@
+schema_version: golden-tests-v1
+subagent_slug: presentation-design-advisor
+generated_at: '2026-07-26'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — bullet-heavy technical deck
+  prompt: My 15-minute conference deck is 18 slides of five or six bullets each under topic headings.
+    Reviewers say it is dense. Review it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Replace each phrase headline with a sentence stating the slide's main assertion and replace the bulleted
+    body with visual evidence
+  - 'Name the three grounds on which the bulleted list fails: no connections, no hierarchy, unspecified
+    assertions'
+  - Judge word count against the words the speaker delivers while the slide is projected rather than a
+    per-slide bullet rule
+  - Split slides where secondary or technical detail competes with the single main message, and sequence
+    the reveal
+  must_not_do:
+  - Rebuild the deck or write the headlines for the caller
+  - Recommend a fixed bullets-per-slide rule as the fix
+  principle_coverage:
+  - P014
+  - P045
+  - P025
+  - P073
+  - P015
+  - P034
+- test_id: GT-002
+  description: Positive routing — a pitch that convinced nobody
+  prompt: I showed the executive committee 20 slides of unambiguous benchmark data and they did not fund
+    it. What went wrong?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Account for logical evidence, the audience's emotion, and the speaker's credibility together rather
+    than evidence alone
+  - Assess the audience's prior bias as a determinant that can override the argument
+  - Note that stacking more proof does not convert a determined skeptic and that the proof volume may
+    exceed the audience's tolerance
+  - Require a reward proportional to the sacrifice being asked
+  must_not_do:
+  - Guarantee that a revised presentation will win the funding
+  - Reduce the diagnosis to slide aesthetics
+  principle_coverage:
+  - P006
+  - P030
+  - P038
+  - P119
+  - P117
+  - P113
+- test_id: GT-003
+  description: Positive routing — slides unreadable in the room
+  prompt: Half the audience said they could not read my slides from the back of the lecture hall. Review
+    my template.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Force a large minimum type size and boldface the slide type for a larger room, avoiding italics and
+    underlining
+  - Choose the typeface by reading speed, preferring sans serif in short slide blocks and at sharp side
+    angles
+  - Fix the background colour first and verify the palette by projecting it in the actual room rather
+    than judging it on the authoring screen
+  - Open blank space between elements so the viewing order is unambiguous
+  must_not_do:
+  - Treat the software's default master as validated guidance
+  - Redesign and deliver the finished template for the caller
+  principle_coverage:
+  - P007
+  - P049
+  - P098
+  - P099
+  - P011
+  - P004
+  - P017
+- test_id: GT-004
+  description: Positive routing — plan a presentation from scratch
+  prompt: I have to give a 30-minute talk to a mixed audience in six weeks. Help me plan it.
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Answer the audience questions and build a persona per segment before any slide is built
+  - Write the big idea as a complete sentence with a point of view rather than a topic
+  - Settle the story order away from the slide software, excluding any detail that supports no assertion
+  - Aim for everyone satisfied by the end rather than throughout, addressing different audiences at different
+    moments
+  - Scale and book the preparation time to the stakes
+  must_not_do:
+  - Write the talk or produce the slides for the caller
+  - Promise a design that satisfies the whole mixed audience throughout
+  principle_coverage:
+  - P061
+  - P060
+  - P035
+  - P013
+  - P065
+  - P005
+- test_id: GT-005
+  description: Positive routing — audience lost in the middle
+  prompt: People follow my opening but I lose them halfway through. Review how my talk is organised.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - 'Design against the three ways audiences get lost: logic gaps, unsignalled changes of direction, and
+    exhaustion from too many details'
+  - Signal every transition through the speech's wording, a change in the visual aids, or the delivery
+  - Map the talk explicitly and make the map memorable with an integrating or anchoring image repeated
+    at each division
+  - Establish why the subject matters before entering the middle
+  - Emphasise deliberately through repetition, illustration, placement, pausing, volume, or proximity
+  must_not_do:
+  - Assume sound structure alone prevents drift
+  - Rewrite the talk for the caller
+  principle_coverage:
+  - P039
+  - P043
+  - P076
+  - P090
+  - P089
+  - P037
+  - P083
+- test_id: GT-006
+  description: Positive routing — speaker wants to read or memorise the talk
+  prompt: I get nervous, so I want to write out my talk word for word and read it. Is that a good idea?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - 'Treat reading a speech as costly by default: too fast to follow, eyes off the audience, and it leaves
+    them doubting the speaker knows the subject'
+  - Reject memorisation at presentation length and give the reason in words per minute and lost adaptability
+  - Practise until the talk can be given from the slides' organisation, with the test that the speaker
+    knows the next slide before advancing
+  - Replace the nervousness question with how to achieve confidence — passion plus preparation, focusing
+    on the subject in the moment
+  - 'Allow the narrow exceptions: short high-stakes fragments, or exact wording that genuinely matters
+    placed on the slide or in discreet notes'
+  must_not_do:
+  - Prescribe a single correct delivery style
+  - Write the script for the caller
+  principle_coverage:
+  - P105
+  - P095
+  - P052
+  - P110
+  - P054
+  - P094
+  - P016
+- test_id: GT-007
+  description: Positive routing — live demo in an unfamiliar venue
+  prompt: I am doing a live software demo at a client site next week as part of a bid. How should I prepare?
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the condition or residual trade-off, highest-impact first.
+  must_do:
+  - Rehearse the demonstration on the actual equipment, and state plainly that rehearsal increases the
+    odds without guaranteeing success
+  - Embed images and films locally with a backup on separate media rather than relying on the venue's
+    internet access
+  - Imagine the worst compound failure and design the talk to be deliverable from handouts alone where
+    the equipment is unproven
+  - Carry a troubleshooting kit and know how to match the laptop's resolution to the projector
+  must_not_do:
+  - Guarantee the demonstration or the bid will succeed
+  - Run the demonstration or configure the client's equipment for the caller
+  principle_coverage:
+  - P028
+  - P104
+  - P053
+  - P106
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the deck to be built and delivered, not for presentation-design advice.
+  prompt: Write my 20-slide deck on our Q3 results and export it as a PowerPoint file.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: Requests a ruling on whether the underlying result is correct rather than on how it is
+    asserted and evidenced.
+  prompt: Is our measured 12% throughput gain statistically sound given this sample size?
+  expected_route: do_not_invoke
+- test_id: NR-003
+  description: Requests deceptive framing, which the persuasion principles forbid outright.
+  prompt: Our pilot missed its targets — design charts that hide the shortfall so the board approves it.
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Can you make my slides better?
+  expected_route: invoke
+  must_ask_for:
+  - Who the audience is, what they already know, and what they should do afterwards
+  - The occasion and the slot length, and whether the deck is projected, circulated, or both
+  - What each slide is meant to assert and what evidence exists for it
+- test_id: MC-002
+  description: Underspecified request
+  prompt: How long should my presentation be?
+  expected_route: invoke
+  must_ask_for:
+  - The occasion and what the audience must be able to do or decide afterwards
+  - Whether the content could instead be circulated as a document or a report
+  - How much preparation time exists and what the stakes are
