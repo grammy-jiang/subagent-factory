@@ -1,5 +1,6 @@
 ---
 name: iterative-prototyping-and-development
+description: 'Guides iterative, evidence-gated prototyping and development: release gates, learner testing, cycle evaluation, and honest cost estimation; use when reviewing or choosing a development approach.'
 kind: skill
 status: ready
 provenance:
@@ -51,15 +52,15 @@ This skill develops the design in small, evidence-tested increments rather than 
 
 ## Procedure
 
-1. Choose representative samples of objectives within each outcome domain at intermediate planning levels rather than listing complete performance objectives everywhere, while recognising the fuller procedure can be followed and is (P010).
-2. Design instruction as a dynamic system whose interdependent people, materials, activities, delivery mechanisms, and environments are monitored and revised from outcome feedback (P068).
-3. Use progressive release gates (P073).
-4. Converge as evidence stabilizes, resist perfection and unplanned refinements, release a solution fit for responsible use with correction capacity, and reopen approved design only for unacceptable defects or risks (P085).
-5. Involve recent and representative learners while fundamental changes remain affordable; let them experience rough prototypes authentically, explain incompleteness only as needed, and shift review focus from treatment to wording (P087).
-6. Begin and end every cycle with evaluation; keep the first cycle to a thin slice connecting performance goals, behavioral objectives, appraisal, practical media, representative treatments, and representative content (P119).
-7. Estimate cost and duration from backgrounding, representative prototypes, treatment coverage, and committed resources; when funding is inadequate, reduce to a coherent effective core or phase delivery instead of underfunding the whole (P151).
-8. Use experiential prototypes rather than specification-only approval to align stakeholder expectations and test timing, transitions, media, interaction, and integration before misunderstanding reaches costly development (P152).
-9. Map objectives to treatments, reuse treatments where context and criteria permit, draft only enough objectives to prototype representative cases initially, and prototype each distinct objective-activity type rather than every instance (P195).
+1. When translating long-range goals into unit or lesson objectives, select representative sample objectives within each outcome domain at the intermediate planning level rather than enumerating every objective in full, while allowing that the complete enumeration remains an option when it is genuinely wanted (P010).
+2. Treat instruction as a dynamic system: its people, materials, activities, delivery mechanisms, and environments are interdependent, so monitor outcomes and revise any of these components in light of feedback rather than treating the design as fixed (P068).
+3. Gate the release of a substantial product progressively: a design proof demonstrates representative integrated viability, an alpha demonstrates complete testability with any known exceptions disclosed, and a beta demonstrates a corrected, release-ready product (P073).
+4. Once evidence stabilizes, converge on a solution instead of chasing perfection or making unplanned refinements; release something fit for responsible use that retains a capacity for correction, and reopen an already-approved design only for defects or risks that are unacceptable (P085).
+5. While fundamental changes are still affordable, involve recent and representative members of the target population; let them experience rough prototypes as genuine, explain the incompleteness only when needed, and shift the review's focus from the underlying treatment toward wording, media, interface, navigation, and feedback as the prototype's fidelity increases (P087).
+6. Open and close every design-development cycle with an evaluation step, and when uncertainty or stakeholder interpretation is material, keep the first cycle to a thin slice that connects performance goals, behavioral objectives, appraisal, practical media, and representative treatments and content (P119).
+7. When scoping a project whose treatment is not yet defined, estimate cost and duration from the backgrounding work, representative prototypes, the coverage of treatments needed, and the resources actually committed; if funding proves inadequate, cut down to a coherent, effective core or phase the delivery rather than spreading inadequate funding across the whole solution (P151).
+8. When the design carries experiential, interactive, media, or integration uncertainty, use experiential prototypes instead of specification-only sign-off to align stakeholder expectations and to test timing, transitions, media, interaction, and integration before any misunderstanding reaches costly development (P152).
+9. When content varies and the project is too large to prototype every objective, map objectives to treatments, reuse a treatment wherever the context and criteria permit, draft only enough objectives at first to prototype representative cases, and prototype each distinct objective-activity type rather than every individual instance (P195).
 
 ## Inputs
 
@@ -72,13 +73,17 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P010: Choose representative samples of objectives within each outcome domain at intermediate planning levels rather than listing complete performance.
-- Overlooking P068: Design instruction as a dynamic system whose interdependent people, materials, activities, delivery mechanisms, and environments are monitored.
-- Overlooking P073: Use progressive release gates.
-- Overlooking P085: Converge as evidence stabilizes, resist perfection and unplanned refinements, release a solution fit for responsible use with correction capacity.
-- Overlooking P087: Involve recent and representative learners while fundamental changes remain affordable; let them experience rough prototypes authentically, explain.
-- Overlooking P119: Begin and end every cycle with evaluation; keep the first cycle to a thin slice connecting performance goals, behavioral objectives, appraisal.
-- Overlooking P151: Estimate cost and duration from backgrounding, representative prototypes, treatment coverage, and committed resources; when funding is inadequate.
+Every principle in this skill has a matching failure mode below.
+
+- The team writes out exhaustive, complete performance objectives at every planning level instead of choosing representative samples, bloating the planning documents without adding value (P010).
+- The team treats the instructional design as a fixed, one-time build instead of a system whose people, materials, activities, delivery mechanisms, and environments are monitored and revised from outcome feedback (P068).
+- The team ships a "final" release without passing through design proof, alpha, and beta stages, so integrated viability, testability, and release completeness are never separately verified (P073).
+- The team keeps refining an already-approved design after the evidence has stabilized, chasing perfection or unplanned polish instead of releasing a correctable, fit-for-use solution (P085).
+- The team defers learner review until fidelity is already high, or lets fundamental changes slip once they have become expensive, instead of testing rough prototypes with recent and representative learners while change is still affordable (P087).
+- The team runs a design-development cycle without an evaluation step at both ends, or lets the first cycle sprawl across every objective and treatment instead of starting from a thin connecting slice (P119).
+- The team spreads inadequate funding thinly across the whole solution instead of cutting to a coherent effective core or phasing delivery when the cost and duration estimate falls short (P151).
+- The team seeks stakeholder sign-off from a written specification alone, skipping experiential prototypes, so timing, transitions, media, interaction, and integration problems surface only after costly development has begun (P152).
+- The team drafts a full objective set and a prototype for every instance instead of mapping objectives to reusable treatments and prototyping only representative cases and distinct objective-activity types (P195).
 
 ## References
 
@@ -86,4 +91,5 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P010, P068, P073, P085, P087, P119, P151, P152, P195, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P010, P068, P073, P085, P087, P119, P151, P152, P195. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.
+</content>

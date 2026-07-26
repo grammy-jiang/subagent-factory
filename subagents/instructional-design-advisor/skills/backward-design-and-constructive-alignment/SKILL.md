@@ -1,5 +1,6 @@
 ---
 name: backward-design-and-constructive-alignment
+description: Guides ordering course, unit, and programme design backward from desired results and assessment evidence, aligning outcomes, activities, and assessment, and prioritizing content deliberately.
 kind: skill
 status: ready
 provenance:
@@ -57,21 +58,21 @@ This skill governs the order and the alignment of a design: desired results firs
 
 ## Procedure
 
-1. Keep the unit as the design focus (P003).
-2. Check alignment with a three-column worksheet (P008).
-3. Ensure students understand what the learning eventually requires them to do (P009).
-4. Understand backward design as called backward only because many teachers begin with the means, and follow its order (P013).
-5. Sort content into three nested priority tiers (P014).
-6. Answer the coverage problem by identifying the fundamental knowledge of the subject (P020).
-7. Reject covering the content as a learning goal (P046).
-8. Expect the design process to be always iterative, with designers revisiting what they are after, how to assess it, and how to teach it, and rethinking earlier units in light of later designs and results (P055).
-9. Adapt constructive alignment to local context while preserving its core relationship (P064).
-10. Derive course and programme outcomes from graduate purposes, embedding both foundational and higher-order capabilities in authentic disciplinary or professional contexts (P088).
-11. Develop complex graduate capabilities through disciplinary practice, repeated programme experiences, institutional ethos, and integrated evidence (P101).
-12. When an activity stands in for learning, state the intended result and success criteria, connect them repeatedly to the activity, and show representative evidence (P111).
-13. Keep programme and course outcomes few, integrated, relevant, and manageable; each must state what learners will newly do and how well, while grouping compatible topics under common performances (P125).
-14. Prioritise content deliberately (P135).
-15. Implement alignment as one agenda (P172).
+1. Anchor the design at the unit grain — small enough to guide day-to-day teaching, large enough to avoid isolated lessons — and design course syllabi and programme frameworks backward with the same elements so they serve as a blueprint for every unit and its connections; use this when choosing the grain size for designing for understanding, relating unit design to macro design, or when a substantive objective needs several lessons, materials, activities, or assessment opportunities (P003).
+2. When reviewing a constructively aligned course or programme, check alignment with a three-column worksheet listing every primary goal, the assessment that will show it was achieved, and the activities students need to achieve it, since this catches the trap of giving lip service to a goal while teaching in a way that does not support it (P008).
+3. At the start of a unit — especially one built around a text or body of content, one structured as a run-up to a culminating task, or one where a complex product unfolds through dependent stages — ensure students understand what the learning eventually requires them to do, since knowing the topic, readings, activity directions, and that a test is coming does not suffice to focus attention and guide effort; give them the key questions and performance specifics as early as possible (P009).
+4. When starting the design of any course, topic, or lesson, follow backward design's order — desired results first, then the evidence needed to determine they were achieved, then the enabling knowledge and skill, and only then the teaching — recognizing it is called "backward" only because many teachers begin with the means; let the objectives become the criteria by which materials, content, procedures, and tests are chosen (P013).
+5. When the number or breadth of possible objectives exceeds available instructional time, sort the content of the unit or course into three nested priority tiers — worth being familiar with, important to know and do, and the innermost big ideas and core tasks — because a course always contains more content than can reasonably be addressed (P014).
+6. When making the depth decision under score pressure, or when a teacher objects that there is no room for new kinds of learning, answer the coverage problem by identifying the fundamental knowledge of the subject, ensuring students master that, and teaching them how to keep learning afterwards, since no course covers everything and cramming more in does not produce learning that lasts (P020).
+7. When reviewing how a course's goals are stated, reject "covering the content" as a learning goal whenever a stated goal describes teacher activity or material to be covered, since it states what the teacher does rather than what students will be able to do, and require it to be restated as a student capability (P046).
+8. When managing design across a programme or scheduling a design project, expect the process to be always iterative: revisit what the design is after, how to assess it, and how to teach it, and rethink earlier units in light of later designs and results (P055).
+9. When designing or revising outcomes-based curricula across different disciplines, levels, class sizes, study modes, or institutional constraints, adapt constructive alignment to the local context while preserving its core relationship: derive performance outcomes from course aims, select declarative and functioning complexity deliberately, and use each outcome's verb, content, and context to align activity and assessment (P064).
+10. When constructing an outcome hierarchy across a programme or designing outcomes across institutional, faculty, programme, and course levels, derive course and programme outcomes from graduate purposes, embedding both foundational and higher-order capabilities in authentic disciplinary or professional contexts (P088).
+11. When addressing creativity, critical thinking, ethical practice, teamwork, wisdom, or far transfer, develop these complex graduate capabilities through disciplinary practice, repeated programme experiences, institutional ethos, and integrated evidence — not through generic labels or one isolated course (P101).
+12. When a plan names an observable product, event, or action but not what learners should learn — that is, an activity is standing in for learning — state the intended result and success criteria, connect them repeatedly to the activity, and show representative evidence (P111).
+13. When writing programme or typical semester-course outcomes, keep them few, integrated, relevant, and manageable; state in each what learners will newly do and how well, and group compatible topics under common performances (P125).
+14. When content exceeds what learners can study deeply in the available time, prioritise it deliberately: identify threshold and core concepts, state why each topic is included, vary depth by purpose, and protect important outcomes from stakeholder-driven accretion (P135).
+15. When designing a constructively aligned course, implement alignment as one agenda: specify activity, content, context, and standard; elicit the activity; assess it against transparent criteria; and convert the judgement through defensible grading rules (P172).
 
 ## Inputs
 
@@ -84,13 +85,16 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P003: Keep the unit as the design focus.
-- Overlooking P008: Check alignment with a three-column worksheet.
-- Overlooking P009: Ensure students understand what the learning eventually requires them to do.
-- Overlooking P013: Understand backward design as called backward only because many teachers begin with the means, and follow its order.
-- Overlooking P014: Sort content into three nested priority tiers.
-- Overlooking P020: Answer the coverage problem by identifying the fundamental knowledge of the subject.
-- Overlooking P046: Reject covering the content as a learning goal.
+This is the curated, highest-impact subset; the full set of 15 principles is covered in ## Procedure.
+
+- A syllabus or lesson plan lists chapters, topics, or materials to "cover" rather than a capability students will be able to demonstrate — the goal describes teacher activity, not student performance (P046).
+- Design proceeds from choosing activities, materials, or a favourite unit before desired results and the evidence for them are settled — the means-first order that gives backward design its name (P013).
+- A unit or culminating task is launched without telling students, early, what the learning eventually requires them to do — they know the topic and readings but not the key questions or performance specifics (P009).
+- A goal appears in the syllabus but no assessment or activity actually measures or builds it — alignment was never checked goal-by-goal against assessment and activity (P008).
+- A plan names an observable product, event, or action — a presentation, a project, a debate — as if it were the learning itself, with no stated intended result, success criteria, or evidence behind it (P111).
+- Programme or course outcomes sprawl into a long, fragmented list, or stay vague about what learners will newly do and how well, instead of being kept few, integrated, and manageable (P125).
+- Content keeps expanding under stakeholder pressure with no threshold-versus-core distinction and no stated reason each topic is included, so depth is never varied by purpose (P135).
+- A complex capability such as critical thinking, ethical practice, teamwork, or far transfer is assigned to one isolated course or a generic label instead of being built through disciplinary practice and repeated programme experience (P101).
 
 ## References
 
@@ -98,4 +102,5 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P003, P008, P009, P013, P014, P020, P046, P055, P064, P088, P101, P111, P125, P135, P172, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P003, P008, P009, P013, P014, P020, P046, P055, P064, P088, P101, P111, P125, P135, P172. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.
+</content>

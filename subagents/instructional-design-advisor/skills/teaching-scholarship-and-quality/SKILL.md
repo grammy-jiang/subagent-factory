@@ -1,5 +1,6 @@
 ---
 name: teaching-scholarship-and-quality
+description: Checks that teaching-quality claims rest on learning evidence, not enrolment or habit, and guides systematic action-research improvement cycles.
 kind: skill
 status: ready
 provenance:
@@ -51,15 +52,15 @@ This skill governs how a teacher or design team learns about its own practice an
 
 ## Procedure
 
-1. Ground any claim that instruction is adequate in evidence about what students actually learn and how much they grow, not in demand, enrolment, or satisfaction (P004).
-2. Prefer replicated results synthesized across studies (P006).
-3. Treat instructional design as professional work requiring knowledge and practice, and use contrasts between weak and strong instruction to align leaders who underestimate that expertise (P043).
-4. Analyze realistic teaching cases as provisional evidence (P090).
-5. Make the teaching theory shaping the learning environment explicit, then use evidence and a coherent framework to diagnose problems and adapt responses to local learners and constraints (P107).
-6. Name the teacher's blind spot (P121).
-7. Improve teaching through repeated, systematic action-research cycles grounded in disciplinary knowledge, learning theory, local evidence, and triangulation across students and trusted colleagues (P134).
-8. Investigate teaching through an iterative evidence cycle (P162).
-9. Choose approaches by what learning needs rather than what teaching finds comfortable, expecting the right proportions to be a ratio one is not in the habit of using, and knowing each preference's failure mode (P200).
+1. Ground any claim that instruction is adequate in evidence of what students actually learn and how much they grow, not in demand, enrolment, or satisfaction, since input-and-resource measures of excellence do not answer that question (P004).
+2. When two techniques are backed by different amounts of evidence, prefer results replicated and synthesized across studies — review journals, handbooks, and meta-analyses — over any single study, and use the meta-analysis to identify the conditions under which the effect is strong (P006).
+3. Treat instructional design as professional work that requires its own knowledge and practice, and when a leader or stakeholder assumes learner experience alone qualifies someone to design instruction, use contrasts between weak and strong instruction to correct that assumption (P043).
+4. When analyzing a real or sequentially described teaching case, treat it as provisional evidence: classify intention, enactment, and assessment separately, reread the case as later evidence appears, and evaluate only after making sense of the alignment among them (P090).
+5. Make explicit the teaching theory shaping the learning environment, then use evidence and that coherent framework to diagnose the problem and adapt the response to the local learners and constraints (P107).
+6. Name the teacher's blind spot — believing that having taught something means students learned it, and that more teaching produces more learning — as the reason coverage feels more defensible than it is, and require the team to ask every year which approaches actually yield the greatest learning regardless of habit (P121).
+7. To investigate a persistent, context-dependent teaching problem, improve teaching through repeated, systematic action-research cycles grounded in disciplinary knowledge, learning theory, and local evidence, triangulating across students and trusted colleagues (P134).
+8. When conducting a transformative reflection or course-level action-research cycle, sequence the work in the concrete stages that P134's repeated-cycle discipline requires: frame an observable learning problem, use theory and student evidence to plan a change, apply it, evaluate the results, and revise (P162).
+9. Choose instructional approaches by what the learning needs rather than what the teaching finds comfortable, expect the right proportion to be a ratio one is not in the habit of using, and know each preference's characteristic failure mode — overlecturing, underinstructing, confusing discussion, cut-off inquiry, overdrilling, or underdeveloped core skills (P200).
 
 ## Inputs
 
@@ -72,13 +73,17 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P004: Ground any claim that instruction is adequate in evidence about what students actually learn and how much they grow, not in demand, enrolment.
-- Overlooking P006: Prefer replicated results synthesized across studies.
-- Overlooking P043: Treat instructional design as professional work requiring knowledge and practice, and use contrasts between weak and strong instruction to align.
-- Overlooking P090: Analyze realistic teaching cases as provisional evidence.
-- Overlooking P107: Make the teaching theory shaping the learning environment explicit, then use evidence and a coherent framework to diagnose problems and adapt.
-- Overlooking P121: Name the teacher's blind spot.
-- Overlooking P134: Improve teaching through repeated, systematic action-research cycles grounded in disciplinary knowledge, learning theory, local evidence.
+Every principle in this skill has a matching failure mode below.
+
+- The quality case cites enrolment numbers, seat demand, or satisfaction ratings as proof instruction is working, with no data on what students actually learned or how much they grew (P004).
+- A single study or anecdote is used to justify a technique when replicated, synthesized evidence — review journals, handbooks, meta-analyses — exists and was not consulted (P006).
+- A leader or stakeholder assumes that having been a learner qualifies someone to design instruction, and no contrast between weak and strong instruction is used to correct the assumption (P043).
+- A teaching case is judged and scored before its intention, enactment, and assessment have been classified separately and reread as later evidence arrives (P090).
+- A design response to a teaching problem is proposed without ever naming the teaching theory that shapes the learning environment, so the response cannot be adapted to the local learners and constraints (P107).
+- The team excuses a coverage-heavy habit with 'I taught it so they must have learned it' and skips the annual review of which approaches actually produced the greatest learning (P121).
+- A persistent, context-dependent teaching problem is treated as fixed after one pass instead of through repeated cycles grounded in disciplinary knowledge, learning theory, and evidence triangulated across students and colleagues (P134).
+- A course-level action-research effort skips a stage of the iterative cycle — it never explicitly frames the observable learning problem, applies a change without first using theory and student evidence to plan it, or stops before evaluating and revising (P162).
+- An instructional strategy is chosen because it is the one the teacher is comfortable with rather than what the learning needs, with no awareness of that preference's characteristic failure mode — overlecturing, underinstructing, confusing discussion, cut-off inquiry, overdrilling, or underdeveloped core skills (P200).
 
 ## References
 
@@ -86,4 +91,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P004, P006, P043, P090, P107, P121, P134, P162, P200, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P004, P006, P043, P090, P107, P121, P134, P162, P200. The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`; see `../../references/instructional-design-principles-index.md` for the source attribution of each principle.
