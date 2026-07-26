@@ -1,5 +1,8 @@
 ---
 name: persuasion-ethos-pathos-and-logos
+description: Audit and build the persuasive case across all three appeals — evidence,
+  the audience's emotion, and the speaker's credibility — against prior bias, contrast,
+  reward, and the signal noise that distorts them.
 kind: skill
 status: ready
 provenance:
@@ -35,35 +38,34 @@ provenance:
   authored_from_digest: d0376126c5dfa0959ed872888bc98b93f0d4c8769ecd518beb8f22ffd845d6f1
 ---
 
-
 # Persuasion — Ethos, Pathos And Logos
 
 ## Purpose
 
-This skill audits and builds the persuasive case. It accounts for all three Aristotelian appeals — logical evidence, the audience's emotion, and the speaker's own credibility of character — rather than logic alone, because facts by themselves do not persuade, technical presenters systematically underrate the other two, and many decisions about technical work are made by non-technical people whom character and emotion sway. It assesses the audience's prior bias first, because that sets both the strategy and the energy an argument requires and can override the outcome regardless of the speaker's stature. It pairs facts with emotional appeal rather than choosing between them, since logical agreement alone does not produce action and stacking more proof does not convert a determined skeptic. It builds the character appeal deliberately — making a position that runs counter to one's own record part of the evidence, showing not only that one's result is right but why the conflicting result is wrong — and builds common ground from shared experience and goals, revealing qualifications humbly. It engineers contrast against the audience's own environment, since obscurity rather than opposition is what defeats an idea. It describes a reward proportional to the sacrifice being asked. It treats the whole presentation as a signal through sender, transmission, reception, and receiver, minimising credibility, semantic, experiential, and bias noise. And it holds the hard line that persuasive power is for building up, never for deceiving.
+This skill audits and builds the persuasive case behind a presentation or pitch. It accounts for all three Aristotelian appeals — logical evidence, the audience's emotion, and the speaker's own credibility of character — rather than logic alone, because facts by themselves do not persuade, technical presenters systematically underrate the other two, and many decisions about technical work are made by non-technical people whom character and emotion sway (P006). It reads the audience's prior bias before anything else is shaped, since that bias sets both the strategy and the energy the argument requires and can override the outcome regardless of the speaker's stature (P038). It pairs facts with emotional appeal rather than treating them as alternatives, because logical agreement alone does not produce action and stacking more proof does not convert a determined skeptic (P030). It builds the character appeal deliberately and builds common ground from shared experience and goals, since credibility must be earned with this particular audience rather than assumed (P092, P115). It engineers contrast against the audience's own environment, because obscurity rather than opposition is what defeats an idea (P040), and it sizes any reward to the sacrifice being asked, since an audience will not act on a stimulating plea alone (P117). It treats the whole presentation as a signal passing through sender, transmission, reception and receiver, minimising the credibility, semantic, experiential and bias noise that can enter at any step (P113). And it holds the line that persuasive power exists to build up, never to deceive (P068).
 
 ## When to use
 
-- A persuasive presentation must be audited for coverage of evidence, emotion, and speaker credibility, rather than evidence alone (P006, P030).
+- A persuasive presentation or pitch must be audited for coverage of evidence, emotion, and speaker credibility, rather than evidence alone (P006, P030).
 - The audience holds a prior bias, does not yet grant the speaker authority, or does not know the speaker at all (P038, P092, P115).
-- The idea competes for attention with other messages, or the presentation makes a request that needs a proportional reward (P040, P117).
-- A message is not landing and the distortion must be located, or the presenter has an incentive to overstate performance or hide risk (P113, P068).
+- The idea competes for attention with other messages the audience already receives, or the presentation makes a request that needs a proportional reward (P040, P117).
+- A message is not landing as intended and the distortion in the signal must be located, or the presenter has an incentive to overstate performance or hide risk (P113, P068).
 
 ## Procedure
 
-1. Account for all three Aristotelian appeals (P006).
-2. Pair facts with emotional appeal rather than choosing between them (P030).
-3. Assess the audience's prior bias first (P038).
-4. Engineer contrast against the audience's own environment and expectations (P040).
-5. Use the persuasive power of presentations to build up rather than deceive (P068).
-6. Build the character appeal deliberately (P092).
-7. Treat the presentation as a signal passing through sender, transmission, reception and receiver, where distortion can enter at any step; minimize credibility, semantic, experiential and bias noise at every stage through careful (P113).
-8. Build common ground from shared experiences and shared goals, and reveal qualifications humbly as evidence of a similar journey completed (P115).
-9. Describe a reward that makes the action worthwhile and make the payoff obvious (P117).
+1. Assess the audience's prior bias first, before shaping the rest of the argument, because it sets both the strategy and the energy the argument will require and can override the outcome regardless of the speaker's stature — the same argument succeeding with one audience and failing with another on bias alone (P038).
+2. Account for all three Aristotelian appeals — logical evidence, the audience's emotion, and the speaker's own credibility of character — rather than relying on logic alone, because facts by themselves do not persuade, technical presenters systematically underrate the other two, and many decisions about technical work are made by non-technical people whom character and emotion sway (P006).
+3. Pair facts with emotional appeal rather than choosing between them, using plenty of evidence but accompanying it with appeals to desire whenever the audience must decide or act rather than merely understand, since logical agreement alone does not produce action and stacking more proof does not convert a determined skeptic (P030).
+4. Build the character appeal deliberately whenever the audience does not already accept the speaker's authority, letting a position that runs counter to the speaker's own record become part of the evidence and showing not only that the speaker's own result is right but why the conflicting result is wrong, because a recognised authority carries a claim further than an unknown speaker can (P092).
+5. Build common ground from shared experiences and shared goals whenever the presenter must establish authority with an audience that does not know them, revealing qualifications humbly as evidence of a similar journey completed, because audiences validate a presenter against their own criteria before adopting a new perspective and commonalities are what bolster credibility (P115).
+6. Engineer contrast against the audience's own environment and expectations whenever the idea competes for attention with other messages the audience already receives, because obscurity rather than opposition is what defeats an idea and nothing carries intrinsic attention-grabbing power apart from how far it stands out from its context (P040).
+7. Describe a reward that makes the action worthwhile and make the payoff obvious whenever the presentation makes a request of the audience, drawing it from the seven categories of basic needs, security, savings, prize, recognition, relationship and destiny, and keeping it proportional to the sacrifice being asked, because no matter how stimulating the plea an audience will not act without one (P117).
+8. Treat the whole presentation as a signal passing through sender, transmission, reception and receiver when diagnosing why a message is not landing as intended, because distortion can enter at any of those steps; minimise the credibility, semantic, experiential and bias noise at every stage through careful planning and rehearsing, since each step either strengthens the signal or adds noise that makes the audience tune out (P113).
+9. Hold the line that the persuasive power of a presentation is for building up rather than deceiving, especially whenever the presenter has an incentive to overstate performance or hide risk, because presentations carried criminal counts in the Enron prosecutions, a slick pitch pushed a fraud past an audience that sensed it was too good to be true, and communication that abandons reason and truth becomes propaganda that obliterates the credibility of everyone involved when it collapses (P068).
 
 ## Inputs
 
-- The claim being argued, the evidence behind it, what the audience already believes and wants, what the presenter is asking them to do, and the speaker's standing.
+- The claim being argued, the evidence behind it, what the audience already believes and wants, what the presenter is asking them to do, and the speaker's standing with this audience.
 - The reasoning offered for the design or decision under review: what the presentation is meant to achieve, what is on the slides now, and any claim about why the current form works.
 
 ## Output
@@ -72,13 +74,15 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P006: Account for all three Aristotelian appeals.
-- Overlooking P030: Pair facts with emotional appeal rather than choosing between them.
-- Overlooking P038: Assess the audience's prior bias first.
-- Overlooking P040: Engineer contrast against the audience's own environment and expectations.
-- Overlooking P068: Use the persuasive power of presentations to build up rather than deceive.
-- Overlooking P092: Build the character appeal deliberately.
-- Overlooking P113: Treat the presentation as a signal passing through sender, transmission, reception and receiver, where distortion can enter at any step; minimize.
+- A pitch or deck built entirely from charts and technical evidence, with no moment that addresses what the audience feels or why the speaker should be trusted (P006).
+- Slides pile on additional proof points against a visibly skeptical audience instead of pairing the existing evidence with any appeal to desire or benefit (P030).
+- The opening frames the case as though the audience were neutral, with no sign that the presenter gauged in advance whether this audience is sympathetic, resistant, or unaware (P038).
+- The idea sits against a generic backdrop with no reference to the audience's own environment or existing expectations, so it reads the same as everything else already competing for their attention (P040).
+- A pitch or deck oversells outcomes it cannot substantiate, or omits a known risk, in a form built to pressure the audience past ordinary scrutiny (P068).
+- Slides list the speaker's credentials or affiliation but never engage why a conflicting result is wrong, leaving authority asserted rather than earned (P092).
+- A dry run or delivered talk lands differently than intended, and the debrief offers no account of where in the chain — the speaker's own credibility, the medium of transmission, how the audience received it, or bias the receiver already held — the signal broke down (P113).
+- The introduction states credentials or authority up front but never establishes any shared experience or goal with the audience, so the appeal to authority reads as distance rather than common ground (P115).
+- A call to action or an ask appears on a slide with no stated reward, or with a reward that is disproportionate to what is being asked — trivial next to a large sacrifice, or grand next to a small one (P117).
 
 ## References
 

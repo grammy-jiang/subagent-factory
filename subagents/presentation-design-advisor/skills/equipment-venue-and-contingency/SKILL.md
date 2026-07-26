@@ -1,5 +1,8 @@
 ---
 name: equipment-venue-and-contingency
+description: 'Remove the dependencies that fail in rooms the speaker does not control
+  and plan for the failures that remain: local files and backups, rehearsed demonstrations,
+  an equipment failure plan, and blanking the screen.'
 kind: skill
 status: ready
 provenance:
@@ -30,12 +33,11 @@ provenance:
   authored_from_digest: fcbad91bf25666e5c0bb56aa91c0e8fab0aecd33d6118da64e9e6934917da293
 ---
 
-
 # Equipment, Venue And Contingency
 
 ## Purpose
 
-This skill removes the dependencies that fail in rooms the speaker does not control and plans for the failures that remain. It embeds every image and film in a local file with a backup on separate media rather than relying on internet access many organisations restrict, keeps a teleconferenced presentation simple because films lock up and sound clips feed back in transmission, and brings the speaker's own laptop where the deck needs unusual typefaces, settings, formats, or films. It never lets a live demonstration be attempted without rehearsal on the actual equipment, since an unpractised demonstration can injure the presenter, hijack the lesson, or cost a contract outright at the culminating moment of a bid — and it states plainly that rehearsal guarantees nothing, since practised demonstrations still fail, but greatly increases the odds. Once the structure and slides are set, it imagines the worst compound case and devises a plan for equipment failure, because disasters arise from chains of causes rather than single ones: where the equipment is unproven it designs the talk to be deliverable from handouts alone, and it carries a troubleshooting kit of video and audio cables and a small computer-powered speaker plus the knowledge of how to match the laptop's resolution to the projector. It also treats the screen itself as controllable, blanking it deliberately where a portion of the talk needs no visual support.
+This skill removes the dependencies that fail in a room or over a link the speaker does not control, by embedding every image and film in a local file with a backup on separate media, keeping a teleconferenced presentation simple, and bringing the speaker's own laptop where the deck needs unusual typefaces, settings, formats, or films (P104). It insists that a live demonstration never proceed without rehearsal on the actual equipment, since an unpractised demonstration can injure the presenter, hijack the lesson, or cost a contract outright at the culminating moment of a bid — while stating plainly that rehearsal guarantees nothing, it only greatly improves the odds (P028). Once the structure and slides are set, it has the presenter imagine the worst compound case and devise a plan for equipment failure: designing the talk so it can be delivered from handouts alone where the equipment is unproven, and carrying a troubleshooting kit of video and audio cables and a small computer-powered speaker, plus the knowledge of how to match the laptop's resolution to the projector (P053). It also treats the screen itself as controllable, blanking it deliberately with the black or white key, or with an inserted black slide when the keyboard is out of reach, wherever a portion of the talk needs no visual support (P003).
 
 ## When to use
 
@@ -46,10 +48,10 @@ This skill removes the dependencies that fail in rooms the speaker does not cont
 
 ## Procedure
 
-1. Blank the screen deliberately with the black or white key, or with an inserted black slide when the keyboard is out of reach (P003).
-2. Never attempt a live demonstration without rehearsing it on the actual equipment (P028).
-3. Imagine the worst compound case once the structure and slides are set and devise a plan for equipment failure (P053).
-4. Remove the dependencies that fail in an unfamiliar room (P104).
+1. Remove the dependencies that fail in an unfamiliar room whenever presenting in a room or over a link the speaker does not control, by embedding every image and film in a local file with a backup on separate media rather than relying on internet access many organisations restrict, keeping a teleconferenced presentation simple because films lock up and sound clips feed back in transmission, and bringing one's own laptop where the deck needs unusual typefaces, settings, formats, or films (P104).
+2. Never attempt a live demonstration without rehearsing it on the actual equipment whenever the talk includes one, since an unpractised demonstration can injure the presenter, hijack the lesson, or cost a contract outright at the culminating moment of a bid, and rehearsal exposes both the pitfalls that would startle the presenter mid-performance and the device-specific traps that strike at the start — bearing in mind that rehearsal guarantees nothing, since practised demonstrations still fail, but it greatly increases the odds (P028).
+3. Once the structure and slides are set, imagine the worst compound case and devise a plan for equipment failure, since disasters arise from chains of causes rather than single ones, designing the talk so it can be delivered from handouts alone where the equipment is unproven, and carrying a troubleshooting kit of video and audio cables and a small computer-powered speaker plus the knowledge of how to match the laptop's resolution to the projector (P053).
+4. Blank the screen deliberately with the black or white key, or with an inserted black slide when the keyboard is out of reach, wherever a portion of the talk needs no visual support (P003).
 
 ## Inputs
 
@@ -62,10 +64,10 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P003: Blank the screen deliberately with the black or white key, or with an inserted black slide when the keyboard is out of reach.
-- Overlooking P028: Never attempt a live demonstration without rehearsing it on the actual equipment.
-- Overlooking P053: Imagine the worst compound case once the structure and slides are set and devise a plan for equipment failure.
-- Overlooking P104: Remove the dependencies that fail in an unfamiliar room.
+- The plan streams images or film from a network link, or leans on live internet access, with no local embedded copy and no backup on separate media noted anywhere in the materials (P104).
+- The plan schedules a live demonstration segment but records no rehearsal on the actual on-site equipment, only a description of what the demonstration is meant to show (P028).
+- The plan names no fallback for equipment failure — no handout-only delivery path for unproven equipment and no troubleshooting kit of cables, speaker, or resolution-matching notes — even though the structure and slides are already finished (P053).
+- The plan keeps the screen lit with a static or idle slide through a stretch of the talk that needs no visual support, with no blanking cue built in (P003).
 
 ## References
 

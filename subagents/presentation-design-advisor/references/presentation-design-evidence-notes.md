@@ -130,7 +130,6 @@ provenance:
   authored_from_digest: 6c889c0cd6376561fbab78523673723e7c7cdc7b14b7b4a7c99734b373ef871d
 ---
 
-
 # Presentation-Design Evidence Notes
 
 How the principles in this package are grounded, and how to keep advice faithful to the sources.

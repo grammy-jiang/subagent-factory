@@ -1,5 +1,8 @@
 ---
 name: talk-organisation-transitions-and-emphasis
+description: 'Build the architecture of the talk between opening and close: organisation,
+  changes of direction and their signalling, an explicit memorable map, the ways audiences
+  get lost, and deliberate emphasis.'
 kind: skill
 status: ready
 provenance:
@@ -36,32 +39,33 @@ provenance:
   authored_from_digest: 9c3626475aacc0806a2be5af3cc40fb0150f3dde089a9530b8c768216a83512f
 ---
 
-
 # Talk Organisation, Transitions And Emphasis
 
 ## Purpose
 
-This skill builds the architecture of the talk between opening and close. It designs structure on four levers, any one of which can fail a talk — the organisation itself, the number of changes in direction, the signalling of those changes, and the emphasis of key details — and against four pitfalls: doing too much, losing the audience at the beginning, losing them in the middle, and not being persuasive enough. It designs specifically against the three ways audiences get lost — gaps in the logic they cannot bridge, an unsignalled change of direction, and exhaustion from too many details — and assumes listeners drift even with sound structure, so it builds a way to recover. It signals every transition through at least one of three channels — the speech's wording, a change in the visual aids, or the delivery — at the introduction-to-middle, between-sections, and middle-to-conclusion points. It maps the talk explicitly, because a reader can glance ahead at headings while a listener cannot, and makes the map memorable by integrating the divisions into one image or anchoring each topic with a representative image repeated at its division. It refuses to enter the middle until the audience understands why the subject matters. It emphasises deliberately through repetition, illustration, placement, pausing, volume, and proximity. It selects, sorts, and ranks the details, identifies the message for every scene whether or not it appears on the slide, and delivers real depth inside a deliberately broad talk.
+This skill builds the architecture of the talk between opening and close. It designs structure on four levers, any one of which can fail a talk on its own — the organisation itself, the number of changes in direction, the signalling of those changes, and the emphasis of key details — and against four matching pitfalls: doing too much, losing the audience at the beginning, losing them in the middle, and not being persuasive enough. It refuses to let the talk enter the middle until the audience understands why the subject matters. It maps the talk explicitly, because a reader can glance ahead at headings while a listener cannot, and makes that map memorable by integrating the divisions into one image or by anchoring each topic with a representative image repeated at its division. It designs specifically against the three ways audiences get lost — gaps in the logic they cannot bridge, an unsignalled change of direction, and exhaustion from too many details — and assumes listeners drift even with sound structure, so it builds in a way to recover. It signals every transition through at least one of three channels — the speech's wording, a change in the visual aids, or the delivery — at the introduction-to-middle, between-sections, and middle-to-conclusion points. It settles the message for every scene before the talk, whether or not that message appears on the slide. It delivers satisfying depth inside a deliberately broad talk rather than avoiding breadth. It selects, sorts, and ranks the details so the audience knows which to hold onto and which to release. It emphasises deliberately through repetition, illustration, placement, pausing, volume, and proximity.
 
 ## When to use
 
-- A talk's organisation, section count, or ordering is being designed or reviewed, or the audience gets lost in the middle (P083, P039, P086).
-- Transitions between sections are unsignalled, or the audience cannot pace itself because the talk has no explicit, memorable map (P043, P076, P090).
+- A talk's organisation, section count, or ordering is being designed or reviewed, or the talk shows overload, an early exit, a mid-talk dropout, or a lack of persuasive force (P083).
 - The talk enters its substance before establishing why the subject matters (P089).
-- Key details are not landing, every scene's message has not been settled, or the scope is deliberately broad and needs depth (P037, P067, P082).
+- The audience cannot pace itself because the talk has no explicit, memorable map (P076, P090).
+- The audience gets lost in the middle, or transitions between sections are unsignalled (P039, P043).
+- Every scene's message has not been settled, the scope is deliberately broad and needs depth, or the details have not been selected, sorted, and ranked (P067, P082, P086).
+- Key details are not landing despite sound structure and correct signalling (P037).
 
 ## Procedure
 
-1. Emphasise deliberately (P037).
-2. Design against the three specific ways audiences get lost (P039).
-3. Signal every transition through at least one of three channels (P043).
-4. Identify the message for every scene before the talk whether or not it will appear on the slide (P067).
-5. Map the talk explicitly (P076).
-6. Deliver satisfying depth inside a deliberately broad talk rather than avoiding breadth (P082).
-7. Design structure on four levers, any one of which can fail a talk (P083).
-8. Select, sort, and rank the details (P086).
-9. Do not enter the middle of a talk until the audience understands why the subject matters (P089).
-10. Make the map memorable by integrating the divisions into a single image that also supplies the background, or, failing that, by anchoring each topic with a representative image (P090).
+1. Design the talk's structure on four levers, any one of which can fail it on its own — the organisation itself, the number of changes in direction, the signalling of those changes, and the emphasis of key details — and design deliberately against the four matching pitfalls: doing too much, losing the audience at the beginning, losing them in the middle, and not being persuasive enough (P083).
+2. Do not let the talk enter its middle until the audience understands why the subject matters, typically through a thirty- to forty-second connection to money, safety, health, or the environment, or, where the work carries no practical payoff, through a transfer of the speaker's own curiosity, because listening is hard work that audiences abandon without sufficient reason (P089).
+3. Map the talk explicitly, because a reader can glance ahead at headings while a listener cannot and a clear, memorable map is what lets the audience pace itself, using images repeated at the corresponding divisions and omitting generic entries such as Introduction and Conclusion (P076).
+4. Make that map memorable by integrating its divisions into a single image that also supplies the background or, failing that, by anchoring each topic with a representative image, and repeat the anchoring image on the first slide of its division, since audiences recall a topic anchored this way at roughly twice the rate (P090).
+5. Design against the three specific ways an audience gets lost — gaps in the logic they cannot bridge, an unsignalled change of direction, and exhaustion from too many details — and assume listeners will drift even inside sound structure, so build in a way for them to recover (P039).
+6. Signal every transition through at least one of three channels — the wording of the speech, a change in the visual aids, or the delivery — at every point that needs it: introduction to middle, between each pair of middle sections, and middle to conclusion (P043).
+7. Identify the message for every scene before the talk, whether or not it will appear on the slide, since the act of identifying it itself focuses the presentation; where the message is left off the slide, the whole burden of communicating it falls on the speaker, who must settle the assertion beforehand and practise stating and supporting it while looking at the audience (P067).
+8. Where the occasion calls for a big-picture talk or the scope is large through sheer number of topics, deliver satisfying depth inside that deliberately broad talk rather than avoiding breadth, by spreading concrete and simple stories and examples across the scope or by grouping the topics into two or three memorable categories and going deep on one example from each (P082).
+9. Select, sort, and rank the details: keep only those that let the audience understand the work, order them so no on-the-spot cataloguing is needed, and give them a hierarchy — including stating the essentials up front — so listeners know which to hold onto and which to release when overwhelmed (P086).
+10. Emphasise deliberately, because listeners remember only a fraction of what they hear and a well-organised talk without emphasis leaves them carrying away its least important details, using the available mechanisms of repetition, illustration, and placement plus the delivery moves of pausing, changing volume — often lowering it — and stepping closer (P037).
 
 ## Inputs
 
@@ -74,13 +78,16 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P037: Emphasise deliberately.
-- Overlooking P039: Design against the three specific ways audiences get lost.
-- Overlooking P043: Signal every transition through at least one of three channels.
-- Overlooking P067: Identify the message for every scene before the talk whether or not it will appear on the slide.
-- Overlooking P076: Map the talk explicitly.
-- Overlooking P082: Deliver satisfying depth inside a deliberately broad talk rather than avoiding breadth.
-- Overlooking P083: Design structure on four levers, any one of which can fail a talk.
+- A talk fails and the post-mortem cannot say which of organisation, number of direction-changes, signalling, or emphasis caused it, or the talk visibly shows one of the four pitfalls — overload, an early exit, a mid-talk dropout, or a lack of persuasive force — undiagnosed (P083).
+- The talk moves into its substantive middle before the audience has been given a reason — a connection to money, safety, health, the environment, or the speaker's own curiosity — to keep listening (P089).
+- The audience cannot say, mid-talk, how many sections remain or where the current point sits in the whole, because the talk supplies no explicit division points beyond generic Introduction and Conclusion labels (P076).
+- The map's divisions carry no unifying or anchoring image, or an anchoring image is introduced once and never repeated at the start of its division, leaving the audience with nothing but a bare list of section titles to hold onto (P090).
+- The outline has a logical leap the audience cannot bridge, a section changes direction with no cue, or a stretch of consecutive slides piles on detail with no place built in for a listener who has already drifted to reconnect (P039).
+- A section boundary — introduction to middle, between two middle sections, or middle to conclusion — carries no cue in the wording, the visuals, or the delivery, so the audience only notices the shift after it has already happened (P043).
+- A scene or slide in the run-through has no settled one-sentence assertion behind it, and the speaker is visibly assembling the point in the moment rather than stating and supporting a prepared claim while looking at the audience (P067).
+- A broad-scope talk skims every topic at the same shallow level, with no story, example, or category worked through in enough depth for the audience to come away with anything concrete (P082).
+- The talk includes details that do not help the audience understand the work, presents them in an order that forces on-the-spot cataloguing, or gives no signal of which points are essential and which can be dropped if attention flags (P086).
+- The transcript or slides give equal visual and verbal weight to every point, so no repeated phrase, illustration, placement, pause, volume change, or physical proximity marks any detail as more important than the rest (P037).
 
 ## References
 
