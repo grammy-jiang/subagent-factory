@@ -1,7 +1,43 @@
-# Conversion report: building-agents-with-a8659148
+# Conversion Report — building-agents-with-a8659148
 
-- source_id: building-agents-with-a8659148
-- sha256: a86591486b37495f29b7a62818caea29a390590d0a31fbf7dd4cf54cbaa37a95
-- word_count: 1717
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:35.991641+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1717 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

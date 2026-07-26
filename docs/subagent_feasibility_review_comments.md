@@ -1,5 +1,10 @@
 # Review Comments on Subagent Workflow Quality Enhancement Feasibility Assessment
 
+> **Historical — superseded.** These are review comments on the (also superseded)
+> feasibility assessment; the current plan is
+> [`subagent_enhancement_build_plan.md`](subagent_enhancement_build_plan.md). Kept for provenance.
+> See [`docs/README.md`](README.md) for the full doc map.
+
 **Date:** 2026-06-10  
 **Reviewer:** ChatGPT  
 **Input reviewed:** `subagent_workflow_quality_enhancement_feasibility.md`  

@@ -1,0 +1,581 @@
+schema_version: principle-behaviour-tests-v1
+subagent_slug: research-integrity-reproducibility-advisor
+generated_at: '2026-07-25'
+principle_behaviour_tests:
+- test_id: PB-P001
+  principle_id: P001
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where research data management
+    and sharing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Address the real barriers to data sharing.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P001.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P002
+  principle_id: P002
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where reproducible computational
+    pipelines is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Accept the upfront time cost of reproducibility because it is more than repaid.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P002.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P003
+  principle_id: P003
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where research integrity
+    and misconduct is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Act on a credible conduct concern through a calibrated path.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P003.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P004
+  principle_id: P004
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where authorship, publication
+    and attribution is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Assign authorship only for substantive research contributions, order authors
+    by contribution, disciplinary convention, or agreement, require each author to review and own the
+    contributed part, and acknowledge other assistance with consent and specificity.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P004.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P005
+  principle_id: P005
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where research software engineering
+    and testing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Manage research software with a Software Management Plan, a living document
+    describing how the software is developed, documented, versioned, licensed, archived, and shared; treat
+    even one-off analysis scripts as software, draft the plan during the planning phase alongside the
+    Data Management Plan.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P005.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P006
+  principle_id: P006
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where research integrity
+    and misconduct is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Classify possible misconduct under the applicable definition and evidence
+    threshold, distinguishing fabrication, falsification, and plagiarism from honest error, negligence,
+    and differences of opinion without inferring intent from the disputed act alone.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P006.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P007
+  principle_id: P007
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where authorship, publication
+    and attribution is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose publication units for coherence, completeness, and significant contribution;
+    do not republish substantially the same findings or fragment a study merely to inflate output, while
+    allowing distinct components that each form a complete and meaningful report.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P007.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P008
+  principle_id: P008
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where research integrity
+    and misconduct is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Never manipulate, select, process, visualize, interpret, or report data so
+    that the apparent support exceeds what the observations warrant; examine design and measurement weaknesses
+    as well as deliberate alteration.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P008.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P009
+  principle_id: P009
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where research integrity
+    and misconduct is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Investigate data-integrity concerns by distinguishing invented research from
+    manipulation of real research, preserving and inspecting original records, and using specialist reconstruction
+    or replication when credible anomalies cannot be resolved directly.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P009.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P010
+  principle_id: P010
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where research integrity
+    and misconduct is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Begin human-subject or identifiable-private-data research only after appropriate
+    review, with qualified operators and student supervision, and protect participants through risk minimization,
+    informed consent, freedom from coercion, privacy, and withdrawal rights.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P010.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P011
+  principle_id: P011
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where authorship, publication
+    and attribution is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Audit citations for bibliographic accuracy, relevance, and actual support,
+    search the literature thoroughly, and read and cite original work where possible rather than relying
+    only on later summaries.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P011.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P012
+  principle_id: P012
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where open source projects
+    and licensing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Make research sufficiently open for exchange, scrutiny, and authorized follow-on
+    use while withholding only information protected by valid secrecy, confidentiality, or intellectual-property
+    duties.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P012.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P013
+  principle_id: P013
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where authorship, publication
+    and attribution is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Permit a full or secondary publication only when the prior dissemination is
+    eligible, every similar report is disclosed and cross-cited, relevant materials are supplied, and
+    all required editorial and rights-holder consents are obtained.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P013.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P014
+  principle_id: P014
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where authorship, publication
+    and attribution is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Disclose potentially patentable inventions promptly through the applicable
+    institutional process, identify all and only qualifying inventors, and reconcile jurisdiction-specific
+    rules before cross-border sharing or commercialization.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P014.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P015
+  principle_id: P015
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where authorship, publication
+    and attribution is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Detect plagiarism by substantive appropriation, not surface similarity.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P015.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P016
+  principle_id: P016
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where research software engineering
+    and testing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build open hardware to be modular and extensible with documented interfaces
+    so a community can grow around it, be honest with collaborators about the support they can expect,
+    make the project discoverable with a common platform and descriptive metadata, make it citable by
+    archiving versions.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P016.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P017
+  principle_id: P017
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where research data management
+    and sharing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Manage outputs with a Data Management Plan, a living document covering roles
+    and responsibilities, data types and sizes and metadata, storage and backup, post-project preservation,
+    reuse and licensing, and costs; ensure at least one other person has access.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P017.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P018
+  principle_id: P018
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where open source projects
+    and licensing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Run an open source project with the essential files.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P018.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P019
+  principle_id: P019
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where version control and
+    collaboration is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use version control, the systematic recording of changes to files over time.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P019.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P020
+  principle_id: P020
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where open source projects
+    and licensing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Understand usage-restricting licences.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P020.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P021
+  principle_id: P021
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where research software engineering
+    and testing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Build a layered test suite with both positive tests.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P021.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P022
+  principle_id: P022
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where reproducible computational
+    pipelines is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Do not manipulate or analyse data manually in spreadsheet software.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P022.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P023
+  principle_id: P023
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where reproducible computational
+    pipelines is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Use containers to capture a whole computing environment for reproducibility.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P023.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P024
+  principle_id: P024
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where open source projects
+    and licensing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Contribute well to another open source project.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P024.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P025
+  principle_id: P025
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where open source projects
+    and licensing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Choose a data licence deliberately.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P025.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P026
+  principle_id: P026
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where reproducible computational
+    pipelines is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Follow Make authoring conventions.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P026.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P027
+  principle_id: P027
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where research data management
+    and sharing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Describe data so it can be understood and reused.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P027.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P028
+  principle_id: P028
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where open source projects
+    and licensing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: License the parts of an ML or AI system separately.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P028.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P029
+  principle_id: P029
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where version control and
+    collaboration is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Commit well: make each commit an atomic single change, commit no generated
+    files, stage the specific files by name rather than adding everything, and write a meaningful message
+    with a roughly 50-character present-tense imperative summary that explains what you did, why, and
+    what is impacted.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P029.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P030
+  principle_id: P030
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where reproducible computational
+    pipelines is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Capture the computational environment.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P030.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P031
+  principle_id: P031
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where version control and
+    collaboration is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Keep the main branch always stable and only merge finished, tested work into
+    it; when a merge conflict occurs.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P031.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P032
+  principle_id: P032
+  mode: review
+  prompt: We are working on a research-integrity or reproducibility question where reproducible computational
+    pipelines is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Model a data-science project as a tree of dependencies and build it with a
+    tool like Make or Snakemake that rebuilds an output whenever its prerequisites change.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P032.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P033
+  principle_id: P033
+  mode: plan
+  prompt: We are working on a research-integrity or reproducibility question where research data management
+    and sharing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Provide rich PID metadata.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P033.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.
+- test_id: PB-P034
+  principle_id: P034
+  mode: advise
+  prompt: We are working on a research-integrity or reproducibility question where research software engineering
+    and testing is at issue. What should we check for, what is the correction, and what residual trade-off
+    or referral should we carry?
+  expected_behaviour:
+  - 'Applies the principle: Unit-test the smallest testable parts in isolation.'
+  - Names the gap and the principle it engages, gives the correction, and states the residual trade-off
+    or the referral to make.
+  - Cites P034.
+  must_not:
+  - Run the study, analyse the data, write the paper, or make the authorship or publication decision for
+    the caller.
+  - State the rule more strongly than the source supports, make an institutional misconduct finding, or
+    give binding legal advice.

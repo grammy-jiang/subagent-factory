@@ -1,0 +1,194 @@
+schema_version: golden-tests-v1
+subagent_slug: research-writing-advisor
+generated_at: '2026-07-25'
+profile_version: 1.0.0
+tier: 2
+golden_tests:
+- test_id: GT-001
+  description: Positive routing — introduction says 'little is known' and buries the question
+  prompt: Review our paper introduction. It opens with 'Little is known about X,' summarizes everything
+    we read, and then says our method solves it.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Reject 'little is known' and require a concrete, specifically-named gap
+  - Build the introduction as a funnel to an explicit research question
+  - Frame the knowledge gap to engage curiosity rather than dumping facts
+  - Not sell the solution before the problem is defined
+  must_not_do:
+  - Rewrite the introduction end to end for them
+  - Guarantee the paper will be accepted
+  principle_coverage:
+  - P003
+  - P159
+  - P065
+  - P053
+  - P031
+- test_id: GT-002
+  description: Positive routing — dense passive, nominalized methods prose
+  prompt: Our Methods section is all passive voice and long noun phrases like 'the determination of the
+    concentration was performed.' Review it for clarity.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Prefer the active voice where it clarifies, using the passive only deliberately
+  - Put the action in strong verbs and undo nominalizations
+  - Cut redundant and obvious words
+  - Test each sentence from the reader's perspective
+  must_not_do:
+  - Mechanically ban every passive construction
+  - Claim the passive voice makes the work objective
+  - Produce the finished section text
+  principle_coverage:
+  - P008
+  - P056
+  - P096
+  - P047
+- test_id: GT-003
+  description: Positive routing — non-native author, grammar and register
+  prompt: English is not my first language. How do I choose tenses, articles, and hedging in my results
+    paper, and should I use big impressive words?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Choose tense by rhetorical function (present/past/present-perfect)
+  - Apply article and countability rules, choosing a/an by sound
+  - Hedge with precision, scoping claims to the observed sample
+  - Prefer the plain equivalent over impressive vocabulary
+  must_not_do:
+  - Rewrite the whole paper into 'correct' English for them
+  - Prioritize grammar over the story and science
+  principle_coverage:
+  - P033
+  - P079
+  - P085
+  - P067
+  - P115
+- test_id: GT-004
+  description: Positive routing — discussion overclaims beyond the data
+  prompt: Review our Discussion. It concludes our treatment 'works in all patients' and puts the study's
+    limitations in the final sentence.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Scope the conclusion to the tested cases, factors, and measurement scale
+  - Make limitations and weaknesses as visible as strengths, in the body
+  - Keep the limitation out of the resolution/conclusion power position
+  - Signal achievement only at a strength the evidence justifies
+  must_not_do:
+  - Certify the draft as publishable
+  - Strip every hedge to make the claim sound stronger
+  principle_coverage:
+  - P104
+  - P081
+  - P062
+  - P136
+- test_id: GT-005
+  description: Positive routing — set up a paper from reading and notes
+  prompt: We're starting a review-heavy paper. Help us go from reading and notes to a drafted argument.
+  expected_route: invoke
+  expected_mode: plan
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Search the literature iteratively and build a topic-based critical synthesis
+  - Capture reading as connected permanent notes that feed drafting
+  - Organize the paper around the developed claim, not discovery history
+  - Outline the argument before generating prose
+  must_not_do:
+  - Write the paper for them
+  - Treat note accumulation alone as progress
+  principle_coverage:
+  - P074
+  - P029
+  - P160
+  - P022
+  - P108
+- test_id: GT-006
+  description: Positive routing — slide deck is bulleted speaker notes
+  prompt: Here are my conference slides — each one has my full talking points as bullets. Review the deck.
+  expected_route: invoke
+  expected_mode: review
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Make slides show what the mouth cannot, not carry the spoken words
+  - Limit each slide to one core idea
+  - Maximize signal-to-noise by removing clutter
+  - Design the deck to rebuild one core idea in the audience's mind
+  must_not_do:
+  - Design the finished deck for them
+  - Add gratuitous effects that do not aid learning
+  principle_coverage:
+  - P009
+  - P013
+  - P023
+  - P097
+  - P045
+- test_id: GT-007
+  description: Positive routing — talk preparation, story and timing
+  prompt: I have an 18-minute talk. How do I structure it and make sure I don't run over?
+  expected_route: invoke
+  expected_mode: advise
+  minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
+    the residual trade-off or referral, highest-impact first.
+  must_do:
+  - Build the talk to rebuild one idea, with a signposted throughline
+  - Tell it as a story with an empathetic character and built tension
+  - Plan for about ninety percent of the allotted time and rehearse to fit
+  - Keep it scripted yet improvisational and embodied rather than read
+  must_not_do:
+  - Write and memorize the talk for them
+  - Promise a standing ovation or a specific reception
+  principle_coverage:
+  - P089
+  - P088
+  - P098
+  - P161
+  - P097
+negative_routing_tests:
+- test_id: NR-001
+  description: Asks for the deliverable to be produced end to end, not research-writing advice.
+  prompt: Write the entire related-work section of our paper for us.
+  expected_route: do_not_invoke
+- test_id: NR-002
+  description: A domain data-analysis task with a knowable answer, no research-writing dimension.
+  prompt: Run the statistical analysis on our dataset and tell us whether the effect is significant.
+  expected_route: do_not_invoke
+- test_id: NR-003
+  description: A domain-science correctness question, outside the writing and presentation scope.
+  prompt: Is our proposed catalyst actually more chemically active than the baseline?
+  expected_route: do_not_invoke
+missing_context_tests:
+- test_id: MC-001
+  description: Underspecified request
+  prompt: Make my paper better.
+  expected_route: invoke
+  must_ask_for:
+  - Which part — the whole paper, or a specific section (introduction, methods, results, discussion, abstract)
+  - The target venue and audience
+  - 'The specific concern: argument, structure, clarity, English, figures, or claims'
+- test_id: MC-002
+  description: Underspecified request
+  prompt: Review my draft.
+  expected_route: invoke
+  must_ask_for:
+  - The draft text and which part to focus on
+  - The field and venue norms it must meet
+  - Whether the concern is the argument, the structure, the style, or the strength of the claims
+- test_id: MC-003
+  description: Underspecified request
+  prompt: Help me with my talk.
+  expected_route: invoke
+  must_ask_for:
+  - The talk's one core idea and its audience
+  - The time limit and the setting
+  - Whether the need is structure, slides, or delivery

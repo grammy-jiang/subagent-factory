@@ -1,7 +1,43 @@
-# Conversion report: judge-reliability-ha-53171e80
+# Conversion Report — judge-reliability-ha-53171e80
 
-- source_id: judge-reliability-ha-53171e80
-- sha256: 53171e801c6b4dbe0d62999c6fdcba0f4b7ce0332601c307cf0af775e46ce824
-- word_count: 4602
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.366142+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 4602 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -40,7 +40,8 @@ from tools.subagent_factory.detect_stale import detect_stale
 from tools.subagent_factory.domain_policy import check_domain_policy
 from tools.subagent_factory.profile_self_check import profile_self_check
 from tools.subagent_factory.prompt_injection_scan import prompt_injection_scan
-from tools.subagent_factory.quote_scan import quote_scan
+from tools.subagent_factory.quote_scan import quote_scan_report
+from tools.subagent_factory.redact_injection_spans import PLACEHOLDER, load_verdicts
 from tools.subagent_factory.validate_adapter_quality import validate_adapter_quality
 from tools.subagent_factory.validate_anchor_index import validate_anchor_index
 from tools.subagent_factory.validate_behaviour_test_coverage import (
@@ -360,7 +361,17 @@ def _check_reports(base: Path, warn: _Emit, ok: _Emit) -> None:
 
 
 # 7. Adapter check
-def _check_adapter(base: Path, slug: str, fail: _Emit, ok: _Emit) -> None:
+def _strip_generated_ts(text: str) -> str:
+    """Normalize the volatile ``Generated: <timestamp>`` line so a fresh render can be compared to a
+    stored adapter for CONTENT drift (the timestamp changes on every export)."""
+    import re
+
+    return re.sub(r"^Generated:.*$", "Generated: <ts>", text, flags=re.M)
+
+
+def _check_adapter(
+    base: Path, slug: str, profile: dict, fail: _Emit, warn: _Emit, ok: _Emit
+) -> None:
     adapter_path = base / "adapters" / "claude-code" / f"{slug}.md"
     if adapter_path.exists():
         ok("adapter", f"Canonical adapter {adapter_path.name} present")
@@ -380,6 +391,29 @@ def _check_adapter(base: Path, slug: str, fail: _Emit, ok: _Emit) -> None:
                 ok("adapter-sync", "Installed adapter matches canonical")
     else:
         fail("adapter-installed", f"Installed adapter not found at {installed_path}")
+
+    # Freshness: the stored adapter must match what the CURRENT generator renders from profile.yaml.
+    # adapter-sync above compares two STORED files (canonical vs installed); when both are stale
+    # together — a generator/template/compiler change that was never re-exported — it passes while
+    # both drift from the generator (the 31/38 stale-adapter failure mode). Re-render and compare,
+    # ignoring the volatile Generated: timestamp. WARN not FAIL: some drift is cosmetic (e.g.
+    # description composition) and re-export is a human call; harmful truncation is a separate FAIL.
+    if adapter_path.exists() and isinstance(profile, dict) and profile:
+        try:
+            from tools.subagent_factory.export_claude_agent import render_adapter
+
+            fresh = _strip_generated_ts(render_adapter(profile, base))
+            stored = _strip_generated_ts(adapter_path.read_text(encoding="utf-8"))
+            if fresh != stored:
+                warn(
+                    "adapter-fresh",
+                    "adapter drifts from a fresh render of profile.yaml (generator/template "
+                    "changed since export) — re-export with `cli export`",
+                )
+            else:
+                ok("adapter-fresh", "adapter matches a fresh render of profile.yaml")
+        except Exception as e:  # never let a render hiccup crash validation
+            warn("adapter-fresh", f"could not verify adapter freshness: {e}")
 
 
 # 8. Tests — golden tests and a test-results record are required (v0 §17)
@@ -412,9 +446,19 @@ def _check_phase8(base: Path, fail: _Emit, ok: _Emit) -> None:
 
 # 10. Quote scan
 def _check_quote_scan(base: Path, warn: _Emit, ok: _Emit) -> None:
-    quote_findings = quote_scan(base)
-    if quote_findings:
-        for qf in quote_findings:
+    r = quote_scan_report(base)
+    # "could not scan" ≠ "clean": restricted sources exist but no verbatim text was available (no
+    # sources/markdown/, no warm cache module). The old silent PASS hid exactly this — quote_scan
+    # returned [] on every package because the withheld sources left nothing to compare against.
+    if r["restricted"] and not r["scanned"]:
+        warn(
+            "quote-scan",
+            f"rights NOT verified — {r['restricted']} restricted source(s) but no source text "
+            "available (no sources/markdown/, no warm cache module); verbatim-quote gate could not run",
+        )
+        return
+    if r["findings"]:
+        for qf in r["findings"]:
             warn("quote-scan", f"{qf['file']}:{qf['line']}: {qf['issue']}")
     else:
         ok("quote-scan", "No potential verbatim quotation found")
@@ -433,6 +477,59 @@ def _check_injection(base: Path, warn: _Emit, ok: _Emit) -> None:
             )
     else:
         ok("injection-scan", "no injection payloads detected in source")
+
+
+# 11b. Injection-quarantine ENFORCEMENT — the code half of the source-safety gate. The scan above is
+# advisory; source-safety-reviewer records which spans are truly suspicious in
+# reports/source-safety-verdicts.yaml, and redact_injection_spans neutralizes them from the
+# interrogation input. This gate proves the neutralization happened: a confirmed-suspicious span still
+# present verbatim in sources/markdown/ FAILs, so the redactor cannot be silently skipped. Inert when
+# no verdicts file exists (every package that never triaged a hit — i.e. all current packages).
+def _check_injection_quarantine(base: Path, fail: _Emit, ok: _Emit) -> None:
+    if not (base / "reports" / "source-safety-verdicts.yaml").exists():
+        return  # no triage recorded → nothing to enforce
+    try:
+        verdicts = load_verdicts(base)
+    except ValueError as e:
+        # Fail closed: an unparseable verdicts file cannot be read as "no suspicious spans".
+        fail("injection-quarantine", f"reports/source-safety-verdicts.yaml: {e}")
+        return
+    suspicious = [v for v in verdicts if v.get("verdict") == "suspicious"]
+    if not suspicious:
+        ok("injection-quarantine", "source-safety verdicts present; no suspicious spans")
+        return
+    md_dir = base / "sources" / "markdown"
+    leaks = 0
+    for v in suspicious:
+        name = Path(str(v["file"])).name
+        target = md_dir / name
+        ln = v.get("line")
+        if not target.exists():
+            leaks += 1
+            fail(
+                "injection-quarantine",
+                f"confirmed-suspicious span {name}:{ln} — markdown file missing",
+            )
+            continue
+        lines = target.read_text(encoding="utf-8", errors="replace").splitlines()
+        if not isinstance(ln, int) or isinstance(ln, bool) or ln < 1 or ln > len(lines):
+            leaks += 1
+            fail(
+                "injection-quarantine",
+                f"confirmed-suspicious span {name}:{ln} — no such line to neutralize",
+            )
+        elif lines[ln - 1].strip() != PLACEHOLDER:
+            leaks += 1
+            fail(
+                "injection-quarantine",
+                f"confirmed-suspicious span reaches interrogation input at {name}:{ln} "
+                "— run `python -m tools.subagent_factory.redact_injection_spans`",
+            )
+    if leaks == 0:
+        ok(
+            "injection-quarantine",
+            f"{len(suspicious)} confirmed-suspicious span(s) redacted from interrogation input",
+        )
 
 
 # 12. Adapter-policy scan: tool-grant widening / escalation = FAIL; body injection = WARN.
@@ -621,11 +718,12 @@ def validate_generated_package(subagent_dir: str | Path) -> dict:
     _check_manifest(base, fail, ok)
     _check_anchors(base, fail, ok)
     _check_reports(base, warn, ok)
-    _check_adapter(base, slug, fail, ok)
+    _check_adapter(base, slug, profile, fail, warn, ok)
     _check_tests(base, fail, ok)
     _check_phase8(base, fail, ok)
     _check_quote_scan(base, warn, ok)
     _check_injection(base, warn, ok)
+    _check_injection_quarantine(base, fail, ok)
     _check_adapter_policy(base, fail, warn)
     _check_patch_policy(base, profile, fail, ok)
     _check_domain_policy(profile, fail, ok)

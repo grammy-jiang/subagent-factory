@@ -1,7 +1,43 @@
-# Conversion report: mcp-tool-description-1a9237db
+# Conversion Report — mcp-tool-description-1a9237db
 
-- source_id: mcp-tool-description-1a9237db
-- sha256: 1a9237dbcad1eeab0e08681ba471af7d998b2536e9bec440a31e69278fa15383
-- word_count: 26327
-- anchor_count: 8
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.353076+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 26327 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -12,6 +12,7 @@ import json
 from tools.subagent_factory.quote_scan import (
     MIN_WORDS_FOR_CONCERN,
     quote_scan,
+    quote_scan_report,
 )
 
 
@@ -244,3 +245,68 @@ def test_open_rights_source_not_loaded_for_matching(tmp_path):
         f'As the open source states: "{quote}".\n', encoding="utf-8"
     )
     assert quote_scan(base) == []
+
+
+# ── A: map-reduce cache fallback + rights-not-verified visibility ──────────────
+# The real corpus withholds sources/markdown/ (distillation-only), so quote_scan was vacuous — []
+# on every package because there was nothing to compare against. These pin the cache-level fix.
+def _build_map_reduce_package(tmp_path, source_text, rights="distillation-only"):
+    """A package with NO sources/markdown/ (withheld) but a manifest ``sha256`` + a synthetic cache
+    module at ``<cache>/<sha>/source.md`` — the real-corpus shape. Returns (base, source_id, cache_root)."""
+    base = tmp_path / "pkg"
+    (base / "sources" / "metadata").mkdir(parents=True)
+    source_id, sha = "src-1", "a" * 64
+    meta_rel = f"sources/metadata/{source_id}.metadata.json"
+    (base / meta_rel).write_text(
+        json.dumps({"source_id": source_id, "rights_status": rights, "sha256": sha}),
+        encoding="utf-8",
+    )
+    (base / "source-pack.manifest.yaml").write_text(
+        "schema_version: source-pack-manifest-v1\nsources:\n"
+        f"  - source_id: {source_id}\n    sha256: {sha}\n    metadata_path: {meta_rel}\n",
+        encoding="utf-8",
+    )
+    cache_root = tmp_path / "cache"
+    mod = cache_root / sha
+    mod.mkdir(parents=True)
+    (mod / "source.md").write_text(source_text, encoding="utf-8")
+    return base, source_id, cache_root
+
+
+def test_cache_fallback_catches_verbatim_quote(tmp_path):
+    source = _short_word_quote(MIN_WORDS_FOR_CONCERN + 10)  # 50 short words
+    base, _sid, cache_root = _build_map_reduce_package(tmp_path, f"chapter text {source} end")
+    lift = " ".join(source.split()[:MIN_WORDS_FOR_CONCERN])  # 40-word verbatim lift into the output
+    (base / "references").mkdir()
+    (base / "references" / "skill.md").write_text(f"Intro. {lift} Outro.\n", encoding="utf-8")
+    # sources/markdown/ is absent → the scan must fall back to the cache module and catch the lift.
+    assert quote_scan(base, cache_root=cache_root)
+
+
+def test_report_scanned_true_via_cache(tmp_path):
+    base, _sid, cache_root = _build_map_reduce_package(
+        tmp_path, "some restricted source prose here"
+    )
+    r = quote_scan_report(base, cache_root=cache_root)
+    assert r["restricted"] == 1 and r["scanned"] is True
+
+
+def test_report_scanned_false_when_no_source_available(tmp_path):
+    # Restricted source, but no sources/markdown/ AND no cache module (cold cache) → the gate COULD NOT
+    # run. This is "rights not verified", which the validate gate surfaces instead of a silent pass.
+    base, _sid, _cache = _build_map_reduce_package(tmp_path, "src text")
+    r = quote_scan_report(base, cache_root=tmp_path / "empty-cache")
+    assert r["restricted"] == 1 and r["scanned"] is False
+
+
+def test_check_quote_scan_warns_rights_not_verified(tmp_path):
+    import tools.subagent_factory.validate_generated_package as vgp
+
+    base, _sid, _cache = _build_map_reduce_package(tmp_path, "src text")
+    warns: list[tuple[str, str]] = []
+    oks: list[tuple[str, str]] = []
+    # default cache root has no module for the fake sha → could-not-scan → WARN, not a silent OK.
+    vgp._check_quote_scan(
+        base, warn=lambda c, m: warns.append((c, m)), ok=lambda c, m: oks.append((c, m))
+    )
+    assert oks == [] and any("rights NOT verified" in m for _c, m in warns)

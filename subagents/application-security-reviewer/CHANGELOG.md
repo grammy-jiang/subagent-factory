@@ -3,6 +3,15 @@
 All notable changes to this generated subagent package are recorded here. The canonical source of
 truth is `profile.yaml`; the installed adapter is a derived artifact.
 
+## [0.1.1] — 2026-07-25
+
+### Added
+- `router_description` in `profile.yaml`: the adapter frontmatter `description` is the string the
+  runtime routes on, and without this field the exporter composes it from the role plus only the
+  first two `when_to_use` triggers and the first `when_not_to_use` exclusion — silently dropping the
+  remaining domains. The authored description names the full remit and boundary. Adapter
+  re-exported; no principle, rule, or skill changed.
+
 ## [0.1.0] — 2026-07-03
 
 ### Added

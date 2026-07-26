@@ -1,7 +1,43 @@
-# Conversion report: github-mcp-offline-e-4910b3c6
+# Conversion Report — github-mcp-offline-e-4910b3c6
 
-- source_id: github-mcp-offline-e-4910b3c6
-- sha256: 4910b3c691ad6e78701fb517ca87724016fe3e82b147eefb8f9d301b94654871
-- word_count: 1459
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.368546+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1459 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

@@ -1,7 +1,43 @@
-# Conversion report: claude-think-tool-45823385
+# Conversion Report — claude-think-tool-45823385
 
-- source_id: claude-think-tool-45823385
-- sha256: 45823385017701dd6b557ae4e32b1d2c83f3fd7fa732f90ef954e61ca747833f
-- word_count: 2452
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.087312+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2452 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

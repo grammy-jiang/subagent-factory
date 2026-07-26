@@ -1,7 +1,43 @@
-# Conversion report: extending-claude-cap-772a4479
+# Conversion Report — extending-claude-cap-772a4479
 
-- source_id: extending-claude-cap-772a4479
-- sha256: 772a44790c9067b4a08a94c6b3d48847edbd636c5451f493308dcbf0f02685b8
-- word_count: 1736
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:35.995919+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 1736 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

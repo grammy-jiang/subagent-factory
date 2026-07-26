@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source-safety-verdicts-v1",
+  "title": "Source-safety verdicts v1",
+  "description": "The source-safety-reviewer's structured triage of prompt-injection scan hits, written to subagents/<slug>/reports/source-safety-verdicts.yaml. Each verdict records whether a flagged span is a real injection (suspicious) or benign (e.g. a document quoting an injection as an example). A 'suspicious' verdict names the concrete 1-indexed source line to neutralize; redact_injection_spans.py whole-line-redacts those lines from sources/markdown/ before interrogation reads it, and validate_generated_package's injection-quarantine gate FAILs if a suspicious span is not redacted. Step 5.5.",
+  "type": "object",
+  "required": ["schema", "verdicts"],
+  "properties": {
+    "schema": {"const": "source-safety-verdicts-v1"},
+    "verdicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["file", "verdict"],
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Canonical source markdown the span is in. Resolved by basename under sources/markdown/ (a full scan path like subagents/<slug>/sources/markdown/foo.md or a bare foo.md both work; traversal is not honored)."
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "1-indexed source line. Required (>=1) for a 'suspicious' verdict — it is the line whole-line-redacted from interrogation input. 0/omitted is only valid for a 'benign' verdict."
+          },
+          "verdict": {
+            "enum": ["suspicious", "benign"],
+            "description": "suspicious = real injection attempt → neutralized before distillation. benign = flagged by the high-recall scan but not an attack → left intact."
+          },
+          "family": {"type": "string", "description": "Injection family from the scan finding (e.g. imperative-override), for traceability."},
+          "excerpt": {"type": "string", "description": "Human-readable excerpt of the flagged span (from the scan finding). Advisory only — the machine target is 'line'."},
+          "rationale": {"type": "string", "description": "Why the reviewer reached this verdict."}
+        },
+        "additionalProperties": true,
+        "if": {"properties": {"verdict": {"const": "suspicious"}}},
+        "then": {"required": ["file", "verdict", "line"], "properties": {"line": {"minimum": 1}}}
+      }
+    }
+  },
+  "additionalProperties": true
+}

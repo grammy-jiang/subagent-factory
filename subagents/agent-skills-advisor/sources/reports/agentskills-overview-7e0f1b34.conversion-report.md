@@ -1,7 +1,43 @@
-# Conversion report: agentskills-overview-7e0f1b34
+# Conversion Report — agentskills-overview-7e0f1b34
 
-- source_id: agentskills-overview-7e0f1b34
-- sha256: 7e0f1b3437931ab74f486867e24f9e9132ca18b0815bdf556120998e59773ca2
-- word_count: 2259
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.121018+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2259 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

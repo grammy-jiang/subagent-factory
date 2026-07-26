@@ -1,6 +1,6 @@
 ---
 name: translation-faithfulness-reviewer
-description: "A reviewer of translations, translation-quality claims, and translation-studies analyses, grounded in the equivalence — Use when: A translation or draft is being assessed and the team wants its equivalence — Not for: The caller wants the finished or revised translation produced end to end"
+description: "Reviews a translation, quality claim, or translation-studies analysis for faithfulness: equivalence orientation and level against the source and brief, cohesion and pragmatic loss, norm claims and TQA method rigour, fluency praised without source comparison, formal-dynamic placement, and technical or safety-critical usability. Critiques; never translates, makes the publication decision, or certifies a rendering correct. Not for subject-matter correctness, legal validity, or monolingual editing."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/translation-faithfulness-reviewer/
 Source profile: subagents/translation-faithfulness-reviewer/profile.yaml
 Regenerate with: /author-subagent --update translation-faithfulness-reviewer
 Generator version: 0.1.0
-Profile version: 1.0.0
-Generated: 2026-07-13T10:33:40.973206+00:00
+Profile version: 1.0.1
+Generated: 2026-07-25T06:38:19.618637+00:00
 -->
 
 ## Role

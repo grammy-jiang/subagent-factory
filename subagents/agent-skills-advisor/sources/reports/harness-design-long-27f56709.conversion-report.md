@@ -1,7 +1,43 @@
-# Conversion report: harness-design-long-27f56709
+# Conversion Report — harness-design-long-27f56709
 
-- source_id: harness-design-long-27f56709
-- sha256: 27f567091549d5cca51a9de2f8603aa02c6cb5a5cf61b339376e314cdb85a5e1
-- word_count: 5270
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.094527+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 5270 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

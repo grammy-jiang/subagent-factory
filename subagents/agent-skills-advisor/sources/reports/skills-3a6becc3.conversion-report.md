@@ -1,7 +1,43 @@
-# Conversion report: skills-3a6becc3
+# Conversion Report — skills-3a6becc3
 
-- source_id: skills-3a6becc3
-- sha256: 3a6becc3c67a82b6582b354af1ca3f48dd68e0d98285ed0204b7f57590422f80
-- word_count: 660
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:35.971070+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 660 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

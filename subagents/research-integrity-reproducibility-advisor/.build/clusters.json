@@ -1,0 +1,902 @@
+[
+ {
+  "group": 0,
+  "members": [
+   {
+    "idx": 0,
+    "statement": "Make analyses reproducible by documenting and sharing the data and code needed to fully rerun them, and state which definition of reproducibility the project uses since several competing definitions are in circulation."
+   },
+   {
+    "idx": 34,
+    "statement": "Make code reusable in proportion to the software's needs, following the reuse recommendations that fit your type of software, and consider the FAIR Principles for Research Software as a more elaborate approach, recognising the different levels of reproducibility from repeatable through re-runnable, portable, extendable, and modifiable."
+   },
+   {
+    "idx": 35,
+    "statement": "Treat the research compendium (a collection of all the digital parts of a project organised so results are straightforward to reproduce) as the intended output of a project rather than just a paper, plan for it early, and publish the paper together with the compendium so others can access inputs, test the analysis, and rerun it."
+   },
+   {
+    "idx": 94,
+    "statement": "Treat reproducibility as necessary but not sufficient for high-quality research, because reproducing a result can carry through the original author's mistakes, so apply a critical approach to the methods rather than naively using existing software or statistical methods without understanding them."
+   },
+   {
+    "idx": 95,
+    "statement": "Accept the upfront time cost of reproducibility because it is more than repaid: a version-controlled reproducible pipeline makes a reviewer's late request fast to satisfy and the work easy to reuse; being reproducible does not oblige you to support reuse beyond re-running the published analyses; the primary beneficiaries are usually the research team and your future self; and the required skills (data engineering, RSE, technical writing, project management) are themselves a barrier worth investing in."
+   },
+   {
+    "idx": 96,
+    "statement": "Keep a complete history and provenance of the project (data, tools, methods, code, documentation), because reproducible workflows greatly ease peer review, bring fair credit through higher citation, and ensure the continuity of the work for others and your future self."
+   },
+   {
+    "idx": 98,
+    "statement": "State clearly which definition of reproducibility you mean, since the terms reproducible and replicable are defined oppositely by different bodies and vary by discipline; use the Turing Way distinctions (reproducible = same data and analysis, replicable = same analysis different data, robust = same data different analysis, generalisable = both) where robust results show independence from the chosen programming language, and note Stodden's computational, empirical, and statistical reproducibility."
+   },
+   {
+    "idx": 115,
+    "statement": "Document every step of the research process, recording what you did and why (including mistakes) specifically enough that someone with a similar background or you in six months could repeat it, and share your methods and protocols openly through a protocol repository so others can reproduce your research."
+   },
+   {
+    "idx": 176,
+    "statement": "Report empirical procedures in enough detail for others to evaluate data validity and method reliability and to reconstruct the conditions needed for replication."
+   },
+   {
+    "idx": 179,
+    "statement": "Assess whether reproducibility requires sharing nonstandard software or specialized hardware in addition to recorded data, and provide those dependencies when materially necessary and feasible."
+   }
+  ]
+ },
+ {
+  "group": 1,
+  "members": [
+   {
+    "idx": 1,
+    "statement": "Publish negative results so others avoid wasting time repeating analyses that will not return the expected findings."
+   },
+   {
+    "idx": 182,
+    "statement": "Use established disciplinary methods and checks to reduce avoidable error, prepare results carefully, obtain peer review, and keep published work open to continued scrutiny."
+   },
+   {
+    "idx": 194,
+    "statement": "Choose publication units for coherence, completeness, and significant contribution; do not republish substantially the same findings or fragment a study merely to inflate output, while allowing distinct components that each form a complete and meaningful report."
+   }
+  ]
+ },
+ {
+  "group": 2,
+  "members": [
+   {
+    "idx": 2,
+    "statement": "Keep in version control all of the code required to produce a manuscript or result from scratch."
+   },
+   {
+    "idx": 5,
+    "statement": "Automate the full path from raw inputs to the final manuscript with a workflow manager (such as Snakemake or Make) that defines every step required to reproduce the result."
+   },
+   {
+    "idx": 28,
+    "statement": "Make your work re-runnable by others: store the code publicly with a unique persistent identifier, version-control its temporal evolution so past versions can be retrieved, and script the computational environment and the sequence of operations in a pipeline so no human is needed to replicate it."
+   },
+   {
+    "idx": 158,
+    "statement": "Commit well: make each commit an atomic single change, commit no generated files, stage the specific files by name rather than adding everything, and write a meaningful message with a roughly 50-character present-tense imperative summary that explains what you did, why, and what is impacted, describing what the code does rather than the code itself."
+   }
+  ]
+ },
+ {
+  "group": 3,
+  "members": [
+   {
+    "idx": 3,
+    "statement": "Sharing code alone is not sufficient for reproducibility; capture the computational environment as well, for example by combining a build tool like repo2docker with a hosting service so others get the exact software versions."
+   },
+   {
+    "idx": 142,
+    "statement": "Capture the computational environment (operating system, software, package versions, hardware, configuration) so research can be reproduced, because the same valid code can give different results in different environments (for example 1/5 differs between Python 2 and Python 3) and an uncaptured environment harms the researcher, collaborators, and science; publish the entire mobile analysis stack from data up, and record software versions with semantic versioning (MAJOR.MINOR.PATCH)."
+   }
+  ]
+ },
+ {
+  "group": 5,
+  "members": [
+   {
+    "idx": 6,
+    "statement": "Use continuous integration to check pull-request contributions for technical integrity, and pre-build and reuse the computational container rather than rebuilding it every run since the environment changes far less often than the repository contents."
+   },
+   {
+    "idx": 11,
+    "statement": "Integrate contributors' work frequently, ideally at least daily, and verify each integration with an automated build that includes tests, because integrating alone gives no quality guarantee and it is far cheaper to fix a defect found minutes after it was introduced."
+   },
+   {
+    "idx": 131,
+    "statement": "Use containers to capture a whole computing environment for reproducibility, because the dependency stack of even a moderate project is huge and a self-contained snapshot is easier than resolving dependencies by hand; containers are lighter than virtual machines and more robust than package managers or Binder since they reproduce the entire system, and are shared by writing a recipe (Dockerfile), building an image, and distributing the image for others to run."
+   }
+  ]
+ },
+ {
+  "group": 6,
+  "members": [
+   {
+    "idx": 7,
+    "statement": "Archive releases in a repository that mints a persistent identifier (for example linking GitHub to Zenodo for a DOI) to ensure long-term archiving and citability."
+   },
+   {
+    "idx": 107,
+    "statement": "Manage outputs with a Data Management Plan, a living document covering roles and responsibilities, data types and sizes and metadata, storage and backup, post-project preservation, reuse and licensing, and costs; ensure at least one other person has access (restricting sensitive data to those who need it), apply a licence when depositing so others know how they may reuse it, and choose a repository that mints a persistent identifier and states its preservation policy."
+   },
+   {
+    "idx": 120,
+    "statement": "Deposit research outputs in a trusted repository, which automatically mints the persistent identifier and constructs, registers, exposes, and maintains the metadata even if you move institutions, and do this throughout the lifecycle (plans, protocols, datasets, notebooks, code, preprints, even null results) rather than only for final outputs; prefer repository-based PIDs over direct minting for most researchers."
+   },
+   {
+    "idx": 122,
+    "statement": "Deposit research outputs in a trusted, appropriately chosen repository to make them FAIR: prefer a domain-specific, community-recognised repository where one exists, checking that it provides a persistent identifier, the access control you need, your file formats and sizes, and any funder or institutional requirement, and recognising that long-term archiving repositories differ from transient collaborative platforms like GitHub that assign no persistent identifiers."
+   },
+   {
+    "idx": 137,
+    "statement": "Store the actual built container images, not just the recipe files, in a citable long-term archive such as Zenodo (which mints a DOI), because a recipe's build depends on online sources that can change so the same recipe may produce different images; and point software in a Singularity container to a global user-independent config file, because Singularity binds $HOME by default and user settings can silently override the image configuration."
+   }
+  ]
+ },
+ {
+  "group": 10,
+  "members": [
+   {
+    "idx": 12,
+    "statement": "Make small, frequent, committed changes and use trunk-based development with short-lived feature branches, so integration conflicts are surfaced while their scope is still small."
+   },
+   {
+    "idx": 159,
+    "statement": "Use branches to keep working code safe: develop each new feature on its own informatively named branch so you do not break the main branch (abandoning a branch that does not work out), keep the main branch containing only complete, tested work, keep each branch to a single feature, merge others' changes into your work frequently, and fully understand both versions before resolving a merge conflict."
+   },
+   {
+    "idx": 163,
+    "statement": "Keep the main branch always stable and only merge finished, tested work into it; when a merge conflict occurs (incompatible changes to the same file, which Git marks for manual resolution) fully understand both versions before resolving, and best avoid conflicts altogether by keeping branches clean and single-purpose, touching as few files as possible, and communicating with everyone working on them."
+   }
+  ]
+ },
+ {
+  "group": 11,
+  "members": [
+   {
+    "idx": 13,
+    "statement": "Keep the build and test pipeline fast: treat build-time increases as a major problem, parallelise independent test sections, weight the suite toward fast unit tests over slow system tests, and for computationally expensive builds use tiered testing selected by what changed."
+   },
+   {
+    "idx": 152,
+    "statement": "Run tests regularly, ideally automated through continuous integration, because a rarely-run suite is useless and long gaps make failures hard to diagnose; weight the suite toward many fast tests and few slow ones (running slow tests overnight), document how to run the tests with any datasets and setup scripts, make the test cases as realistic as the real data, and use a testing framework."
+   },
+   {
+    "idx": 155,
+    "statement": "Build a layered test suite with both positive tests (something works) and negative tests (something errors when it should): quick smoke tests that reject a broken build, runtime checks embedded in the program to catch edge cases early, and slow system or end-to-end tests that verify outward functionality (and performance, migration, stress, usability, and recovery) which should be run only after lower-level tests pass and prioritised on the most common, important, and breakage-prone paths."
+   }
+  ]
+ },
+ {
+  "group": 16,
+  "members": [
+   {
+    "idx": 18,
+    "statement": "A well-formed software project provides the standard supporting files: a README, contributing guidelines, a roadmap, a changelog, a licence, a code of conduct when collaboration matters, and a CITATION.cff so the software can be cited."
+   },
+   {
+    "idx": 29,
+    "statement": "License, cite, and complete your work for reuse: attach a suitable licence (preferring a permissive one compatible with your dependencies, noted in the README), specify how you want to be cited, and make any data the software depends on available alongside the code."
+   },
+   {
+    "idx": 88,
+    "statement": "Run an open source project with the essential files: a licence file (without which no one can legally use it and it is not open source), a DOI so the code is citeable, a README covering what the project is, its features, install and run instructions, tests, authors, and acknowledgements (write the install steps the first time you do them), and, if you want collaborators, contributing guidelines and a code of conduct (adopting a standard like the Contributor Covenant) kept in the root and linked from the README."
+   }
+  ]
+ },
+ {
+  "group": 19,
+  "members": [
+   {
+    "idx": 21,
+    "statement": "Write clear, readable, reusable code with a consistent, documented style: keep lines short enough to read (a very long line can signal an over-complex function), keep comments concise, use consistent indentation, and agree and record a common style when collaborating."
+   },
+   {
+    "idx": 26,
+    "statement": "Enforce a consistent code style automatically with formatting tools and a shared indentation standard (kept consistent across editors with a tool like EditorConfig), which raises code quality and increases the chance of finding bugs, and matters most in a team."
+   }
+  ]
+ },
+ {
+  "group": 22,
+  "members": [
+   {
+    "idx": 24,
+    "statement": "Fail loudly and informatively: raise your own warnings or errors rather than relying only on built-in ones, and write actionable messages that pinpoint the problem, point to next steps, use jargon appropriately, and are honest about what they know."
+   },
+   {
+    "idx": 25,
+    "statement": "Use exception handling to catch an expected error and change course instead of stopping, and use tests to confirm robustness by passing strange data and checking the workflow redirects, reports, or aborts with the expected error messages."
+   }
+  ]
+ },
+ {
+  "group": 23,
+  "members": [
+   {
+    "idx": 27,
+    "statement": "Adopt and consistently follow a coding-style framework, and support it with linters, static code analysis, and a repository-integrated code-quality service, to catch potential errors, style violations, and security weaknesses before the code is run and to communicate them in pull requests."
+   },
+   {
+    "idx": 32,
+    "statement": "When packaging reusable code, build it to a reliable standard so it works on systems other than your own, using unit and integration testing, version control, documentation, accessible hosting, and CI pipelines, and start from a package template that provides the structure, comment conventions, and built-in linting."
+   }
+  ]
+ },
+ {
+  "group": 24,
+  "members": [
+   {
+    "idx": 30,
+    "statement": "Make code reusable by removing hardcoded specifics (data details, parameters, machine-specific paths) and making it modular, passing file paths as arguments, keeping modules pure so the same input always gives the same output, testing that modules accept the expected range of inputs, and turning reusable modules into a package or toolbox."
+   },
+   {
+    "idx": 31,
+    "statement": "Document both the code and the environment it ran in for reuse: capture the operator's steps, hardware, OS, libraries, and dependencies, write comments before the code so the comments alone convey what it does, and provide more documentation for higher levels of reuse (usage and examples for repeatable, install and platform requirements for portable)."
+   }
+  ]
+ },
+ {
+  "group": 29,
+  "members": [
+   {
+    "idx": 39,
+    "statement": "Before distributing a combined work, check that the licences of the components are compatible, because incompatible licences can make distribution or even creation illegal; answer which separate works exist and what derives from what, whether the derivatives can be distributed and their licences are compatible, and how the works should be licensed."
+   },
+   {
+    "idx": 43,
+    "statement": "To avoid forming one combined work from incompatible licences, split the system into independent programs in separate processes communicating over well-documented generic interfaces, and avoid combining strong-copyleft dependencies with proprietary components in a project you intend to distribute, treading carefully if it is unavoidable because it carries legal risk."
+   }
+  ]
+ },
+ {
+  "group": 30,
+  "members": [
+   {
+    "idx": 40,
+    "statement": "Know the licence taxonomy: permissive licences grant the widest permissions and let content be relicensed even into closed projects, whereas copyleft content, modified or not, must stay under the same or a compatible copyleft licence; strong copyleft binds the whole combined work while weak copyleft only requires the component's source to stay available, and copyleft does not forbid commercial use."
+   },
+   {
+    "idx": 48,
+    "statement": "Distinguish proprietary from free/libre and open source software: software you cannot copy or modify, or that carries usage restrictions like research-use-only, is proprietary, while the FSF defines four freedoms (run, study and change with source, redistribute, distribute modified with source); free/libre emphasises liberty and copyleft, open source emphasises the freedom to study and modify and permissive licences."
+   },
+   {
+    "idx": 50,
+    "statement": "Understand usage-restricting licences: Ethical Source and Responsible AI licences curtail the freedom to use software for any purpose, so by the classical FSF and OSI definitions they are not free or open source and their adoption is limited; even an attribution requirement can count as a restriction, compliance is harder and more expensive to demonstrate than for conventional licences, and DRM-style technical enforcement tends to be brittle, invasive, and bypassable."
+   },
+   {
+    "idx": 57,
+    "statement": "Know how copyleft is enforced and its edge cases: copyleft terms have been successfully defended in court but violations are hard to discover in a black-box product; the copyright holder can re-license or dual-license, which in a community project needs every contributor's consent (handled via Contributor Licence Agreements); and source-available or shared-source projects that publish code without licensing its reuse are not open source."
+   }
+  ]
+ },
+ {
+  "group": 33,
+  "members": [
+   {
+    "idx": 44,
+    "statement": "Choose a data licence deliberately, since it governs what others can do with the data and directly affects its accessibility; Creative Commons licences can serve as data licences in some cases (CC0 relinquishes all rights to the public domain, CC-BY is common), but Creative Commons is general-purpose while Open Data Commons licences are made specifically for data and typically cover only database rights."
+   },
+   {
+    "idx": 45,
+    "statement": "Know the Open Data Commons data licences: the PDDL waives all rights (analogous to CC0) with non-mandatory community norms, ODC-BY protects attribution, and the ODbL adds share-alike and requires any closed-format redistribution to also be available free of closure measures."
+   },
+   {
+    "idx": 46,
+    "statement": "Licence documentation and creative outputs with an appropriate licence so users know how the materials can be used, applying different licences to different artefacts where needed (for example Creative Commons for documentation and MIT for code), and decide which licence fits by thinking about why you want to share the work and how you hope others will use it."
+   },
+   {
+    "idx": 47,
+    "statement": "Understand the Creative Commons options: six licence types plus a public-domain tool ranging from most to least permissive, where a share-alike (SA) term forbids changing the licence on redistribution, a no-derivatives (ND) term forbids modifying the work, and a non-commercial (NC) term forbids commercial use."
+   }
+  ]
+ },
+ {
+  "group": 34,
+  "members": [
+   {
+    "idx": 49,
+    "statement": "Recognise that open source software is free to use but costly to build and maintain, and be a good open source citizen by playing by the licence rules and contributing your fixes and improvements upstream rather than only freeloading, which is often the simplest way to redistribute changes and gains you the maintainers' help keeping your code working."
+   },
+   {
+    "idx": 51,
+    "statement": "Choose open infrastructure to be inclusive of people who adhere strongly to the free-software ethos, because a small minority will not participate if it requires them to use non-free software."
+   },
+   {
+    "idx": 87,
+    "statement": "Open source software benefits research by being reusable, checkable, and collaborative, and benefits contributors by improving skills and public reputation, so reuse the best existing open-source solution rather than reinventing wheels and free your effort for unsolved problems."
+   },
+   {
+    "idx": 89,
+    "statement": "Contribute well to another open source project: orient yourself to its roles (author, owner, maintainers, contributors, community members), read its documentation and contributing guidelines, match its style and conventions, break changes into small well-defined chunks, test the changes against an up-to-date version and update the documentation, describe what you changed and why and how in the pull request, and remember that valuable non-code contributions (docs, examples, review, triage) are welcome too."
+   }
+  ]
+ },
+ {
+  "group": 36,
+  "members": [
+   {
+    "idx": 53,
+    "statement": "License the parts of an ML or AI system separately, since a model comprises training data, code, and weights that may each be licensed differently and the model licence governs the model and its derivatives independently of the other components; the chosen licence signals to users how the model should be used, and Creative Commons (which has no source-code terms) can cover data and weights while software licences cover the code."
+   },
+   {
+    "idx": 54,
+    "statement": "Recognise that it is an open legal question whether ML model weights are copyrightable, and that ML-specific licences have emerged because standard open-source licences do not account for a model's distinct technical nature and are ill-adapted to enabling responsible use."
+   },
+   {
+    "idx": 55,
+    "statement": "Use a Responsible AI or OpenRAIL licence to place use-based restrictions on an ML model when you want to release it openly (royalty-free, flexible downstream use) yet restrict specific harmful uses, choosing a research-only non-commercial variant or a commercially-permissive variant as appropriate to your concerns and the model's capabilities."
+   },
+   {
+    "idx": 63,
+    "statement": "Apply a pre-made off-the-shelf licence tailored to your type of work (software, images or prose, hardware and designs, or ML models) rather than negotiating individual arrangements, because which licence you choose shapes how others may reuse the work."
+   }
+  ]
+ },
+ {
+  "group": 38,
+  "members": [
+   {
+    "idx": 58,
+    "statement": "License an open hardware project across its four OSHWA-certification elements with appropriate licences (a hardware-native licence such as the CERN OHL for the design, an OSI-approved licence for software including firmware, and a Creative Commons licence for documentation), recognising that copyright protects only creative elements while functional parts need patents, and that open-hardware licences are recent, largely untested, and best seen as guiding tools for good actors."
+   },
+   {
+    "idx": 78,
+    "statement": "Open source hardware means the design specifications of any tangible object licensed so it can be studied, modified, made, and distributed by anyone; its source is design files (schematics, CAD, mixed binary and software) rather than plain code, so share both raw modifiable and derived print-ready files and be open from the very beginning of the project rather than only at the demonstrator stage."
+   },
+   {
+    "idx": 79,
+    "statement": "Manage an open hardware project through its lifecycle from a concrete need through prototyping to a demonstrator and a market-ready product: when a need arises, scope the project and invest time searching for similar existing projects to join rather than starting anew, and early on draw a roadmap and identify future users, contributors, and manufacturers and decide on a licence."
+   },
+   {
+    "idx": 80,
+    "statement": "Open hardware gives researchers flexibility, speed, lower cost, and control and benefits science through quality, reproducibility, inclusiveness, and sustainability, but building it requires specific skills and significant time, so buying industrial hardware with vendor support may be cheaper without enough in-house technical support."
+   },
+   {
+    "idx": 81,
+    "statement": "Share open hardware under an appropriate licence via an online platform with at least a licence and a general-audience README explaining what the project is before the technical detail; write documentation with the audience in mind, providing a list of the distinct skills needed to build, maintain, or operate it, and take particular care with safety instructions because makers are not always trained engineers."
+   },
+   {
+    "idx": 83,
+    "statement": "Build open hardware to be modular and extensible with documented interfaces so a community can grow around it, be honest with collaborators about the support they can expect, make the project discoverable with a common platform and descriptive metadata, make it citable by archiving versions with a DOI for long-term reproducibility, and remember that without an open licence others cannot legally use it and that hardware licensing is more complex than software because patent law sometimes applies."
+   }
+  ]
+ },
+ {
+  "group": 39,
+  "members": [
+   {
+    "idx": 59,
+    "statement": "For a project to be considered open source, place no restriction on field of use or on commercial use."
+   },
+   {
+    "idx": 62,
+    "statement": "Consider registering a trademark for an open source project, because its work can easily be cloned, modified, and redistributed with ill intent such as added malware, and trademark enforcement can in some cases help prevent or deter this."
+   },
+   {
+    "idx": 86,
+    "statement": "Prefer open source software, which lets anyone view, use, modify, and distribute the code, lowers barriers to adoption, and lets ideas spread quickly, since producing widely-used research software through a closed approach would likely be infeasible because such projects depend on unsolicited community contributions."
+   }
+  ]
+ },
+ {
+  "group": 44,
+  "members": [
+   {
+    "idx": 66,
+    "statement": "Model a data-science project as a tree of dependencies and build it with a tool like Make or Snakemake that rebuilds an output whenever its prerequisites change, because the resulting build file is human- and machine-readable, easy to share and version-control, reduces cognitive load through conventional targets, and lets collaborators or readers recompute your results to increase trust."
+   },
+   {
+    "idx": 67,
+    "statement": "Build a reproducible-paper Makefile by starting small and early and growing it iteratively: provide a data-collection target that downloads public inputs, add grouping PHONY targets that recreate a whole class of outputs at once, guard cleaning rules that delete slow-to-recreate outputs behind a confirmation, and keep code, results, and manuscript in one shared repository."
+   }
+  ]
+ },
+ {
+  "group": 45,
+  "members": [
+   {
+    "idx": 68,
+    "statement": "Follow Make authoring conventions: indent recipes with tabs not spaces, combine dependent commands on one line since each line runs in its own subshell, name the first target all and provide a clean target, declare non-file targets as .PHONY, avoid repetition with automatic variables and pattern rules and functions like wildcard and patsubst, define UPPERCASE variables at the top, develop the directory structure and Makefile together, and avoid recursive nested Makefiles that hide the full dependency graph."
+   },
+   {
+    "idx": 70,
+    "statement": "Use Make effectively: collapse many near-identical rules with a canned (parameterised) recipe, build independent targets concurrently with parallel jobs (make -j), and debug with the info and error functions and the -d and -n flags."
+   }
+  ]
+ },
+ {
+  "group": 48,
+  "members": [
+   {
+    "idx": 72,
+    "statement": "Share your research openly, because research is useless if it is not shared: open sharing helps others work effectively, avoids duplicated effort, makes results more likely to be checked and reproduced, and benefits the author through a wider audience and a likely citation advantage."
+   },
+   {
+    "idx": 73,
+    "statement": "Know the routes to Open Access, defined as free availability of full texts on the public internet: post a preprint (which most servers give its own citable DOI) before peer review, publish Gold Open Access via an article-processing charge under a licence whose copyright you retain, and self-archive (green Open Access)."
+   },
+   {
+    "idx": 91,
+    "statement": "Open research makes the primary outputs of publicly funded research publicly accessible with minimal restriction across its components (open data, software, hardware, access, notebooks, and the wider open scholarship), so make each element of the research process publicly available (not behind paywalls), reusable (appropriately licensed), and transparent (with metadata stating how it was produced)."
+   }
+  ]
+ },
+ {
+  "group": 50,
+  "members": [
+   {
+    "idx": 75,
+    "statement": "Follow the open-output checklists: open data by using a standard machine- and human-readable format with descriptive metadata, a trusted discoverable repository, and a persistent identifier; open software by placing code in a freely accessible repository with a licence, a README, and contribution guidelines; and open hardware by publishing detailed documentation and designs with a licence and a README."
+   },
+   {
+    "idx": 82,
+    "statement": "Provide the technical documentation that is an open hardware project's source code: technical drawings, electronic schematics, and CAD files (ideally authored in free and open source software and shared in both original and accessible ready-to-view formats), a Bill of Materials whose items map clearly to components, and complete build-and-run documentation covering assembly, required tools, firmware, and operation, maintenance, repair, and disposal."
+   }
+  ]
+ },
+ {
+  "group": 51,
+  "members": [
+   {
+    "idx": 76,
+    "statement": "Adopt an open-by-default stance for data, presuming publication for all and keeping data only as closed as necessary, because only a small proportion of data is ever published, a study generally cannot be reproduced without its original data, and open data (freely usable with minimal barriers) enables reuse; make the justification clear when access must be restricted."
+   },
+   {
+    "idx": 77,
+    "statement": "Address the real barriers to data sharing (organising data presentably, licensing uncertainty, choosing a repository); ensure that for anonymised human-participant data the consent forms cover sharing with other researchers and the participant sheets state how data is stored, preserved, used, and kept confidential; and accept that some data legitimately cannot be fully opened for legal, ethical, privacy, security, or commercial reasons, in which case share partial or obscured datasets."
+   },
+   {
+    "idx": 99,
+    "statement": "Research can be reproducible without every part being open, because some research uses sensitive data that cannot be shared while the analysis is still made reproducible."
+   },
+   {
+    "idx": 101,
+    "statement": "Publish a data article, a publication describing a dataset in journal-article structure, to get the dataset peer-reviewed (which repository deposits usually are not) and increase its visibility, credibility, and usability while giving you credit as a data producer."
+   },
+   {
+    "idx": 103,
+    "statement": "Establish research data management foundations: never touch the raw data (keep a backed-up read-only copy), set up a Data Management Plan, keep documentation together with the data, reuse existing schemas and tools rather than inventing your own, follow your group's, institution's, and country's ethics and data policies, and ensure every team member and an outside researcher can find and use the materials now and years later."
+   },
+   {
+    "idx": 106,
+    "statement": "Curate and preserve research data across its lifecycle (creation, use, sharing, archiving, reuse or destruction), treating as data all the objects that back your conclusions or that others need to replicate the work, and preserve it in interoperable or frequently used open file formats so it can still be opened years later, since data outlives the project that made it."
+   },
+   {
+    "idx": 112,
+    "statement": "Make research outputs FAIR (Findable through metadata and persistent identifiers, Accessible through a defined access procedure, Interoperable through integration with other data, Reusable through good description), planning for it from the start via the Data Management Plan; treat FAIR as aspirational and distinct from open, since data should be as open as possible and as closed as necessary."
+   },
+   {
+    "idx": 116,
+    "statement": "Treat personal data (information identifying a living person directly or indirectly) with care: obtain informed, voluntary, and fair consent for any research involving human participants and adopt privacy-safeguarding strategies so any sharing or publishing can be done safely."
+   },
+   {
+    "idx": 123,
+    "statement": "Do not hide data in a paper's supplemental materials (no DOI, cannot update, format-limited, breaks behind paywalls) or rely on data-available-on-request (studies show most authors do not provide it and recoverability declines over time); at minimum open the metadata and provide an access procedure for credentialed users so the work stays FAIR yet secure."
+   },
+   {
+    "idx": 124,
+    "statement": "Share research data to enable reproduction, avoid duplicated effort, and serve the public good: first decide which data others actually need, deposit it in a formal open indexed repository, apply a licence, make the paper and code link to the data and back, upload it in open structured standardised formats with sufficient documentation, and add a Data Availability Statement and dataset citation to the paper."
+   },
+   {
+    "idx": 178,
+    "statement": "After publication, make supporting data and unique materials available through the best feasible mechanism for verification and extension, while managing justified confidentiality and access constraints explicitly."
+   }
+  ]
+ },
+ {
+  "group": 52,
+  "members": [
+   {
+    "idx": 84,
+    "statement": "Keep research notes in an Electronic Lab Notebook for searchability, secure redundant storage, remote access, and easy sharing, and practise open notebook research by making notebooks openly available (making open what you can, even partially), which reduces duplicated work, fosters collaboration, and raises output quality by forcing careful, explicit recording and catching errors early."
+   },
+   {
+    "idx": 108,
+    "statement": "Treat choosing an Electronic Lab Notebook as a high-stakes, long-term decision that affects productivity and morale: avoid format lock-in by checking files export to your preferred formats, avoid vendor lock-in by having an exit strategy, and check backup, data-security, and long-term sustainability."
+   }
+  ]
+ },
+ {
+  "group": 60,
+  "members": [
+   {
+    "idx": 104,
+    "statement": "Prevent data problems before they happen: plan the data-collection strategy before collecting (it is sometimes quicker to restart collection than fix a messy dataset), define range limits and require entries at collection time, and always save an untouched raw copy and make all cleaning changes in a single working file to avoid version confusion."
+   },
+   {
+    "idx": 105,
+    "statement": "Clean data systematically: validate that it is complete, accurate, and reasonable using tables, plots, and summaries; standardise entries so equivalent values are consistent; keep it tidy with one piece of information per variable; handle missing values by a documented decision to remove, impute, or mark them; treat unexpected outliers carefully rather than deleting them; and log every change with what, when, and why so the cleaning can be replicated."
+   }
+  ]
+ },
+ {
+  "group": 64,
+  "members": [
+   {
+    "idx": 113,
+    "statement": "Find and reuse data responsibly: locate datasets through discipline-specific and multidisciplinary repositories, data journals, your network, and search tools; check the licence before reusing (restricted datasets still carry one and an application process); evaluate the metadata and documentation for reusability; and cite the dataset to credit its creators as they prefer to be cited."
+   },
+   {
+    "idx": 114,
+    "statement": "Describe data so it can be understood and reused, since data without metadata is useless: write documentation in plain language covering source, strengths, weaknesses, and limitations; share a README per dataset describing methods and data-specific details; provide a data dictionary or codebook (human- and machine-readable) sufficient to interpret the data alone; store data in a logical folder structure with a README; and use recognised discipline-specific community metadata standards so data can be combined across sources."
+   }
+  ]
+ },
+ {
+  "group": 65,
+  "members": [
+   {
+    "idx": 117,
+    "statement": "Assign a persistent identifier such as a DOI to any research output you want others to find, access, and cite, because ordinary web links suffer link rot (about one in five reference articles becomes inaccessible within a few years) whereas a PID resolves through a lookup service that redirects to the resource's current location."
+   },
+   {
+    "idx": 118,
+    "statement": "Use the interconnected scholarly PID ecosystem, where DOIs identify outputs, ORCID identifies people, ROR identifies organisations, and Funder IDs identify grants, and register an ORCID iD to distinguish yourself, collect your outputs, and keep attribution across name or institution changes; these PIDs underpin all four FAIR properties."
+   },
+   {
+    "idx": 119,
+    "statement": "Provide rich PID metadata (description, keywords, related identifiers, funding references, contributors with ORCID iDs, affiliations with ROR IDs) rather than only the required minimum, because this machine-readable, publicly accessible metadata complements domain-specific metadata and substantially increases discoverability and reusability."
+   },
+   {
+    "idx": 121,
+    "statement": "Express DOIs as full https://doi.org/ URLs in online contexts so they are clickable and resolve, and understand that when a resource is removed its PID resolves to a tombstone page explaining the removal, which preserves the citation network far better than a plain 404 error."
+   }
+  ]
+ },
+ {
+  "group": 66,
+  "members": [
+   {
+    "idx": 125,
+    "statement": "Manage research software with a Software Management Plan, a living document describing how the software is developed, documented, versioned, licensed, archived, and shared; treat even one-off analysis scripts as software, draft the plan during the planning phase alongside the Data Management Plan, always state the software's purpose (which sets the management level), and update it at major releases."
+   },
+   {
+    "idx": 130,
+    "statement": "Research Data Management covers how research data is stored, described, and reused and is vital for enabling reproducible research, improving workflow efficiency and the data's reach as it becomes FAIR; data visualisation is part of it too, since it surfaces patterns and makes outliers and data-quality errors visible."
+   },
+   {
+    "idx": 177,
+    "statement": "Maintain a field-appropriate, accurate, accessible, and durable research record, and use explicit group policies and recurring discussion to assign data-management responsibilities."
+   }
+  ]
+ },
+ {
+  "group": 67,
+  "members": [
+   {
+    "idx": 126,
+    "statement": "Use spreadsheets with caution, since their misuse is a major cause of data-analysis mistakes: treat as data only what exports to a text-only CSV or TSV format (avoiding cell formatting, colour, functions, and merged cells), test compatibility by exporting to CSV and reopening, encode any highlighting or flag as an explicit data column, and keep the data tidy with one variable per column, one observation per row, one value per cell, and a clean header row."
+   },
+   {
+    "idx": 127,
+    "statement": "Protect spreadsheet data integrity: enforce consistent values with a data dictionary or controlled taxonomy and column value restrictions, define clear rules for missing data since NA, NULL, and empty cells can mean different things, use unambiguous date and number formats (storing dates as separate year/month/day columns to defeat spreadsheet auto-conversion), and record raw measurements rather than pre-derived categories so future analyses are not restricted."
+   },
+   {
+    "idx": 128,
+    "statement": "Do not manipulate or analyse data manually in spreadsheet software (including copy-paste), because that produces a non-reproducible workflow; use scripts or a tool like OpenRefine that records the steps, validate the data for consistency, completeness, and correctness before it enters the analysis, and for collaborative collection reuse a standard versioned spreadsheet design with a shared template, per-column entry standards, and one person answering questions."
+   }
+  ]
+ },
+ {
+  "group": 74,
+  "members": [
+   {
+    "idx": 138,
+    "statement": "Choose a computational-environment-capture method to fit the project: package management systems capture only the software and its versions (and can export a spec others reuse), while virtual machines and containers replicate the whole environment including the operating system and settings."
+   },
+   {
+    "idx": 140,
+    "statement": "Use virtual machines as quarantined environments that keep the reproducer's own system safe and can be exported as a single file, but prefer defining them declaratively in plain text (for example a Vagrantfile kept alongside the source code) over distributing full images, because the text can be version-controlled, is small and fast to share, reproducibly builds the environment, and can target multiple hypervisors."
+   }
+  ]
+ },
+ {
+  "group": 77,
+  "members": [
+   {
+    "idx": 143,
+    "statement": "Use code review as a core quality practice, because no single method suffices (McConnell reports code review finds 55 to 60% of defects versus 25% for unit testing) and, once a robust test suite catches straightforward bugs, review's real value is as a second line of defence and in highlighting inadequate tests, checking documentation, ensuring readability, enforcing style, and building group cohesion."
+   },
+   {
+    "idx": 144,
+    "statement": "Prepare code before requesting review (it meets the project's standards, has conforming documentation and tests, its new tests pass, and the existing tests still pass), and as a reviewer check the code against the standards and style guide, that tests and documentation conform, that it is understandable and correct, and that security and legal requirements are met."
+   },
+   {
+    "idx": 153,
+    "statement": "Aim for high code coverage but beware the illusion of good coverage, since coverage can be high while code is right for the wrong reasons, so favour tests that isolate small chunks of logic and test the same code multiple ways; use test doubles (dummies, fakes, stubs, mocks) to remove external dependencies so a failure traces clearly to the code under test."
+   }
+  ]
+ },
+ {
+  "group": 85,
+  "members": [
+   {
+    "idx": 154,
+    "statement": "Integration testing combines units to expose faults in their interaction, since units can each pass their own tests yet fail together (as in the Mars Climate Orbiter feet-versus-metres crash); unit-test and fix each unit before integrating, use test stubs to simulate sections not under test, and choose a Big Bang, Top Down, Bottom Up, or Hybrid approach to suit the project's structure."
+   },
+   {
+    "idx": 156,
+    "statement": "Unit-test the smallest testable parts in isolation (replacing dependencies with stubs or mocks), because unit tests give confidence when changing code, pinpoint bugs fast, and strongly incentivise modular, reusable code; keep unit tests independent of each other, aim to cover all paths including loop conditions, and whenever you find a defect write a test that exposes it before fixing so it cannot recur."
+   }
+  ]
+ },
+ {
+  "group": 87,
+  "members": [
+   {
+    "idx": 160,
+    "statement": "Version-control data and large files as well as code and manuscripts to ensure reproducibility and capture provenance, because data is rarely invariant and an uncaptured change to underlying data breaks reproducibility; since Git works best with small text files, use specialised tools like Git LFS, git-annex, DataLad, DVC, or submodules for large or binary data, weighing the access complexity they add for newcomers."
+   },
+   {
+    "idx": 165,
+    "statement": "Use version control, the systematic recording of changes to files over time, because manual versioning (v01, v02) is impractical once many files change and reproducibility requires providing both the code and the data used to produce a figure: version control captures provenance and a version history, hides older versions while keeping them accessible, and lets multiple people's changes be tracked and combined, making research more transparent and easier to reproduce and build upon for nearly any file type."
+   },
+   {
+    "idx": 166,
+    "statement": "Version-control data of any size and attach it in precise versions to the code and manuscript, so that when the data changes you can recompute and check whether results still hold and capture which data produced a given figure; publishing the data, the code and results, and the manuscript as separate but linked version-controlled repositories lets a reader backtrace every step from a result to the original data."
+   },
+   {
+    "idx": 167,
+    "statement": "Add a clear, concise comment to each version snapshot so the changes are easy to survey and revisit, use an advanced version control system (Git, Mercurial, SVN) for its history access and control over the main version, and prefer easy-to-use, well-documented tools because many scientists have no formal training in version control or data management and good tools help them do more reproducible science."
+   }
+  ]
+ },
+ {
+  "group": 91,
+  "members": [
+   {
+    "idx": 168,
+    "statement": "Evaluate consequential research decisions against the duties of honesty, fairness, objectivity, openness, trustworthiness, and respect, including effects on colleagues, personal integrity, and the public."
+   },
+   {
+    "idx": 171,
+    "statement": "Researchers with authority should model responsible conduct, create a constructive research environment, and respond to concerns about irresponsible behavior."
+   }
+  ]
+ },
+ {
+  "group": 92,
+  "members": [
+   {
+    "idx": 169,
+    "statement": "Integrate responsible-conduct education with experiential learning across coursework, research, mentoring, and advising instead of treating one seminar or tutorial as sufficient."
+   },
+   {
+    "idx": 174,
+    "statement": "Make advising relationships explicit and accountable: use authority for the researcher's development, agree on availability, responsibilities, credit, and publication practices, and support the relationship with institutional guidance and training."
+   }
+  ]
+ },
+ {
+  "group": 93,
+  "members": [
+   {
+    "idx": 170,
+    "statement": "Establish shared standards and deliberate communication whenever research crosses disciplines, laboratories, institutions, countries, or academic-industry-government boundaries."
+   },
+   {
+    "idx": 198,
+    "statement": "Identify institutional and sponsor rules for data, disclosure, publication, inventions, ownership, rights transfer, and royalties before making commitments involving potentially valuable research."
+   }
+  ]
+ },
+ {
+  "group": 96,
+  "members": [
+   {
+    "idx": 175,
+    "statement": "Never manipulate, select, process, visualize, interpret, or report data so that the apparent support exceeds what the observations warrant; examine design and measurement weaknesses as well as deliberate alteration."
+   },
+   {
+    "idx": 218,
+    "statement": "Keep data and contribution records faithful and auditable; never invent, alter, selectively suppress, decontextualize, or statistically manipulate evidence to obtain a preferred result."
+   }
+  ]
+ },
+ {
+  "group": 99,
+  "members": [
+   {
+    "idx": 183,
+    "statement": "Correct a discovered error promptly and transparently in every affected scientific record while preserving the original record's integrity."
+   },
+   {
+    "idx": 230,
+    "statement": "When a material post-submission error is found, notify the relevant parties promptly and apply a remedy proportionate to the problem, including correction, addendum, or retraction."
+   },
+   {
+    "idx": 238,
+    "statement": "Investigate data-integrity concerns by distinguishing invented research from manipulation of real research, preserving and inspecting original records, and using specialist reconstruction or replication when credible anomalies cannot be resolved directly."
+   }
+  ]
+ },
+ {
+  "group": 100,
+  "members": [
+   {
+    "idx": 184,
+    "statement": "Classify possible misconduct under the applicable definition and evidence threshold, distinguishing fabrication, falsification, and plagiarism from honest error, negligence, and differences of opinion without inferring intent from the disputed act alone."
+   },
+   {
+    "idx": 186,
+    "statement": "Route questionable practices and formal misconduct through proportionate, distinct procedures, and separate preliminary fact gathering from formal determination while protecting the accused, reporter, and relevant funders."
+   },
+   {
+    "idx": 208,
+    "statement": "Treat knowingly fabricated publication titles, authorship, or submission status in an application or professional record as misconduct even when no experimental result is falsified."
+   },
+   {
+    "idx": 217,
+    "statement": "Separate good-faith error or limitation from misconduct by testing for intentional deception, concealment, or manipulation."
+   }
+  ]
+ },
+ {
+  "group": 101,
+  "members": [
+   {
+    "idx": 185,
+    "statement": "Act on a credible conduct concern through a calibrated path: identify the governing standard and evidence, examine bias and consequences, choose an appropriately independent confidential adviser, seek objective clarification only when safe, and use designated officials and required reporting procedures."
+   },
+   {
+    "idx": 242,
+    "statement": "Handle misconduct allegations through an authoritative institutional process that establishes evidence fairly, protects complainants and respondents, clears unfounded accusations, distinguishes disagreement and good-faith failure from deception, and imposes only authorized, proportionate consequences."
+   }
+  ]
+ },
+ {
+  "group": 102,
+  "members": [
+   {
+    "idx": 187,
+    "statement": "Before involving human participants, identify governing requirements, obtain appropriate training and independent review, minimize and justify risk, secure valid consent, disclose key protocol elements, and protect privacy and confidentiality."
+   },
+   {
+    "idx": 234,
+    "statement": "Begin human-subject or identifiable-private-data research only after appropriate review, with qualified operators and student supervision, and protect participants through risk minimization, informed consent, freedom from coercion, privacy, and withdrawal rights."
+   }
+  ]
+ },
+ {
+  "group": 105,
+  "members": [
+   {
+    "idx": 190,
+    "statement": "Credit the origin of another researcher's ideas and findings accurately enough for readers to locate the source, inspect its methods, and distinguish prior work from the new contribution."
+   },
+   {
+    "idx": 192,
+    "statement": "Audit citations for bibliographic accuracy, relevance, and actual support, search the literature thoroughly, and read and cite original work where possible rather than relying only on later summaries."
+   },
+   {
+    "idx": 224,
+    "statement": "Attribute every non-common-knowledge contribution at the point of use and base citations on sources actually read, preferring original sources and explicitly identifying any intermediary."
+   }
+  ]
+ },
+ {
+  "group": 106,
+  "members": [
+   {
+    "idx": 191,
+    "statement": "Keep unpublished manuscripts and proposals confidential and use their content only for the authorized review."
+   },
+   {
+    "idx": 219,
+    "statement": "Make research sufficiently open for exchange, scrutiny, and authorized follow-on use while withholding only information protected by valid secrecy, confidentiality, or intellectual-property duties."
+   },
+   {
+    "idx": 232,
+    "statement": "Reviewers must disclose interests, follow recusal decisions, avoid private contact and compromising benefits, protect materials and deliberations, and never reuse an applicant's unpublished work."
+   }
+  ]
+ },
+ {
+  "group": 107,
+  "members": [
+   {
+    "idx": 193,
+    "statement": "Label work-in-progress communication as preliminary, use credible alternative vetting when dissemination precedes journal review, and check the intended venue's prior-publication policy before public posting."
+   },
+   {
+    "idx": 240,
+    "statement": "Permit a full or secondary publication only when the prior dissemination is eligible, every similar report is disclosed and cross-cited, relevant materials are supplied, and all required editorial and rights-holder consents are obtained."
+   }
+  ]
+ },
+ {
+  "group": 108,
+  "members": [
+   {
+    "idx": 195,
+    "statement": "Agree on authorship criteria early, document them, revisit them as contributions change, and reconcile conventions across every discipline and group in a collaboration."
+   },
+   {
+    "idx": 196,
+    "statement": "Allocate authorship only for qualifying direct and substantial intellectual contributions, recognize beginning researchers' contributions fairly, acknowledge lesser contributions separately, and exclude honorary and ghost authorship."
+   },
+   {
+    "idx": 197,
+    "statement": "Treat authorship as accountability as well as credit, and explicitly assign responsibility for specialized components while obtaining qualified review of material outside each author's expertise."
+   },
+   {
+    "idx": 228,
+    "statement": "Assign authorship only for substantive research contributions, order authors by contribution, disciplinary convention, or agreement, require each author to review and own the contributed part, and acknowledge other assistance with consent and specificity."
+   },
+   {
+    "idx": 236,
+    "statement": "Treat compilations as organized reuse rather than original authorship: build an original framework, attribute borrowed passages, provide complete references, and obtain permission for reproduced works or chapters."
+   }
+  ]
+ },
+ {
+  "group": 109,
+  "members": [
+   {
+    "idx": 199,
+    "statement": "Disclose potentially patentable inventions promptly through the applicable institutional process, identify all and only qualifying inventors, and reconcile jurisdiction-specific rules before cross-border sharing or commercialization."
+   },
+   {
+    "idx": 229,
+    "statement": "Protect patentable research before disclosure and determine employee or collaborative invention ownership under applicable institutional rules and pre-approved agreements."
+   }
+  ]
+ },
+ {
+  "group": 111,
+  "members": [
+   {
+    "idx": 201,
+    "statement": "Identify interests that could impair professional judgment, disclose relevant financial and personal relationships fully and promptly, review manageable conflicts formally, and prohibit or reassign conflicts that cannot be controlled."
+   },
+   {
+    "idx": 202,
+    "statement": "Distinguish conflicts of interest from conflicts of commitment, identify incompatible duties before allocating time, and use applicable workload policy and management support to resolve competing obligations."
+   }
+  ]
+ },
+ {
+  "group": 112,
+  "members": [
+   {
+    "idx": 203,
+    "statement": "Recognize and minimize bias from strongly held commitments, remain open to disconfirming information, and subject claims to collective assessment by people with differing perspectives."
+   },
+   {
+    "idx": 205,
+    "statement": "In public deliberation, distinguish claims grounded in scientific expertise from positions taken as a citizen or advocate, and preserve objective, accurate research practice while pursuing social change."
+   }
+  ]
+ },
+ {
+  "group": 116,
+  "members": [
+   {
+    "idx": 209,
+    "statement": "Do not use a citation as permission to copy another author's wording or synthesis; assess whether reuse exploits that work and independently verify the underlying literature."
+   },
+   {
+    "idx": 237,
+    "statement": "Detect plagiarism by substantive appropriation, not surface similarity: abridgment, reordering, synonym changes, restructuring, mosaicing, added commentary, or uncited self-reuse do not cure missing attribution."
+   }
+  ]
+ },
+ {
+  "group": 130,
+  "members": [
+   {
+    "idx": 227,
+    "statement": "Do not submit, repackage, or fragment substantially equivalent results as separate publications without a genuine distinct contribution and transparent linkage to related reports."
+   },
+   {
+    "idx": 239,
+    "statement": "Screen duplicate publication by substantive overlap and undisclosed venue status, not by titles, section order, format, language, or other surface changes."
+   }
+  ]
+ }
+]

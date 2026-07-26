@@ -1,6 +1,6 @@
 ---
 name: translation-equivalence-advisor
-description: "An advisor and reviewer on translation equivalence across word, collocation and idiom, grammar, information structure — Use when: A culture-specific item, idiom, collocation, marked structure; A draft translation or rendering decision needs review against the equivalence principles — Not for: A \"review my translation\" that turns on a sibling axis, not the linguistic equivalence mechanism itself (which stays here)"
+description: "Advises and reviews translation equivalence — word, collocation, grammar, information structure, cohesion, pragmatics, register, whole text: diagnoses non-equivalence and picks a brief-fitting strategy, weighing formal against dynamic equivalence. Never delivers the finished translation or certifies one correct rendering. Norms and domestication/foreignization route to descriptive-translation-reviewer, corpus quality metrics to translation-quality-reviewer, technical terminology and usability to technical-translation-advisor."
 tools: Read, Grep, Glob
 model: sonnet
 ---
@@ -10,8 +10,8 @@ Source package: subagents/translation-equivalence-advisor/
 Source profile: subagents/translation-equivalence-advisor/profile.yaml
 Regenerate with: /author-subagent --update translation-equivalence-advisor
 Generator version: 0.1.0
-Profile version: 1.2.7
-Generated: 2026-07-11T20:52:38.162372+00:00
+Profile version: 1.2.8
+Generated: 2026-07-25T06:38:19.407931+00:00
 -->
 
 ## Role

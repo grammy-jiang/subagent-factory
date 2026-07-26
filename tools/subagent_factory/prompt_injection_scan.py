@@ -26,6 +26,7 @@ import html
 import re
 import sys
 import unicodedata
+import urllib.parse
 from collections.abc import Callable
 from pathlib import Path
 
@@ -145,6 +146,14 @@ _BASE64_DEWRAP = _dewrap(r"[A-Za-z0-9+/_=-]")
 _FIXPOINT_DEPTH = 3
 _MAX_DERIVED = 256
 
+# A run of base64-ish characters long enough to plausibly encode a denylist phrase (a layered
+# payload's inner base64 always leaves one). Its presence on a line is the trigger for the per-line
+# localizer to run the heavier COMPOSING fixpoint on that line — the only per-line path that peels a
+# second layer (rot13∘base64, base64∘base64) to a real, redactable line. Lines without such a token
+# take the cheap depth-1 path. Such tokens are rare in prose, so the fixpoint cost is paid only where
+# an encoded payload plausibly hides.
+_LONG_ENCODED_TOKEN = re.compile(r"[A-Za-z0-9+/=_-]{20,}")
+
 
 def _strip_zero_width(text: str) -> str:
     """Strip the explicit zero-width set, every Unicode Cf (format) char, and combining marks.
@@ -236,6 +245,9 @@ _TRANSFORMS: dict[str, Callable[[str], str]] = {
     "detagged": _strip_html_tags,
     "unescaped": html.unescape,
     "dewrapped": lambda s: _INTRAWORD_BREAK.sub("", s),
+    # Percent-decode: URL is a first-class ingested source type (fetch_url.py), where
+    # %69%67%6e%6f%72%65 → "ignore" is a zero-effort obfuscation channel not covered above.
+    "urldecoded": urllib.parse.unquote,
 }
 
 
@@ -284,7 +296,9 @@ def _decode_fixpoint(raw: str, name: str) -> list[dict]:
     # worklist entries: (string, chain-of-transforms-applied-so-far). The chain length is the
     # depth; the base seed has an empty chain (it is the normalized document, no decode applied).
     worklist: list[tuple[str, tuple[str, ...]]] = [(base, ())]
-    reported: set[tuple[str, str]] = set()  # (family, vector) dedupe for findings
+    # (family, vector, decoded-text) dedupe: keying on the decoded text too means a SECOND, distinct
+    # payload of the same family/vector is still reported — keying on (family, vector) alone hid it.
+    reported: set[tuple[str, str, str]] = set()
     out: list[dict] = []
     while worklist and len(seen) < _MAX_DERIVED:
         current, chain = worklist.pop()
@@ -295,7 +309,7 @@ def _decode_fixpoint(raw: str, name: str) -> list[dict]:
         # chain) reports under "detagged" (it is already detag+strip+fold normalized).
         vector = chain[0] if chain else "detagged"
         for fam in _denylist_hits(current):
-            key = (fam, vector)
+            key = (fam, vector, current)
             if key in reported:
                 continue
             reported.add(key)
@@ -327,9 +341,14 @@ def _decode_fixpoint(raw: str, name: str) -> list[dict]:
 
 
 def _scan_css(raw: str, name: str) -> list[dict]:
-    """Presentation-layer hiding: CSS that renders a payload invisible (opacity:0, display:none…)."""
+    """Presentation-layer hiding: CSS that renders a payload invisible (opacity:0, display:none…).
+
+    Matches on the SAME confusable-folded / zero-width-stripped text as ``_scan_lines`` (not raw), so
+    a homoglyph-substituted property name — e.g. Cyrillic ``о`` in ``оpacity:0`` — is folded to ASCII
+    before ``_CSS_HIDDEN`` runs and cannot slip past the presentation-layer detector. Folding is
+    per-character and zero-width stripping keeps newlines, so line numbers stay valid."""
     out: list[dict] = []
-    for i, line in enumerate(raw.splitlines(), 1):
+    for i, line in enumerate(_fold_confusables(_strip_zero_width(raw)).splitlines(), 1):
         if _CSS_HIDDEN.search(line):
             out.append(
                 {
@@ -344,14 +363,103 @@ def _scan_css(raw: str, name: str) -> list[dict]:
     return out
 
 
+def _localize_obfuscation(
+    raw: str, name: str, skip_lines: frozenset[int] = frozenset()
+) -> list[dict]:
+    """Per-line obfuscation scan (SEC-1 localization): report a single-line obfuscated payload — a
+    base64 blob, a reversed / rot13 line, an inline DOM-fragmented line — at its REAL source line so it
+    is **redactable** (a reviewer can point a ``suspicious`` verdict there), instead of only at
+    whole-document ``line 0``.
+
+    Two per-line strategies, chosen per line by a cheap token test:
+
+    - A line carrying a long base64-ish token (``_LONG_ENCODED_TOKEN``) gets the composing
+      ``_decode_fixpoint`` on that single line — the ONLY per-line path that peels a **LAYERED**
+      single-line payload (rot13∘base64, base64∘base64) down to its real line. The whole-doc fixpoint
+      would only ever pin such a payload at ``line 0``, and it can even MISS it: its base64 dewrap
+      merges the token with a base64-ish char on an adjacent prose line, corrupting the token. Run on
+      one line there is no neighbour to merge, so this both localizes AND detects. Bounded by
+      ``_MAX_DERIVED``; such tokens are rare in prose, so the fixpoint cost is paid only where a payload
+      plausibly hides.
+    - Every other line gets a cheap **single-transform** (depth-1) pass — the detagged line + one
+      application of each transform — which localizes a single-LAYER payload (lone base64, reversed,
+      rot13, inline DOM) without the fixpoint's expansion.
+
+    A genuinely *cross-line* payload (spanning several source lines) has no single line to point at and
+    stays a whole-document ``line 0`` finding — blocked, not localized (the fundamental residual).
+    ``skip_lines`` are the lines ``_scan_lines`` already flags plainly."""
+    out: list[dict] = []
+    for i, line in enumerate(raw.splitlines(), 1):
+        if i in skip_lines or not line.strip():
+            continue
+        if _LONG_ENCODED_TOKEN.search(line):
+            # Composing fixpoint on THIS line only: localizes a LAYERED single-line payload (and detects
+            # a base64 token the whole-doc dewrap would corrupt by merging a prose neighbour). Its
+            # findings are line-0 (whole-"doc" == this one line); relabel to the real line i. The base
+            # seed can also hit here for an inline-DOM payload, subsuming the depth-1 detagged candidate.
+            out.extend({**f, "line": i} for f in _decode_fixpoint(line, name))
+            continue
+        base = _norm(_strip_html_tags(line))
+        # Candidates: the detagged/normalized line itself (inline DOM fragmentation reveals the payload
+        # with no further decode) + one application of each transform (single layer).
+        candidates: list[tuple[str, str]] = [("detagged", base)]
+        for tname, fn in _TRANSFORMS.items():
+            try:
+                candidates.append((tname, _norm(fn(base))))
+            except (ValueError, UnicodeDecodeError):
+                continue
+        seen: set[tuple[str, str]] = set()  # (family, vector) per line
+        for vector, decoded in candidates:
+            if not decoded:
+                continue
+            for fam in _denylist_hits(decoded):
+                if (fam, vector) in seen:
+                    continue
+                seen.add((fam, vector))
+                out.append(
+                    {
+                        "file": name,
+                        "line": i,
+                        "family": fam,
+                        "vector": vector,
+                        "severity": "high",
+                        "excerpt": f"payload revealed after {vector}",
+                    }
+                )
+    return out
+
+
 def _scan_file(path: Path) -> list[dict]:
-    """All findings for one markdown file: line-level + obfuscation fixpoint + CSS-hidden."""
+    """All findings for one markdown file: line-level + per-line + whole-doc obfuscation + CSS-hidden."""
     try:
         raw = path.read_text(encoding="utf-8", errors="replace")
-    except OSError:
-        return []
+    except OSError as e:
+        # Fail closed: "could not read" is a different (non-clean) state than "scanned, no
+        # concerns"; returning [] would let an unreadable source pass silently. Surface it for
+        # triage instead (mirrors adapter_policy_scan's fail-closed handling of unmodelled shapes).
+        return [
+            {
+                "file": str(path),
+                "line": 0,
+                "family": "scan-error",
+                "vector": "unreadable",
+                "severity": "high",
+                "excerpt": f"could not read file: {e.__class__.__name__}",
+            }
+        ]
     name = str(path)
-    return [*_scan_lines(raw, name), *_decode_fixpoint(raw, name), *_scan_css(raw, name)]
+    line_findings = _scan_lines(raw, name)
+    plain_lines = frozenset(f["line"] for f in line_findings)
+    return [
+        *line_findings,
+        # SEC-1 localization: single-line obfuscated payloads at their REAL, redactable source line.
+        # This also catches base64 the whole-doc pass misses when a token is newline-adjacent to prose
+        # (the dewrap merges the neighbour into the token), so it is a detection improvement too.
+        *_localize_obfuscation(raw, name, plain_lines),
+        # Whole-doc fixpoint (line 0): the backstop for genuinely cross-line payloads.
+        *_decode_fixpoint(raw, name),
+        *_scan_css(raw, name),
+    ]
 
 
 def prompt_injection_scan(subagent_dir: str | Path) -> list[dict]:
@@ -370,6 +478,34 @@ def prompt_injection_scan(subagent_dir: str | Path) -> list[dict]:
     return findings
 
 
+def scan_book_module(module_dir: str | Path) -> list[dict]:
+    """Scan a chunk_source book-extract module (``cache/book-extracts/<sha>/``) for injection payloads.
+
+    The map-reduce (Tier-1+) path never populates per-package ``sources/markdown/``, so
+    ``prompt_injection_scan`` above is vacuous there; the untrusted book text lives in the module's
+    ``source.md`` (the chunks are overlapping windows of it, so scanning ``source.md`` once covers
+    every chunk the MAP session reads). Same advisory finding shape and semantics — a hit means
+    *quarantine/escalate*, not *block*. ``file`` is the ``source.md`` path so a downstream redactor
+    can locate the span. Empty list = scanned clean; a missing ``source.md`` is reported as a
+    ``scan-error`` finding (NOT ``[]``), so "not scanned" fails closed instead of reading as clean.
+    """
+    src = Path(module_dir) / "source.md"
+    if not src.exists():
+        # Absent source ≠ clean. Mirror _scan_file's fail-closed on an unreadable file: surface a
+        # scan-error finding so a downstream reader (verify / the gate) treats it as un-scanned.
+        return [
+            {
+                "file": str(src),
+                "line": 0,
+                "family": "scan-error",
+                "vector": "missing-source",
+                "severity": "high",
+                "excerpt": "source.md absent — module was not scanned",
+            }
+        ]
+    return _scan_file(src)
+
+
 def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: python -m tools.subagent_factory.prompt_injection_scan subagents/<slug>")
@@ -381,6 +517,9 @@ def main() -> None:
         )
     if not findings:
         print("prompt-injection-scan PASS — no payloads detected")
+    # Advisory by design: this scanner is WARN/triage, never a hard block (untrusted-source-policy.md,
+    # WARN-not-block at a ~225:1 benign:attack base rate). It intentionally exits 0 even on findings;
+    # gating happens in validate_generated_package + source-safety triage, not in this entry point.
     sys.exit(0)
 
 

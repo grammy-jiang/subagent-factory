@@ -21,11 +21,18 @@ def run_tests(subagent_dir: str | Path) -> dict:
     passed = 0
 
     if not tests_dir.exists():
-        return {"passed": False, "total": 0, "results": [], "error": "tests/ directory missing"}
+        # passed_count keeps this return shape-compatible with the success path (main() indexes it).
+        return {
+            "passed": False,
+            "total": 0,
+            "passed_count": 0,
+            "results": [],
+            "error": "tests/ directory missing",
+        }
 
     for test_file in tests_dir.glob("*.yaml"):
         try:
-            with open(test_file) as f:
+            with open(test_file, encoding="utf-8") as f:
                 data = yaml.safe_load(f) or {}
         except Exception as e:
             results.append({"file": test_file.name, "status": "ERROR", "message": str(e)})
@@ -122,6 +129,8 @@ def main():
         sys.exit(1)
 
     result = run_tests(sys.argv[1])
+    if result.get("error"):
+        print(f"ERROR: {result['error']}")
     for r in result["results"]:
         print(f"[{r['status']}] {r.get('test_id', '?')}: {r['description']}")
 

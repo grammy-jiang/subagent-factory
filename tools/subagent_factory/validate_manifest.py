@@ -16,9 +16,9 @@ def validate_manifest(manifest_path: str | Path) -> list[str]:
     """Return list of error strings. Empty list = valid."""
     path = Path(manifest_path)
     try:
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = yaml.safe_load(f)
-        with open(_SCHEMA_PATH) as f:
+        with open(_SCHEMA_PATH, encoding="utf-8") as f:
             schema = json.load(f)
         jsonschema.validate(data, schema)
         return []

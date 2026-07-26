@@ -1,32 +1,157 @@
 {
-  "0": {"action": "split", "subgroups": [[0, 12, 22, 38, 71, 86, 272, 316], [5, 349]]},
-  "1": {"action": "split", "subgroups": [[2, 850], [4, 44], [49, 113], [7, 267, 347], [268, 291]]},
-  "3": {"action": "split", "subgroups": [[106, 769, 770]]},
-  "5": {"action": "split", "subgroups": [[15, 96, 103, 437]]},
-  "6": {"action": "split", "subgroups": [[17, 194, 376, 505, 654]]},
-  "9": {"action": "split", "subgroups": [[23], [193]]},
-  "10": {"action": "split", "subgroups": [[26, 282, 474, 602]]},
-  "11": {"action": "split", "subgroups": [[27, 283, 475], [76, 88]]},
-  "12": {"action": "split", "subgroups": [[28, 31, 74, 262, 464, 814, 846]]},
-  "13": {"action": "confirm", "canonical": "Treat third-party skills as untrusted code: install only from trusted sources (self-authored or Anthropic), and before using a skill from an untrusted or unknown source, audit every bundled file (SKILL.md, scripts, resources) for behaviour that does not match its stated purpose, treating skills that fetch external URLs as higher risk."},
-  "15": {"action": "split", "subgroups": [[34, 751]]},
-  "16": {"action": "split", "subgroups": [[36, 279, 758]]},
-  "17": {"action": "split", "subgroups": [[37], [778], [779]]},
-  "20": {"action": "split", "subgroups": [[42], [164]]},
-  "21": {"action": "split", "subgroups": [[60, 340]]},
-  "22": {"action": "split", "subgroups": [[45, 443], [775, 813]]},
-  "23": {"action": "split", "subgroups": [[46], [92], [101], [259]]},
-  "25": {"action": "split", "subgroups": [[48, 473]]},
-  "26": {"action": "split", "subgroups": [[50], [51], [53]]},
-  "28": {"action": "split", "subgroups": [[55], [574]]},
-  "31": {"action": "split", "subgroups": [[58, 796]]},
-  "32": {"action": "confirm", "canonical": "Use blind A/B comparison — presenting both outputs without revealing which skill version (or skill/no-skill variant) produced which — to decide whether a skill change actually improves outputs."},
-  "33": {"action": "split", "subgroups": [[64], [295], [807]]},
-  "36": {"action": "split", "subgroups": [[68], [407]]},
-  "38": {"action": "split", "subgroups": [[72, 780]]},
-  "40": {"action": "split", "subgroups": [[77], [842]]},
-  "42": {"action": "split", "subgroups": [[80], [864], [870]]},
-  "44": {"action": "split", "subgroups": [[84], [548]]},
-  "45": {"action": "split", "subgroups": [[85, 304, 356, 398, 764, 903]]},
-  "46": {"action": "split", "subgroups": [[87, 401]]}
+  "0": {
+    "action": "split",
+    "subgroups": [
+      [0, 22, 38, 71],
+      [5, 349],
+      [12, 86, 272]
+    ]
+  },
+  "1": {
+    "action": "split",
+    "subgroups": [
+      [2, 850],
+      [4, 44]
+    ]
+  },
+  "3": {
+    "action": "split",
+    "subgroups": [
+      [106, 770]
+    ]
+  },
+  "5": {
+    "action": "split",
+    "subgroups": [
+      [15, 96, 103, 437]
+    ]
+  },
+  "6": {
+    "action": "split",
+    "subgroups": [
+      [17, 194, 505, 654]
+    ]
+  },
+  "9": {
+    "action": "split",
+    "subgroups": []
+  },
+  "10": {
+    "action": "split",
+    "subgroups": [
+      [26, 282, 474]
+    ]
+  },
+  "11": {
+    "action": "split",
+    "subgroups": [
+      [27, 283, 475],
+      [76, 88]
+    ]
+  },
+  "12": {
+    "action": "split",
+    "subgroups": [
+      [28, 31, 262, 814, 846, 849]
+    ]
+  },
+  "13": {
+    "action": "confirm",
+    "canonical": "Treat Skills as executable software: install only from trusted sources, and before using any unknown or untrusted Skill, audit every bundled file and scrutinize external network fetches."
+  },
+  "15": {
+    "action": "split",
+    "subgroups": []
+  },
+  "16": {
+    "action": "split",
+    "subgroups": [
+      [36, 279, 758]
+    ]
+  },
+  "17": {
+    "action": "split",
+    "subgroups": []
+  },
+  "20": {
+    "action": "split",
+    "subgroups": []
+  },
+  "21": {
+    "action": "split",
+    "subgroups": [
+      [60, 340]
+    ]
+  },
+  "22": {
+    "action": "split",
+    "subgroups": [
+      [45, 443],
+      [775, 813]
+    ]
+  },
+  "23": {
+    "action": "split",
+    "subgroups": []
+  },
+  "25": {
+    "action": "split",
+    "subgroups": []
+  },
+  "26": {
+    "action": "split",
+    "subgroups": []
+  },
+  "28": {
+    "action": "confirm",
+    "canonical": "Maintain regression evals and rerun them when models or surrounding infrastructure change so behavioral regressions are visible before shipping."
+  },
+  "31": {
+    "action": "split",
+    "subgroups": [
+      [58, 796]
+    ]
+  },
+  "32": {
+    "action": "confirm",
+    "canonical": "Use an independent, blinded A/B comparison to judge whether one Skill version or a Skill-enabled run is genuinely better than the alternative."
+  },
+  "33": {
+    "action": "split",
+    "subgroups": []
+  },
+  "36": {
+    "action": "split",
+    "subgroups": []
+  },
+  "38": {
+    "action": "split",
+    "subgroups": [
+      [72, 780]
+    ]
+  },
+  "40": {
+    "action": "split",
+    "subgroups": []
+  },
+  "42": {
+    "action": "split",
+    "subgroups": []
+  },
+  "44": {
+    "action": "split",
+    "subgroups": []
+  },
+  "45": {
+    "action": "split",
+    "subgroups": [
+      [356, 398, 764, 903]
+    ]
+  },
+  "46": {
+    "action": "split",
+    "subgroups": [
+      [87, 401]
+    ]
+  }
 }

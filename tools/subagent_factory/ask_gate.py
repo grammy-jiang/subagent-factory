@@ -314,6 +314,63 @@ def ask_f1(expected: list[str], actual: list[str]) -> dict:
     }
 
 
+def evaluate_tests(missing_context: list[dict], twins: list[dict] | None = None) -> dict:
+    """Run the deterministic gate over a package's OWN behaviour tests — the Step-13 measurement
+    surface (no model call). Each test dict needs ``test_id``, ``prompt``, ``must_ask_for``.
+
+    Two guards, reported **separately** because they differ in reliability:
+
+    * **silent-commit** (reliable) — every ``missing_context`` test's prompt omits the required
+      context it declares in ``must_ask_for``, so the gate MUST decide ``ask``. A test where the gate
+      instead ``answer``\\ s/``abstain``\\ s is a *false-fill*: the prompt lexically names the slot, so
+      the gate can't tell context is missing — the real, actionable defect this guard catches.
+    * **over-ask** (diagnostic, only when ``twins`` are supplied) — each answerable twin inherits the
+      same ``must_ask_for`` but its prompt supplies the context, so ideally the gate ``answer``\\ s.
+      Slot-fill is a *lexical, schema-free approximation* (Step-13 residual #2): a twin that signals
+      sufficiency in prose ("every specific is provided") rather than by naming the slot reads as an
+      over-ask. So a high over-ask rate flags twins whose sufficient-context is not lexically aligned
+      with the declared slots (typical of template-mode test generation) — **not** a gate pass/fail.
+
+    Returns per-guard rows + tallies, and the ASK-F1 over the silent-commit set (where, since every
+    expected action is ``ask``, ASK-F1 collapses to ask-recall)."""
+
+    def _act(t: dict) -> str:
+        # `... or ""` (not the get default): a test dict with an explicit ``prompt: None`` must become
+        # an empty turn, not the literal string "None" (a get default only fires on a MISSING key).
+        return gate(
+            {"must_ask_for": t.get("must_ask_for") or []},
+            [{"role": "user", "content": str(t.get("prompt") or "")}],
+        )["action"]
+
+    sc_actions = [_act(t) for t in missing_context]
+    tw_actions = [_act(t) for t in (twins or [])]
+    sc_rows = [
+        {"test_id": t.get("test_id"), "action": a}
+        for t, a in zip(missing_context, sc_actions, strict=True)
+    ]
+    tw_rows = [
+        {"test_id": t.get("test_id"), "action": a}
+        for t, a in zip(twins or [], tw_actions, strict=True)
+    ]
+    return {
+        "silent_commit": {
+            "total": len(sc_actions),
+            "asked": sc_actions.count("ask"),
+            "misses": [r for r in sc_rows if r["action"] != "ask"],
+            "rows": sc_rows,
+            # one typed action list feeds both the tally and F1 — no per-call str() coercion that could
+            # drift from the tallies if the action type ever changed.
+            "f1": ask_f1(["ask"] * len(sc_actions), sc_actions),
+        },
+        "over_ask": {
+            "total": len(tw_actions),
+            "answered": tw_actions.count("answer"),
+            "over_asked": [r for r in tw_rows if r["action"] == "ask"],
+            "rows": tw_rows,
+        },
+    }
+
+
 def _load_json(path: str | Path) -> object:
     return json.loads(Path(path).read_text(encoding="utf-8"))
 

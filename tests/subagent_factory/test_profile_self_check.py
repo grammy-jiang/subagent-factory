@@ -14,6 +14,11 @@ def _valid_profile() -> dict:
         "status": "draft",
         "role": "An expert reviewer who evaluates designs for complexity and guides "
         "structural improvements grounded in named principles.",
+        # A valid profile authors its own routing string: with 3 triggers and 2 exclusions the
+        # composed fallback would drop one of each (check 19).
+        "router_description": "Reviews module interfaces for depth, diagnoses information "
+        "leaking between modules, and compares design alternatives. Not for bug fixes or "
+        "technology selection.",
         "when_to_use": [
             "A module interface is submitted for a depth review before merging.",
             "A team needs a diagnosis of where information is leaking between modules.",
@@ -75,13 +80,21 @@ def _golden_doc(golden: int = 3, negative: int = 1) -> dict:
     }
 
 
-def _write_package(tmp_path, profile=None, golden=3, negative=1, ledger=True):
+def _write_package(tmp_path, profile=None, golden=3, negative=1, ledger=True, ledger_version=True):
     pkg = tmp_path / "subagents" / "demo-design-reviewer"
     pkg.mkdir(parents=True)
-    (pkg / "profile.yaml").write_text(yaml.safe_dump(profile or _valid_profile()), encoding="utf-8")
+    profile = profile or _valid_profile()
+    (pkg / "profile.yaml").write_text(yaml.safe_dump(profile), encoding="utf-8")
     if ledger:
+        # A valid ledger records the profile's current agent_version (check 20 / the
+        # generated-artifact-policy supersession rule). ledger_version=False omits it.
+        history = (
+            f"\n\n## Version History\n\n- **{profile.get('agent_version')}** (2026-01-01) — initial.\n"
+            if ledger_version
+            else ""
+        )
         (pkg / "provenance-ledger.md").write_text(
-            "# Provenance Ledger\n\n" + ("detail. " * 60), encoding="utf-8"
+            "# Provenance Ledger\n\n" + ("detail. " * 60) + history, encoding="utf-8"
         )
     tests_dir = pkg / "tests"
     tests_dir.mkdir()
@@ -327,16 +340,114 @@ def test_body_size_fail_includes_breakdown(tmp_path):
 
 def test_check_registry_numbers_are_contiguous_and_unique():
     # The check ordinal now lives in exactly one place — the _CHECKS registry.
-    # Guard the equivalence with the prior hard-coded numbering: 1..18, no gaps,
+    # Guard the equivalence with the prior hard-coded numbering: 1..20, no gaps,
     # no duplicates, run in ascending order.
     nums = [num for num, _ in _CHECKS]
-    assert nums == list(range(1, 19))
+    assert nums == list(range(1, 21))
     assert len(nums) == len(set(nums))
+
+
+def test_router_description_present_passes(tmp_path):
+    pkg = _write_package(tmp_path)
+    assert _finding(profile_self_check(pkg), 19)["level"] == "PASS"
+
+
+def test_missing_router_description_warns_when_composition_truncates(tmp_path):
+    # 3 triggers + 2 exclusions: the composed fallback keeps only 2 and 1, so the
+    # dropped scope never reaches the string the runtime routes on.
+    p = _valid_profile()
+    del p["router_description"]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "WARNING"
+    assert "1 of 3 triggers" in finding["message"]
+    assert "1 of 2 exclusions" in finding["message"]
+
+
+def test_missing_router_description_passes_when_composition_is_lossless(tmp_path):
+    # 2 triggers + 1 exclusion all survive the composition, so there is nothing to warn about.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = p["when_not_to_use"][:1]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "PASS"
+    assert "lossless" in finding["message"]
+
+
+def test_missing_router_description_warns_on_dropped_sibling_handoff(tmp_path):
+    # A sibling hand-off must reach the router even when trigger/exclusion counts are lossless.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = ["Craft-level writing belongs to research-writing-advisor."]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "WARNING"
+    assert "research-writing-advisor" in finding["message"]
+
+
+def test_missing_router_description_detects_sibling_named_in_prose(tmp_path):
+    # Profiles name siblings both as bare slugs and in prose with the last word spaced off
+    # ("hand to a software-design reviewer"); both must be detected and reported as a slug.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = ["Class-level structure belongs to a software-design reviewer."]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "WARNING"
+    assert "software-design-reviewer" in finding["message"]
+
+
+def test_router_description_check_ignores_generic_reviewer_prose(tmp_path):
+    # "a design reviewer" is ordinary prose, not a sibling route — a hyphenated prefix is
+    # required, so this must stay lossless rather than warn about a phantom hand-off.
+    p = _valid_profile()
+    del p["router_description"]
+    p["when_to_use"] = p["when_to_use"][:2]
+    p["when_not_to_use"] = ["The caller wants an expert reviewer to rewrite the code."]
+    finding = _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)
+    assert finding["level"] == "PASS"
+
+
+def test_version_recorded_in_ledger_passes(tmp_path):
+    assert _finding(profile_self_check(_write_package(tmp_path)), 20)["level"] == "PASS"
+
+
+def test_version_missing_from_ledger_fails(tmp_path):
+    # The regression this pins: a 2026-07-25 backfill bumped 40 packages and wrote their
+    # CHANGELOGs but touched no ledger. Every package still validated and all of CI stayed
+    # green, because check 16 only proves the ledger exists and is non-trivial.
+    pkg = _write_package(tmp_path, ledger_version=False)
+    finding = _finding(profile_self_check(pkg), 20)
+    assert finding["level"] == "FAIL"
+    assert "0.1.0" in finding["message"]
+
+
+def test_version_bumped_without_new_ledger_entry_fails(tmp_path):
+    # The ledger records 0.1.0 but the profile has moved on to 0.1.1 — an unrecorded bump.
+    p = _valid_profile()
+    p["agent_version"] = "0.1.1"
+    pkg = tmp_path / "subagents" / "demo-design-reviewer"
+    _write_package(tmp_path)  # ledger stamped with 0.1.0
+    (pkg / "profile.yaml").write_text(yaml.safe_dump(p), encoding="utf-8")
+    assert _finding(profile_self_check(pkg), 20)["level"] == "FAIL"
+
+
+def test_missing_ledger_fails_version_check(tmp_path):
+    pkg = _write_package(tmp_path, ledger=False)
+    assert _finding(profile_self_check(pkg), 20)["level"] == "FAIL"
+
+
+def test_blank_router_description_is_treated_as_absent(tmp_path):
+    p = _valid_profile()
+    p["router_description"] = "   \n  "
+    assert (
+        _finding(profile_self_check(_write_package(tmp_path, profile=p)), 19)["level"] == "WARNING"
+    )
 
 
 def test_valid_profile_emits_one_finding_per_check(tmp_path):
     # Each registered check emits exactly its own numbered finding for a valid
-    # profile, so the findings set matches the registry numbers 1..18.
+    # profile, so the findings set matches the registry numbers 1..20.
     pkg = _write_package(tmp_path)
     result = profile_self_check(pkg)
     emitted = sorted(f["num"] for f in result["findings"])

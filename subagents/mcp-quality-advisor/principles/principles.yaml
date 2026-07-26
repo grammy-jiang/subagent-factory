@@ -17,17 +17,188 @@ principles:
   - C00871
   - C00872
   - C00878
+  - C01087
+  - C01088
+  - C01089
+  - C01091
   confidence: high
   applies_when:
   - a tool-augmented LLM or MCP deployment exposes many tools (dozens to hundreds
     or more), often across multiple servers
   - choosing how tool definitions reach the model in an agentic system
+  - designing a dynamic/large MCP toolset
+  - tool input schemas are large or numerous
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
 - principle_id: P002
+  statement: Use deferred tool loading with a small always-loaded core and searchable
+    long tail so full tool definitions stay out of context until needed and tool metadata
+    remains within the context budget.
+  derived_from_claims:
+  - C00734
+  - C00735
+  - C00736
+  - C00737
+  - C00738
+  - C00739
+  - C00740
+  - C00741
+  - C00742
+  - C00766
+  - C01048
+  - C01049
+  - C01053
+  - C01493
+  confidence: high
+  applies_when:
+  - Tool definitions are large enough to materially consume context, tool-selection
+    errors are likely, multiple MCP servers are connected, or the available library
+    has roughly ten or more tools.
+  - A stable set of critical or frequently used tools exists alongside many lower-frequency
+    tools.
+  - Deferred definitions are excluded from the initial prompt and can be expanded
+    after search.
+  - multiple MCP servers run in one client
+  - the IDE or model enforces a tool cap
+  - designing an agent harness with a large tool surface
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P003
+  statement: 'Make tool summaries self-documenting and query-shaped: descriptive names
+    and intent-voiced summaries substantially raise retrieval quality, and an LLM
+    can regenerate cryptic implementer-voiced summaries to be shorter yet more retrievable.'
+  derived_from_claims:
+  - C00743
+  - C00744
+  - C00885
+  - C00886
+  - C01082
+  - C01083
+  - C01084
+  - C01085
+  confidence: high
+  applies_when:
+  - Tools are discovered by matching against names and descriptions, especially when
+    many capabilities are deferred.
+  - authoring or improving tool names and descriptions for a routed catalog
+  - using semantic/embeddings-based tool discovery
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P004
+  statement: 'Prefer intent-gated two-phase loading over both naive full-schema injection
+    and simple top-k retrieval of full schemas: it can cut measured per-turn tool
+    tokens by roughly 95% while keeping effective context utilization high, and unlike
+    static manual pruning it does not starve tasks of tools they need.'
+  derived_from_claims:
+  - C00776
+  - C00782
+  - C00790
+  - C00792
+  - C00874
+  - C00878
+  - C00879
+  - C00898
+  - C00900
+  - C00901
+  - C00902
+  - C00904
+  confidence: high
+  applies_when:
+  - many tools are registered and their schemas are injected into the planning prompt
+  - designing how much of each tool's specification is carried in context
+  - choosing a tool-context strategy for an agent with a large tool catalog
+  - deciding how much of a selected tool's specification to reveal at call time
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P005
+  statement: 'Treat MCP tools as untrusted and map each threat vector to its defense:
+    prompt injection via image metadata to sanitization and semantic filters, schema
+    bypass to strict enforcement and audit logs, remote code execution to capability
+    scoping and sandboxing, privilege escalation to role-based tool binding, stale
+    memory to TTL and garbage collection, cross-tool leakage to secure memory zones,
+    provenance loss to output tagging, and command injection to input escaping.'
+  derived_from_claims:
+  - C00088
+  - C00581
+  - C00596
+  - C00597
+  - C00598
+  - C00599
+  - C00600
+  - C00601
+  - C00602
+  - C00603
+  - C00604
+  confidence: high
+  applies_when:
+  - deploying an agent that can invoke external or local tools with real side effects
+  - an MCP deployment exposes tools with dynamic registration, shared memory, or shell-bound
+    wrappers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P006
+  statement: 'Keep tool descriptions accurate and precise: state only implemented
+    behavior, concrete constraints, parameter meanings, and boundaries, while removing
+    ambiguous, contradictory, or self-referential wording.'
+  derived_from_claims:
+  - C00368
+  - C00369
+  - C00441
+  - C00452
+  - C00453
+  - C00454
+  - C00455
+  - C00456
+  - C00457
+  confidence: high
+  applies_when:
+  - Editing the wording of a description component
+  - authoring or reviewing an MCP server tool description
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P007
+  statement: Diagnose agent failures into distinct categories - query errors (poor
+    or wrong-granularity queries from weak task decomposition), retrieve errors (retriever
+    misses a semantically equivalent tool), tool errors (correct tool invoked with
+    wrong parameters), and other errors (unhandled transient failures) - and route
+    each to its own remediation.
+  derived_from_claims:
+  - C00078
+  - C00079
+  - C00080
+  - C00081
+  - C00082
+  - C00083
+  - C00111
+  - C00124
+  confidence: high
+  applies_when:
+  - analyzing why a tool-use agent failed
+  - designing or reviewing an agent tool-use / MCP evaluation or benchmark
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P008
   statement: 'Minimize the number of tools an MCP server exposes: every tool''s name,
     description, parameter schema, and annotations load into the model''s context
     on connect and tax reasoning before any prompt, and benchmark evidence shows task
@@ -51,7 +222,29 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P003
+- principle_id: P009
+  statement: Choose a strong judge model for LLM-as-a-Judge evaluation, and when any
+    single evaluator's reliability is uncertain use multi-model majority voting; relative
+    agent rankings are robust to evaluator bias even though absolute agreement varies
+    by judge.
+  derived_from_claims:
+  - C00073
+  - C00075
+  - C00076
+  - C00077
+  - C00128
+  - C00141
+  - C00142
+  confidence: high
+  applies_when:
+  - scoring agent trajectories with an LLM judge
+  - designing or reviewing an agent tool-use / MCP evaluation or benchmark
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P010
   statement: 'Treat an MCP tool''s name, description, and parameter specification
     as the primary lever for correct tool selection: keep instructions simple and
     precise, and expect that even small description edits — tightening wording, adding/removing
@@ -76,28 +269,52 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P004
-  statement: Put an overview of the available tool categories into the tool-search
-    description so the LLM knows what exists and will actually attempt a search; pure
-    semantic search fails when the model has no visibility into what tools are available.
+- principle_id: P011
+  statement: Persist intermediate state, reusable task code, and agent memory outside
+    the transient prompt when workflows need resume capability, repeated execution,
+    continuity, provenance, or auditability.
   derived_from_claims:
-  - C00743
-  - C00744
-  - C01082
-  - C01083
-  - C01084
-  - C01085
+  - C00729
+  - C00730
+  - C00983
+  - C00984
+  - C00987
+  - C00988
+  - C00990
   confidence: high
   applies_when:
-  - Tools are discovered by matching against names and descriptions, especially when
-    many capabilities are deferred.
-  - using semantic/embeddings-based tool discovery
+  - The execution environment provides durable storage between operations.
+  - The task pattern is likely to recur or span multiple steps.
+  - multi-turn conversational sessions on a stateless serverless platform
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-- principle_id: P005
+- principle_id: P012
+  statement: 'Treat per-turn MCP tool-schema injection as a first-class recurring
+    cost (the Tools Tax): quantify it as approximately turns x catalog-size x ~200-500
+    tokens per tool, because stateless chat-completions APIs re-inject the full catalog
+    on every turn and audits place it in the tens of thousands of tokens.'
+  derived_from_claims:
+  - C00781
+  - C00782
+  - C00860
+  - C00861
+  - C00862
+  - C00865
+  - C00870
+  confidence: high
+  applies_when:
+  - measuring end-to-end MCP overhead
+  - designing or reviewing an agent that connects to many MCP tools
+  - estimating token cost or budget of a multi-server tool deployment
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P013
   statement: Validate tool-call parameters against each tool's constraints before
     invoking it; a common failure is violating parameter rules such as setting identical
     start and end dates where the tool requires them to differ.
@@ -115,7 +332,49 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P006
+- principle_id: P014
+  statement: Keep sensitive and intermediate data out of the model context by default,
+    exposing only explicitly logged, returned, or policy-approved values through least-exposure
+    controls such as tokenization, read-only mode, or metadata-only secret access.
+  derived_from_claims:
+  - C00726
+  - C00727
+  - C00728
+  - C01070
+  - C01071
+  confidence: high
+  applies_when:
+  - The harness separates execution-state visibility from model-visible output.
+  - The workflow handles private, regulated, or otherwise sensitive fields.
+  - The harness supports tokenization and controlled untokenization at tool-call boundaries.
+  - Sensitive values need to move between authorized systems.
+  - the server runs in shared environments or exposes secret resources
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P015
+  statement: Provide intelligent, searchable tool discovery with adjustable detail
+    levels once tool catalogs grow large enough that browsing or static exposure is
+    inefficient.
+  derived_from_claims:
+  - C00719
+  - C00721
+  - C00824
+  - C00856
+  - C00858
+  confidence: medium
+  applies_when:
+  - There are many tool definitions to inspect.
+  - The agent needs to narrow candidate tools before loading full schemas.
+  - planning capacity and cost for a growing tool-augmented LLM platform
+  operational_mapping:
+    profile_rule: false
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P016
   statement: Keep diagnostic and other non-protocol output off the JSON-RPC message
     stream; on the stdio transport, emitting anything other than valid JSON-RPC on
     standard output corrupts the stream and breaks client parsing.
@@ -134,11 +393,27 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P007
-  statement: 'Never assume an MCP list call (list_tools/list_prompts/list_resources/list_resource_templates)
-    returns every item: they are cursor-paginated, so loop — passing the previous
-    response''s next cursor — until the next cursor is empty, even though some in-process
-    servers return a single page.'
+- principle_id: P017
+  statement: Exercise tools through the connected client session and assert both model-facing
+    text content and machine-readable structuredContent, calling listTools first when
+    schema validation depends on cached tool schemas.
+  derived_from_claims:
+  - C01323
+  - C01324
+  - C01413
+  - C01414
+  confidence: high
+  applies_when:
+  - asserting the behaviour of an MCP tool in a test
+  - testing a tool that declares an output/structured schema
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P018
+  statement: Page every MCP list call with a cursor loop, collecting results until
+    the response has no next cursor rather than assuming the first page is complete.
   derived_from_claims:
   - C01360
   - C01361
@@ -153,11 +428,10 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P008
-  statement: 'Select the evaluation metric to match the question: single-run success
-    rate as the primary measure, pass@k (probability of at least one correct solution
-    in k attempts) when only one success is needed, and pass^k (probability all k
-    trials succeed) when consistent, reliable behaviour is required.'
+- principle_id: P019
+  statement: 'Select evaluation metrics to match the reliability question: use single-run
+    success or pass@k when one successful attempt is enough, and pass^k when every
+    attempt must succeed consistently.'
   derived_from_claims:
   - C00096
   - C00211
@@ -171,7 +445,40 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P009
+- principle_id: P020
+  statement: Configure timeouts for long-running or streaming operations so active
+    progress prevents premature timeout while cancellation and stream termination
+    still resolve cleanly.
+  derived_from_claims:
+  - C00546
+  - C00547
+  - C01371
+  confidence: high
+  applies_when:
+  - long-running tool calls or streaming operations
+  - a long request reports progress and must not time out while actively progressing
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P021
+  statement: Define and register MCP tool and prompt schemas with JSON Schema 2020-12,
+    directly or through a compatible schema library such as Zod/Standard-Schema.
+  derived_from_claims:
+  - C01390
+  - C01391
+  - C01416
+  confidence: high
+  applies_when:
+  - registering a tool with typed input or output
+  - defining tool/prompt input schemas for an MCP server under test
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P022
   statement: Run evaluation against exclusively real, production servers rather than
     mocked substitutes so authentic error modes (rate limits, pagination, schema-version
     mismatches, transient errors) are exercised.
@@ -187,10 +494,9 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P010
-  statement: Design tasks that require multi-hop, multi-step reasoning across scattered
-    sources — resolving indirect references, aggregating evidence, and filtering datasets
-    to uniquely identify a target — rather than single-lookup retrieval.
+- principle_id: P023
+  statement: Include reasoning-intensive, multi-step tasks that require resolving
+    indirect or scattered clues across sources to reach a specific answer.
   derived_from_claims:
   - C00050
   - C00158
@@ -203,7 +509,61 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P011
+- principle_id: P024
+  statement: 'Treat tool-description augmentation as useful but not universal or free:
+    apply it adaptively by domain and model while budgeting for higher execution steps
+    and token use and watching for regressions.'
+  derived_from_claims:
+  - C00289
+  - C00290
+  - C00291
+  - C00292
+  - C00293
+  - C00354
+  - C00355
+  - C00356
+  - C00357
+  - C00358
+  - C00359
+  - C00360
+  confidence: high
+  applies_when:
+  - Deciding whether to fully augment tool descriptions
+  - Rolling out augmented descriptions across domains and models
+  - Estimating the runtime cost of augmenting descriptions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P025
+  statement: Keep agent guidance minimal, judgment-anchored, and non-overlapping across
+    prompts, skills, CLAUDE.md, and user requests, verifying that removed constraints
+    do not hurt behavior.
+  derived_from_claims:
+  - C01476
+  - C01477
+  - C01478
+  - C01479
+  - C01480
+  - C01481
+  - C01482
+  - C01484
+  - C01485
+  - C01486
+  - C01487
+  confidence: high
+  applies_when:
+  - engineering the system prompt / CLAUDE.md / skills for a Claude 5-class agent
+  - reviewing context that has accreted many rules
+  - writing behavioural guidance for a Claude 5-class model
+  - auditing an assembled context for contradictions
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P026
   statement: 'Prioritize remediation by measured impact on tool selection — functionality
     first (+11.6%), then accuracy (+8.8%), then information completeness (+5.9%),
     then conciseness (+1.5%) — and adjust for query specificity: emphasize a clear,
@@ -230,62 +590,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P012
-  statement: 'Treat MCP tools as untrusted and map each threat vector to its defense:
-    prompt injection via image metadata to sanitization and semantic filters, schema
-    bypass to strict enforcement and audit logs, remote code execution to capability
-    scoping and sandboxing, privilege escalation to role-based tool binding, stale
-    memory to TTL and garbage collection, cross-tool leakage to secure memory zones,
-    provenance loss to output tagging, and command injection to input escaping.'
-  derived_from_claims:
-  - C00581
-  - C00596
-  - C00597
-  - C00598
-  - C00599
-  - C00600
-  - C00601
-  - C00602
-  - C00603
-  - C00604
-  confidence: high
-  applies_when:
-  - an MCP deployment exposes tools with dynamic registration, shared memory, or shell-bound
-    wrappers
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P013
-  statement: Use deferred tool discovery for large tool libraries so the model loads
-    only the tool definitions needed for the current task.
-  derived_from_claims:
-  - C00734
-  - C00735
-  - C00736
-  - C00737
-  - C00738
-  - C00739
-  - C00740
-  - C00741
-  - C00742
-  - C00766
-  confidence: high
-  applies_when:
-  - Tool definitions are large enough to materially consume context, tool-selection
-    errors are likely, multiple MCP servers are connected, or the available library
-    has roughly ten or more tools.
-  - A stable set of critical or frequently used tools exists alongside many lower-frequency
-    tools.
-  - Deferred definitions are excluded from the initial prompt and can be expanded
-    after search.
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P014
+- principle_id: P027
   statement: When building tasks to ground or evaluate a tool, write self-contained
     plain-English questions with a single unambiguous answer reachable in one tool
     call, specifying all inputs, varying values across tasks, and spanning medium/hard/very-hard
@@ -313,7 +618,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P015
+- principle_id: P028
   statement: 'Prioritize MCP validation and review effort by combining repository
     frequency with practitioner-confirmed severity and diagnostic effort: treat frequency
     counts as descriptive of the studied corpus rather than ecosystem prevalence,
@@ -338,30 +643,126 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P016
-  statement: 'Treat augmentation gains as real but neither free nor universal: augmenting
-    all components raised task success by about 5.85 percentage points (median) and
-    partial-goal completion by about 15.12%, but increased execution steps by about
-    67.46% (median) and regressed roughly 16.67% of cases.'
+- principle_id: P029
+  statement: 'For token-critical or large MCP servers, prefer dynamic toolsets: they
+    hold token consumption roughly constant from 40 to 400 tools and cut total tokens
+    by about 90-96% at a 100% task success rate, and adding new tools does not raise
+    baseline token usage.'
   derived_from_claims:
-  - C00289
-  - C00290
-  - C00291
-  - C00292
-  - C00293
-  - C00358
-  - C00359
-  - C00360
-  confidence: high
+  - C01079
+  - C01080
+  - C01092
+  - C01093
+  - C01094
+  - C01095
+  - C01096
+  - C01097
+  - C01098
+  - C01103
+  confidence: medium
   applies_when:
-  - Deciding whether to fully augment tool descriptions
-  - Estimating the runtime cost of augmenting descriptions
+  - evaluating latency and cost of a dynamic toolset
+  - token cost or context-window pressure is the binding constraint
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-- principle_id: P017
+- principle_id: P030
+  statement: Consolidate an application's MCP servers into a single FaaS function
+    (memory set to the peak of the constituents) to reduce cold-start overhead and
+    stabilize latency, accepting a higher per-invocation cost; keep singleton per-server
+    deployment when minimizing per-function memory footprint matters more.
+  derived_from_claims:
+  - C00995
+  - C00998
+  - C00999
+  - C01000
+  - C01012
+  - C01013
+  - C01029
+  - C01030
+  - C01031
+  confidence: high
+  applies_when:
+  - deciding how to lay out MCP servers across FaaS functions
+  - an application uses several MCP servers and is sensitive to cold-start latency
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P031
+  statement: Derive MCP conformance tests and fault-injection scenarios directly from
+    the leaf fault categories (for example, verifying that timeout violations yield
+    structured error objects, undeclared tool identifiers are rejected, and requests
+    are not processed before initialization completes), and ground reliability benchmarks
+    in observed protocol-level faults rather than generic software bugs.
+  derived_from_claims:
+  - C00508
+  - C00509
+  - C00516
+  - C00564
+  - C00565
+  - C00568
+  - C00569
+  - C00574
+  - C00575
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P032
+  statement: 'Expect customized MCP clients to be input-bottlenecked: LLM planning
+    plus tool-schema injection dominate their token and latency budgets, and cloud
+    custom setups carry a planning/prefill latency floor that grows with task complexity.'
+  derived_from_claims:
+  - C00767
+  - C00768
+  - C00769
+  - C00771
+  - C00786
+  - C00790
+  - C00804
+  - C00805
+  confidence: high
+  applies_when:
+  - deciding where to invest performance optimization in an MCP-based agent
+  - tools perform lightweight-to-moderate work
+  - using a customized MCP client (local or cloud-API)
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P033
+  statement: 'Assume tool-description quality is poor by default and always review
+    it: in a large empirical study 97.1% of descriptions carried at least one smell
+    and 56% failed to state purpose clearly, where a smell is a recurring component-specific
+    pattern that degrades clarity, correctness, or maintainability without being an
+    outright fault.'
+  derived_from_claims:
+  - C00285
+  - C00286
+  - C00287
+  - C00288
+  - C00308
+  - C00332
+  - C00348
+  - C00349
+  confidence: high
+  applies_when:
+  - Integrating or auditing MCP tools
+  - Judging a description by its source or maintainer
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P034
   statement: Extend vision tool schemas with explicit semantic-role, modality, and
     coordinate-system fields; over 60% of composition failures came from schema-valid
     but semantically mismatched outputs.
@@ -383,7 +784,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P018
+- principle_id: P035
   statement: Use programmatic tool calling for workflows where code can reduce context
     bloat, inference round-trips, or fragile manual synthesis.
   derived_from_claims:
@@ -405,29 +806,27 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P019
-  statement: Diagnose agent failures into distinct categories - query errors (poor
-    or wrong-granularity queries from weak task decomposition), retrieve errors (retriever
-    misses a semantically equivalent tool), tool errors (correct tool invoked with
-    wrong parameters), and other errors (unhandled transient failures) - and route
-    each to its own remediation.
+- principle_id: P036
+  statement: Do not assume any single judge is uniformly reliable, or that the largest
+    or most expensive model is the best judge; benchmark cost against reliability,
+    since a smaller, cheaper open model can match or beat premium frontier judges
+    at a fraction of the inference cost.
   derived_from_claims:
-  - C00078
-  - C00079
-  - C00080
-  - C00081
-  - C00082
-  - C00083
-  - C00111
+  - C00639
+  - C00640
+  - C00664
+  - C00669
+  - C00670
+  - C00673
+  - C00674
   confidence: high
-  applies_when:
-  - analyzing why a tool-use agent failed
+  applies_when: []
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-- principle_id: P020
+- principle_id: P037
   statement: 'Drop the Examples component first when trimming a description: removing
     it did not significantly degrade performance and even slightly improved cross-domain
     consistency, consistent with Anthropic''s deprioritization though contrary to
@@ -450,29 +849,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P021
-  statement: 'For Accuracy, keep the description semantically consistent with the
-    implementation: describe only behaviors the tool actually has, declare the behaviors
-    it does have, state its behavioral boundaries, and give each parameter''s correct
-    type and meaning, so the agent neither invokes non-existent behavior nor misreads
-    argument constraints.'
-  derived_from_claims:
-  - C00441
-  - C00452
-  - C00453
-  - C00454
-  - C00455
-  - C00456
-  - C00457
-  confidence: high
-  applies_when:
-  - authoring or reviewing an MCP server tool description
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P022
+- principle_id: P038
   statement: 'Expect the recurring cross-case failure signature in deployed MCP vision
     toolchains: semantic misalignment despite valid schemas, fragmented spatial and
     temporal representations, and shallow wrappers unable to manage implicit state
@@ -493,7 +870,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P023
+- principle_id: P039
   statement: Attach runtime validator contracts that check spatial dimensions, tensor
     channel semantics, and coordinate alignment, and let agents halt, replan, or fall
     back on invariant violation; schema agreement alone does not prevent scale, modality,
@@ -514,53 +891,30 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P024
-  statement: Use tool input examples to teach conventions schemas cannot express —
-    optional-field patterns, nested objects, correlated parameters, similar-tool disambiguation
-    — writing them as concise, realistic minimal/partial/full variants only where
-    they resolve genuine ambiguity.
+- principle_id: P040
+  statement: 'Read the classification metrics diagnostically: low precision for a
+    tool means it is being over-triggered (called when not expected), and low recall
+    typically means it is under-triggered (missed, or confused with another tool);
+    when two semantically similar tools are confused, expect the over-called tool''s
+    precision and the under-called tool''s recall to both drop.'
   derived_from_claims:
-  - C00757
-  - C00758
-  - C00759
-  - C00760
-  - C00761
-  - C00762
-  - C00763
+  - C00692
+  - C00693
+  - C00694
+  - C00695
+  - C00696
+  - C00697
+  - C00698
   confidence: high
   applies_when:
-  - Correct invocation depends on meaningful conventions, nested structures, many
-    optional parameters, domain formats, or choosing among similar tools.
-  - Authoring examples for a tool definition whose correct use is not obvious from
-    schema alone.
+  - scoring single-tool-call benchmarks
+  - interpreting per-tool precision/recall to locate a failure
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
     test_cases: []
-- principle_id: P025
-  statement: 'Prefer intent-gated two-phase loading over both naive full-schema injection
-    and simple top-k retrieval of full schemas: it can cut measured per-turn tool
-    tokens by roughly 95% while keeping effective context utilization high, and unlike
-    static manual pruning it does not starve tasks of tools they need.'
-  derived_from_claims:
-  - C00874
-  - C00878
-  - C00879
-  - C00898
-  - C00900
-  - C00901
-  - C00902
-  confidence: high
-  applies_when:
-  - designing how much of each tool's specification is carried in context
-  - choosing a tool-context strategy for an agent with a large tool catalog
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P026
+- principle_id: P041
   statement: Cache deterministic MCP tool outputs, keyed by a hash of tool name plus
     parameters and stored in object storage with a per-tool TTL, so repeated identical
     calls in a session return a cached handle instead of re-executing the tool.
@@ -582,7 +936,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P027
+- principle_id: P042
   statement: Agent memory combined with MCP caching beats memoryless baselines across
     latency, tokens, and cost (up to 13x, 88%, and 66% respectively), and the empty-memory
     configuration fails follow-up queries that lack earlier context.
@@ -602,7 +956,28 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P028
+- principle_id: P043
+  statement: 'Write tool descriptions with all core quality components present and
+    viable: purpose, usage guidance, limitations, parameter details, and self-sufficient
+    prose, with examples only supplementing the description.'
+  derived_from_claims:
+  - C00351
+  - C00411
+  - C00412
+  - C00413
+  - C00414
+  - C00415
+  - C00416
+  confidence: medium
+  applies_when:
+  - Setting a quality bar or example for description authoring
+  - Scoring or improving a specific description component
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P044
   statement: 'Prioritize the most prevalent smells when reviewing descriptions: Unstated
     Limitations (~90%), Missing Usage Guidelines (~89%), and Opaque Parameters (~84%)
     dominate, only ~2.9% of descriptions are fully smell-free, and completeness drops
@@ -623,7 +998,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P029
+- principle_id: P045
   statement: 'Treat tool descriptions as first-class engineering artifacts: run rubric-based
     smell detection in review or CI as a blocking release criterion, fix the highest-leverage
     components first, add examples or exhaustive parameter detail only where they
@@ -645,7 +1020,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P030
+- principle_id: P046
   statement: 'Select the minimal effective component set for each domain-model pair,
     always retaining Purpose: there is no universal ''golden'' combination, but a
     pruned combination that keeps the core purpose and the most relevant constraints
@@ -666,7 +1041,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P031
+- principle_id: P047
   statement: 'For Functionality, make the tool distinct within a shared namespace:
     give it a unique, semantically meaningful name (not a generic utility name such
     as read_file or get_data), a clear functional description, and explicit trigger
@@ -686,7 +1061,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P032
+- principle_id: P048
   statement: Persist intermediate visual state in explicit, versioned, semantically
     namespaced memory with temporal scoping and provenance; undocumented or weak memory
     scoping is prevalent and produces stale-state warnings.
@@ -705,7 +1080,27 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P033
+- principle_id: P049
+  statement: Use tool input examples to teach conventions that schemas cannot express,
+    including optional-field patterns, nested object usage, correlated parameters,
+    and similar-tool disambiguation.
+  derived_from_claims:
+  - C00757
+  - C00758
+  - C00759
+  - C00760
+  - C00761
+  - C00762
+  confidence: high
+  applies_when:
+  - Correct invocation depends on meaningful conventions, nested structures, many
+    optional parameters, domain formats, or choosing among similar tools.
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P050
   statement: Instrument the MCP workflow as a six-stage pipeline (S1 prompting, S2
     planning, S3 tool call, S4 tool response, S5 context update, S6 answer synthesis)
     with a per-event structured log (identifiers, boundary timestamps and derived
@@ -726,7 +1121,48 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P034
+- principle_id: P051
+  statement: 'Wire progress reporting end-to-end only when requested: the client supplies
+    an onprogress callback/progress token and the server emits progress notifications
+    guarded by that token.'
+  derived_from_claims:
+  - C01368
+  - C01369
+  - C01370
+  - C01372
+  - C01373
+  - C01374
+  confidence: high
+  applies_when:
+  - a request may run long enough that the caller needs incremental progress
+  - a tool handler wants to emit progress
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P052
+  statement: 'Apply progressive disclosure: load the right context at the right time
+    via a tree of files rather than one upfront repository — move situational instructions
+    (verification, code review) into selectively-called skills and split long skills
+    into multiple files.'
+  derived_from_claims:
+  - C01483
+  - C01491
+  - C01492
+  - C01494
+  - C01504
+  - C01506
+  confidence: high
+  applies_when:
+  - structuring CLAUDE.md and skills
+  - a skill or CLAUDE.md is growing large
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P053
   statement: 'Understand each evaluation method''s trade-offs before relying on it:
     automated evals give fast, reproducible, no-user-impact iteration but need maintenance
     and can create false confidence; production monitoring gives ground truth but
@@ -749,7 +1185,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P035
+- principle_id: P054
   statement: Return results processed enough to be directly usable, but keep the underlying
     source detail — raw unprocessed dumps force the LLM into error-prone guesswork,
     while summarize-only output that hides the originals leaves no recovery path when
@@ -769,7 +1205,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P036
+- principle_id: P055
   statement: Do not write Examples or the full Limitations from the description alone;
     ground them in observed tool executions by generating at least one success task
     and one error task per tool plus edge cases (prioritizing harder cases first),
@@ -790,7 +1226,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P037
+- principle_id: P056
   statement: 'Measure a description change with execution-based metrics rather than
     assuming its effect: Success Rate, Average Evaluator score (partial completion),
     and Average Steps as a cost proxy, using a benchmark that combines programmatic
@@ -812,35 +1248,10 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P038
-  statement: 'Hold each component to its quality bar: Usage Guidelines state when
-    to use and when not to use (plus disambiguation if the name is ambiguous); Limitations
-    state what the tool does not return and its scope and constraints; Parameter Explanation
-    gives each parameter''s type, meaning, behavioral effect, and required-or-default
-    status rather than schema-only listing; the prose is self-sufficient with examples
-    supplementing rather than replacing it and roughly four or more substantive sentences;
-    judge a description Bad if any component is below viable or examples replace the
-    description, and Good only if all components are at least minimally viable.'
-  derived_from_claims:
-  - C00411
-  - C00412
-  - C00413
-  - C00414
-  - C00415
-  - C00416
-  confidence: medium
-  applies_when:
-  - Scoring or improving a specific description component
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P039
-  statement: 'Adopt source-code grounding of tool descriptions as a reliability safeguard
-    (not a guaranteed performance gain): it most improves faithfulness and scoring
-    reliability for behavior- and input-tied components like Parameter Explanation,
-    and matters most for rare, proprietary, or out-of-distribution tools.'
+- principle_id: P057
+  statement: Use source-code grounding as a reliability safeguard for tool-description
+    faithfulness, especially for behavior- and input-tied components, while not assuming
+    it will always improve task success.
   derived_from_claims:
   - C00385
   - C00386
@@ -857,7 +1268,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P040
+- principle_id: P058
   statement: 'For Conciseness, maximize signal-to-noise: remove redundant or repeated
     content, irrelevant clutter, needless technical jargon, and useless qualifiers,
     because verbosity inflates token cost and dilutes model attention — while treating
@@ -877,25 +1288,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P041
-  statement: Use the 27 fault subcategories as a structured fault-localization checklist
-    for diagnostic triage, narrowing an MCP server misbehavior to protocol-level hypotheses
-    such as Schema Compatibility, Session State, or Tool Result Propagation.
-  derived_from_claims:
-  - C00508
-  - C00509
-  - C00516
-  - C00564
-  - C00574
-  - C00575
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P042
+- principle_id: P059
   statement: Establish protocol-level orchestration benchmarks and validator suites
     that emit binary results plus structured failure traces; without them, orchestration
     failures under injected errors go undetected and model benchmarks miss multi-tool
@@ -915,27 +1308,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P043
-  statement: 'For token-critical or large MCP servers, prefer dynamic toolsets: they
-    hold token consumption roughly constant from 40 to 400 tools and cut total tokens
-    by about 90-96% at a 100% task success rate, and adding new tools does not raise
-    baseline token usage.'
-  derived_from_claims:
-  - C01079
-  - C01080
-  - C01092
-  - C01093
-  - C01094
-  - C01103
-  confidence: medium
-  applies_when:
-  - token cost or context-window pressure is the binding constraint
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P044
+- principle_id: P060
   statement: 'Build the registry entry deterministically from the repository: clone
     it, derive metadata (uuid id, README-based description, GitHub repository fields),
     set version from the container image tag with is_latest true, model packages as
@@ -955,7 +1328,7 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P045
+- principle_id: P061
   statement: 'Recommend the design-once/execute-many pattern when a multi-step tool
     task recurs: per-execution cost falls to roughly O(1) (about 150 tokens), the
     one-time design cost breaks even after only ~4% of a single agent run, and amortized
@@ -977,7 +1350,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P046
+- principle_id: P062
   statement: 'Design an MCP server for a large-API platform as a capability-oriented
     interface: expose a small set of generic verb tools and put the intelligence in
     a declarative registry that maps each resource type to its API operations, rather
@@ -999,7 +1372,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P047
+- principle_id: P063
   statement: 'Build the tool environment from stable, reproducible interfaces rather
     than unstable or simulated APIs: aggregate real MCP servers, drop any that require
     proprietary API keys, curate and vet for quality, and pin a dependency-free, containerized,
@@ -1018,7 +1391,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P048
+- principle_id: P064
   statement: Structure a large-toolset agent around two explicit operations - a retrieval
     (route) tool used as the discovery step when the model cannot solve the request
     alone or is unsure which tool to use, and an execution tool that may invoke only
@@ -1039,7 +1412,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P049
+- principle_id: P065
   statement: 'Retrieve around five candidate tools per query: retrieving too few (k=1)
     significantly hurts success while increasing beyond five plateaus, and the tool-retrieval
     methodology - not the embedding model choice - is the dominant bottleneck, so
@@ -1058,7 +1431,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P050
+- principle_id: P066
   statement: 'Report efficiency work reproducibly and honestly: fix seeds, release
     a no-API token-counting harness, validate on a community-standard benchmark rather
     than only synthetic (even if calibrated) workloads, and explicitly mark projected
@@ -1077,25 +1450,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P051
-  statement: Do not assume any single judge is uniformly reliable, or that the largest
-    or most expensive model is the best judge; benchmark cost against reliability,
-    since a smaller, cheaper open model can match or beat premium frontier judges
-    at a fraction of the inference cost.
-  derived_from_claims:
-  - C00664
-  - C00669
-  - C00670
-  - C00673
-  - C00674
-  confidence: high
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P052
+- principle_id: P067
   statement: 'Choose grader types by trade-off: prefer deterministic code-based graders
     where possible (fast, cheap, reproducible, but brittle to valid variation), use
     model-based graders where flexibility or nuance is needed (scalable but non-deterministic
@@ -1115,7 +1470,29 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P053
+- principle_id: P068
+  statement: 'Watch for saturation: an eval at 100% pass rate tracks regressions but
+    gives no signal for improvement, and near saturation large capability gains show
+    up as small score increases (e.g. SWE-Bench Verified moved from ~30% to >80% within
+    a year), so retire or refresh saturated evals for capability measurement.'
+  derived_from_claims:
+  - C00198
+  - C00199
+  - C00200
+  - C00229
+  - C00230
+  confidence: high
+  applies_when:
+  - Deciding target difficulty and interpreting scores for a capability vs regression
+    suite
+  - A capability eval has reached a high pass rate after optimisation
+  - An eval's pass rate is at or approaching 100% and you still need improvement signal
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P069
   statement: 'Verify MCP servers at the protocol-runtime level, not only at build
     time: a server can compile successfully and conform to its specification yet still
     violate its coordination obligations at runtime, so build success and spec conformance
@@ -1133,7 +1510,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P054
+- principle_id: P070
   statement: 'For Information Completeness, document everything the agent needs to
     build a valid call and interpret the result without guessing: every parameter
     and its type, the return values, side effects, and error handling; omitting return-value
@@ -1152,7 +1529,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P055
+- principle_id: P071
   statement: Treat description authoring as a first-class engineering phase, co-equal
     with implementation and testing (like API contract design); avoid the code-first,
     description-last pattern, which measurably degrades tool discoverability and invocation
@@ -1171,7 +1548,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P056
+- principle_id: P072
   statement: 'Detect MCP faults behaviorally, not only via crashes or explicit errors:
     many faults return well-formed JSON-RPC success responses while violating coordination
     semantics (silent/gray failure), so oracles must assert response content, session-state
@@ -1190,7 +1567,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P057
+- principle_id: P073
   statement: Represent tool and server failures as structured JSON-RPC error objects
     mapped to the correct error code; never return a success response that carries
     hidden failure information, and never surface application failures as bare HTTP
@@ -1208,7 +1585,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P058
+- principle_id: P074
   statement: 'Select an MCP orchestration pattern by its trade-off and cover its dominant
     failure mode, and defer costly tool invocations when confidence is low or context
     is absent: static composition is auditable but brittle to drift, dynamic orchestration
@@ -1228,46 +1605,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P059
-  statement: Persist agent memory in an external store keyed by a session id (with
-    a per-request invocation id) to give a stateless FaaS workflow multi-turn continuity;
-    inject the retrieved memory into the planning stage, append only newly produced
-    state each invocation, and reuse the store as a provenance and audit trail.
-  derived_from_claims:
-  - C00983
-  - C00984
-  - C00987
-  - C00988
-  - C00990
-  confidence: high
-  applies_when:
-  - multi-turn conversational sessions on a stateless serverless platform
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P060
-  statement: 'Treat per-turn MCP tool-schema injection as a first-class recurring
-    cost (the Tools Tax): quantify it as approximately turns x catalog-size x ~200-500
-    tokens per tool, because stateless chat-completions APIs re-inject the full catalog
-    on every turn and audits place it in the tens of thousands of tokens.'
-  derived_from_claims:
-  - C00860
-  - C00861
-  - C00862
-  - C00865
-  - C00870
-  confidence: high
-  applies_when:
-  - designing or reviewing an agent that connects to many MCP tools
-  - estimating token cost or budget of a multi-server tool deployment
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P061
+- principle_id: P075
   statement: 'Treat model selection as a lever that reshapes both the cost profile
     and its predictability: small local models are fast on simple tool use but degrade
     with high latency variance on heavy-context, open-ended tasks, so favor models
@@ -1286,26 +1624,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P062
-  statement: Consolidate an application's MCP servers into a single FaaS function
-    (memory set to the peak of the constituents) to reduce cold-start overhead and
-    stabilize latency, accepting a higher per-invocation cost; keep singleton per-server
-    deployment when minimizing per-function memory footprint matters more.
-  derived_from_claims:
-  - C01012
-  - C01013
-  - C01029
-  - C01030
-  - C01031
-  confidence: high
-  applies_when:
-  - an application uses several MCP servers and is sensitive to cold-start latency
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P063
+- principle_id: P076
   statement: For multi-server or complex setups, store servers in a --config file
     (transport auto-detected), rely on automatic selection when there is a single
     server or one named 'default-server', use the Server Entry / Servers File export
@@ -1325,26 +1644,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P064
-  statement: 'Wire progress reporting end-to-end for long-running requests: provide
-    an onprogress callback on the client (the SDK auto-assigns the progressToken)
-    and have the server emit notifications/progress via extra.sendNotification with
-    the progressToken in params.'
-  derived_from_claims:
-  - C01368
-  - C01369
-  - C01370
-  - C01372
-  - C01373
-  confidence: high
-  applies_when:
-  - a request may run long enough that the caller needs incremental progress
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P065
+- principle_id: P077
   statement: 'Choose the transport explicitly and supply its required endpoint and
     authentication: stdio is the default; HTTP needs --endpoint plus OAuth 2.0 (automatic
     Dynamic Client Registration, pre-registered credentials, or a personal access
@@ -1362,7 +1662,7 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P066
+- principle_id: P078
   statement: 'Judge efficiency by execution steps on a cost-accuracy Pareto frontier
     rather than by model size: richer descriptions push most tasks to more steps,
     and a smaller model can dominate a larger one that spends more steps for equal
@@ -1381,7 +1681,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P067
+- principle_id: P079
+  statement: Expect a wide performance spread across MCP servers (measured accuracy
+    ~10-64%, latency <15s to ~231s) and select a server by benchmarking candidates
+    on your own task instead of trusting popularity or defaults.
+  derived_from_claims:
+  - C00247
+  - C00250
+  - C00258
+  - C00259
+  - C00260
+  confidence: medium
+  applies_when: []
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P080
   statement: 'When an LLM agent performs a recurring multi-step tool task, separate
     one-time intelligence (deciding what to do) from repeated execution (carrying
     it out): have the agent reason once to produce a reusable plan, then execute that
@@ -1402,42 +1719,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P068
-  statement: Optimize MCP-agent efficiency by targeting protocol orchestration - schema
-    injection, planning, transport, and result handling - not tool execution speed,
-    which is a negligible cost fraction under lightweight-to-moderate tools.
+- principle_id: P081
+  statement: Beyond the CLI, validate containerized servers through the container
+    runtime (e.g. podman/docker) and embed validation programmatically via the API
+    (validate_server / validate_mcp_server_command) when automating.
   derived_from_claims:
-  - C00767
-  - C00768
-  - C00771
-  - C00786
-  confidence: high
+  - C01431
+  - C01440
+  - C01451
+  - C01457
+  - C01458
+  confidence: medium
   applies_when:
-  - deciding where to invest performance optimization in an MCP-based agent
-  - tools perform lightweight-to-moderate work
+  - validating a server distributed as a container image
   operational_mapping:
     profile_rule: true
     skill: null
     reference: null
-    test_cases: []
-- principle_id: P069
-  statement: 'Expect customized MCP clients to be input-bottlenecked: LLM planning
-    plus tool-schema injection dominate their token and latency budgets, and cloud
-    custom setups carry a planning/prefill latency floor that grows with task complexity.'
-  derived_from_claims:
-  - C00769
-  - C00790
-  - C00804
-  - C00805
-  confidence: high
-  applies_when:
-  - using a customized MCP client (local or cloud-API)
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P070
+- principle_id: P082
   statement: Make evaluation robust to tool-use hallucination by decomposing the task
     into explicit completion criteria and grounding each key point against the raw
     tool outputs, rather than trusting the agent's self-reported completion or brittle
@@ -1455,7 +1754,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P071
+- principle_id: P083
   statement: Construct benchmark tasks with a two-stage human pipeline of separate
     proposers and validators, allowing LLM-assisted ideation only when each candidate
     task is human-vetted for authenticity, and having verifiers consolidate duplicates
@@ -1473,25 +1772,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P072
-  statement: Choose a strong judge model for LLM-as-a-Judge evaluation, and when any
-    single evaluator's reliability is uncertain use multi-model majority voting; relative
-    agent rankings are robust to evaluator bias even though absolute agreement varies
-    by judge.
-  derived_from_claims:
-  - C00073
-  - C00075
-  - C00076
-  - C00077
-  confidence: high
-  applies_when:
-  - scoring agent trajectories with an LLM judge
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P073
+- principle_id: P084
   statement: Before trusting or deploying an LLM judge, run a reliability validation
     suite that stress-tests it with targeted perturbations rather than relying on
     a single point estimate of agreement with human raters on a small validation set.
@@ -1508,7 +1789,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P074
+- principle_id: P085
   statement: Advise MCP users to treat tool descriptions as mutable client-side configuration
     they can override at runtime without changing server code, using high-quality
     descriptions as a cost lever that can let a smaller, cheaper model reach parity
@@ -1528,7 +1809,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P075
+- principle_id: P086
   statement: On complex, open-ended tasks the tool-result (retrieval) phase dominates
     the token budget across client types; large or retained tool outputs, not tool
     execution time, are the primary inflator.
@@ -1545,7 +1826,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P076
+- principle_id: P087
   statement: 'Choose retrieval parameters on accuracy grounds, because the token and
     latency savings are essentially free and domain-invariant: semantic filtering
     removes ~99% of tool-definition tokens across every server and K, and retrieval
@@ -1563,7 +1844,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P077
+- principle_id: P088
   statement: Evaluate a tool-heavy agent on all three coupled failure modes of the
     Tools Tax - cost, reasoning degradation, and an enlarged tool-poisoning attack
     surface - not on token cost alone, because reducing in-context schemas improves
@@ -1582,7 +1863,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P078
+- principle_id: P089
   statement: Structure the offline evaluation pipeline as three stages — fulfillment
     (run each benchmark across multiple models with the full tool list supplied, recording
     invoked tools and arguments), evaluation (compute metrics and scores from the
@@ -1601,45 +1882,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P079
-  statement: 'Assume tool-description quality is poor by default and always review
-    it: in a large empirical study 97.1% of descriptions carried at least one smell
-    and 56% failed to state purpose clearly, where a smell is a recurring component-specific
-    pattern that degrades clarity, correctness, or maintainability without being an
-    outright fault.'
-  derived_from_claims:
-  - C00285
-  - C00286
-  - C00287
-  - C00308
-  confidence: high
-  applies_when:
-  - Integrating or auditing MCP tools
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P080
-  statement: 'Do not assume a description is good because it comes from an official
-    server or reputable vendor: quality shows no significant official-vs-community
-    difference (23 official and 80 community servers were comparably smelly), and
-    minimal one-line descriptions that merely restate the tool name are below-median
-    quality.'
-  derived_from_claims:
-  - C00288
-  - C00332
-  - C00348
-  - C00349
-  confidence: high
-  applies_when:
-  - Judging a description by its source or maintainer
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P081
+- principle_id: P090
   statement: Score each component on a graded (5-point) scale rather than a yes/no
     check, treating 3 as the minimum viable threshold, 4-5 as increasing precision
     and clarity, and a mean below 3 as a detected smell, because a component can be
@@ -1657,25 +1900,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P082
-  statement: 'Apply augmentation adaptively per domain and model rather than uniformly:
-    gains improved roughly 54% of runs but regressed roughly 17%, help is largest
-    in some domains and negative in others, and richer descriptions raise partial-goal
-    completion even when final success is capped by an iteration limit.'
-  derived_from_claims:
-  - C00354
-  - C00355
-  - C00356
-  - C00357
-  confidence: high
-  applies_when:
-  - Rolling out augmented descriptions across domains and models
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P083
+- principle_id: P091
   statement: 'Treat the tool description, together with its name and input schema,
     as the primary and often only basis an LLM has for selecting a tool: implementation
     is unobservable, so selection is driven by the semantic alignment between the
@@ -1693,7 +1918,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P084
+- principle_id: P092
   statement: 'Expect substantial, measurable payoff from a standards-compliant description:
     among functionally equivalent competitors, a compliant server wins selection about
     72% of the time versus a 20% uniform baseline (a 260% relative increase), consistently
@@ -1711,7 +1936,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P085
+- principle_id: P093
   statement: Treat a failing tool as an ordinary result with `is_error=True` (the
     exception message is placed in `content` for the model), always check `is_error`
     before trusting `structured_content` (which is `None` on failure), and remember
@@ -1730,7 +1955,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P086
+- principle_id: P094
   statement: Preserve request-response and session identifiers consistently across
     message exchange, tool invocation, and result propagation, so requests, results,
     and related streaming events stay correlated.
@@ -1746,7 +1971,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P087
+- principle_id: P095
   statement: 'Scope MCP audit conclusions to their validity boundaries: prevalence
     rates come from a public-server corpus (prototypes overrepresented), the proposed
     extensions are unvalidated testbed reference prototypes, and rates depend on the
@@ -1765,7 +1990,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P088
+- principle_id: P096
   statement: Validate the full MCP compliance surface — the initialize handshake,
     JSON-RPC 2.0 conformance, advertised capabilities (tools/prompts/resources), security,
     and registry/OSS conformance — rather than checking connectivity alone.
@@ -1780,7 +2005,7 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P089
+- principle_id: P097
   statement: Test a judge's consistency with meaning-preserving perturbations — formatting-only
     changes, semantic paraphrase, and verbosity variants — and require its score to
     stay constant when the underlying quality is unchanged.
@@ -1796,25 +2021,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P090
-  statement: For benchmarks with a single tool call, model tool selection as multi-class
-    classification (each tool is a class) and score it with accuracy, precision, recall,
-    and F1 — accuracy over the whole dataset, and F1 as the harmonic mean summarizing
-    precision and recall per tool.
-  derived_from_claims:
-  - C00692
-  - C00693
-  - C00694
-  - C00697
-  confidence: high
-  applies_when:
-  - scoring single-tool-call benchmarks
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P091
+- principle_id: P098
   statement: Read a `CallToolResult` as three separately-consumed fields — `content`
     for the model, `structured_content` (JSON matching the tool's output_schema) for
     application code, and `is_error` for success — and do not conflate the model-facing
@@ -1832,24 +2039,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P092
-  statement: 'Reduce tool-schema injection cost: verbose JSON schemas loaded for every
-    registered tool are the fixed planning overhead, so use deferred/lazy tool loading
-    and trim schema verbosity rather than injecting the full tool list up front.'
-  derived_from_claims:
-  - C00776
-  - C00782
-  - C00790
-  - C00792
-  confidence: high
-  applies_when:
-  - many tools are registered and their schemas are injected into the planning prompt
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P093
+- principle_id: P099
   statement: 'Diagnose the bottleneck class from the client type before optimizing:
     customized environments suffer an input bottleneck determined by how fast the
     model parses tool definitions and plans, while off-the-shelf environments suffer
@@ -1868,7 +2058,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P094
+- principle_id: P100
   statement: 'Enforce profiling hygiene for stable, comparable stage attribution:
     disable response streaming and tool-execution caching, bound the agent horizon
     (rounds) and retries, and run tools sequentially; remember that black-box clients
@@ -1887,7 +2077,26 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P095
+- principle_id: P101
+  statement: Prefer persisting full agent memory (internal reasoning plus tool inputs
+    and outputs) over naively replaying cumulative client request/response history,
+    because client-only memory repeats already-completed work while agent memory lets
+    the planner skip failed strategies and the actor skip redundant tool calls.
+  derived_from_claims:
+  - C00985
+  - C00986
+  - C01014
+  - C01015
+  confidence: high
+  applies_when:
+  - choosing what memory to carry across requests in a session
+  - an agentic workflow injects prior tool outputs or memory into the context
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P102
   statement: Decompose the agentic pattern into one FaaS function per role (e.g. Planner,
     Actor, Evaluator) orchestrated as a FaaS workflow, so no single function risks
     the platform timeout and each role can be scaled and configured independently
@@ -1906,10 +2115,10 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P096
-  statement: 'Bound the planner–evaluator reasoning loop with an explicit maximum-iteration
-    cap: the evaluator either returns success or routes structured feedback back to
-    the planner, which consumes it to revise the plan.'
+- principle_id: P103
+  statement: Bound the agent reasoning loop with an explicit maximum-iteration cap,
+    and on retry have the evaluator return structured feedback that the planner consumes
+    to revise the plan.
   derived_from_claims:
   - C00979
   - C01005
@@ -1924,7 +2133,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P097
+- principle_id: P104
   statement: 'OAuth client scopes and registration: with offline_access in the AS
     scopes_supported a client SHOULD include refresh_token in grant_types (and MAY
     include offline_access in the request scope); when the server lacks DCR it MUST
@@ -1944,7 +2153,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P098
+- principle_id: P105
   statement: 'Select the Client transport by the type of its single positional argument:
     an MCPServer/Server instance for in-process, a URL string for Streamable HTTP,
     or a transport object (usable as `async with ... as (read, write)`) for anything
@@ -1962,7 +2171,26 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P099
+- principle_id: P106
+  statement: Assess SDK tier gates from the required conformance pass rates, triage
+    and P0 responsiveness, stable release status, documentation, dependency policy,
+    and roadmap obligations for Tier 1 or Tier 2; otherwise classify the SDK as Tier
+    3.
+  derived_from_claims:
+  - C01196
+  - C01198
+  - C01208
+  - C01209
+  confidence: high
+  applies_when:
+  - deciding whether an SDK is Tier 1
+  - deciding Tier 2 versus Tier 3
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P107
   statement: 'Match the Inspector launch wrapper to how the server is distributed:
     `npx <pkg>` for an npm package, `uvx <pkg>` for a PyPI package, `node <entry>.js`
     for a local TypeScript server, and `uv --directory <path> run <pkg>` for a local
@@ -1980,7 +2208,25 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P100
+- principle_id: P108
+  statement: In an Inspector session, first verify connectivity and capability negotiation,
+    then exercise each advertised capability surface through its dedicated tab with
+    real inputs and observed results.
+  derived_from_claims:
+  - C01236
+  - C01237
+  - C01238
+  - C01240
+  confidence: high
+  applies_when:
+  - validating what a server actually exposes
+  - starting a debugging or testing session
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P109
   statement: 'When constructing tool-call requests from form inputs, omit optional
     fields with empty values unless the schema defines a matching explicit default,
     preserve explicit defaults (e.g. default: null) that match the current value,
@@ -1999,7 +2245,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P101
+- principle_id: P110
   statement: 'Design the CLI test suite for safe parallelism: run in parallel across
     files but sequentially within a file, make each config file unique with crypto.randomUUID(),
     allocate HTTP/SSE ports dynamically, depend only on built-in MCP test servers,
@@ -2017,7 +2263,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P102
+- principle_id: P111
   statement: Always use absolute paths in server configuration, .env files, and the
     command executable, because a client-launched stdio server's working directory
     may be undefined (e.g. / on macOS).
@@ -2034,7 +2280,42 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P103
+- principle_id: P112
+  statement: Use the SDK's built-in ping() for health checks, adding an explicit timeout
+    or deadline when the side being called does not provide one.
+  derived_from_claims:
+  - C01364
+  - C01365
+  - C01366
+  - C01367
+  confidence: high
+  applies_when:
+  - checking whether a connected MCP peer is alive
+  - a ping must fail fast within a deadline
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P113
+  statement: 'Make long-running calls cancellable end-to-end: the client passes and
+    aborts an AbortSignal, and the server handler polls the signal and stops promptly
+    when cancellation is signalled.'
+  derived_from_claims:
+  - C01375
+  - C01376
+  - C01377
+  - C01378
+  confidence: high
+  applies_when:
+  - a caller may need to abort an in-flight request
+  - a server handler runs a loop or long operation that should honour cancellation
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P114
   statement: Declare every capability you will use at initialize (client capabilities
     in the Client constructor; server capabilities inferred by McpServer from registered
     handlers, or declared on the low-level Server) — the SDK throws when code uses
@@ -2052,11 +2333,10 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P104
-  statement: Use InMemoryTransport (e.g. createLinkedPair) only for in-process unit
-    and integration testing of MCP server logic; reserve stdio or Streamable-HTTP
-    transports for end-to-end transport-level tests and for production in-process
-    connections.
+- principle_id: P115
+  statement: Use InMemoryTransport for unit, integration, test, and development in-process
+    MCP wiring, reserving stdio, Streamable HTTP, or local server URLs for transport-level
+    or production paths.
   derived_from_claims:
   - C01394
   - C01395
@@ -2071,7 +2351,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P105
+- principle_id: P116
   statement: Treat `protocol` as the mandatory foundation validator and respect validator
     dependency order (capabilities, ping, errors, security all depend on it); extend
     validation through the plugin model instead of ad-hoc checks.
@@ -2086,7 +2366,25 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P106
+- principle_id: P117
+  statement: Prefer high-fidelity references — code, detailed test suites, functions
+    to port, and HTML artifacts/mockups — over prose descriptions or screenshots,
+    and @-mention them so the model can consult in-depth information for the current
+    plan.
+  derived_from_claims:
+  - C01498
+  - C01499
+  - C01508
+  - C01509
+  confidence: high
+  applies_when:
+  - giving the model a spec, design, or reference material
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P118
   statement: Treat upfront loading of all MCP tool definitions as a scaling hazard,
     and design agents to disclose tool definitions only as needed.
   derived_from_claims:
@@ -2103,7 +2401,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P107
+- principle_id: P119
   statement: 'Treat tool-use hallucination as real but low-prevalence and largely
     detectable (about 9% of invocations, ~1.6% evaluation inconsistency, detection
     stable across judges), while still guarding the known weak spot: evaluators overlook
@@ -2121,7 +2419,42 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P108
+- principle_id: P120
+  statement: Use one shared failure-mode vocabulary for human reviewers and automated
+    diagnostic judges, assigning the primary root-cause mode plus contributing modes
+    with explicit confidence and disambiguation rules.
+  derived_from_claims:
+  - C00169
+  - C00170
+  - C00171
+  - C00172
+  confidence: medium
+  applies_when:
+  - building or reviewing automated failure diagnostics for agents
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P121
+  statement: 'Treat evaluations as routine development artifacts: define realistic
+    capability evals early, iterate on them like unit tests, and use them to make
+    progress and unstated expectations visible.'
+  derived_from_claims:
+  - C00198
+  - C00233
+  - C00234
+  - C00235
+  confidence: medium
+  applies_when:
+  - Setting team norms for AI product development
+  - Planning a new agent capability or evaluating whether requirements are build-ready
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P122
   statement: Do not assume an MCP server outperforms an equivalent function-call/tool-use
     implementation on accuracy; MCP wrapping alone yields no measured accuracy gain,
     so justify MCP adoption by other benefits (standardization, interoperability)
@@ -2138,7 +2471,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P109
+- principle_id: P123
   statement: Choose a code-execution MCP architecture only when the expected token,
     latency, privacy, or composition gains justify the added infrastructure and security
     cost.
@@ -2155,7 +2488,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P110
+- principle_id: P124
   statement: Prefer a declarative natural-language interface over a raw structured-query
     parameter, moving query construction (e.g. text-to-SQL) inside the server; the
     gain is large when the LLM's query construction is the accuracy bottleneck (PostgreSQL
@@ -2174,7 +2507,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P111
+- principle_id: P125
   statement: 'Ground FM-based augmentation in implementation evidence: supply the
     tool''s source-code slice together with the original description and input schema
     and instruct the model to invent nothing unsupported, because underspecified inputs
@@ -2193,25 +2526,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P112
-  statement: Architect dynamic tool access around three tools - search_tools (semantic
-    search plus a tool-category overview), describe_tools (on-demand schemas), and
-    execute_tool - so that discoverability and token efficiency are both achieved.
-  derived_from_claims:
-  - C01087
-  - C01088
-  - C01089
-  - C01091
-  confidence: medium
-  applies_when:
-  - designing a dynamic/large MCP toolset
-  - tool input schemas are large or numerous
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P113
+- principle_id: P126
   statement: Also avoid vague hedge words (for example maybe or probably), keep terminology
     consistent, and keep wording understandable to the model; these general documentation
     qualities matter, but for short MCP descriptions they are secondary to the four
@@ -2229,7 +2544,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P114
+- principle_id: P127
   statement: Gate request handling on completion of the initialization handshake so
     no request is processed before the session is fully initialized; because initialization
     instability spans several startup steps, expect to harden the whole startup sequence
@@ -2246,7 +2561,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P115
+- principle_id: P128
   statement: When reviewing MCP state and configuration, check that server-level configuration
     parameters are actually enforced rather than accepted and silently ignored, that
     session identifiers are neither stale, reused, absent, nor stripped by middleware,
@@ -2263,7 +2578,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P116
+- principle_id: P129
   statement: When reviewing MCP security, check authentication (Authorization header
     present, token well-formed and unexpired), token validation (token audience and
     other claims verified on receipt, tokens not forwarded upstream unverified), and
@@ -2281,7 +2596,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P117
+- principle_id: P130
   statement: 'Build a fault taxonomy for an immature domain inductively: use faceted,
     bottom-up open coding rather than predefined categories, code artifacts independently
     with multiple coders and report inter-rater agreement, and iterate through refinement
@@ -2299,7 +2614,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P118
+- principle_id: P131
   statement: Avoid using the model context as a data bus for large intermediate results;
     move, filter, and summarize data inside the execution environment before returning
     model-visible output.
@@ -2318,7 +2633,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P119
+- principle_id: P132
   statement: Give each agent a strict-JSON prompt contract - the planner returns the
     tools and their sequence, the actor executes them in order, and the evaluator
     returns success, needs_retry, reason, and feedback - so every agent's output can
@@ -2336,25 +2651,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P120
-  statement: Provision MCP servers cost-consciously by choosing among independent,
-    per-workflow-unified, or globally-unified (colocated) deployment, because FaaS
-    bills on peak memory and execution time; colocating shared or remote servers near
-    their workflows cuts latency and management overhead.
-  derived_from_claims:
-  - C00995
-  - C00998
-  - C00999
-  - C01000
-  confidence: medium
-  applies_when:
-  - deciding how to lay out MCP servers across FaaS functions
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P121
+- principle_id: P133
   statement: When an MCP server must expose many tools (dozens to hundreds), do not
     load every tool definition statically; use a dynamic/lazy discovery mechanism,
     because static exposure grows token usage roughly linearly with toolset size and
@@ -2372,24 +2669,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P122
-  statement: 'Budget for the dynamic-toolset trade-off: expect about 2-3x more tool
-    calls and roughly 50% higher execution time than a static toolset; net total tokens
-    and runtime still do not rise because input tokens fall by more than 96%.'
-  derived_from_claims:
-  - C01095
-  - C01096
-  - C01097
-  - C01098
-  confidence: medium
-  applies_when:
-  - evaluating latency and cost of a dynamic toolset
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P123
+- principle_id: P134
   statement: 'Emit a structured, timestamped aggregated report: one JSON report per
     server (named <server>.json under output/), an aggregate servers_validation.json,
     and a Markdown summary table of per-server status/errors/warnings — recording
@@ -2407,7 +2687,7 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P124
+- principle_id: P135
   statement: 'Make logging load-bearing and structured: instrument initialization,
     resource access, tool execution, errors, and performance; use consistent formats,
     context, timestamps, and request IDs; log stack traces and track error patterns,
@@ -2425,7 +2705,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P125
+- principle_id: P136
   statement: Configure validation reproducibly through named profiles, a .mcp-validation.json
     config file, or the MCP_VALIDATION_CONFIG / MCP_VALIDATION_PROFILE environment
     variables (and tune validator parameters there) instead of ad-hoc one-off flags.
@@ -2440,7 +2720,7 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P126
+- principle_id: P137
   statement: Evaluate MCP tool-use agents on large-scale, multi-server, dynamic toolsets
     that force real tool retrieval and multi-tool composition; do not rely on single-server
     setups that inject a fixed tool list directly into the model context.
@@ -2456,23 +2736,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P127
-  statement: Score with multiple independent LLM judges, always report and pin the
-    judge model version, report per-model cross-judge score ranges, and read small
-    rank swaps within that band as evaluator uncertainty rather than capability differences.
-  derived_from_claims:
-  - C00128
-  - C00141
-  - C00142
-  confidence: high
-  applies_when:
-  - designing or reviewing an agent tool-use / MCP evaluation or benchmark
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P128
+- principle_id: P138
   statement: Diagnose wrong-tool selection, invalid or over-broad arguments, and unnecessary
     steps as a specification problem in the tool description, not a model bug, since
     defective, underspecified, or misleading descriptions directly cause these failures.
@@ -2488,7 +2752,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P129
+- principle_id: P139
   statement: 'Expect cognitive failures to dominate once basic tool mechanics are
     solved: the bottleneck moves to deciding when enough evidence is gathered and
     synthesizing the answer, so target claim-aware stopping criteria and trajectory-grounded
@@ -2505,7 +2769,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P130
+- principle_id: P140
   statement: Read transcripts and grades from many trials regularly and invest in
     transcript-viewing tooling, because you cannot know whether graders work without
     doing so; a failed-task transcript reveals whether the agent made a genuine mistake
@@ -2522,7 +2786,24 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P131
+- principle_id: P141
+  statement: Before trusting poor eval scores, verify that the tasks and graders are
+    fair, unambiguous, and correctly configured so failures reflect agent behavior
+    rather than broken evaluation.
+  derived_from_claims:
+  - C00223
+  - C00227
+  - C00228
+  confidence: high
+  applies_when:
+  - Scores are low or not climbing and you are about to attribute it to the agent
+  - Judging whether an eval's signal can be trusted
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P142
   statement: Wrap each MCP server as an HTTP-exposed FaaS function (e.g. a Lambda
     Function URL), because MCP's stdio/local transports cannot be embedded directly
     in a function; this mimics a remote MCP server, gains FaaS scaling, and isolates
@@ -2539,7 +2820,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P132
+- principle_id: P143
   statement: 'Account for tool metadata being repeatedly injected into the FM context
     on every interaction: excessive detail saturates the context window and raises
     cost, so any augmentation must justify its token cost and seek compact representations.'
@@ -2555,7 +2836,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P133
+- principle_id: P144
   statement: 'Interpret a rubric smell as a potential risk signal, not a deterministic
     predictor of failure: whether a missing component actually hurts depends on tool
     complexity, task difficulty, available context budget, and the model''s prior
@@ -2572,7 +2853,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P134
+- principle_id: P145
   statement: Bring all resizing, unit conversion, and schema coercion inside declared
     tool contracts; undocumented out-of-band bridging scripts (41% of deployments)
     break interpretability and trace-based recovery.
@@ -2588,7 +2869,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P135
+- principle_id: P146
   statement: Keep mcp-scan security analysis enabled by default; use --skip-mcp-scan
     only when speed matters and security is out of scope, and ensure mcp-scan is installed
     (or explicitly disable the security validator) so runs do not silently lose security
@@ -2603,7 +2884,7 @@ principles:
     profile_rule: true
     skill: null
     reference: null
-- principle_id: P136
+- principle_id: P147
   statement: Recognize that single-tool-call evaluation does not cover real sequential
     multi-tool flows, where later calls consume earlier outputs; to evaluate such
     flows, actually execute the tool calls or faithfully mock their responses instead
@@ -2621,7 +2902,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P137
+- principle_id: P148
   statement: Score argument correctness with four targeted metrics — argument hallucination
     (arg names not defined for the tool), all-expected-arguments-provided, all-required-arguments-provided,
     and exact value match — and compute them only over tool calls that were correctly
@@ -2638,27 +2919,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P138
-  statement: 'Treat context spent on tool definitions as a budget: keep it well under
-    about 40% total utilization, accounting for other MCP servers whose definitions
-    stack in the same client and for IDE/model tool caps (Cursor ~80, OpenAI 128,
-    Claude ~120). This matters because models degrade at using information buried
-    deep in a long context, so bloated tool metadata dilutes the signal available
-    for the task.'
-  derived_from_claims:
-  - C01048
-  - C01049
-  - C01053
-  confidence: high
-  applies_when:
-  - multiple MCP servers run in one client
-  - the IDE or model enforces a tool cap
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P139
+- principle_id: P149
   statement: When enabling code-driven tool use, explicitly opt in only appropriate
     tools and keep their raw results inside the code-execution flow until the final
     output is ready.
@@ -2675,7 +2936,23 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P140
+- principle_id: P150
+  statement: Design expressive tool, script, and file interfaces (clear, self-describing
+    parameters) instead of supplying usage examples, because examples can constrain
+    a capable model to a narrow exploration space.
+  derived_from_claims:
+  - C01488
+  - C01489
+  - C01490
+  confidence: high
+  applies_when:
+  - defining a tool schema or file interface the model must use
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P151
   statement: 'Wrap and trim tool results to task-relevant fields: injecting the entire
     raw JSON response (metadata, headers, auxiliary fields) and retaining it across
     turns is a client orchestration-policy choice, not a protocol requirement, and
@@ -2693,7 +2970,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P141
+- principle_id: P152
   statement: Optimize input-token consumption before FaaS execution, because LLM token
     charges dominate total cost (roughly 61-94%) and input-token volume drives both
     latency and cost, while agent and MCP function execution are comparatively negligible.
@@ -2709,7 +2986,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P142
+- principle_id: P153
   statement: 'Treat tool-description quality as the retrieval ceiling: invest in informative,
     semantically distinct descriptions. Poorly documented tools are under-retrieved
     regardless of embedding model, and servers with overlapping descriptions (e.g.
@@ -2727,7 +3004,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P143
+- principle_id: P154
   statement: Host MCP-enabled agentic workflows on serverless FaaS rather than monolithic
     VMs to gain autoscaling and pay-per-request cost efficiency, but design every
     component around FaaS statelessness from the outset.
@@ -2744,7 +3021,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P144
+- principle_id: P155
   statement: Inject only the relevant slice of memory into the context rather than
     everything, because stale or off-topic memory distracts the LLM and inflates latency
     and cost; curate what state is supplied and optionally summarize or knowledge-graph-distill
@@ -2761,7 +3038,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P145
+- principle_id: P156
   statement: 'Value persisted memory and caching for reliability, not only efficiency:
     they raised completion rates (eliminating the failures seen in memoryless runs)
     and mitigated the impact of LLM non-determinism and temperature on practical workflows.'
@@ -2777,7 +3054,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P146
+- principle_id: P157
   statement: 'Keep large content and file artifacts out of the LLM context and off
     the function''s local disk: store them in object storage (S3) and pass URLs, because
     oversized inline outputs overwhelm the context window and stateless FaaS does
@@ -2794,7 +3071,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P147
+- principle_id: P158
   statement: 'Prefer CLI over MCP when the agent already knows the tool from training
     data (e.g. gh, kubectl, terraform) or when a single piped command composes several
     operations in one call: the agent pays zero schema overhead, gets terse predictable
@@ -2813,7 +3090,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P148
+- principle_id: P159
   statement: Prefer MCP over CLI when the platform's API surface is larger than the
     agent's training knowledge (use a describe/discovery tool for runtime capability
     discovery instead of guessing undocumented calls), in multi-tenant or multi-user
@@ -2834,7 +3111,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P149
+- principle_id: P160
   statement: 'Understand the client-mode harness contract: the framework starts a
     test server for the scenario, appends the server URL as the client''s final argument,
     sets MCP_CONFORMANCE_SCENARIO (and MCP_CONFORMANCE_CONTEXT with scenario data
@@ -2851,7 +3128,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P150
+- principle_id: P161
   statement: 'Model an SDK''s example conformance server on the reference everything-server:
     implement the full feature surface (tools, resources, prompts, all log levels,
     completion, list-changed, subscribe/update), use the standardized names (test_
@@ -2870,7 +3147,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P151
+- principle_id: P162
   statement: 'Read the traceability manifest correctly: it is generated from a real
     reference-SDK run (so dynamic check IDs resolve), tested means the check ID was
     emitted (not that any SDK passes — that is tier-check), and a SEP absent from
@@ -2887,7 +3164,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P152
+- principle_id: P163
   statement: Give a check one slug shared by its SUCCESS and FAILURE outcomes (flip
     status and errorMessage), optimize the code for Ctrl+F on that slug (repetition
     beats a clever helper), and reuse ConformanceCheck and other shared types rather
@@ -2904,7 +3181,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P153
+- principle_id: P164
   statement: 'Never report a missing prerequisite as SKIPPED: because SKIPPED counts
     as green in pass counts, exit codes, and baselines, a check that cannot be exercised
     (missing fixture, rejected probe, undeclared feature) must FAIL via notTestable()/untestableCheck()
@@ -2921,7 +3198,58 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P154
+- principle_id: P165
+  statement: Import protocol types from the vendored spec-types version that matches
+    the scenario or connection lifecycle, and refresh those generated files rather
+    than hand-editing them.
+  derived_from_claims:
+  - C01148
+  - C01149
+  - C01150
+  confidence: high
+  applies_when:
+  - writing a scenario that needs protocol types
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P166
+  statement: 'MCP request-header validation (server, SEP-2243): reject a request whose
+    Mcp-Method or Mcp-Name header disagrees with the body (or is missing for a name-carrying
+    body) with HTTP 400 and JSON-RPC -32020 (HeaderMismatch); treat header names case-insensitively
+    but values case-sensitively, accept optional whitespace around Mcp-Name per RFC
+    9110 section 5.5, and reject a request where a custom header is omitted while
+    its value is present in the body.'
+  derived_from_claims:
+  - C01163
+  - C01175
+  - C01176
+  confidence: high
+  applies_when:
+  - a server validates SEP-2243 routing headers
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P167
+  statement: Author traceability YAML by mapping each spec-diff normative sentence
+    exactly to a check or excluded reason, leaving TODO rows for ambiguity and flagging
+    paraphrases or unsupported keyword levels.
+  derived_from_claims:
+  - C01213
+  - C01218
+  - C01222
+  confidence: high
+  applies_when:
+  - scaffolding a SEP traceability yaml
+  operational_mapping:
+    profile_rule: true
+    skill: null
+    reference: null
+    test_cases: []
+- principle_id: P168
   statement: 'Launch the Inspector via npx without cloning its repository (Node.js
     ^22.7.5 required): pass server arguments directly, set the server''s environment
     variables with -e, and separate inspector flags from server arguments with `--`.'
@@ -2936,23 +3264,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P155
-  statement: 'Exercise each capability surface through its tab rather than only checking
-    connectivity: Resources (metadata, content, subscriptions), Prompts (custom arguments
-    and previewed output), and Tools (custom inputs and observed results).'
-  derived_from_claims:
-  - C01236
-  - C01237
-  - C01238
-  confidence: high
-  applies_when:
-  - validating what a server actually exposes
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P156
+- principle_id: P169
   statement: Treat the MCP Inspector as two cooperating parts — the MCPI React web
     UI and the MCPP Node.js protocol-bridge (an MCP client plus HTTP server spanning
     stdio, SSE, and streamable-http) — and do not mistake the proxy for a traffic-intercepting
@@ -2968,7 +3280,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P157
+- principle_id: P170
   statement: 'Reach for the MCP Inspector first: use it as an interactive, transport-agnostic
     way to invoke a server''s tools, prompts, and resources and watch its notification
     stream before deeper debugging.'
@@ -2985,7 +3297,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P158
+- principle_id: P171
   statement: Rely on the proxy's default Bearer-token authentication — supplying the
     token non-interactively via MCP_PROXY_AUTH_TOKEN when automating — and never disable
     it with DANGEROUSLY_OMIT_AUTH, which enables browser-driven remote compromise
@@ -3002,7 +3314,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P159
+- principle_id: P172
   statement: Treat Inspector timeouts (MCP_SERVER_REQUEST_TIMEOUT default 300000 ms;
     MCP_REQUEST_MAX_TOTAL_TIMEOUT default 60000 ms) as client-side cancels independent
     of server-side timeouts — whichever elapses first wins — and raise them for elicitation
@@ -3019,7 +3331,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P160
+- principle_id: P173
   statement: 'Drive an MCP Client entirely through `async with Client(...)`: entering
     the block connects and negotiates and leaving it disconnects, so never call a
     connect()/close() pair and never reuse a Client after its block has exited.'
@@ -3035,7 +3347,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P161
+- principle_id: P174
   statement: Use CLI mode for scripting, automation, CI/CD, and coding-assistant feedback
     loops — invoking tools, resources, and prompts via --method with --tool-arg key=value
     or JSON — and select remote transport and headers explicitly (SSE by default,
@@ -3052,7 +3364,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P162
+- principle_id: P175
   statement: Work a connection failure as an ordered checklist (client logs, server
     process, standalone Inspector test, protocol-version compatibility, capability
     negotiation); treat a -32602 Invalid params error as a likely undeclared-capability
@@ -3070,7 +3382,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P163
+- principle_id: P176
   statement: 'Configure the async backend for asynchronous MCP tests: provide an anyio_backend
     fixture returning "asyncio" (or "trio" when running on trio) and mark async test
     functions with @pytest.mark.anyio.'
@@ -3086,7 +3398,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P164
+- principle_id: P177
   statement: Read connection facts from the four read-only properties populated on
     entering the block — server_info, server_capabilities, protocol_version, instructions
     — and treat a `None` capability as 'server lacks it' and `None` instructions as
@@ -3103,7 +3415,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P165
+- principle_id: P178
   statement: Discover prompts with `list_prompts()` (name, title, required arguments),
     render one with `get_prompt(name, arguments)` passing a string-to-string arguments
     dict (prompt arguments are always strings), and hand the returned `messages` (role
@@ -3120,23 +3432,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P166
-  statement: 'Make long-running calls cancellable: the client passes an AbortSignal
-    ({ signal: controller.signal }) and calls controller.abort() to cancel; the SDK
-    then sends notifications/cancelled and aborts the server handler through its signal.'
-  derived_from_claims:
-  - C01375
-  - C01376
-  - C01377
-  confidence: high
-  applies_when:
-  - a caller may need to abort an in-flight request
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P167
+- principle_id: P179
   statement: Rely on the SDK's automatic protocol-version negotiation (client sends
     LATEST_PROTOCOL_VERSION, server returns the highest mutually supported version
     from SUPPORTED_PROTOCOL_VERSIONS) but handle the error the client throws when
@@ -3153,7 +3449,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P168
+- principle_id: P180
   statement: Establish the in-memory connection by running both client.connect() and
     server.connect() concurrently (e.g. await Promise.all([...])); never connect only
     one side or await the two connects sequentially, which deadlocks the initialize
@@ -3170,7 +3466,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P169
+- principle_id: P181
   statement: For coding agents, rely on deterministic outcome tests (does the code
     run, do the tests pass) plus an LLM rubric for overall code quality, adding heuristic
     code-quality rules and transcript grading of tool/user interaction only as needed.
@@ -3186,7 +3482,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P170
+- principle_id: P182
   statement: Build evals early in development, when product requirements translate
     naturally into test cases; waiting forces you to reverse-engineer success criteria
     from a live system.
@@ -3202,7 +3498,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P171
+- principle_id: P183
   statement: Explicitly test format invariance (blank lines, extra spaces, indentation),
     because judges are frequently more brittle to formatting than to semantic changes
     and formatting brittleness can distort downstream model comparisons and leaderboards
@@ -3220,7 +3516,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P172
+- principle_id: P184
   statement: When reviewing MCP tool handling, check tool identification (tools declared
     in the capabilities object with valid input/output schemas so they are discoverable
     and callable), tool execution (input types validated, execution terminates, runtime
@@ -3238,7 +3534,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P173
+- principle_id: P185
   statement: Prefer standardized MCP connectors over bespoke agent-to-system integrations
     when building agents that must reach many external tools or data sources.
   derived_from_claims:
@@ -3254,7 +3550,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P174
+- principle_id: P186
   statement: Expose MCP tools as code interfaces in a navigable filesystem or equivalent
     API surface when an agent has a secure execution environment.
   derived_from_claims:
@@ -3270,7 +3566,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P175
+- principle_id: P187
   statement: 'Ship a companion skills layer alongside the tools that turns raw MCP
     tool access into guided, IDE-native, multi-step workflows, structured in three
     levels: an auto-loaded shared agent-instruction file per IDE, server-side prompt
@@ -3289,7 +3585,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P176
+- principle_id: P188
   statement: Structure the retrieval query with an explicit server-and-tool descriptor
     - server as the platform or permission domain and tool as the operation type plus
     target - and generate a concise server-level summary from each server's name,
@@ -3307,7 +3603,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P177
+- principle_id: P189
   statement: When automatically scoring tool descriptions, apply a well-defined analytic
     rubric (more consistent than open-ended prompts) via a multi-model LLM jury drawn
     from disparate model families to mitigate single-model bias; such rubric scoring
@@ -3324,16 +3620,14 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P178
-  statement: In failure diagnosis assign one primary failure mode (the one best explaining
-    the coverage gap) plus contributing modes from the same fixed vocabulary, mark
-    a mode as root cause only when it caused downstream failures, calibrate diagnostic
-    confidence explicitly, and resolve tricky boundaries with explicit disambiguation
-    rules.
+- principle_id: P190
+  statement: Structure diagnostic judging around the verified evidence trace, expected
+    claims, missed claims, and actual behavior so failures are localized without penalizing
+    alternative valid plans.
   derived_from_claims:
-  - C00169
-  - C00170
-  - C00171
+  - C00165
+  - C00166
+  - C00168
   confidence: medium
   applies_when:
   - building or reviewing automated failure diagnostics for agents
@@ -3342,7 +3636,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P179
+- principle_id: P191
   statement: Treat the coverage threshold as a reporting decision (the rubric returns
     a real-valued coverage score), report mean coverage and pass rate at several thresholds,
     and expect model rankings to be largely preserved across thresholds.
@@ -3358,7 +3652,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P180
+- principle_id: P192
   statement: 'For conversational agents, evaluate the interaction itself: combine
     verifiable end-state outcomes, transcript constraints (e.g. finished under N turns),
     and LLM rubrics for task completion and interaction quality, often using a second
@@ -3375,7 +3669,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P181
+- principle_id: P193
   statement: 'Treat the eval suite as a living artifact with clear ownership: a durable
     model is a dedicated evals team owning core infrastructure while domain experts
     and product teams contribute most tasks and run the evaluations themselves.'
@@ -3391,54 +3685,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P182
-  statement: 'Practice eval-driven development: define eval tasks that express planned
-    capabilities before the agent can fulfil them, then iterate until it performs
-    well; defining the tasks also stress-tests whether product requirements are concrete
-    enough to build, and low starting pass rates make progress on bets visible.'
-  derived_from_claims:
-  - C00198
-  - C00234
-  - C00235
-  confidence: medium
-  applies_when:
-  - Planning a new agent capability or evaluating whether requirements are build-ready
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P183
-  statement: Evaluate an MCP server on three axes together — answer accuracy, end-to-end
-    latency, and token consumption — not accuracy alone, because efficiency and cost
-    vary more sharply across servers than accuracy does.
-  derived_from_claims:
-  - C00250
-  - C00259
-  - C00260
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P184
-  statement: Expect a wide performance spread across MCP servers (measured accuracy
-    ~10-64%, latency <15s to ~231s) and select a server by benchmarking candidates
-    on your own task instead of trusting popularity or defaults.
-  derived_from_claims:
-  - C00247
-  - C00258
-  - C00259
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P185
+- principle_id: P194
   statement: 'Profile MCP at the protocol level rather than as an end-to-end black
     box: standardization removes n-by-m integration glue but adds schema-discovery,
     injection, and context-management overhead that answer-level benchmarks miss and
@@ -3455,7 +3702,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P186
+- principle_id: P195
   statement: Avoid silently truncating results or returning snippets too thin to answer
     with; truncation can drop the correct span and insufficient descriptions force
     a second fetch, both degrading accuracy and efficiency.
@@ -3470,7 +3717,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P187
+- principle_id: P196
   statement: Ensure every tool description clearly states its purpose (the function,
     behavior, and return data), guides the FM on when and how to use the tool, and
     includes relevant caveats; a bare purpose statement without behavioral or output
@@ -3487,7 +3734,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P188
+- principle_id: P197
   statement: 'Apply the same description-quality discipline to Agent Skill metadata:
     because progressive disclosure loads only the Skill''s name and summary at startup
     to decide activation, that description metadata determines whether the correct
@@ -3505,7 +3752,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P189
+- principle_id: P198
   statement: 'When the context budget is tight, prune Parameter Explanation before
     other components: the MCP input schema already supplies parameter names and types
     at runtime, the component often duplicates that information, and including every
@@ -3522,7 +3769,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P190
+- principle_id: P199
   statement: 'Treat Examples as the lowest-priority component and the safest to omit
     under constraints: their value is contested, they scored only moderate inter-rater
     reliability, and they can be too large to fit the context window.'
@@ -3538,7 +3785,7 @@ principles:
     skill: null
     reference: null
     test_cases: []
-- principle_id: P191
+- principle_id: P200
   statement: 'Diagnose tool-selection failures by mode: an under-specific or vague
     description causes missed invocation (the correct tool is not selected), whereas
     an over-general or ambiguous description causes erroneous selection (a wrong tool
@@ -3550,159 +3797,6 @@ principles:
   confidence: medium
   applies_when:
   - authoring or reviewing an MCP server tool description
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P192
-  statement: Derive MCP conformance tests and fault-injection scenarios directly from
-    the leaf fault categories (for example, verifying that timeout violations yield
-    structured error objects, undeclared tool identifiers are rejected, and requests
-    are not processed before initialization completes), and ground reliability benchmarks
-    in observed protocol-level faults rather than generic software bugs.
-  derived_from_claims:
-  - C00565
-  - C00568
-  - C00569
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P193
-  statement: When reviewing the MCP session lifecycle, check initialization (protocol
-    version match, no capability-negotiation races, initialized notifications sent,
-    no use of uninitialized state), state transition (correct async control flow,
-    no requests before initialization completes), and termination (correct shutdown
-    ordering, resource release, input streams closed).
-  derived_from_claims:
-  - C00523
-  - C00524
-  - C00525
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P194
-  statement: When reviewing MCP transport handling, check the stdio binding (only
-    valid JSON-RPC 2.0 emitted on standard output) and the Streamable HTTP binding
-    (correct handling of HTTP requests, session identifiers, and server-sent event
-    streams, including request throttling under high-volume traffic).
-  derived_from_claims:
-  - C00520
-  - C00521
-  - C00522
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P195
-  statement: When reviewing MCP resource handling, check resource identification (valid,
-    resolvable resource URIs with the input URI format matching the internal normalized
-    format) and resource synchronization (resources/updated notifications propagated
-    so clients do not observe stale state).
-  derived_from_claims:
-  - C00532
-  - C00533
-  - C00534
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P196
-  statement: When reviewing MCP data and schema handling, check schema compatibility
-    (emitted content conforms to the declared JSON Schema, with no missing required
-    properties or format violations), data type and structure (schema-valid payloads
-    whose values, such as permitted nulls, still violate downstream assumptions),
-    and output representation (structured output conforms to the declared representation,
-    not merely to valid JSON).
-  derived_from_claims:
-  - C00539
-  - C00540
-  - C00541
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P197
-  statement: Validate a fault taxonomy's external validity with an independent practitioner
-    survey (respondents not involved in its construction) that captures, per subcategory,
-    whether the fault was encountered in practice, its perceived severity, and its
-    diagnostic effort, and treat the absence of newly reported categories as evidence
-    of structural coverage.
-  derived_from_claims:
-  - C00517
-  - C00548
-  - C00552
-  confidence: medium
-  applies_when: []
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P198
-  statement: Select information-rich cases by criterion-based purposive sampling when
-    the goal is qualitative coverage of recurring fault patterns rather than statistical
-    prevalence, and restrict mining to actively maintained engineered repositories
-    using collaboration, activity, development-history, and popularity filters.
-  derived_from_claims:
-  - C00510
-  - C00513
-  - C00514
-  confidence: medium
-  applies_when:
-  - the goal is qualitative coverage of recurring patterns rather than prevalence
-    estimation
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P199
-  statement: Build an MCP orchestration layer as a Mediator that is simultaneously
-    an MCP server (exposing workflow tools to agents) and an MCP client (calling downstream
-    MCP servers), so downstream servers stay unmodified and any MCP-compliant server
-    is auto-discovered.
-  derived_from_claims:
-  - C00929
-  - C00930
-  - C00931
-  confidence: medium
-  applies_when:
-  - orchestrating multiple downstream MCP servers behind one interface
-  operational_mapping:
-    profile_rule: true
-    skill: null
-    reference: null
-    test_cases: []
-- principle_id: P200
-  statement: Constrain the orchestration DSL to a small fixed set of composable step
-    primitives (call, loop, parallel, pipe, collect) and deliberately exclude conditionals,
-    variables, and string manipulation, to keep semantics formal, failure modes predictable,
-    and stop the DSL drifting into an accidental programming language.
-  derived_from_claims:
-  - C00937
-  - C00943
-  - C00944
-  confidence: medium
-  applies_when:
-  - designing a declarative workflow or orchestration DSL
   operational_mapping:
     profile_rule: true
     skill: null

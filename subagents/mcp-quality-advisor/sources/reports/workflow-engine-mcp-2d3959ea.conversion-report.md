@@ -1,7 +1,43 @@
-# Conversion report: workflow-engine-mcp-2d3959ea
+# Conversion Report — workflow-engine-mcp-2d3959ea
 
-- source_id: workflow-engine-mcp-2d3959ea
-- sha256: 2d3959eae83593b4fa392ff8465aa43d551c2fdcf5aa3420242779b2dad4dad1
-- word_count: 5601
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T02:28:38.386737+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 5601 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

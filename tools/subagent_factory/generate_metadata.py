@@ -5,6 +5,8 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
+from tools.subagent_factory._common import atomic_write_text
+
 
 def generate_metadata(
     original_path: str | Path,
@@ -53,10 +55,7 @@ def generate_metadata(
         "notes": overrides.get("notes"),
     }
 
-    Path(output_path).write_text(
-        json.dumps(metadata, indent=2, ensure_ascii=False),
-        encoding="utf-8",
-    )
+    atomic_write_text(Path(output_path), json.dumps(metadata, indent=2, ensure_ascii=False))
     return metadata
 
 

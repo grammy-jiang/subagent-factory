@@ -329,6 +329,70 @@ def cmd_gen_behaviour_tests(slug, ideator, candidates, validate):
         console.print("[green]coverage validator PASS[/green]")
 
 
+@click.command("ask-gate")
+@click.argument("slug")
+@click.option(
+    "--strict",
+    is_flag=True,
+    help="Exit 1 if the gate would silently commit on any missing-context test, OR the test suite is "
+    "unreadable / ambiguous. Opt-in only — NOT a package-validity gate (Step-13 is measured, not "
+    "enforced); it never runs in validate.",
+)
+def cmd_ask_gate(slug, strict):
+    """Step 13: run the deterministic Answer/Ask/Abstain gate over SLUG's OWN behaviour tests (no model calls).
+
+    Silent-commit guard: every missing-context test omits the required context it declares
+    (must_ask_for), so the gate MUST ask — a test it would answer instead is a false-fill (the prompt
+    lexically names the slot). Over-ask diagnostic (packages with answerable twins): each twin
+    supplies that context and ideally makes the gate answer; because slot-fill is a lexical
+    approximation, a twin that signals sufficiency in prose reads as an over-ask, so this is a
+    diagnostic, not a failure. Report-only by default; --strict fails on a silent commit or a broken suite.
+    """
+    from tools.subagent_factory.ask_gate import evaluate_tests
+    from tools.subagent_factory.behaviour_replay import load_gate_tests
+
+    base = subagent_path(slug)
+    missing_context, twins, problems = load_gate_tests(base)
+    # Surface a corrupted / ambiguous suite — never let it silently shrink into a false "clean" or a
+    # false "no opt-in" (a green-but-smaller run is the silent overconfidence this gate exists to catch).
+    for p in problems:
+        console.print(f"  [red]suite problem[/red] {p}")
+    if not missing_context and not twins:
+        if problems:  # broken test files, not a genuine no-opt-in → fail loud under --strict
+            console.print("[red]ask-gate: the test suite is unreadable — nothing evaluated.[/red]")
+            if strict:
+                sys.exit(1)
+            return
+        console.print(
+            f"[yellow]no missing-context tests or twins under[/yellow] {base / 'tests'} — "
+            "package does not opt into the ask-gate"
+        )
+        return
+    r = evaluate_tests(missing_context, twins)
+    sc, oa = r["silent_commit"], r["over_ask"]
+    # 0/0 is not a verified pass — don't paint it green (it looks identical to a suite that ran).
+    color = "yellow" if sc["total"] == 0 else ("green" if not sc["misses"] else "red")
+    console.print(
+        f"ask-gate silent-commit guard [{color}]{sc['asked']}/{sc['total']}[/{color}] "
+        f"missing-context tests → ask (ASK-F1 {sc['f1']['f1']})"
+    )
+    for m in sc["misses"]:
+        console.print(
+            f"  [red]silent-commit[/red] {m['test_id']}: gate would {m['action']} "
+            "(prompt lexically fills the declared slot)"
+        )
+    if oa["total"]:
+        console.print(
+            f"[dim]over-ask diagnostic (lexical approximation): answered {oa['answered']}/{oa['total']} "
+            f"twins; {len(oa['over_asked'])} lexical over-ask — twins whose sufficiency is not "
+            "lexically aligned with the declared slots (typical of template-mode tests).[/dim]"
+        )
+    # Fail closed under --strict on a silent commit OR an unresolved suite problem — both are the
+    # false-confidence this gate exists to prevent.
+    if strict and (sc["misses"] or problems):
+        sys.exit(1)
+
+
 @click.command("grounding-check")
 @click.argument("slug")
 @click.argument("review")
@@ -416,6 +480,7 @@ COMMANDS = [
     cmd_replay_gate,
     cmd_optimize_adapter,
     cmd_gen_behaviour_tests,
+    cmd_ask_gate,
     cmd_grounding_check,
     cmd_grounding_richness,
 ]

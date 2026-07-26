@@ -25,11 +25,26 @@ def _yaml_scalar(value: str) -> str:
     return json.dumps("" if value is None else str(value), ensure_ascii=False)
 
 
-def render_adapter(profile: dict, subagent_path: Path) -> str:
-    """Render the Claude Code adapter Markdown from a loaded profile. Pure (no file I/O).
+def _load_patch_policy(subagent_path: Path) -> dict | None:
+    """Load ``policy/patch-policy.yaml`` so the adapter can surface the gate that bounds direct
+    patching. Returns None if absent/unreadable (the adapter's patch-policy section then renders
+    nothing)."""
+    path = Path(subagent_path) / "policy" / "patch-policy.yaml"
+    if not path.exists():
+        return None
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        return None
+    return data if isinstance(data, dict) else None
 
-    Shared by export_claude_agent (the factory-installed adapter) and export_deployable
-    (a self-contained bundle for another repo), so both render through one code path.
+
+def render_adapter(profile: dict, subagent_path: Path) -> str:
+    """Render the Claude Code adapter Markdown from a loaded profile.
+
+    Reads package artifacts (principles for the invariant layer, patch-policy for the Edit/Write
+    gate) from ``subagent_path``. Shared by export_claude_agent (the factory-installed adapter) and
+    export_deployable (a self-contained bundle for another repo), so both render through one path.
     """
     ctx = _build_template_context(profile)
     # A3/A5: compile must-hold principles into a distinct enforced invariant layer, traceable to
@@ -40,6 +55,14 @@ def render_adapter(profile: dict, subagent_path: Path) -> str:
         ctx["invariants"] = compile_invariants(load_principles(subagent_path))
     else:
         ctx["invariants"] = []
+
+    # Least privilege: when the adapter holds Edit/Write (granted for a patch-suggest mode), render
+    # the patch policy inline so the model sees the gate that bounds direct patching — instead of it
+    # sitting unread in policy/patch-policy.yaml. A read-only adapter surfaces nothing.
+    if "Edit" in ctx["tools"] or "Write" in ctx["tools"]:
+        ctx["patch_policy"] = _load_patch_policy(subagent_path)
+    else:
+        ctx["patch_policy"] = None
 
     # Markdown (not HTML) from trusted profile data; HTML autoescape would corrupt punctuation.
     env = Environment(loader=FileSystemLoader(str(_TEMPLATES_DIR)), autoescape=False)  # nosec B701
@@ -78,17 +101,43 @@ def export_claude_agent(subagent_dir: str | Path) -> dict:
         result["error"] = f"profile.yaml not found at {profile_path}"
         return result
 
-    with open(profile_path) as f:
-        profile = yaml.safe_load(f)
+    # `or {}`: an empty / comment-only profile.yaml parses to None, not {}; without this the
+    # `.get("slug")` below would raise AttributeError instead of following the documented
+    # soft-error contract for an incomplete package. Explicit encoding matches the rest of the codebase.
+    profile = yaml.safe_load(profile_path.read_text(encoding="utf-8")) or {}
 
     slug = profile.get("slug")
     if not slug:
         result["error"] = "profile.yaml missing 'slug' field"
         return result
 
+    # Path-traversal guard: the slug is joined into the adapter write paths, so a profile whose
+    # `slug` diverges from the (already-validated) package directory name — a tamper or bug — could
+    # write outside the package / generated dir. Require them equal and fail closed (no file written).
+    if str(slug) != subagent_path.name:
+        result["error"] = (
+            f"profile.yaml slug {slug!r} does not match package directory "
+            f"{subagent_path.name!r} — refusing to export"
+        )
+        return result
+
     result["slug"] = slug
 
     rendered = render_adapter(profile, subagent_path)
+
+    # Least-privilege gate at the WRITE (reference-monitor placement): refuse to write an adapter
+    # that would widen tool authority beyond the profile's modes, or carry an escalation key in
+    # frontmatter, instead of relying on a later `validate` pass to catch it after it is already
+    # live. The normal render path cannot produce this (tools come from _determine_tools), so this is
+    # defense-in-depth against a future divergence/bug/tamper; it is fail-closed (no file written).
+    from tools.subagent_factory.adapter_policy_scan import scan_rendered_adapter
+
+    policy_fail = scan_rendered_adapter(rendered, set(_determine_tools(profile)))
+    if policy_fail:
+        result["error"] = "adapter policy violation — not written: " + "; ".join(
+            f["issue"] for f in policy_fail
+        )
+        return result
 
     # Write canonical adapter inside package (atomically — temp file + os.replace).
     adapter_dir = subagent_path / "adapters" / "claude-code"
@@ -262,15 +311,24 @@ def _compose_description(profile: dict, max_chars: int = 320) -> str:
 
 
 def _build_template_context(profile: dict) -> dict:
-    modes = profile.get("outputs", {}).get("modes", [])
+    # `(… or {})` throughout: a profile key present with an explicit null (valid stub YAML) makes
+    # dict.get(key, {}) return None, not {}, so a chained `.get()` would raise. Matches the guard
+    # style already used in validate_generated_package.
+    modes = (profile.get("outputs") or {}).get("modes", [])
     tools = _determine_tools(profile)
 
-    # Build description: role + top triggers + top exclusion (Phase 9 rule), JSON-encoded into a
-    # valid single-line YAML scalar so an embedded quote can't break the adapter frontmatter.
-    description = _yaml_scalar(_compose_description(profile))
+    # Build the routing description. Prefer the profile's purpose-built ``router_description``
+    # when present: the mechanical ``role — Use when — Not for`` composition below truncates to
+    # the first two triggers + first exclusion, which silently drops later ``when_to_use`` domains
+    # and every sibling-advisor exclusion from the string Claude Code actually routes on. A hand-
+    # authored ``router_description`` names the full remit and is authoritative; fall back to the
+    # composed form only when it is absent. JSON-encoded into a valid single-line YAML scalar so an
+    # embedded quote can't break the adapter frontmatter.
+    router = " ".join((profile.get("router_description") or "").split())
+    description = _yaml_scalar(router or _compose_description(profile))
 
-    kp = profile.get("knowledge_partition", {})
-    sot = profile.get("source_of_truth_policy", {})
+    kp = profile.get("knowledge_partition") or {}
+    sot = profile.get("source_of_truth_policy") or {}
     sources = profile.get("sources", [])
 
     return {
@@ -281,8 +339,8 @@ def _build_template_context(profile: dict) -> dict:
         "role": profile.get("role", ""),
         "when_to_use": profile.get("when_to_use", []),
         "when_not_to_use": profile.get("when_not_to_use", []),
-        "inputs_required": profile.get("inputs", {}).get("required", []),
-        "primary_format": profile.get("outputs", {}).get("primary_format", ""),
+        "inputs_required": (profile.get("inputs") or {}).get("required", []),
+        "primary_format": (profile.get("outputs") or {}).get("primary_format", ""),
         "modes": modes,
         "quality_bar": profile.get("quality_bar", []),
         "minimum_useful_output": profile.get("minimum_useful_output", ""),
@@ -304,7 +362,7 @@ def _build_template_context(profile: dict) -> dict:
 def _determine_tools(profile: dict) -> list[str]:
     # Read-only roles default to Read, Grep, Glob
     base = ["Read", "Grep", "Glob"]
-    modes = [m.get("name", "") for m in profile.get("outputs", {}).get("modes", [])]
+    modes = [m.get("name", "") for m in (profile.get("outputs") or {}).get("modes", [])]
     if "produce" in modes or "patch-suggest" in modes:
         base = ["Read", "Edit", "Write", "Grep", "Glob"]
     return base

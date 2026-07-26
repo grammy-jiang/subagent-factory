@@ -1,3 +1,8 @@
+---
+name: profile-generation
+description: "Generate or update a package's profile.yaml and provenance-ledger.md from interrogation records — Phase 5 of the authoring cycle. Use when interrogation is complete and the profile (role, when-to-use, modes, quality bar, forbidden behaviours) must be derived or refreshed; normally invoked by the author-subagent pipeline at Step 7, not directly."
+---
+
 # Skill: profile-generation
 
 **Purpose:** Generate or update `profile.yaml` and `provenance-ledger.md` from
@@ -36,6 +41,7 @@ Apply derivation rules from Phase 5:
 | `slug` | kebab-case, role-based, already established |
 | `display_name` | From Q1 — explicit role label or synthesized |
 | `role` | One sentence: what, to what, for what reason |
+| `router_description` | The string the runtime routes on — see below. Required whenever the agent has >2 triggers, >1 exclusion, or a sibling it hands work to |
 | `when_to_use[]` | Q3 triggers as caller-observable situations (3–6) |
 | `when_not_to_use[]` | Q4 exclusions (2+) |
 | `inputs.required[]` | Q5 first required artifact/scope |
@@ -49,6 +55,24 @@ Apply derivation rules from Phase 5:
 | `source_of_truth_policy` | Q8+Q17 |
 | `knowledge_partition.*` | Q12–Q16 |
 | `examples[]` | **2 worked few-shot examples** (see below) — one `happy-path`, one `failure-recovery` |
+
+**`router_description` (author this — it is the routing signal).** The adapter's frontmatter
+`description` is the *only* text the runtime sees when deciding whether to invoke this agent; skills,
+principles, and the quality bar are invisible at routing time. Without `router_description`,
+`export_claude_agent` composes that string mechanically as
+`role — Use when: <trigger[0..1]> — Not for: <exclusion[0]>`, keeping **only the first two triggers
+and the first exclusion**. Every later domain and every sibling hand-off is silently dropped, so the
+agent under-fires on its own remit and never routes work to its siblings.
+
+Write one tight paragraph (aim ~250–500 characters) that names:
+
+1. the **full remit** — every `when_to_use` domain, compressed, not just the first two;
+2. the **advice-only boundary** — what it does *not* do (advises/reviews vs. performs);
+3. every **sibling route** — "not for X, which belongs to `<sibling>-advisor`".
+
+It is **excluded from the body-word budget** (like `examples[]`), so completeness costs nothing
+there. Phase 8 check 19 (`router-description`) WARNs when it is absent and the composed fallback
+would drop scope, and names exactly what is lost.
 
 **`examples[]` (author these — they were a dormant slot until now).** Two grounded worked examples
 that show the agent's behaviour, derived from the interrogation you already have:

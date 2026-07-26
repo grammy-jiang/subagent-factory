@@ -4,127 +4,138 @@ kind: reference
 status: ready
 provenance:
   principles:
-  - P058
-  - P066
-  - P083
+  - P005
+  - P008
+  - P009
+  - P013
+  - P023
+  - P029
+  - P031
+  - P043
+  - P049
+  - P051
+  - P052
+  - P057
+  - P059
+  - P060
+  - P063
+  - P064
+  - P065
+  - P068
+  - P073
+  - P074
+  - P075
+  - P076
+  - P082
   - P084
-  - P086
-  - P100
+  - P088
+  - P093
+  - P095
+  - P097
+  - P102
+  - P103
   - P105
   - P106
-  - P108
-  - P109
+  - P107
+  - P114
+  - P115
+  - P118
+  - P121
+  - P125
+  - P126
   - P127
   - P128
   - P129
   - P130
   - P131
-  - P141
-  - P142
-  - P144
+  - P132
+  - P135
   - P146
-  - P147
   - P148
   - P149
+  - P150
   claims:
-  - C01167
-  - C01168
-  - C01827
-  - C01502
-  - C01503
-  - C01504
-  - C01505
-  - C01506
-  - C01507
-  - C01198
-  - C01199
-  - C01200
-  evidence:
-  - E00541
-  - E00542
-  - E00752
-  - E00640
-  - E00641
-  - E00642
-  - E00643
-  - E00644
-  - E00645
-  - E00561
-  - E00562
-  - E00563
-  source_anchors:
-  - a0c96ef125b7-c0000
-  - f33934784451-c0000
-  - a3e5d595f78f-c0000
-  - 5e5bb110f00c-c0000
-  authored_from_digest: 9c1a4b119cadf5883c814ace551a4353de4063536216300d530419e261db8d38
+  - C00024
+  - C00026
+  - C00028
+  - C00029
+  - C00033
+  - C00034
+  - C00036
+  - C00037
+  - C00038
+  - C00039
+  - C00042
+  - C00043
+  - C00045
+  - C00046
+  evidence: []
+  source_anchors: []
+  authored_from_digest: b548e9d92d0dcbed038603cfb921f195507d811cf309a0516c598051b3716e26
 ---
+
 
 # Reference: context-and-harness-engineering-reference
 
 ## Purpose
 
-The context-engineering, tool-design, and harness concepts a skill author should know when a
-skill runs inside a long or high-stakes agent loop — how to budget context, design tools, and
-reason about the harness/session/sandbox split and evaluation infrastructure. Grounded in P105,
-P106, P130, P144, P141.
+How to choose and compose building blocks and engineer the harness around them — skills vs subagents vs MCP vs hooks vs loops, tool-contract design, context budgeting, multi-agent orchestration, and long-running-task failure modes. Use it when the question is orchestration and context rather than a single skill's format.
 
-## Context as a scarce budget
+## Principle index
 
-- Treat context as a scarce resource: include enough for reliable behaviour, but prefer the
-  smallest high-signal set over broad accumulation [P105].
-- Exploit the filesystem model — bundled files cost no context tokens until read — by naming files
-  descriptively and organizing by domain or feature so the agent loads only what it needs [P131].
-- Rely on live agentic search (traverse the current file tree with grep and reference-following)
-  rather than a maintained embedding index [P130].
-- Bound and paginate tool/script output to protect the context budget: default to a summary or
-  limit, support pagination (offset/range) and filtering [P058].
+Every principle this reference indexes, owned by the `orchestrating-subagents-and-mcp` skill. Each entry restates the operative core; the full statement lives in `../principles/principles.yaml`.
 
-## Designing tools for agents
-
-- Design tools as clear, non-overlapping, token-efficient contracts with robust behaviour and
-  unambiguous parameters, around how a nondeterministic agent perceives choices [P106].
-- Use tool input examples to teach conventions a schema cannot express (optional-field patterns,
-  nested-object usage, correlated parameters) [P084].
-- Use deferred tool discovery for large tool libraries so the model loads only the definitions it
-  needs [P066].
-
-## Long-task failure modes
-
-Design explicit mechanisms against the two dominant long-task failure modes — loss of coherence as
-the context window fills, and unreliable or over-generous self-assessment of progress [P141].
-Avoid irreversible retain/discard context decisions on long-horizon tasks; store context as an
-interrogable object outside the window rather than compacting or trimming blindly [P083].
-
-## Harness / session / sandbox virtualization
-
-| Concept | Guidance | Principle |
-|---------|----------|-----------|
-| Virtualize the agent | separate session (event log), harness (model loop + tool router), and sandbox (code/exec) into independently swappable components | P144 |
-| Do not couple them | a single "pet" container that fuses session+harness+sandbox loses the session on container failure and makes failures indistinguishable | P100 |
-| Container resources | set a guaranteed allocation and a separate, higher hard-kill limit; never pin both to the same value (zero headroom) | P146 |
-
-## Choosing loop complexity
-
-- Start with the simplest LLM design that solves the task; add agentic complexity only when
-  measured outcomes justify the latency, cost, and risk [P108].
-- Choose workflows for predictable predefined paths; choose autonomous agents only when flexible,
-  model-directed control is needed [P109].
-- Use turn-based loops for short, irregular tasks and reduce extra turns with specific prompts and
-  explicit verification [P127]. Improve loop output with a clean codebase, accessible docs,
-  explicit verification, and independent review [P128]; manage cost by picking the right primitive
-  and model, defining stop criteria, and scripting deterministic work [P129].
-
-## Agentic-evaluation infrastructure caveats
-
-- Separate infrastructure-reliability gains from capability gains: added headroom (up to ~3×)
-  mainly removes transient-spike failures without making the agent smarter [P086].
-- Hold the entire runtime constant when comparing models (same harness, task set, hardware)
-  [P147]; publish both recommended per-task resource specs and the enforcement methodology
-  [P148]; treat leaderboard differences below ~3 percentage points as within uncertainty until
-  the configuration is documented [P149].
+- **P005** — Offload discrete specialized work to subagents for context isolation and parallelism.
+- **P008** — Assign responsibilities by layer.
+- **P009** — For batch or destructive operations, have the agent produce a structured plan, validate it against a source of truth.
+- **P013** — Expose many tools cheaply through deferred loading.
+- **P023** — Extend Claude's reach with MCP servers for internal tools, data sources.
+- **P029** — Delegate complex subtasks that should run in isolation from the main agent to subagents.
+- **P031** — Do not rely on context compaction alone to preserve continuity across sessions; add explicit externally-persisted state _(supporting)_.
+- **P043** — Prefer scripts-as-tools over opaque built-in tools and capture recurring ones _(supporting)_.
+- **P049** — Reference MCP tools by fully qualified ServerName:tool_name to avoid tool-not-found errors, especially when multiple MCP servers are available.
+- **P051** — As model capability improves, re-evaluate the harness against tested task performance, removing scaffolding that is no longer load-bearing and adding only pieces that unlock demonstrated capability _(supporting)_.
+- **P052** — Keep tool and script output predictable and context-safe with bounded summary defaults, filtering or range selection, truncation guidance _(supporting)_.
+- **P057** — For quality-critical refinement workflows, define a validation gate, check results immediately, fix concrete failures.
+- **P059** — Match the building block to the need _(supporting)_.
+- **P060** — Use programmatic tool calling for workflows where code can reduce context bloat, inference round-trips, or fragile manual synthesis.
+- **P063** — Prefer a runtime dependency-resolving tool runner.
+- **P064** — Prefer a dynamic workflow over the single-context default harness when a task is long-running, massively parallel, highly structured, or adversarial _(supporting)_.
+- **P065** — Persist a progress file alongside git history so a fresh-context agent can quickly reconstruct the state of work and use git to revert bad changes and recover working states; this also removes wasted _(supporting)_.
+- **P068** — For behavior that must happen reliably or must be blocked, enforce it deterministically with hooks.
+- **P073** — Apply progressive disclosure.
+- **P074** — Avoid irreversible retain/discard context decisions on long-horizon tasks.
+- **P075** — Use tool input examples to teach conventions that schemas cannot express, including optional-field patterns, nested object usage, correlated parameters.
+- **P076** — Write precise, context-rich prompts.
+- **P082** — Reserve a multi-agent orchestrator-worker architecture for high-value, breadth-first tasks with heavy parallelization, information exceeding one context window, or many complex tools; do not use it.
+- **P084** — Check runtime and plan prerequisites before choosing a block.
+- **P088** — Treat skills and MCP as complementary rather than substitutes.
+- **P093** — On difficult, policy-heavy domains, pair the think tool with an optimized prompt that gives domain-specific reasoning examples.
+- **P095** — Do not couple session, harness.
+- **P097** — Prefer judgement-anchored guidance over rigid rules for newer-generation models.
+- **P102** — Budget context as a scarce resource _(supporting)_.
+- **P103** — Design agent tools as clear, non-overlapping, token-efficient contracts with robust behavior and unambiguous parameters _(supporting)_.
+- **P105** — Start with the simplest LLM design that can solve the task _(supporting)_.
+- **P106** — Choose workflows for predictable predefined paths and choose autonomous agents only when flexible, model-directed control is needed for an open-ended task _(supporting)_.
+- **P107** — Justify adopting the think tool by task complexity rather than adding it universally _(supporting)_.
+- **P114** — Use a subagent to isolate a side task whose intermediate output you will not reuse.
+- **P115** — Right-size context for capable models.
+- **P118** — Choose a skill when the need is multi-step tool workflows, consistency-critical processes, capturing and sharing domain expertise, or preserving institutional knowledge against team attrition.
+- **P121** — Keep MCP-server instructions generic and scoped to how to operate the server and its tools correctly.
+- **P125** — Avoid custom output styles unless a significant role change is required; prefer the built-in Proactive/Explanatory/Learning styles.
+- **P126** — Recommend custom agents for projects or processes with distinct stages that need specialized capability, tool restrictions, or strict handoffs; define the persona at the correct location.
+- **P127** — Use turn-based loops for short, irregular tasks.
+- **P128** — Improve loop output quality by maintaining a clean codebase, accessible technical documentation, explicit verification.
+- **P129** — Manage loop cost by selecting the right primitive and model, defining clear stop criteria, piloting large runs, scripting deterministic work, tuning intervals.
+- **P130** — Rely on live agentic search rather than a maintained embedding index.
+- **P131** — Exploit the filesystem model.
+- **P132** — Diagnose MCP call failures in layers.
+- **P135** — Use MCP to connect Codex to capabilities outside the local repo.
+- **P146** — Design explicit mechanisms against the two dominant long-task failure modes.
+- **P148** — Position the think tool as an in-flight reconsideration step used after generation has begun.
+- **P149** — Budget for multi-agent token cost explicitly.
+- **P150** — Virtualize an agent into independently swappable components -- a session.
 
 ## Grounding
 
-Principles: P058, P066, P083, P084, P086, P100, P105, P106, P108, P109, P127, P128, P129, P130, P131,
-P141, P142, P144, P146, P147, P148, P149. Distillation-only: no verbatim source quotation.
+Indexes 50 of the package's 150 principles, grounded in the fifty-nine ingested distillation-only sources on Agent Skills, subagents, MCP, evaluation, and context engineering across the Claude (Code + API), OpenAI Codex, and GitHub Copilot surfaces and the open Agent Skills standard. Paraphrase and restructure only — no verbatim quotation (see `.claude/rules/rights-and-quotation-policy.md`). Every id resolves into `principles/principles.yaml`.

@@ -1431,6 +1431,10 @@
    {
     "idx": 417,
     "statement": "Treat context spent on tool definitions as a budget: keep it well under about 40% total utilization, accounting for other MCP servers whose definitions stack in the same client and for IDE/model tool caps (Cursor ~80, OpenAI 128, Claude ~120). This matters because models degrade at using information buried deep in a long context, so bloated tool metadata dilutes the signal available for the task."
+   },
+   {
+    "idx": 647,
+    "statement": "Expose many tools cheaply through deferred loading: keep full tool definitions out of context and require the agent to fetch them via ToolSearch before use, so tool count does not inflate the always-on context."
    }
   ]
  },
@@ -1457,6 +1461,10 @@
    {
     "idx": 314,
     "statement": "Write tool examples as concise realistic variants that show minimal, partial, and full calls only where they resolve real ambiguity."
+   },
+   {
+    "idx": 645,
+    "statement": "Design expressive tool, script, and file interfaces (clear, self-describing parameters) instead of supplying usage examples, because examples can constrain a capable model to a narrow exploration space."
    }
   ]
  },
@@ -2244,6 +2252,23 @@
    {
     "idx": 638,
     "statement": "Build the registry entry deterministically from the repository: clone it, derive metadata (uuid id, README-based description, GitHub repository fields), set version from the container image tag with is_latest true, model packages as a single docker entry, and store the result in registry.json conforming to the MCP registry OpenAPI schema."
+   }
+  ]
+ },
+ {
+  "group": 377,
+  "members": [
+   {
+    "idx": 642,
+    "statement": "Right-size context for capable models: over-constraining an agent through its system prompt, CLAUDE.md, and skills degrades results, so aim for the minimum context that works and verify (e.g. via evals) that removals do not hurt."
+   },
+   {
+    "idx": 643,
+    "statement": "Prefer judgement-anchored guidance over rigid rules for newer-generation models: point the model at surrounding context instead of hard-coding not-always-true rules, since capable models handle the decision well without them."
+   },
+   {
+    "idx": 644,
+    "statement": "Eliminate conflicting and overlapping instructions across the system prompt, skills, CLAUDE.md, and the user request; contradictory guidance forces the model to spend reasoning reconciling it before acting."
    }
   ]
  }

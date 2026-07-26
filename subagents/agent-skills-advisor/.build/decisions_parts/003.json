@@ -1,32 +1,151 @@
 {
-  "188": {"action": "split", "subgroups": [[334, 875, 888]]},
-  "190": {"action": "split", "subgroups": [[341], [607], [793], [795]]},
-  "191": {"action": "split", "subgroups": [[345], [360], [852]]},
-  "194": {"action": "split", "subgroups": [[354, 373]]},
-  "195": {"action": "split", "subgroups": [[355, 753]]},
-  "196": {"action": "split", "subgroups": [[359, 372, 399, 880, 885, 904]]},
-  "197": {"action": "split", "subgroups": [[361], [375]]},
-  "198": {"action": "split", "subgroups": [[362], [792]]},
-  "201": {"action": "split", "subgroups": [[367, 378], [389, 427]]},
-  "203": {"action": "split", "subgroups": [[379, 394]]},
-  "204": {"action": "split", "subgroups": [[381], [396]]},
-  "213": {"action": "split", "subgroups": [[402, 442, 886], [884, 906]]},
-  "216": {"action": "split", "subgroups": [[409], [433], [488], [900], [912]]},
-  "218": {"action": "split", "subgroups": [[411, 424]]},
-  "220": {"action": "split", "subgroups": [[415], [422]]},
-  "222": {"action": "confirm", "canonical": "Use prompt files (*.prompt.md, stored at .github/prompts/) for reusable, task-specific chat interactions run repeatedly with different inputs, kept distinct from codebase-wide custom instructions and invoked manually."},
-  "230": {"action": "split", "subgroups": [[440], [450], [794]]},
-  "232": {"action": "confirm", "canonical": "Build a validation feedback loop into quality-critical or refinement workflows: define quality criteria, run validation, fix the concrete failures, and repeat until the gate passes before finalizing."},
-  "234": {"action": "split", "subgroups": [[449], [562]]},
-  "239": {"action": "split", "subgroups": [[460], [750]]},
-  "240": {"action": "confirm", "canonical": "Match instruction strictness to task fragility: use heuristic prose for open-ended judgment where multiple approaches are valid, parameterized patterns for a preferred approach that tolerates variation, and exact/prescriptive commands that forbid deviation for fragile operations or fixed sequences."},
-  "241": {"action": "split", "subgroups": [[465, 781]]},
-  "243": {"action": "split", "subgroups": [[477], [555], [898]]},
-  "244": {"action": "split", "subgroups": [[483], [831]]},
-  "245": {"action": "split", "subgroups": [[484, 495]]},
-  "249": {"action": "split", "subgroups": [[492], [640]]},
-  "253": {"action": "confirm", "canonical": "Match scaffolding to model capability and re-evaluate it whenever a more capable model ships — a stronger model needs less scaffolding, so strip pieces that are no longer load-bearing and add pieces that unlock newly-possible capability — while keeping the design grounded in what has been tested for the task."},
-  "254": {"action": "split", "subgroups": [[501, 639], [686, 687]]},
-  "256": {"action": "split", "subgroups": [[503], [527]]},
-  "259": {"action": "split", "subgroups": [[508], [511], [512], [560]]}
+  "184": {
+    "action": "split",
+    "subgroups": []
+  },
+  "187": {
+    "action": "split",
+    "subgroups": []
+  },
+  "188": {
+    "action": "split",
+    "subgroups": []
+  },
+  "190": {
+    "action": "split",
+    "subgroups": []
+  },
+  "191": {
+    "action": "split",
+    "subgroups": []
+  },
+  "194": {
+    "action": "split",
+    "subgroups": []
+  },
+  "195": {
+    "action": "split",
+    "subgroups": [
+      [
+        355,
+        753
+      ]
+    ]
+  },
+  "196": {
+    "action": "split",
+    "subgroups": [
+      [
+        399,
+        904
+      ]
+    ]
+  },
+  "197": {
+    "action": "split",
+    "subgroups": []
+  },
+  "198": {
+    "action": "split",
+    "subgroups": []
+  },
+  "199": {
+    "action": "split",
+    "subgroups": []
+  },
+  "201": {
+    "action": "split",
+    "subgroups": []
+  },
+  "203": {
+    "action": "split",
+    "subgroups": []
+  },
+  "204": {
+    "action": "split",
+    "subgroups": []
+  },
+  "213": {
+    "action": "split",
+    "subgroups": [
+      [
+        402,
+        442
+      ],
+      [
+        884,
+        906
+      ]
+    ]
+  },
+  "216": {
+    "action": "split",
+    "subgroups": []
+  },
+  "218": {
+    "action": "split",
+    "subgroups": [
+      [
+        411,
+        424
+      ]
+    ]
+  },
+  "220": {
+    "action": "split",
+    "subgroups": []
+  },
+  "222": {
+    "action": "confirm",
+    "canonical": "Use manually invoked prompt files (*.prompt.md) for reusable, focused single-task chat interactions repeated with different inputs; keep them distinct from codebase-wide custom instructions, store repository prompt files under .github/prompts/, and verify that the target IDE supports them."
+  },
+  "230": {
+    "action": "split",
+    "subgroups": []
+  },
+  "232": {
+    "action": "confirm",
+    "canonical": "For quality-critical refinement workflows, define a validation gate, check results immediately, fix concrete failures, and repeat until the gate or stop condition passes before finalizing."
+  },
+  "234": {
+    "action": "split",
+    "subgroups": []
+  },
+  "239": {
+    "action": "split",
+    "subgroups": []
+  },
+  "240": {
+    "action": "confirm",
+    "canonical": "Match instruction strictness to task risk and fragility: allow judgment and explain the purpose when multiple approaches are valid, provide parameterized patterns for preferred approaches, and prescribe exact commands or fixed sequences when consistency matters or deviation is unsafe."
+  },
+  "241": {
+    "action": "split",
+    "subgroups": [
+      [
+        465,
+        781
+      ]
+    ]
+  },
+  "243": {
+    "action": "split",
+    "subgroups": []
+  },
+  "244": {
+    "action": "split",
+    "subgroups": []
+  },
+  "245": {
+    "action": "split",
+    "subgroups": []
+  },
+  "248": {
+    "action": "split",
+    "subgroups": []
+  },
+  "249": {
+    "action": "split",
+    "subgroups": []
+  }
 }

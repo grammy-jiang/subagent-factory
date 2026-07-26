@@ -104,3 +104,5 @@ build time; the check just prevents blind re-ingestion and informs home/`--selec
   withdrawn at n=20). Read before assessing or improving a subagent's quality.
 - `docs/enhancement-steps/` — per-step build specs (Steps 0–10, 20). `README.md` is the index;
   `research-integration-plan.md` is the A/B/C track status.
+- `docs/README.md` — full map of every doc under `docs/` (completeness backstop, incl.
+  historical/superseded docs not linked above).

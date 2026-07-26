@@ -1,7 +1,43 @@
-# Conversion report: multi-agent-research-da6e3e92
+# Conversion Report — multi-agent-research-da6e3e92
 
-- source_id: multi-agent-research-da6e3e92
-- sha256: da6e3e928ff27a18d7f4551395ea519501f54bd93057f592d8cd9b9789562111
-- word_count: 3777
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.100583+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 3777 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

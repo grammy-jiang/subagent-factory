@@ -1,7 +1,43 @@
-# Conversion report: claude-code-best-pra-24d6de31
+# Conversion Report — claude-code-best-pra-24d6de31
 
-- source_id: claude-code-best-pra-24d6de31
-- sha256: 24d6de317b83908dc677a0d0577c15064a030adc4a1774da86a434bc731c28dd
-- word_count: 4853
-- anchor_count: 2
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.110451+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 4853 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

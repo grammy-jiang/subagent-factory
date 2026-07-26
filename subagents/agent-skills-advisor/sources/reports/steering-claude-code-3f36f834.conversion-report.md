@@ -1,7 +1,43 @@
-# Conversion report: steering-claude-code-3f36f834
+# Conversion Report — steering-claude-code-3f36f834
 
-- source_id: steering-claude-code-3f36f834
-- sha256: 3f36f8343ccf762eba017e39446289b9edc0839299acb90a493f4a8e9736938c
-- word_count: 2609
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.002442+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2609 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

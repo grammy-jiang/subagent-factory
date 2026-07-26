@@ -248,6 +248,39 @@ def cmd_repair_faithfulness(slug):
         console.print("[green]Clean:[/green] no invalid anchor refs")
 
 
+@click.command("quote-scan")
+@click.argument("slug")
+def cmd_quote_scan(slug):
+    """Verbatim-quotation (rights) scan of SLUG's generated prose vs its restricted source text.
+
+    Flags any 40+-consecutive-word run copied verbatim from a distillation-only source. On the real
+    corpus sources/markdown/ is withheld, so this falls back to the map-reduce cache modules the
+    package was built from — otherwise the gate is vacuous. When restricted sources exist but no
+    source text is available (cold cache, no sources/markdown/), it reports RIGHTS NOT VERIFIED rather
+    than a silent pass.
+    """
+    from tools.subagent_factory.quote_scan import quote_scan_report
+
+    r = quote_scan_report(subagent_path(slug))
+    if r["restricted"] and not r["scanned"]:
+        # Advisory (exit 0), matching the validate gate's WARN: a cold cache is common and not itself a
+        # rights violation — but it is surfaced prominently, never a silent "PASS".
+        console.print(
+            f"[yellow]RIGHTS NOT VERIFIED[/yellow] — {r['restricted']} restricted source(s), but no "
+            "source text available (no sources/markdown/, no warm cache module). Scan could not run."
+        )
+        return
+    if r["findings"]:
+        for qf in r["findings"]:
+            console.print(f"[red]quote[/red] {qf['file']}:{qf['line']}: {qf['issue']}")
+            console.print(f"       [dim]{qf['excerpt']}[/dim]")
+        sys.exit(1)
+    console.print(
+        f"[green]quote-scan PASS[/green] — no verbatim quotation "
+        f"({r['restricted']} restricted source(s) checked)"
+    )
+
+
 @click.command("stale")
 @click.argument("slug")
 @click.option(
@@ -275,5 +308,6 @@ COMMANDS = [
     cmd_doctor,
     cmd_bootstrap,
     cmd_repair_faithfulness,
+    cmd_quote_scan,
     cmd_stale,
 ]

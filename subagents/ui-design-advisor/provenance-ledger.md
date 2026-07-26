@@ -75,3 +75,7 @@ backing principle IDs). No profile field value is an orphan.
   of code/tool production), grounded in the cited principle IDs.
 - Metadata fix: source metadata `source_type` corrected from `md` to `markdown` (schema enum);
   source bytes unchanged.
+
+## Version History
+
+- **0.1.2** (2026-07-25) — Restated the `router_description` out-of-scope clause by capability instead of naming sibling packages: generated subagents are independent of one another and the orchestrating session does the routing, so a routing string says what this agent does not cover rather than asserting which other package owns it. Also added that `router_description` in the first place (same day), for the routing-truncation reason above. Boundary content unchanged; adapter re-exported. Supersedes only same-day wording, not any principle or rule.

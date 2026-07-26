@@ -228,6 +228,16 @@ at a time**; concurrent same-pool sessions corrupt a build):
   round where codex/copilot cap.
 - **Cap failover order: codex → copilot → claude.** codex has the smallest window; claude is
   the last-resort recovery pool. codex, once capped in a session, tends to stay capped.
+- **codex model + effort are pinned together, in-script.** `map_book.sh` / `p2b_finish.sh` /
+  `precision_filter.sh` pass `--config model_reasoning_effort=$CODEX_EFFORT` alongside
+  `--model $CODEX_MODEL` (defaults `gpt-5.6-sol` + `ultra`; override via env). They are **not**
+  independently valid: `ultra`/`max` are gpt-5.6-* tiers, and the older `gpt-5.5` rejects them with
+  HTTP 400 `invalid_value` on `reasoning.effort`. Before this pinning the scripts inherited
+  `~/.codex/config.toml`'s global effort, so a global `ultra` + a script-pinned `gpt-5.5` 400'd on
+  **every** factory codex call while interactive codex kept working — which reads like a cap but is
+  not one (a cap shows as rc=1/429, not a 400). Smoke-test after any codex or config change:
+  `codex exec --config model_reasoning_effort=ultra --model gpt-5.6-sol --sandbox read-only
+  --skip-git-repo-check "reply OK"`.
 
 **`p2b_finish` self-drives to green** — its session runs the whole validate→fix loop internally
 and prints `===P2B_SUMMARY=== validate: PASS` when done. Therefore:

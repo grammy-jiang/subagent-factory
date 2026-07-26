@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "injection-scan-v1",
+  "title": "Injection scan finding v1",
+  "description": "One JSON object per line in a book module's injection-scan.jsonl (cache/book-extracts/<sha>/), written at chunk time by chunk_source's prompt_injection_scan over source.md. Each record is one candidate indirect-prompt-injection (IPI) payload — advisory triage input for source-safety-reviewer, never a hard block.",
+  "type": "object",
+  "required": ["file", "line", "family", "vector", "severity", "excerpt"],
+  "properties": {
+    "file": {"type": "string", "minLength": 1, "description": "Path to the scanned source.md."},
+    "line": {"type": "integer", "minimum": 0, "description": "1-indexed source.md line to neutralize; 0 for a whole-document (obfuscation-fixpoint) finding whose decoded excerpt is not literal source text."},
+    "family": {"type": "string", "minLength": 1, "description": "Injection family, e.g. imperative-override / authority-spoof / task-injection / css-hidden / scan-error."},
+    "vector": {"type": "string", "minLength": 1, "description": "Delivery vector, e.g. plain / base64 / reversed / rot13 / detagged / css-hidden / tail."},
+    "severity": {"enum": ["low", "medium", "high"]},
+    "excerpt": {"type": "string", "description": "Human-readable excerpt of the flagged span (truncated). Advisory only — the machine target is 'line'."}
+  },
+  "additionalProperties": true
+}

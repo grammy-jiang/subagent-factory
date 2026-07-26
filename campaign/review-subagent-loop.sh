@@ -18,15 +18,18 @@
 #
 # Launch (survivable):  bash campaign/detach.sh bash campaign/review-subagent-loop.sh <slug> [<slug>...]
 # Env: MAXROUNDS(3) MODEL(claude-opus-4-8) REV_EFFORT(high) FIX_EFFORT(high)
-set -uo pipefail
+set -euo pipefail
 
 # REPO is overridable so a manager (e.g. drive-review-merge.sh) can point the whole loop at an
 # ISOLATED git worktree: uncommitted fix edits on the main tree were once discarded by a concurrent
 # `git checkout` in that shared tree. With REPO=<worktree> every review/fix session, validate, and
 # per-round commit happens inside the worktree, immune to main-tree git ops.
-REPO="${REPO:-/home/grammy-jiang/projects/subagent-factory}"; cd "$REPO"
+REPO="${REPO:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+cd "$REPO" || { echo "review-subagent-loop: cannot cd to REPO=$REPO" >&2; exit 3; }
 # shellcheck source=/dev/null
 source "$REPO/campaign/_claude_run.sh"
+# shellcheck source=/dev/null
+source "$REPO/campaign/_review_readonly.sh"
 
 [ "$#" -ge 1 ] || { echo "usage: review-subagent-loop.sh <slug> [<slug>...]" >&2; exit 2; }
 SLUGS=("$@")
@@ -43,8 +46,10 @@ say(){ printf '[revloop] %s\n' "$*" | tee -a "$LOGDIR/review-loop.log"; }
 
 # run_fresh_claude EFFORT PROMPT RUNLOG  — one FRESH `claude -p` session; prompt on stdin; stream-json to RUNLOG.
 run_fresh_claude(){
-  local eff="$1" prompt="$2" runlog="$3" argv
-  build_claude_argv argv "$MODEL" "$eff" "$REPO"
+  local eff="$1" prompt="$2" runlog="$3" perm="${4:-author}" argv
+  # perm (author|review) selects the permission profile; a review session gets Edit denied so it
+  # cannot modify the package it is reviewing. Passed as an explicit arg (not a leaked prefix var).
+  CLAUDE_PERM_PROFILE="$perm" build_claude_argv argv "$MODEL" "$eff" "$REPO"
   # prompt arrives on stdin via the pipe; a trailing </dev/null would clobber it (empty prompt -> instant rc=1).
   printf '%s' "$prompt" | "${argv[@]}" >"$runlog" 2>&1
   return $?
@@ -151,16 +156,28 @@ for SLUG in "${SLUGS[@]}"; do
   [ -f "$DONE" ] && { say "$SLUG: already CLEAN, skip"; continue; }
   # A manager (drive-review-merge.sh) pre-creates an isolated worktree already on review/$SLUG and
   # sets NO_BRANCH=1; standalone, the loop makes the branch itself in the (main) tree.
-  [ -n "${NO_BRANCH:-}" ] || git checkout -B "review/$SLUG" >>"$LOGDIR/review-loop.log" 2>&1 \
-    || say "$SLUG: branch note"
+  if [ -z "${NO_BRANCH:-}" ]; then
+    git checkout -B "review/$SLUG" >>"$LOGDIR/review-loop.log" 2>&1 \
+      || { say "$SLUG: FAILED to checkout review/$SLUG — skipping slug (refusing to commit fixes on the current branch)"; continue; }
+  fi
   say "=== $SLUG: start on $(git branch --show-current) (maxrounds=$MAXROUNDS) ==="
 
   slug_clean=0
   for r in $(seq 1 "$MAXROUNDS"); do
     RF="$PKG/reports/review-loop/$SLUG.r$r.review.md"
     say "$SLUG round $r: REVIEW (fresh session)"
-    run_fresh_claude "$REV_EFFORT" "$(review_prompt "$SLUG" "$r")" "$LOGDIR/review-loop-$SLUG.r$r.review.jsonl" \
+    # Snapshot the package BEFORE the review session so the read-only guard below reverts only THIS
+    # review's writes (not an uncommitted prior-round fix).
+    _before_ut="$(mktemp)"
+    _pre="$(review_readonly_snapshot "$PKG" "$_before_ut")"
+    run_fresh_claude "$REV_EFFORT" "$(review_prompt "$SLUG" "$r")" "$LOGDIR/review-loop-$SLUG.r$r.review.jsonl" review \
       || say "$SLUG r$r review rc=$?"
+    # Read-only enforcement: a review session may only write its report under reports/; revert any
+    # other file it touched in the package (Write can't be permission-scoped — see _claude_run.sh).
+    _reverted="$(review_readonly_enforce "$PKG" "$_pre" "$_before_ut")"; rm -f "$_before_ut"
+    if [ "${_reverted:-0}" -gt 0 ]; then
+      say "$SLUG r$r: read-only guard reverted $_reverted non-report file(s) written by the review session"
+    fi
     [ -f "$RF" ] || { say "$SLUG r$r: NO review file produced — aborting slug"; break; }
     mf="$(parse_mustfix "$RF")"
     say "$SLUG r$r: MUST_FIX_COUNT=$mf"

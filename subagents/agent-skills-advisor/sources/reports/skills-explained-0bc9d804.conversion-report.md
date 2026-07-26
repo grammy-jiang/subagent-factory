@@ -1,7 +1,43 @@
-# Conversion report: skills-explained-0bc9d804
+# Conversion Report — skills-explained-0bc9d804
 
-- source_id: skills-explained-0bc9d804
-- sha256: 0bc9d8042bad93f7696e13f43e7b8c467b6129c326523936cf8c1f3961e49672
-- word_count: 2747
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:35.975073+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 2747 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.

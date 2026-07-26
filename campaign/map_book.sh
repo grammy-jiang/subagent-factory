@@ -21,12 +21,19 @@ COPILOT_BIN="${COPILOT_BIN:-$HOME/.local/bin/copilot}"
 COPILOT_MODEL="${COPILOT_MODEL:-claude-opus-4.8}"   # Copilot's opus id (dot, not dash)
 COPILOT_EFFORT="${COPILOT_EFFORT:-high}"            # Copilot max effort is "high"
 CODEX_BIN="${CODEX_BIN:-$HOME/.local/bin/codex}"
-CODEX_MODEL="${CODEX_MODEL:-gpt-5.5}"               # Codex (OpenAI); SMALL 5h budget — small books only
+CODEX_MODEL="${CODEX_MODEL:-gpt-5.6-sol}"           # Codex (OpenAI); budget/window unmeasured on 5.6-sol
+                                                    # (the old gpt-5.5 default was "small books only")
+# Pin model AND effort together — they are not independently valid. `ultra` is a gpt-5.6-* tier; the
+# older gpt-5.5 rejects it with HTTP 400 invalid_value on reasoning.effort (codex maps ultra→max).
+# Passing --config makes this script hermetic: it no longer inherits whatever ~/.codex/config.toml
+# happens to be set to, which is what silently broke every factory codex call on 2026-07-25.
+CODEX_EFFORT="${CODEX_EFFORT:-ultra}"               # valid for gpt-5.6-*; use xhigh if pinning gpt-5.5
 MODEL="${MODEL:-${ANTHROPIC_DEFAULT_OPUS_MODEL:-${ANTHROPIC_MODEL:-claude-opus-4-8}}}"
 EFFORT="${EFFORT:-max}"; RUN_TIMEOUT="${RUN_TIMEOUT:-7200}"
 CACHE="$REPO/cache/book-extracts"
 ENGINE="claude"; TAG=""
 BOOK=""; DRYRUN=0; FG=0; FORCE=0; MAX_ATTEMPTS=1
+BLOCK_ON_INJECTION="${MAP_BLOCK_ON_INJECTION:-0}"
 while [ $# -gt 0 ]; do
   case "$1" in
     --book) BOOK="$2"; shift 2;;
@@ -40,9 +47,18 @@ while [ $# -gt 0 ]; do
     --force) FORCE=1; shift;;
     --engine) ENGINE="$2"; shift 2;;
     --tag) TAG="$2"; shift 2;;
+    --block-on-injection) BLOCK_ON_INJECTION=1; shift;;  # fail closed on un-triaged injection findings
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
+# Normalize BLOCK_ON_INJECTION to a strict 0/1. MAP_BLOCK_ON_INJECTION is free-form env text, and a
+# truthy word like "true"/"yes" would make the numeric `[ "$BLOCK_ON_INJECTION" -eq 1 ]` test ERROR
+# and short-circuit to NOT blocking — silently defeating an explicit fail-closed request. Any of
+# 1/true/yes/on (case-insensitive) ⇒ 1, everything else ⇒ 0.
+case "$(printf '%s' "$BLOCK_ON_INJECTION" | tr '[:upper:]' '[:lower:]')" in
+  1|true|yes|on) BLOCK_ON_INJECTION=1;;
+  *) BLOCK_ON_INJECTION=0;;
+esac
 [ -n "$BOOK" ] || { echo "--book <staged.md> required" >&2; exit 2; }
 [ -f "$BOOK" ] || { echo "book not found: $BOOK" >&2; exit 3; }
 mkdir -p "$LOGS"
@@ -89,6 +105,62 @@ REPO="$REPO" MODULE="$MODULE" SOURCE_ID="$SOURCE_ID" TITLE="$TITLE" \
 echo "[map] book=$STEM  source_id=$SOURCE_ID  module=$MODULE  engine=$ENGINE"
 echo "[map] chunks=$(grep -c . "$MODULE/chunks.jsonl")"
 
+# IPI pre-flight (approach A): the injection scan runs at chunk time (chunk_source writes
+# injection-scan.jsonl). Surface findings BEFORE this untrusted book reaches the MAP session. Advisory
+# by default (the ~225:1 benign:attack base rate makes hard-blocking raw hits flood legit content);
+# --block-on-injection (or MAP_BLOCK_ON_INJECTION=1) fails closed until the module is triaged. The
+# presence of source-safety-verdicts.yaml is the "triaged" signal that clears the warning/block.
+INJ="$MODULE/injection-scan.jsonl"
+VERDICTS="$MODULE/source-safety-verdicts.yaml"
+if [ ! -f "$INJ" ]; then
+  # M3/SEC-7: chunks exist (readiness passed above) but there is NO scan artifact — this book was
+  # never scanned for injection (a module chunked by a pre-scan chunk_source, or a failed/interrupted
+  # chunk step). "Absent" is NOT "scanned, clean"; surface it, and fail closed when blocking rather
+  # than silently launch an unscanned book (which the old `[ -s "$INJ" ]` test did, even under
+  # --block-on-injection).
+  echo "[map] ⚠ IPI: no injection-scan.jsonl in this module — it was never scanned for injection." >&2
+  echo "[map]   Re-chunk to scan it (chunk_source writes the scan), or pass --block-on-injection to refuse." >&2
+  if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
+    echo "[map]   --block-on-injection: refusing to launch an unscanned book." >&2
+    exit 5
+  fi
+elif [ -s "$INJ" ]; then
+  # #2: injection-scan.jsonl is a schema-validated artifact (injection-scan-v1). A corrupted or
+  # hand-edited scan can't be trusted to reflect the real findings the triage/redaction below keys
+  # off — fail closed rather than mis-parse it (dry-run surfaces but proceeds, like the rest).
+  if ! vmsg="$(python3 -m tools.subagent_factory.validate_injection_scan "$MODULE" 2>&1)"; then
+    echo "[map] IPI: injection-scan.jsonl is malformed (fails injection-scan-v1):" >&2
+    printf '%s\n' "$vmsg" | sed 's/^/[map]   /' >&2
+    [ "$DRYRUN" -eq 1 ] || exit 5
+  fi
+  if [ -s "$VERDICTS" ]; then
+    # Triaged (a NON-EMPTY verdicts file — `-s`, not `-f`: a 0-byte/truncated placeholder is not a
+    # real triage and routes to the advisory/block branch below instead of a no-op redaction).
+    # APPLY the verdict-driven redaction to source.md + chunks BEFORE the MAP session reads
+    # them (idempotent — rebuilds from the pristine copies each run). Fail closed if redaction errors.
+    # Under --dry-run this previews (read-only) instead of mutating the cache module — pass --dry-run
+    # through so the tool reports what it WOULD neutralize without rewriting files.
+    dryflag=""
+    [ "$DRYRUN" -eq 1 ] && dryflag="--dry-run"
+    if ! red="$(python3 -m tools.subagent_factory.redact_injection_spans --book-module "$MODULE" $dryflag 2>&1)"; then
+      echo "[map] IPI: redaction FAILED — $red" >&2
+      [ "$DRYRUN" -eq 1 ] || exit 5
+    else
+      echo "[map] IPI: triaged — $red"
+    fi
+  else
+    n_inj="$(grep -c . "$INJ" 2>/dev/null || echo 0)"
+    echo "[map] ⚠ IPI: $n_inj injection finding(s) in this book (see $INJ)." >&2
+    echo "[map]   The MAP session triages these in Step 0 (source-safety-reviewer → verdicts →" >&2
+    echo "[map]   redaction) before any extraction. Use --block-on-injection to require OUT-OF-BAND" >&2
+    echo "[map]   triage (write $VERDICTS first) instead of trusting the in-session pass." >&2
+    if [ "$BLOCK_ON_INJECTION" -eq 1 ] && [ "$DRYRUN" -eq 0 ]; then
+      echo "[map]   --block-on-injection: refusing to launch until $VERDICTS exists (out-of-band triage)." >&2
+      exit 5
+    fi
+  fi
+fi
+
 # Build the engine argv ONCE as an ARRAY (no generated script, no two-level quoting). The
 # claude case uses the shared build_claude_argv contract — with --effort and a single
 # --add-dir "$REPO" — then overrides argv[0] to honour the CLAUDE_BIN path. The copilot
@@ -98,7 +170,7 @@ if [ "$ENGINE" = "copilot" ]; then
 elif [ "$ENGINE" = "codex" ]; then
   # Codex non-interactive: prompt as arg (like copilot). workspace-write lets it write the
   # module dir under $REPO (cache/book-extracts/...); never prompts for approval.
-  engine_argv=("$CODEX_BIN" exec --model "$CODEX_MODEL" --sandbox workspace-write --skip-git-repo-check "$(cat "$promptfile")")
+  engine_argv=("$CODEX_BIN" exec --config "model_reasoning_effort=$CODEX_EFFORT" --model "$CODEX_MODEL" --sandbox workspace-write --skip-git-repo-check "$(cat "$promptfile")")
 else
   build_claude_argv engine_argv "$MODEL" "$EFFORT" "$REPO"
   engine_argv[0]="$CLAUDE_BIN"   # contract is `claude -p ...`; use the configured binary path

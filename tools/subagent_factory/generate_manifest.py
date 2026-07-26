@@ -6,6 +6,8 @@ from typing import Any
 
 import yaml
 
+from tools.subagent_factory._common import atomic_write_text
+
 
 def generate_manifest(
     subagent_dir: str | Path,
@@ -25,7 +27,7 @@ def generate_manifest(
 
     existing: dict[str, Any] = {}
     if manifest_path.exists():
-        with open(manifest_path) as f:
+        with open(manifest_path, encoding="utf-8") as f:
             existing = yaml.safe_load(f) or {}
 
     existing_sources = {s["source_id"]: s for s in existing.get("sources", [])}
@@ -40,8 +42,7 @@ def generate_manifest(
         "sources": list(existing_sources.values()),
     }
 
-    manifest_path.write_text(
-        yaml.dump(manifest, allow_unicode=True, sort_keys=False),
-        encoding="utf-8",
-    )
+    # Atomic: the manifest is a REQUIRED_FILES entry aggregating every prior source — a torn write
+    # would corrupt it and break all future ingests. temp file + os.replace makes the swap atomic.
+    atomic_write_text(manifest_path, yaml.dump(manifest, allow_unicode=True, sort_keys=False))
     return manifest

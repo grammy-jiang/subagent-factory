@@ -1,7 +1,43 @@
-# Conversion report: writing-tools-for-ag-a0c96ef1
+# Conversion Report — writing-tools-for-ag-a0c96ef1
 
-- source_id: writing-tools-for-ag-a0c96ef1
-- sha256: a0c96ef125b7890403d501a14506858879ca51c4d41b511bcfb9bde1cd386d72
-- word_count: 3384
-- anchor_count: 1
-- converter: map-reduce (pre-chunked markdown)
+**Source:** source.md
+**Status:** ok
+**Converter:** map-reduce (pre-chunked markdown)
+**Generated:** 2026-07-25T09:58:36.076040+00:00
+
+---
+
+## Statistics
+
+| Metric | Value |
+|--------|-------|
+| Pages | — |
+| Words | 3384 |
+| Headings | — |
+| Tables | — |
+| Figures | — |
+| Code blocks | — |
+| Assets extracted | — |
+
+---
+
+## Warnings
+
+
+_No warnings._
+
+
+---
+
+## Errors
+
+
+_No errors._
+
+
+---
+
+## Human Review Required
+
+
+No human review required.
