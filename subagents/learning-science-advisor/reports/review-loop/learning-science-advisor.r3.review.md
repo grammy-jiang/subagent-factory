@@ -1,7 +1,8 @@
 # learning-science-advisor — review round 3
 
-Package: `subagents/learning-science-advisor/` (v1.2.0)
+Package: `subagents/learning-science-advisor/` (v1.5.0)
 Date: 2026-07-27
+Branch: `review/learning-science-advisor`
 Lenses: deterministic gates + agent-skills-advisor (skill authoring) + profile-reviewer (release
 readiness) + faithfulness-reviewer (over-claim) + ai-agent-engineering-reviewer (agent design)
 
@@ -13,192 +14,189 @@ readiness) + faithfulness-reviewer (over-claim) + ai-agent-engineering-reviewer 
 | `quote_scan` | **PASS** — no potential verbatim quotation found |
 | truncation gate — `…` in skill bodies / adapter | clean (no hits) |
 | truncation gate — severed invariant parenthetical | clean (no hits) |
-| `phase8` self-check | `[OK]` with WARNING (see S2) |
+| `phase8` self-check | `[OK]` with WARNING |
 
 No deterministic FAIL. Zero must-fix from deterministic gates.
 
-## Consolidated findings
+## Panel result
 
-Every lens returned `MUST_FIX_COUNT: 0`. All findings below are should-fix or nice.
-Round 3 converged: **must-fix = 0**.
+| Lens | Agent | MUST_FIX |
+|------|-------|----------|
+| Skill authoring quality | `agent-skills-advisor` | 0 |
+| Profile release-readiness | `profile-reviewer` | 0 |
+| Faithfulness / over-claim | `faithfulness-reviewer` | 0 |
+| Agent design | `ai-agent-engineering-reviewer` | 0 |
+
+Every lens returned `MUST_FIX_COUNT: 0`. Round 3 converged: **must-fix = 0**. All findings below
+are should-fix or nice.
+
+## Consolidated findings
 
 ### should-fix
 
-**S1 — quote-scan gate is vacuous for 12 `distillation-only` sources**
-- where: `provenance-ledger.md:114-121`; validator WARN line; `.claude/rules/rights-and-quotation-policy.md`
+**S1 — quote-scan rights gate could not run in this worktree**
+- where: validator WARN line; `provenance-ledger.md:159-170` (v1.5.0 entry, item F5)
 - lenses: deterministic (WARN) + profile-reviewer (deduped — same defect)
-- problem: package ships no `sources/markdown/` and no warm cache module, so the verbatim-quotation
-  control the rights policy requires before release has never actually run against source text. The
-  ledger self-discloses this rather than hiding it, and the profile text spot-checks as paraphrase,
-  but the deterministic control did not execute. WARN, not FAIL — does not block in-repo use.
-- fix: before any release beyond this repo's own `.claude/agents/generated/`, rehydrate
-  `sources/markdown/` (or a warm cache module) and re-run `quote_scan` for real; record the actual
-  result in the ledger, replacing the "PASS is vacuous" note.
+- problem: `[WARN] quote-scan: rights NOT verified — 12 restricted source(s) but no source text
+  available (no sources/markdown/, no warm cache module); verbatim-quote gate could not run`. All 12
+  sources are `distillation-only`, so the verbatim-quote gate is the load-bearing rights control per
+  `.claude/rules/rights-and-quotation-policy.md`. The standalone `quote_scan` PASS above is likewise
+  a no-source-text pass. The ledger records a 0-finding run performed against the main checkout's
+  warm cache — a cross-worktree attestation, not a verified-in-place run on the tree that ships.
+  WARN, not FAIL — does not block in-repo use.
+- fix: before merge/release, re-run the rights-verified scan against the post-merge tree with the
+  warm cache available (`quote_scan_report(subagents/learning-science-advisor,
+  cache_root=<repo>/cache/book-extracts)`) and record the actual result in the ledger, per that
+  entry's own instruction. Do not release on the WARN.
 
-**S2 — profile body ~1000 words: zero headroom under the hard-FAIL ceiling**
-- where: `profile.yaml` — the fields `profile_self_check.py` check 14 sums (role, when_to_use,
-  when_not_to_use, inputs.required, outputs, quality_bar, forbidden_behaviours, handoff_rules,
-  source_of_truth_policy.precedence)
-- lens: profile-reviewer
-- problem: hand-recount lands ~1000w — in the 800–1000 WARNING band and touching the 1000w hard
-  FAIL. This is the most plausible source of the reported `phase8 ... WARNING`; every other
-  structural check passes. CHANGELOG 1.1.0 already records this profile sitting at 985w once. The
-  next edit (fold-in, added forbidden behaviour, added quality_bar clause) tips it to hard FAIL.
-- fix: trim ~150–250w of prose (**not** citations) from the heaviest sections — `quality_bar`
-  (~208w), `forbidden_behaviours` (~147w), `inputs.required` (~131w) — to restore headroom below
-  800, same technique used on presentation-design-advisor (1083w FAIL → 941w WARN).
+**S2 — `always_on[1]` drops P019's "when schedules permit" hedge on sleep**
+- where: `profile.yaml`, `knowledge_partition.always_on[1]` (~line 148); `principles/principles.yaml:574`
+- lens: faithfulness-reviewer — claim strength **HEDGING_REMOVED**
+- problem: rule reads "…protects consolidation time — including sleep — rather than treating polished
+  rapid repetitions as durable learning. (P019, P024, …)". P019 states "Allow consolidation time,
+  **including sleep when schedules permit**, …". The conditional is dropped, turning it into an
+  unconditional directive about something an instructor often cannot command. Partially offset by
+  co-cited P024. `reports/faithfulness-report.yaml`'s note for `always_on[1]` addresses only the P125
+  high-utility-default hedge and the P061 ratio — it does not cover this drop, so the report
+  under-reports here.
+- fix: reword to "…protects consolidation time — including sleep where the schedule allows — rather
+  than treating polished rapid repetitions as durable learning."; extend the faithfulness-report note
+  to cover the P019 hedge.
 
-**S3 — orphan citation: P100 cited but never restated**
-- where: `profile.yaml:280` (`knowledge_partition.always_on[10]` citation list) vs
-  `principles/principles.yaml:2335` (P100) and `reports/faithfulness-report.yaml:360-368`
-- lens: faithfulness-reviewer
-- problem: P100 (real-word reading / spelling / word-attack as reading-comprehension diagnostics)
-  appears in the always_on[10] citation list, but no sentence in that block draws on it — the terms
-  appear nowhere in the profile. Not an over-claim (nothing stated more strongly than source), but
-  the faithfulness report's finding asserts P100 *is* restated, which makes the citation trail
-  unreliable for anyone tracing P100's operational use.
-- fix: either add a P100-grounded sentence to always_on[10], or drop P100 from the citation list;
-  either way correct the faithfulness-report note so it no longer claims P100 is restated.
+**S3 — `always_on[13]` drops P146's deprivation-targeted scope**
+- where: `profile.yaml:318-321`; `principles/principles.yaml:3436`
+- lens: faithfulness-reviewer — claim strength **SCOPE_BROADENED**
+- problem: rule reads "…providing high-quality relational, linguistic, sensory, and educational input
+  as early as possible, because substantial recovery is possible but time-sensitive." P146 carries
+  "— **especially for children facing deprivation** —", which narrows *who* the time-sensitive
+  urgency claim targets. Without it the rule reads as a general early-childhood input directive
+  rather than the source's deprivation-targeted claim. The faithfulness-report note for
+  `always_on[13]` covers only the P115 age-trend qualifier — under-report.
+- fix: reword to "…as early as possible — especially where a learner has faced deprivation — because
+  substantial recovery is possible but time-sensitive."; extend the faithfulness-report note.
 
-**S4 — no explicit fallback when a self-lookup of a principle code fails**
-- where: `profile.yaml:52-56`; `.claude/agents/generated/learning-science-advisor.md:171-173`
+**S4 — factory-internal rights taxonomy leaks into user-facing role text**
+- where: `profile.yaml:19-21` (`role:`) → `.claude/agents/generated/learning-science-advisor.md:19`
 - lens: ai-agent-engineering-reviewer
-- problem: Required-inputs tells the agent to resolve package pointers against repo root (or Glob)
-  and to verify any code absent from `Operating invariants` by reading the matching skill file or
-  the principles index before citing it. Good anti-hallucination guardrail, but it has no stated
-  fallback if that lookup fails — cwd not the factory root, package deployed standalone via
-  `export-deployable` without the skills tree, or the code absent everywhere. The existing abstain
-  path covers missing *user* context only, not missing *self* context. Agent could silently drop the
-  citation, paraphrase from memory, or stall.
-- fix: add one sentence to the Required Inputs block: "If a cited code cannot be located in
-  Operating invariants, the matching skill file, or the principles index, say so and give the
-  recommendation without that citation rather than paraphrasing from memory or guessing the path."
+- problem: the persona text shipped in every conversation says "grounded in the twelve
+  **distillation-only** sources in `provenance-ledger.md`". "distillation-only" is a rights
+  classification from `.claude/rules/rights-and-quotation-policy.md` governing what the *factory* may
+  quote during authoring; it is meaningless to an end user (teacher, L&D lead, parent), and
+  `provenance-ledger.md` is an internal repo path the runtime caller cannot open.
+- fix: render as "…grounded in twelve distilled learning-science sources…" — drop the rights
+  adjective and the file path, keeping rights bookkeeping in the ledger. Re-export the adapter after
+  the profile edit.
 
-**S5 — no explicit self-check section in any of the 15 skill bodies**
-- where: all 15 `skills/*/SKILL.md`, e.g. `retrieval-practice-and-low-stakes-quizzing/SKILL.md:80-82`
-- lens: agent-skills-advisor
-- problem: Output sections carry a generic "order findings highest-impact first, mark where evidence
-  is uncertain" line, but no structured pre-finalization checklist. Weakens self-verification
-  relative to the procedure / anti-pattern / worked-example rigour already present.
-- fix: add a short `## Self-check` section (3–5 bullets) to the shared skill body template, reusing
-  the existing advisory-boundary and output-floor language so it applies uniformly across all 15.
-
-**S6 — trigger overlap: evidence-appraisal vs expertise-development (far-transfer claims)**
-- where: `skills/evidence-appraisal-and-learning-myths/SKILL.md:3-5` vs
-  `skills/expertise-development-and-transfer/SKILL.md:3-6`
-- lens: agent-skills-advisor
-- problem: "does this brain-training app's far-transfer claim hold up?" plausibly matches both
-  descriptions; neither states which owns it.
-- fix: add a differentiating clause to each — evidence-appraisal: "...for a technique, product, or
-  myth proposed for adoption"; expertise-development: "...for a practice/training regime already in
-  place whose own transfer claim needs checking."
-
-**S7 — trigger overlap: motivation-belonging vs development-diversity (group→individual)**
-- where: `skills/motivation-belonging-and-classroom-climate/SKILL.md:3-5` vs
-  `skills/development-diversity-and-individual-differences/SKILL.md:3-4`
-- lens: agent-skills-advisor
-- problem: both touch stereotype/demographic territory (P023 climate mechanism vs P132/P134 not
-  converting group statistics into individual capacity judgments); "may I use demographic data to
-  differentiate for this group?" matches both.
-- fix: boundary clause each — motivation-belonging: "...for climate and psychological-safety effects
-  during instruction"; development-diversity: "...for design or assessment decisions that treat a
-  group statistic as an individual verdict."
-
-**S8 — expertise-development description is a dense single compound sentence**
-- where: `skills/expertise-development-and-transfer/SKILL.md:3-6`
-- lens: agent-skills-advisor
-- problem: one long compound sentence, harder to scan for trigger vocabulary than its 14 siblings
-  (contrast `memory-mnemonics-and-recall-accuracy/SKILL.md:3-5`).
-- fix: split into two short clauses, front-loading the primary trigger: "Matches practice supports to
-  a learner's expertise level as it develops... Requires objective untrained-outcome evidence before
-  crediting a far-transfer claim." [P015]/[P061]
+**S5 — ledger's "say so inline" claim is false for one of the eight authored fields**
+- where: `provenance-ledger.md:12` vs `profile.yaml:117-120`
+- lens: profile-reviewer
+- problem: the ledger asserts the eight authored fields "**say so inline** rather than citing a
+  principle they do not have." Seven do carry an `(authored …)` marker (e.g. `forbidden_behaviours[0]`,
+  `quality_bar[6]`, `handoff_rules[2]`); `source_of_truth_policy.canonical_owner` carries none. The
+  ledger table row at line 32 does explain the field correctly — only the blanket summary sentence is
+  wrong.
+- fix: either append `(authored scope boundary)` to `canonical_owner` in `profile.yaml` (then
+  re-export the adapter), or soften ledger:12 to note `canonical_owner` is documented in the table
+  but not self-flagged inline.
 
 ### nice
 
-**N1 — two-tier invariant design is not self-evident in the adapter**
-- where: `.claude/agents/generated/learning-science-advisor.md:21-133` vs `:198-266`
+**N1 — `when_not_to_use` missing from the ledger's descriptive-fields enumeration**
+- where: `provenance-ledger.md:9-10`
+- lens: profile-reviewer
+- problem: the sentence lists `role`, `when_to_use`, `inputs`, `outputs`, `minimum_useful_output` as
+  untagged descriptive fields, omitting `when_not_to_use` — which also carries zero `P###` citations
+  (`profile.yaml:33-42`) and falls outside the eight-authored-fields table's inclusion rule
+  (ledger:19-21). Later version-history entries (ledger:485, 538) do group it with the descriptive
+  fields, so this is an incomplete enumeration, not an orphan field.
+- fix: add `when_not_to_use` to the list at ledger:9-10.
+
+**N2 — 7 skill descriptions lack an explicit "when" clause**
+- where: `skills/retrieval-practice-and-low-stakes-quizzing/SKILL.md:3-5`,
+  `spacing-distributed-practice-and-consolidation/SKILL.md:3-5`,
+  `metacognition-study-habits-and-self-regulation/SKILL.md:3-5`,
+  `feedback-assessment-and-error-correction/SKILL.md:3-5`,
+  `memory-mnemonics-and-recall-accuracy/SKILL.md:3-4`,
+  `course-design-technology-and-online-teaching/SKILL.md:3-4`,
+  `collaborative-and-peer-learning/SKILL.md:3-4`
+- lens: agent-skills-advisor
+- problem: these 7 state *what* with concrete nouns but skip the explicit triggering-situation clause
+  the other 8 skills carry, so firing precision is below the package's own established pattern.
+- fix: append a short "used when …" clause naming the triggering situation, matching the format
+  already used in the other 8 files.
+
+**N3 — two close skill pairs lack the disambiguation clause the package uses elsewhere**
+- where: `skills/feedback-assessment-and-error-correction/SKILL.md:3-5` vs
+  `skills/motivation-belonging-and-classroom-climate/SKILL.md:3-5`; and
+  `skills/memory-mnemonics-and-recall-accuracy/SKILL.md:46` vs
+  `skills/metacognition-study-habits-and-self-regulation/SKILL.md:53`
+- lens: agent-skills-advisor
+- problem: pair 1 — both descriptions mention "feedback": task-level gap-closing (P051/P088/P099) vs
+  motivational/attributional framing (P022/P080/P094). Pair 2 — both plausibly fire on "my student
+  can't remember what they studied": failed-processing-stage diagnosis (P046) vs missing study
+  routine (P076/P090). The package already uses explicit disambiguation clauses for its other close
+  pairs (`cognitive-load-…` vs `expertise-development-…`; `evidence-appraisal-…` vs technique
+  skills); these two are left to inference. Not a functional bug given multi-skill firing.
+- fix: add a one-clause pointer in each description, consistent with the existing pattern.
+
+**N4 — `router_description` is one dense ~150-word paragraph**
+- where: `profile.yaml` `router_description` → `.claude/agents/generated/learning-science-advisor.md:3`
 - lens: ai-agent-engineering-reviewer
-- problem: `Operating invariants (must hold)` lists ~55 codes; quality_bar / forbidden_behaviours /
-  handoff_rules / examples cite ~35 more (P013, P126, P107, P028, P067, …) that never appear there.
-  All were traced to `knowledge_partition` skill prose — none orphaned — so this is a deliberate
-  curated-subset-plus-wider-corpus split, but a maintainer reading only the adapter must
-  reverse-engineer it.
-- fix: one line under the `Operating invariants` heading: "Codes cited elsewhere in this profile that
-  do not appear above are grounded in the matching skill file, not omitted from must-hold status."
-
-**N2 — cognitive-load vs expertise-development: time-span boundary only in frontmatter**
-- where: `skills/cognitive-load-worked-examples-and-scaffolding/SKILL.md:49-54` vs
-  `skills/expertise-development-and-transfer/SKILL.md:51-56`
-- fix: add one "When to use" bullet each restating the boundary explicitly (cognitive-load:
-  "...within one lesson or task, not across a multi-week practice regime").
-
-**N3 — three worked examples converge on the same reread-then-underperform scenario**
-- where: `retrieval-practice-.../SKILL.md:100-104`, `metacognition-.../SKILL.md:100-104`,
-  `evidence-appraisal-.../SKILL.md:102-106`
-- fix: differentiate framing per skill — retrieval = quiz/format mechanics; metacognition =
-  habit/self-regulation diagnosis; evidence-appraisal = technique-adoption decision.
-
-**N4 — memory-mnemonics forensic content may under- or oddly trigger**
-- where: `skills/memory-mnemonics-and-recall-accuracy/SKILL.md:48`, `:54`
-- problem: forensic/consequential-interview vocabulary (neutral prompts, leading wording, repeated
-  imagination) sits far from classroom mnemonic-cue vocabulary; a legal/interview query wouldn't
-  obviously route to a "learning science advisor."
-- fix: bridging clause in the description — the skill spans "classroom mnemonic systems and any
-  high-stakes recollection whose accuracy must be judged."
-
-**N5 — frontmatter `provenance` blocks may exceed the always-loaded budget**
-- where: all 15 skill frontmatters, e.g. `retrieval-practice-.../SKILL.md:8-42`
-- problem: each carries principle ids + 13–16 claim ids + digest, beyond a ~100-token
-  always-loaded budget *if* the runtime parses full frontmatter rather than name+description only.
-- fix: no action if this is confirmed factory-wide convention (sibling packages use the identical
-  pattern); worth a one-time check of what the runtime actually loads at trigger time.
-
-**N6 — development-diversity description is grammatically dense**
-- where: `skills/development-diversity-and-individual-differences/SKILL.md:3-4`
-- fix: simplify to "...when age, grade, or demographic averages are being used in place of a
-  learner's demonstrated readiness."
-
-**N7 — cross-package routing: course-design overlap with instructional-design-advisor**
-- where: `.claude/agents/generated/learning-science-advisor.md:3` vs
-  `.claude/agents/generated/instructional-design-advisor.md:3`
-- problem: this package's when-to-use includes "course and online design" plus a full
-  `course-design-technology-and-online-teaching` skill; the sibling is scoped to "instructional and
-  course design." A generic "review my course" could match either. Both correctly state boundaries by
-  capability (no sibling naming), so this is a catalog-level concern, out of this package's altitude.
-- fix (not this pass): during a catalog routing audit, confirm the intended split (learner-cognition
-  mechanism vs design-process/backward-design) is legible from the two descriptions alone.
+- problem: positive coverage and the "Not for…" exclusions are folded into one run-on sentence. It is
+  functionally correct — a router can decide from it — but scans slower against many peer descriptions.
+- fix: split the exclusions into a short second sentence. Polish only.
 
 ## Positive confirmations (explicitly in scope, no defect found)
 
-- **Subagent independence**: no `when_to_use` / `when_not_to_use` / `handoff_rules` entry names a
-  sibling subagent; all exclusions are capability-stated; handoffs name generic responsible parties
-  ("the teacher, designer, or institution", "a qualified specialist"). Compliant.
-- **Tool boundary**: adapter is `Read, Grep, Glob` only; no write/execute grant or implied capability
-  anywhere in the body (grep-verified — only hits are the DO-NOT-EDIT header, "execute" describing a
-  *learner's* action, and "may edit canonical: False").
-- **Domain-risk fencing**: clinical diagnosis (P134/P132/P115), placement/grading/admission/
-  employment decisions (P128/P087), certainty/generality over-claim (P072/P125/P143/P105), and
-  invented numeric precision are each fenced in `forbidden_behaviours`. The numeric effect sizes in
-  `examples[1].ideal_response` (0.18/0.09/0.18) were verified to be carried directly from P103's own
-  statement — no conflict with the no-invented-precision rule.
-- **Over-claim**: ~90 of ~150 cited principle codes independently traced; **no CONTRADICTED,
-  SCOPE_BROADENED, or HEDGING_REMOVED instance found**. Source hedges are preserved throughout
-  (P125's "except complex structured/higher-order", P143's "far transfer explicitly uncertain",
-  P011/P103's "unless evidence shows a stable crossover", P021's four joint difficulty conditions,
-  P091's supervise-unless-independent-error-detection exception, P064's "can help", P134's
-  group-to-individual bar). Every principle carrying a numeric effect size (P084, P103, P130)
-  checked.
-- **Faithfulness report not stale**: documents and corrects a prior HEDGING_REMOVED miss on
-  `quality_bar[2]` and prior citation drift on `when_not_to_use[4]` / `outputs.primary_format` —
-  consistent with the r1/r2 review-loop commits (`546c15c`, `a80b30e`).
-- **Skill structure**: all 15 carry valid frontmatter within length/character limits, a consistent
-  Purpose → When to use → Procedure → Inputs → Output → Anti-patterns → Worked example → References →
-  Provenance body, working relative reference paths, and a repeated advisory-boundary sentence. The
-  `provenance.principles` lists partition cleanly with **zero duplicate principle ownership** across
-  the 15 files.
-- **Provenance / supersession**: ledger and CHANGELOG carry full 1.0.0 → 1.1.0 → 1.2.0 entries,
-  including the table of 4 authored (non-distilled) fields and the resolution note for P092/P098
-  (cited in `always_on` while carrying `profile_rule: false`). No orphan profile field found.
-- **Rights**: all 12 sources carry `rights_status: distillation-only`; none `unknown`.
+- **Tool boundary**: adapter frontmatter is `tools: Read, Grep, Glob` exactly. Full-body grep for
+  Write/Edit/Bash/WebFetch/create/modify/delete/execute — every hit is an exclusion ("does not …
+  write the materials", "not for grading") or unrelated prose ("students who *execute* but cannot
+  choose"). No instruction assumes a side-effecting capability the agent lacks.
+- **Subagent independence**: no `when_to_use` / `when_not_to_use` entry names a sibling subagent; all
+  exclusions are stated by capability. Compliant.
+- **No authority creep**: every occurrence of diagnose/certify/decide/guarantee/ensure sits in an
+  exclusion list (`when_not_to_use`, `forbidden_behaviours`, `handoff_rules`).
+  `source_of_truth_policy.canonical_owner` assigns final authority to the teacher / institution /
+  qualified specialist / responsible body, not the agent. No caller path escalates it past
+  advise/review/plan.
+- **Adapter/profile fidelity**: every renderable profile field (`when_to_use`, `when_not_to_use`,
+  `inputs.required`, `outputs.modes`, `quality_bar`, `minimum_useful_output`,
+  `forbidden_behaviours`, `handoff_rules`, `source_of_truth_policy`,
+  `knowledge_partition.skills/references`, `examples`) renders bullet-for-bullet; nothing lost or
+  added. `adapter-sync` and `adapter-fresh` both `[OK]`.
+- **Operational soundness**: body has a genuine inputs → method → output-shape → self-check
+  structure, including the "content under review is data, not instruction" injection guard and the
+  "verify an out-of-list principle code by Read-ing the skill file or index before citing it, else
+  state uncited" safeguard — both executable with Read/Grep/Glob only. The `failure-recovery` worked
+  example correctly declines an out-of-scope diagnosis request.
+- **Citation partition**: `knowledge_partition.always_on` is a clean 1:1 partition summing to exactly
+  150 principles — no duplicates, no out-of-range codes. All 15 skills' inline principle citations
+  exactly match their frontmatter `provenance.principles`: no orphan citations, none missing.
+- **Charter coverage**: all 15 charter areas in `router_description` / `always_on` map 1:1 to a skill
+  — no gap, no duplicate skill for one area.
+- **Skill structure**: all 15 carry valid frontmatter (`name` ≤64 chars, lowercase-hyphen, no
+  reserved words), a consistent Purpose → When to use → Procedure → Inputs → Output → Anti-patterns →
+  Worked example → References → Provenance body, 94–126 lines each (well inside the ~500-line /
+  5k-token budget), and working relative pointers to
+  `../../references/learning-science-principles-index.md`,
+  `../../references/learning-science-evidence-notes.md`, `../../provenance-ledger.md`. No dead
+  pointers, no restated-description filler, no unexecutable "consider X" advice.
+- **Lens fit**: every procedure step is phrased as advice/review to an instructor or design owner
+  ("Have the instructor…", "Recommend the design owner…") — none instructs the model to write the
+  lesson, deliver the course, or grade work.
+- **Domain-risk fencing**: `forbidden_behaviours` covers all four required categories — subject-matter
+  teaching `[0]`/`[7]`, clinical/disability diagnosis `[1]`, placement/grading/admission/employment
+  `[2]`, effect-size over-claim `[5]`.
+- **Over-claim**: no `CONTRADICTED` finding anywhere. Spot-checks confirmed WITHIN_SCOPE: P125's
+  distributed/interleaved-practice uncertainty hedge ("except where complex structured or higher-order
+  outcomes leave the benefit uncertain"), P061's ratio traced to source claim C00186 and correctly
+  marked "provisional planning heuristic, not a universal law", P103's modality-matching effect sizes
+  (0.18 / 0.09 / 0.18 in `examples[1]` — carried verbatim from P103's own statement, no invented
+  precision), P039/P143 far-transfer and self-explanation hedges, P020 default-technique framing,
+  P100 reading-difficulty screening, P059/P060/P107/P050 retrieval cluster. S2 and S3 are the only
+  two hedge/scope drops found — both mild, self-contained, and non-systemic.
+- **Rights**: all 12 sources carry `rights_status: distillation-only`; none `unknown`. Injection scan
+  clean. Tier consistency, all four tier artifacts, 12 anchors files, 12 conversion reports, and all
+  17 `stale-maintenance` grounding checks pass.
 
 MUST_FIX_COUNT: 0
