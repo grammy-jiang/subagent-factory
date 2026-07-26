@@ -46,7 +46,7 @@ provenance:
 
 ## Purpose
 
-This skill designs the course-level container. It starts from substantive, demonstrable outcomes describing what learners should retain and use and plans backward, requires the curriculum to address how a common conception of progress is built across years rather than leaving each teacher to invent one, and builds high-structure courses: published objectives, required preparation and pre-result generation, quizzed foundations, learner-built explanations and integrative problems, and study revised from practice-test errors. It applies universal design as the default — flexible, intuitive, perceptible, low-effort, error-tolerant access built in from the start, foreseeable barriers removed, participation options added incrementally, individual accommodation still retained. It starts technology selection from the learning purpose and required level of thinking and then chooses the simplest tool whose stable pedagogical functions meet the need, synthesizes technology evidence by feature, goal, learner, task, context, access, and timing rather than by ranking tool categories, and judges distance and blended programmes by instructional design and the quality of interaction with peers and instructors rather than by delivery mode, adding in-person or study support where self-regulation is lacking. It makes instructor presence visible through frequent, useful, personal interactions and purpose-driven announcements organised into sustainable routines, uses brief objective-focused reflection early, periodically, and at close, translates a general principle through its mechanism before adapting it to local learners, format, workload, and institution, treats personal educational experience as context rather than proof, builds two-way research–practice partnership, and protects teaching vitality through peers, network, and continued review of evidence.
+This skill advises instructors, course designers, and programme leads on course- and curriculum-level design decisions — outcomes, structure, access, technology, delivery mode, and instructor presence — at the grain of a single course or curriculum review. It recommends what to build and choose; the design owner carries out the resulting course.
 
 ## When to use
 
@@ -58,19 +58,30 @@ This skill designs the course-level container. It starts from substantive, demon
 
 ## Procedure
 
-1. Translate a general learning principle through its underlying mechanism, then adapt the implementation to the local learners, course format, workload, and institution (P010).
-2. Start technology selection with the learning purpose and required level of thinking, then choose the simplest tool whose stable pedagogical functions meet the need (P030).
-3. Apply universal design as the default framework: build flexible, intuitive, perceptible, low-effort, error-tolerant access into the initial design and remove foreseeable barriers, adding practical participation options incrementally while still retaining individual accommodation (P052).
-4. Translate learning research through a two-way partnership: researchers make findings usable and educators contribute constraints, trust-building context, and high-value questions (P056).
-5. Judge distance and blended programmes by instructional design and the quality of student interaction with peers and instructors rather than by delivery mode — interaction facilities are the differentiating quality explaining why post-1998 studies differ from earlier ones — and add in-person or study support when learners lack the needed self-regulation (P062).
-6. Treat personal educational experience as practical context rather than proof: adapt disciplinary expertise and prior teaching methods using evidence about the actual students and setting instead of projecting one's own learning experience (P077).
-7. Use brief objective-focused reflection early and periodically, then close the course by having learners compare their starting point, achievements, and intended application (P081).
-8. Protect teaching vitality by monitoring personal engagement, collaborating with peers, maintaining a professional network, and critically reviewing evolving evidence (P082).
-9. Synthesize learning-technology evidence by feature, goal, learner, task, context, access, and timing rather than ranking broad tool categories (P083).
-10. Start course design with substantive, demonstrable outcomes describing what learners should retain and use, then plan backward (P089).
-11. Require curricula to address how a common conception of progress is built across years, since without it teachers invent their own and those conceptions can differ even between teachers of the same grade in one school (P102).
-12. In high-structure courses, publish objectives, require preparation and pre-result generation, quiz foundations, use learner-built explanations and integrative problems, and revise study from practice-test errors (P111).
-13. Make instructor presence visible through frequent, useful, personal interactions and purpose-driven announcements organized into routines that remain sustainable through the final week (P123).
+### Start from outcomes and plan backward
+
+1. Start course design with substantive, demonstrable outcomes describing what learners should retain and use, then plan backward from those outcomes (P089).
+2. Require the curriculum to address how a common conception of progress is built across years, since without that guidance teachers invent their own conceptions, which can differ even between teachers of the same grade in one school (P102).
+
+### Build the course structure and access
+
+3. Build high-structure courses that publish objectives, require preparation and pre-result generation, quiz foundations, use learner-built explanations and integrative problems, and revise study from practice-test errors (P111).
+4. Apply universal design as the default framework: build flexible, intuitive, perceptible, low-effort, error-tolerant access into the initial design and remove foreseeable barriers, adding practical participation options incrementally while still retaining individual accommodation (P052).
+
+### Choose technology and mode
+
+5. Start technology selection with the learning purpose and required level of thinking, then choose the simplest tool whose stable pedagogical functions meet the need (P030).
+6. Synthesize learning-technology evidence by feature, goal, learner, task, context, access, and timing rather than ranking broad tool categories (P083).
+7. Judge distance and blended programmes by instructional design and the quality of student interaction with peers and instructors rather than by delivery mode — interaction facilities are the differentiating quality explaining why post-1998 studies differ from earlier ones — and recommend in-person or study support when learners lack the needed self-regulation (P062).
+
+### Sustain presence and adapt locally
+
+8. Have the designer translate a general learning principle through its underlying mechanism, then adapt the implementation to the local learners, course format, workload, and institution (P010).
+9. Caution against treating personal educational experience as proof: have the designer adapt disciplinary expertise and prior teaching methods using evidence about the actual students and setting instead of projecting their own learning experience (P077).
+10. Recommend building a two-way partnership with learning researchers, in which researchers make findings usable and educators contribute constraints, trust-building context, and high-value questions (P056).
+11. Recommend brief objective-focused reflection early and periodically, and have the course close with learners comparing their starting point, achievements, and intended application (P081).
+12. Advise the instructor to make presence visible through frequent, useful, personal interactions and purpose-driven announcements organized into routines that remain sustainable through the final week (P123).
+13. Recommend the instructor protect teaching vitality by monitoring personal engagement, collaborating with peers, maintaining a professional network, and critically reviewing evolving evidence (P082).
 
 ## Inputs
 
@@ -79,7 +90,7 @@ This skill designs the course-level container. It starts from substantive, demon
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 

@@ -41,7 +41,10 @@ provenance:
 
 ## Purpose
 
-This skill makes feedback and assessment do instructional work. It understands feedback's purpose as reducing the discrepancy between current understanding and the learning intention, with the strategy depending on which level it operates at, and requires feedback to give information about the task or the learning process that fills that gap rather than merely reporting correctness. It returns targeted feedback while learners can still apply it to related work, treating a grade alone as insufficient wherever further development is possible. It builds task-specific analytic rubrics that separate consequential components, reflect their intended weight, and expose class-wide as well as individual priorities. It supervises early practice closely enough to observe performance, interrupt error before it becomes entrenched, and give milestone feedback that prevents costly drift — unless independent error detection and repair are themselves the target, in which case it delays the intervention. It permits recoverable errors, corrects them promptly, and teaches learners to read struggle and failure as diagnostic information for the next attempt; and it supports problem solving with the least help needed — root-cause questions, learner-generated options, consequence analysis, visible progress — so the learner keeps ownership of the resolution.
+This skill advises instructors and assessment designers on making feedback, rubrics, and error
+correction do instructional work rather than merely reporting a score. It operates at the grain
+of individual feedback exchanges, rubric design, and moment-to-moment error handling during
+early practice.
 
 ## When to use
 
@@ -52,13 +55,24 @@ This skill makes feedback and assessment do instructional work. It understands f
 
 ## Procedure
 
-1. Support problem solving with the least help needed — root-cause questions, learner-generated options, consequence analysis, role-play, and visible progress — so the learner keeps ownership of the resolution rather than receiving a finished answer (P029).
-2. Permit recoverable errors, correct them promptly, and teach learners to use struggle and failure as diagnostic information for the next attempt (P031).
-3. Build task-specific analytic rubrics that separate consequential components, reflect their intended weight, and expose class-wide as well as individual priorities (P036).
-4. Understand feedback's purpose as reducing the discrepancy between current understanding and the learning intention, with the strategy depending on which of four levels it operates at (P051).
-5. Require feedback to give information about the task or learning process that fills the gap between what is understood and what is aimed at, rather than merely reporting correctness (P088).
-6. Supervise early practice closely enough to observe performance, interrupt error before it becomes entrenched, and give milestone feedback that prevents costly drift — unless independent error detection and repair are themselves the learning target, in which case delay the intervention (P091).
-7. Return targeted feedback while learners can still apply it to related work; a grade alone is insufficient when further development is possible (P099).
+### Locate the gap
+
+1. Frame feedback's purpose as reducing the discrepancy between current understanding and the learning intention, and match the strategy to which of four levels the feedback operates at (P051).
+2. Require feedback to give information about the task or the learning process that fills that gap, rather than merely reporting correctness (P088).
+
+### Design the feedback
+
+3. Time feedback to return while learners can still apply it to related work; treat a grade alone as insufficient wherever further development is possible (P099).
+
+### Build the rubric
+
+4. Build task-specific analytic rubrics that separate consequential components, reflect their intended weight, and expose class-wide as well as individual priorities (P036).
+
+### Handle error in practice
+
+5. Recommend supervising early practice closely enough to observe performance, interrupt error before it becomes entrenched, and give milestone feedback that prevents costly drift — unless independent error detection and repair are themselves the learning target, in which case the intervention should be delayed (P091).
+6. Recommend permitting recoverable errors, correcting them promptly, and framing struggle and failure for the learner as diagnostic information for the next attempt (P031).
+7. Recommend the instructor support problem solving with the least help needed — root-cause questions, learner-generated options, consequence analysis, role-play, and visible progress — so the learner keeps ownership of the resolution rather than receiving a finished answer (P029).
 
 ## Inputs
 
@@ -67,7 +81,7 @@ This skill makes feedback and assessment do instructional work. It understands f
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -83,7 +97,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 Essays come back at the end of term carrying a single letter grade. The following year the same errors recur.
 
-A grade alone is insufficient where further development is possible, and feedback must return while learners can still apply it to related work (P099). It has to give information about the task or the learning process that fills the gap between what is understood and what is aimed at, rather than reporting correctness (P088, P051). Build a task-specific analytic rubric that separates the consequential components, reflects their intended weight, and exposes class-wide as well as individual priorities (P036). Supervise early drafts closely enough to observe performance and interrupt error before it becomes entrenched — unless independent error detection and repair are themselves the learning target, in which case delay the intervention (P091).
+A grade alone is insufficient where further development is possible, and feedback should return while learners can still apply it to related work (P099). It has to give information about the task or the learning process that fills the gap between what is understood and what is aimed at, rather than reporting correctness (P088, P051). The rubric should be task-specific and analytic, separating the consequential components, reflecting their intended weight, and exposing class-wide as well as individual priorities (P036). Early drafts should be supervised closely enough to observe performance and interrupt error before it becomes entrenched — unless independent error detection and repair are themselves the learning target, in which case the intervention should be delayed (P091).
 
 ## References
 

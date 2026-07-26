@@ -47,7 +47,7 @@ provenance:
 
 ## Purpose
 
-This skill develops learners who can steer their own learning and judge it accurately. It judges study methods by delayed performance rather than immediate confidence, familiarity, or ease, and designs for durable, independently retrievable capability rather than fluent practice performance. It calibrates self-directed learning with domain-specific criteria, unaided retrieval, contextual performance, external feedback, and objective stopping rules, and teaches effective learning strategies alongside domain content so learners know what works, when and how to use it, and how it depends on the knowledge they already have. It builds self-regulation through meaningful goals, capacity-matched challenges, targeted feedback, metacognitive prompts, and genuine responsibility for monitoring progress; makes planning explicit for complex tasks and transfers it to learner-created plans; makes otherwise invisible reasoning inspectable through annotations, process logs, or think-alouds; and structures reflection as a reconstruction of what happened, the connections and outcomes involved, and a specific adjustment to test next. It diagnoses a missing study routine as an unformed habit and a transfer barrier — setup cost, competing intermittent rewards — not as a moral failing, and follows up on whether the study actually happened, with what strategy and attention, and what to change.
+Helps an instructor, tutor, or study-plan owner work out why a learner's studying isn't paying off, and gives concrete moves for calibrating the learner's self-assessment, rebuilding the study routine, and growing self-regulation — at the grain of a single study plan, assignment, or course-level habit intervention.
 
 ## When to use
 
@@ -58,19 +58,30 @@ This skill develops learners who can steer their own learning and judge it accur
 
 ## Procedure
 
-1. Design learning around durable, independently retrievable capability rather than ease, familiarity, or immediate practice performance (P013).
-2. Calibrate self-directed learning with domain-specific criteria, unaided retrieval, contextual performance, external feedback, and objective stopping rules (P015).
-3. Structure reflection as a written or mental reconstruction of what happened, the connections and outcomes involved, and a specific adjustment to test next (P032).
-4. At home, establish an age-appropriate recurring routine that retrieves recent and older learning, connects it with current work, and adds or removes cues according to success (P041).
-5. Make planning explicit for complex tasks, model decomposition and sequencing for novices, then transfer responsibility through assessed learner-created plans (P048).
-6. Make otherwise invisible reasoning inspectable — through annotations, process logs, think-alouds, or learner-first explanations that state decisions, assumptions, obstacles, and revisions — then use that evidence to target support (P049).
-7. Teach effective learning strategies alongside domain content so learners know what works, when and how to use it, and how it depends on their existing knowledge (P071).
-8. Diagnose an ineffective or missing study routine as an unformed habit and a transfer barrier — setup cost, competing intermittent rewards — rather than as personal or moral failure (P076).
-9. Judge durable learning with delayed retrieval and explanation rather than immediate ease, error-free completion, or other short-term performance cues (P085).
-10. Follow up on whether scheduled study occurred, which strategy and attention level it involved, revise ineffective schedules, and plan a concrete response to predictable obstacles (P090).
-11. Judge study methods by delayed performance, not immediate confidence, familiarity, or ease; favor effortful retrieval over consecutive rereading when retention matters, adding support if retrieval almost entirely fails (P126).
-12. Develop self-regulation by giving learners meaningful goals, capacity-matched challenges, targeted feedback, metacognitive prompts, and responsibility for monitoring and adapting progress (P133).
-13. Make study reproduce the target demand using spacing and genuine retrieval as the core, then layer interleaving, accurate explanation and examples, and relevant verbal-visual representations without overstating untested synergies (P148).
+### Judge the study method
+
+1. Judge study methods by whether they build durable, independently retrievable capability, not by how easy, familiar, or fluent they feel in the moment (P013).
+2. Judge durable learning by delayed, unaided retrieval and explanation, not by how effortless or error-free the work looked at the time (P085).
+3. Judge study methods by delayed performance, not immediate confidence, familiarity, or ease; favor effortful retrieval over consecutive rereading when retention matters, and add support if retrieval keeps almost entirely failing (P126).
+4. Have the learner rebuild the study plan so it reproduces the target demand: spacing and genuine retrieval as the core, with interleaving, accurate explanation and examples, and relevant verbal-visual representations layered on top — without claiming a synergy between them that hasn't actually been tested (P148).
+
+### Calibrate self-assessment
+
+5. Calibrate self-directed learning against domain-specific criteria, an unaided-retrieval check, performance in a realistic context, external feedback, and an explicit stopping rule — not a general feeling of readiness (P015).
+
+### Build the routine
+
+6. Diagnose a missing or ineffective study routine as an unformed habit and a transfer barrier — setup cost, competing intermittent rewards — not as personal or moral failure (P076).
+7. Recommend an age-appropriate recurring routine for home study that retrieves recent and older learning, connects it with current work, and adds or removes cues depending on whether they are working (P041).
+8. Have the instructor teach effective learning strategies alongside the domain content itself, so learners know what works, when and how to use it, and how it depends on what they already know (P071).
+9. Build self-regulation by giving learners meaningful goals, capacity-matched challenges, targeted feedback, metacognitive prompts, and genuine responsibility for monitoring and adapting their own progress (P133).
+10. Make planning explicit for complex tasks: have the instructor model decomposition and sequencing for novices, then transfer the responsibility through assessed, learner-created plans (P048).
+11. Make otherwise invisible reasoning inspectable — through annotations, process logs, think-alouds, or learner-first explanations that state decisions, assumptions, obstacles, and revisions — then use that evidence to target support (P049).
+12. Have the learner structure reflection as a reconstruction of what happened, the connections and outcomes involved, and one specific adjustment to test next — not a vague verdict (P032).
+
+### Follow up
+
+13. Follow up on whether the scheduled study actually happened, with what strategy and attention level; revise a schedule that isn't working, and plan a concrete response to the obstacles that were predictable in advance (P090).
 
 ## Inputs
 
@@ -79,7 +90,7 @@ This skill develops learners who can steer their own learning and judge it accur
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 

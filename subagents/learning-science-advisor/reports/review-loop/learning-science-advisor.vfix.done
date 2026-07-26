@@ -1,0 +1,52 @@
+FIXED
+
+Package: subagents/learning-science-advisor  —  agent_version 1.2.0 → 1.2.1
+Gate:    reports/review-loop/learning-science-advisor.verify1.md (MUST_FIX_COUNT: 3)
+Result:  validate = VALIDATION PASSED, 0 FAIL, 1 WARN (pre-existing quote-scan: no source
+         text in this worktree, unchanged by this fix).
+
+All three must-fix findings were of one class — a boundary rule citing principle codes whose
+`statement` in principles/principles.yaml does not state it. Fixes are provenance-only:
+no boundary was weakened, no new claim was introduced, and every remaining P### resolves to
+a statement that carries the clause it is attached to.
+
+MF1 — forbidden_behaviours[0]  (P010, P077) → (authored scope boundary)
+      P010 is mechanism-first translation into a local implementation; P077 is not treating
+      one's own learning history as proof. Neither is about WHO performs teaching, delivery,
+      authoring, or marking. Boundary text unchanged, hedge complete.
+
+MF2 — forbidden_behaviours[2]  (P128, P087) → (authored scope boundary)
+      P128 governs WHAT to assess (plural competence dimensions, not one static score);
+      P087 governs PACING to demonstrated readiness. Neither states an authority boundary on
+      placement, grading, admission, promotion, or employment outcomes. Boundary text unchanged.
+
+MF3 — handoff_rules[0]  (P010, P077) → (P010) on the supported clause + (authored scope boundary)
+      Ownership of curriculum, materials, delivery, and marks is an authored authority
+      allocation. P010 retained only on the clause it genuinely supports: the design reasoning
+      is adapted through each principle's mechanism to the local learners, format, and
+      institution. P077 dropped (silent on ownership).
+
+ADVISORY (same defect class, fixed in the same pass as verify1 recommends)
+      handoff_rules[1]  (P134, P128) → (authored scope boundary) + (P134) on the clause P134
+      states: group categories ground bounded population inference, not individual capacity
+      judgments. P128 grounds neither "belongs to a qualified specialist" nor "to the
+      responsible body".
+
+BODY-SIZE SIDE EFFECT (phase8 check 14, hard FAIL > 1000 words)
+      The 1.2.0 body stood at exactly 1000 words. The honest tags plus the two retained
+      grounding clauses (longer than the codes they replace) took it to 1011 → FAIL.
+      Recovered to 998 by trimming WORDING ONLY — never a citation, hedge, or boundary clause:
+      role (source-type description; the `sources` pointer and the "invariants are advisory
+      criteria, not authority to act" disambiguation kept verbatim), when_to_use[1],
+      inputs.required 1–5 (phrasing only; ask-for-missing-context, Glob/Grep, root-relative
+      resolution, and never-cite-a-code-from-memory all keep full operative content),
+      outputs.primary_format, advise mode output.
+
+UNCHANGED: all 150 principles, 15 skills, 2 references, tests, the 54-line invariant layer,
+the advice-only role, and every other subagent package.
+
+Artifacts updated: profile.yaml (agent_version 1.2.1), CHANGELOG.md [1.2.1],
+provenance-ledger.md § Version History 1.2.1, adapters/claude-code/learning-science-advisor.md
+and .claude/agents/generated/learning-science-advisor.md (re-exported via
+`python -m tools.subagent_factory.cli export learning-science-advisor`; byte-identical parity
+verified).

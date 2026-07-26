@@ -9,7 +9,7 @@ field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`
 it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs`, and
 `minimum_useful_output` — carry no inline tags, per repo convention.)
 
-Four fields are **authored**, not distilled, and say so inline rather than citing a principle they
+Six fields are **authored**, not distilled, and say so inline rather than citing a principle they
 do not have:
 
 | Field | Kind | Why it carries no principle |
@@ -17,7 +17,9 @@ do not have:
 | `quality_bar[6]` ("Output floor") | authored output floor | Restates `outputs.primary_format` + `minimum_useful_output` so the export template, which renders neither, still carries the output floor into the deployed adapter. It is a format rule, not a domain claim. |
 | `forbidden_behaviours[5]` (numeric claims) | authored evidence guardrail | Added at 1.2.0. A ban on citing an effect size, statistic, or numeric benchmark absent from the invoked principle's own statement is a guardrail on the agent's output discipline, not a claim about learning; no source principle states it. Distinct from `forbidden_behaviours[3]`, which fences over-claimed certainty and generality rather than invented precision. |
 | `forbidden_behaviours[6]` | authored scope boundary | Mirrors `when_not_to_use[4]`. No source principle grants or withholds authority over education law, accreditation, safeguarding, or institutional policy; the boundary is a repo-policy decision. |
-| `handoff_rules[2]` | authored scope boundary | The named-authority half of the same boundary. |
+| `forbidden_behaviours[7]` (subject-matter rulings) | authored scope boundary | Added at 1.3.0. Mirrors `when_not_to_use[3]`, which until then was the only routing exclusion with no enforceable forbidden-behaviour counterpart. No source principle grants or withholds authority over the subject matter a course teaches; the advice-only/subject-matter split is a repo-policy decision. |
+| `handoff_rules[2]` | authored scope boundary | The named-authority half of the `forbidden_behaviours[6]` boundary. |
+| `source_of_truth_policy.canonical_owner` | authored scope boundary | Added to this table at 1.3.0 (the value itself is unchanged since 1.0.0). It names the same authorities as `handoff_rules[0]`–`[2]` — teacher/designer/institution over curriculum, materials, delivery and marks; qualified specialists over assessing or diagnosing an individual learner; the responsible body over placement, grading, admission and employment decisions — as a single ownership statement. No source principle grants or withholds those authorities, so it carries no P-code by design rather than being an orphan field value. Its sibling `precedence` is principle-cited and unaffected. |
 
 Two principles are cited as backing inside `knowledge_partition.always_on` while carrying
 `operational_mapping.profile_rule: false` in `principles/principles.yaml` — P092 (`always_on[0]`)
@@ -61,6 +63,72 @@ partitioned across 15 skills, each principle owned by exactly one skill; the two
 references index and ground them.
 
 ## Version History
+
+- **1.3.0** (2026-07-27) — Independent re-verify round r1
+  (`reports/review-loop/learning-science-advisor.r1.review.md`), must-fix = 3, all applied. This round
+  closes the review → grounded fix → independent re-verify loop that 1.2.1 asserted `status: ready`
+  before completing (r1 finding S2). Supersedes, and states what it supersedes:
+  - **M1 — `reports/faithfulness-report.yaml` `forbidden_behaviours[5]` mislabel superseded.** The
+    entry labelled `rule_ref: forbidden_behaviours[5]` reviewed the *law/accreditation* rule, which is
+    index **6**; the report carried `[0..5]` and no `[6]`, so the real index 5 — the numeric/effect-size
+    guardrail, the one rule that polices over-claim by invented precision — had zero faithfulness
+    coverage. The entry is relabelled `forbidden_behaviours[6]`, a new `forbidden_behaviours[5]` entry
+    grades the numeric guardrail `WITHIN_SCOPE` as an authored evidence guardrail, and the
+    `handoff_rules[2]` note's cross-reference is corrected from `[5]` to `[6]`. No rule text changed;
+    only the report's index labelling was wrong (this ledger's authored-fields table already
+    distinguished [5] from [6] correctly).
+  - **M2 — `source_of_truth_policy.canonical_owner` orphan status superseded.** This ledger's opening
+    claimed every `source_of_truth_policy` value cites its promoted principle(s), with four documented
+    authored exceptions; `canonical_owner` carried zero P-codes and was in neither set, so it was an
+    orphan field value under `.claude/rules/rights-and-quotation-policy.md` and falsified this ledger's
+    own completeness claim. Resolved by recording it as an authored scope boundary (fifth/sixth row of
+    the table above) — the same jurisdictional statement as `handoff_rules[0]`–`[2]`, which are already
+    listed. The field's text is unchanged; no principle was invented to cover it.
+  - **M3 — missing enforceable mirror for `when_not_to_use[3]` superseded by new
+    `forbidden_behaviours[7]`.** Every other routing exclusion had a mirrored forbidden behaviour
+    (teaching-performed ↔ `[0]`, diagnosis/labelling ↔ `[1]`, placement/grading/admission/employment ↔
+    `[2]`, law/accreditation ↔ `[6]`); the subject-matter exclusion had none, so the routing boundary
+    existed but nothing forbade answering the subject-matter question once the advisor was invoked.
+    Added as an authored scope boundary (appended at index 7, so indices 0–6 and every existing citation
+    keep their numbering). Row added to the authored-fields table.
+  - **Body-word trims to stay inside the profile body-size gate.** The body stood at 998 words against
+    the 1000-word `phase8 check 14` FAIL threshold, so the new `forbidden_behaviours[7]` had to be paid
+    for in the same pass (the 1.2.0/1.2.1 trimming precedent). Recovered by trimming wording only, never
+    a citation, hedge, or boundary clause: `inputs.required` items 1–4 (phrasing only — ask-for-missing-
+    context, Glob/Grep + root-relative resolution, and the never-cite-a-code-from-memory guardrail all
+    retain their full operative content), `outputs.primary_format`, `minimum_useful_output`, the
+    `advise` mode output, `quality_bar[6]`, `handoff_rules[0]`, and `precedence` (all "residual
+    trade-off" → "trade-off" style edits). Final body: 991 words.
+  - **S1 — stale justification on the `always_on[13]` faithfulness note superseded.** The note claimed
+    P115's caveat was "compressed from 'an average age trend in speeded reasoning' to 'an average age
+    trend'"; `profile.yaml` retains the `in speeded reasoning` qualifier verbatim. The `WITHIN_SCOPE`
+    verdict is unchanged; the note now records that the qualifier is retained, so no future reviewer
+    infers an accepted hedge-drop that does not exist.
+  - **S4/S5/S6/S8 — all 15 `skills/*/SKILL.md` bodies re-authored** (re-authoring only; every
+    frontmatter `provenance` block, including `authored_from_digest`, is byte-for-byte unchanged, and
+    every principle citation survives attached to the same content). `## Purpose` cut from a ~1:1 prose
+    restatement of `## Procedure` to a 1–3 sentence what/for-whom/at-what-grain statement; `## Procedure`
+    regrouped from a flat principle-id-ordered checklist into 2–4 named `###` decision phases; the
+    verbatim ×15 charter clause at the end of `## Output` replaced by a pointer to the profile's
+    forbidden behaviours and handoff rules; and the two performing-voice steps (P029 in
+    `feedback-assessment-and-error-correction`, P098 in `prior-knowledge-prediction-and-misconceptions`)
+    reframed as advice to the instructor. No new claim was introduced in any body.
+  - **S7 / N2 / N3 / N4 / N5 / N7.** `router_description` restructured to a short identity clause +
+    exclusions + a trailing `Covers: …` list (same coverage, faster router matching); `role` now points
+    at this ledger rather than the `sources` profile key, which the adapter body never renders;
+    `evidence-appraisal-and-learning-myths`'s `description` now excludes the design detail of a
+    technique that has its own skill in this package; the P045 trigger in
+    `memory-mnemonics-and-recall-accuracy` is bound to a learning/assessment/debriefing context so it
+    cannot fire on pure forensic interviewing; P141 in `motivation-belonging-and-classroom-climate`
+    moved from the climate trigger to a structured-discussion trigger it actually grounds; and
+    `always_on[13]`'s irregular line wrap reflowed.
+  - **S3 remains open and unclosed.** The validator's `quote-scan` WARN ("rights NOT verified — 12
+    restricted source(s), no source text available") persists: neither `sources/markdown/` nor a warm
+    cache module is present in this worktree, so the verbatim-quote gate could not run. The standalone
+    `quote_scan` over the package passes, so there is no evidence of a leak, but the rights gate is
+    still unexercised and must be run once in an environment holding the source markdown before release.
+  - No behavioural text was added, weakened, or strengthened, and no claim absent from
+    `principles/principles.yaml` was introduced. Adapter re-exported from the profile.
 
 - **1.2.1** (2026-07-27) — Adversarial verify gate (`reports/review-loop/learning-science-advisor.verify1.md`),
   must-fix = 3, all provenance-only. Supersedes, and states what it supersedes:

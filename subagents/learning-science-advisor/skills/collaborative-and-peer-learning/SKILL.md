@@ -38,7 +38,7 @@ provenance:
 
 ## Purpose
 
-This skill makes group work actually produce learning. It imposes structure on peer learning, since structure is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions, and success criteria. It pairs individual accountability with group rewards and scripts the session with formal directions for running it, which helps particularly when new material is organized and elaborated. It trains collaboration explicitly — shared understanding, role organization, action protocols, constructive disagreement, monitoring, repair, and safeguards against dominance and nonparticipation — rather than assuming it. It uses preparation-to-teach and reciprocal teaching to make learners retrieve, organize, explain, question, clarify, summarize, and predict, and runs peer instruction as an individual answer, a reasoned peer comparison, a revised answer, and a whole-class debrief, using the revision evidence to advance or reteach.
+This skill helps an instructor or course designer turn group work, peer instruction, and prepare-to-teach or reciprocal-teaching activities into structured, accountable exercises that produce visible individual understanding, rather than assuming collaboration works on its own. It operates at the grain of a single collaborative activity or discussion cycle — its structure, script, and debrief — not the course as a whole.
 
 ## When to use
 
@@ -49,11 +49,19 @@ This skill makes group work actually produce learning. It imposes structure on p
 
 ## Procedure
 
-1. Run peer instruction as an individual answer, reasoned peer comparison, revised answer, and whole-class debrief, using the revision evidence to advance or reteach (P055).
-2. Train collaboration explicitly with shared understanding, role organization, action protocols, constructive disagreement, monitoring, repair, and safeguards against dominance and nonparticipation (P075).
-3. Use preparation to teach and reciprocal teaching to make learners retrieve, organize, explain, question, clarify, summarize, and predict (P086).
-4. Impose structure on peer learning, which is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions and success criteria (P095).
-5. Pair individual accountability with group rewards and script the session — formal directions for running it — which helps particularly when new material is organized and elaborated (P097).
+### Structure the task
+
+1. Recommend imposing structure on the peer-learning task, since structure is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions, and success criteria (P095).
+2. Recommend pairing individual accountability with group rewards and scripting the session with formal directions for running it, which helps particularly when new material is being organized and elaborated (P097).
+
+### Train the collaboration
+
+3. Recommend training collaboration explicitly — shared understanding, role organization, action protocols, constructive disagreement, monitoring, repair, and safeguards against dominance and nonparticipation — rather than assuming students already have it (P075).
+
+### Run the cycle and act on the evidence
+
+4. Recommend using preparation-to-teach and reciprocal teaching to make learners retrieve, organize, explain, question, clarify, summarize, and predict (P086).
+5. Recommend running peer instruction as an individual answer, a reasoned peer comparison, a revised answer, and a whole-class debrief, and have the instructor use the revision evidence to decide whether to advance or reteach (P055).
 
 ## Inputs
 
@@ -62,21 +70,21 @@ This skill makes group work actually produce learning. It imposes structure on p
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
 - Sending learners straight into group discussion without first collecting an individual answer, or ending the cycle without a whole-class debrief that acts on the revision evidence, forfeits the reasoned peer comparison that reveals differing reasoning and the signal for whether to advance or reteach (P055).
 - Treating collaboration as a skill students already have and skipping explicit training in shared understanding, role organization, action protocols, and constructive disagreement lets dominance or nonparticipation go unmonitored and unrepaired when a task requires interdependent problem solving (P075).
 - Assigning learners to prepare to teach or run reciprocal teaching without actually monitoring the accuracy of their retrieving, explaining, questioning, clarifying, summarizing, or predicting lets an incorrect peer explanation stand uncorrected (P086).
-- Leaving peer learning unstructured, so groups never articulate the goals, learning intentions, or success criteria for the conversation, removes the mechanism by which students would otherwise collectively catch and learn from each other's errors (P095).
-- Awarding a group grade with no individual accountability mechanism and no scripted directions for running the session drops the structure that helps particularly when new material must be organized and elaborated (P097).
+- Leaving peer learning unstructured, so groups never articulate the goals, learning intentions, or success criteria for the conversation and afterward cannot state what they concluded, removes the mechanism by which students would otherwise collectively catch and learn from each other's errors (P095).
+- Awarding a group grade with no individual accountability mechanism and no scripted directions for running the session, so quieter students can stay silent through the whole segment without consequence, drops the structure that helps particularly when new material must be organized and elaborated (P097).
 
 ## Worked example
 
 A tutor tells the class to "discuss this in your groups for ten minutes". Two students do the talking, the rest stay silent, and afterwards no group can state what it concluded.
 
-Unstructured group talk is the problem: structure is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions, and success criteria (P095). Run the segment as an individual answer, a reasoned peer comparison, a revised answer, and a whole-class debrief, using the revision evidence to advance or reteach (P055). Pair individual accountability with the group reward and script the session with formal directions for running it (P097), and train the collaboration itself — role organization, action protocols, constructive disagreement, and safeguards against dominance and nonparticipation (P075).
+Unstructured group talk is the problem: structure is what lets students collectively make and learn from errors and lets their conversations spell out the goals, learning intentions, and success criteria (P095). Recommend running the segment as an individual answer, a reasoned peer comparison, a revised answer, and a whole-class debrief, using the revision evidence to advance or reteach (P055). Recommend pairing individual accountability with the group reward and scripting the session with formal directions for running it (P097), and recommend training the collaboration itself — role organization, action protocols, constructive disagreement, and safeguards against dominance and nonparticipation (P075).
 
 ## References
 

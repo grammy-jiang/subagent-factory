@@ -39,22 +39,30 @@ provenance:
 
 ## Purpose
 
-This skill handles the memory layer directly: how large bodies of information are organised for retrieval, and how far a recollection can be trusted. It uses practiced mnemonic cue systems to organize and retrieve large bodies of information while assessing conceptual mastery separately, treats those cues as a practiced bridge from initial understanding to fluent whole-pattern performance rather than an effortless substitute for either, and — after material has been understood and synthesized into key ideas — attaches each idea to a distinctive cue within a stable, familiar ordered structure. It diagnoses an apparent memory failure by distinguishing absent attention, failed encoding, storage loss, and retrieval failure before choosing a remedy, so the fix matches the actual breakdown. Where a recollection carries consequences, it uses neutral prompts, preserves uncertainty and the source of each piece of information, and avoids leading wording or repeated imagination.
+This skill advises the instructor or study-plan owner on the memory layer of learning design: building mnemonic cue systems for large ordered material, diagnosing an apparent memory failure by its actual failure stage, and judging how far a recollection can be trusted when the questioning itself could distort it. It operates at the level of individual cue-system, diagnosis, and recollection-elicitation decisions, not at the level of delivering the material itself.
 
 ## When to use
 
 - A large ordered body of material — terminology, sequences, taxonomies — must be made reliably retrievable (P008, P119, P116).
 - Someone 'can't remember' and the remedy depends on which stage actually failed (P046).
-- A recollection is being elicited where accuracy matters and the questioning itself could distort it (P045).
+- A learner's, student's, or trainee's recollection is being elicited in a learning, assessment, or debriefing context where accuracy matters and the questioning itself could distort it (P045).
 - A mnemonic system is being mistaken for conceptual mastery, or for an effortless shortcut around understanding (P008, P116).
 
 ## Procedure
 
-1. Use practiced mnemonic cue systems to organize and retrieve large bodies of information, while assessing conceptual mastery separately (P008).
-2. In consequential memory interviews, use neutral prompts, preserve uncertainty and information source, and avoid leading wording or repeated imagination (P045).
-3. Diagnose an apparent memory failure by distinguishing absent attention, failed encoding, storage loss, and retrieval failure before choosing a remedy (P046).
-4. Use mnemonic cues as a practiced bridge from initial understanding to fluent whole-pattern performance, not as an effortless substitute for either (P116).
-5. After understanding and synthesizing material into key ideas, attach each idea to a distinctive cue in a stable, familiar ordered structure (P119).
+### Diagnose the memory failure
+
+1. When a learner "can't remember," have the instructor work out which stage actually failed — absent attention, failed encoding, storage loss, or retrieval failure — before choosing a remedy (P046).
+
+### Build the cue system
+
+2. Once the instructor has ensured the material is understood and synthesized into key ideas, have them attach each idea to a distinctive cue within a stable, familiar ordered structure (P119).
+3. Recommend the instructor use practiced mnemonic cue systems to organize and retrieve large bodies of information, while assessing conceptual mastery separately (P008).
+4. Have the instructor treat those mnemonic cues as a practiced bridge from initial understanding to fluent whole-pattern performance — never as an effortless substitute for either (P116).
+
+### Protect recall accuracy
+
+5. When a consequential recollection is being elicited, have the interviewer use neutral prompts, preserve uncertainty and information source, and avoid leading wording or repeated imagination (P045).
 
 ## Inputs
 
@@ -63,7 +71,7 @@ This skill handles the memory layer directly: how large bodies of information ar
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 

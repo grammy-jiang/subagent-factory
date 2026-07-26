@@ -47,7 +47,7 @@ provenance:
 
 ## Purpose
 
-This skill designs and reviews retrieval practice — bringing knowledge back to mind rather than reviewing it. It prefers successful retrieval to equivalent restudy for durable learning, prefers generative recall or short answer to recognition when learners can produce a meaningful answer, and requires an unaided attempt before the answer is revealed. It insists that retrieval be paired with an accuracy check whenever learners cannot verify themselves, because uncorrected retrieval can reinforce confident errors. It builds frequent low- or no-stakes cycles — mini-quizzes sampling priority items with prompt feedback and return to later practice, closed-resource exit prompts reviewed before the next meeting, individual observable attempts before peer or whole-class discussion — and it treats the responses as formative evidence of gaps and learner calibration. Format matters less than retrieving at all, so it chooses a sustainable format that still demands meaningful recall.
+This skill designs and reviews retrieval practice for instructors and study-plan owners, converting rereading into genuine recall and building low-stakes quizzing into study routines, quizzes, and discussion sequencing. It operates at the grain of individual activities, quiz items, and session-level practice cycles — checking that retrieval is effortful, generative where feasible, and paired with an accuracy check before errors take hold.
 
 ## When to use
 
@@ -58,19 +58,30 @@ This skill designs and reviews retrieval practice — bringing knowledge back to
 
 ## Procedure
 
-1. Inspect retrieval responses to reveal gaps, improve learner calibration, and guide preparation or instructional follow-up (P014).
-2. Use frequent low-stakes mini-quizzes as a renewable retrieval cycle by sampling priority items, giving prompt feedback, revisiting answers, and returning items to later practice (P026).
-3. Use frequent low- or no-stakes retrieval and choose a sustainable format that still requires meaningful recall; format differences matter less than retrieving at all (P034).
-4. Always pair retrieval with an accuracy check when learners cannot verify responses independently, because uncorrected retrieval can reinforce confident errors (P050).
-5. Use headings to scope broad recall, produce complete flashcard answers before checking, and construct concept maps from memory before consulting the source (P054).
-6. Prefer retrieval practice to equivalent restudy for durable learning because successful retrieval strengthens later access directly and can improve organization and subsequent encoding (P059).
-7. Prefer generative recall or short-answer practice over recognition-only practice when learners can produce meaningful answers, while allowing recognition support when recall is initially infeasible or is itself the target (P060).
-8. Design multiple-choice retrieval with plausible alternatives that demand discrimination, support complex reasoning where appropriate, and follow it with corrective feedback (P066).
-9. Close a session or retrieval guide with a brief closed-resource prompt for a salient takeaway, use the responses as formative evidence, review them before the next meeting, and open by addressing the common errors or uncertainties they reveal (P092).
-10. Require an unaided response before revealing the answer, then provide corrective feedback without making continuous immediate guidance a crutch (P107).
-11. For durable recall, prefer achievable, effortful retrieval of target knowledge or skills over passive restudy or recognition, and correct errors before they become reinforced (P127).
-12. Require genuine reconstruction from memory—through questions, recall, maps, drawings, or explanation—to make knowledge more durable and flexibly applicable (P135).
-13. Require every learner to make an independent, observable retrieval attempt before peer or whole-class discussion, then use discussion for feedback and revision (P138).
+### Diagnose the current practice
+
+1. Check whether the current activity requires genuine reconstruction from memory — through questions, recall, maps, drawings, or explanation — rather than merely rereading, copying, or highlighting (P135).
+2. Recommend retrieval practice over equivalent restudy for durable learning, since successful retrieval strengthens later access directly and can improve organization and subsequent encoding (P059).
+3. For durable recall, recommend achievable, effortful retrieval of target knowledge or skills over passive restudy or recognition, and flag that errors should be corrected before they become reinforced (P127).
+
+### Design the retrieval
+
+4. Recommend generative recall or short-answer practice over recognition-only practice when learners can produce meaningful answers, while allowing recognition support when recall is initially infeasible or is itself the target (P060).
+5. Recommend headings to scope broad recall, complete flashcard answers produced before checking, and concept maps constructed from memory before consulting the source (P054).
+6. Where multiple-choice is used, recommend plausible alternatives that demand discrimination, support for complex reasoning where appropriate, and corrective feedback afterward (P066).
+7. Have the instructor require an unaided response before revealing the answer, then provide corrective feedback without letting continuous immediate guidance become a crutch (P107).
+8. Have the instructor always pair retrieval with an accuracy check when learners cannot verify responses independently, because uncorrected retrieval can reinforce confident errors (P050).
+
+### Build the practice cycle
+
+9. Recommend frequent low-stakes mini-quizzes as a renewable retrieval cycle: sample priority items, give prompt feedback, revisit answers, and return missed items to later practice (P026).
+10. Favor frequent low- or no-stakes retrieval and a sustainable format that still requires meaningful recall; format differences matter less than retrieving at all (P034).
+11. Recommend closing a session or retrieval guide with a brief closed-resource prompt for a salient takeaway; have the instructor use the responses as formative evidence, review them before the next meeting, and open by addressing the common errors or uncertainties they reveal (P092).
+12. Have the instructor require every learner to make an independent, observable retrieval attempt before peer or whole-class discussion, then use discussion for feedback and revision (P138).
+
+### Check and follow up
+
+13. Have the instructor inspect retrieval responses to reveal gaps and improve learner calibration, and use that evidence to guide preparation or instructional follow-up (P014).
 
 ## Inputs
 
@@ -79,7 +90,7 @@ This skill designs and reviews retrieval practice — bringing knowledge back to
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 

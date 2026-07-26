@@ -42,7 +42,7 @@ provenance:
 
 ## Purpose
 
-This skill opens learning by surfacing what learners already believe and using it. It requires a brief prediction, attempted answer, problem solution, or skill trial before formal instruction, and structures prediction as a complete cycle: a reasoned commitment first, corrective content promptly, then reflection that revises the mental model. It uses predictions and pretests to diagnose prior knowledge, misconceptions, expected assessment demands, and mismatched study strategies before substantial instruction, and it probes emotional and cultural context, learner questions, and interpretations rather than assuming a shared presentation produced shared understanding. It corrects persistent misconceptions refutationally — leading with the accurate account, naming the misconception briefly, explaining its failure with evidence, and inoculating against the misleading arguments that will recur — and, where a model must be rebuilt, elicits the learner's current model as a prediction, tests it so the discrepancy and its failed assumptions become visible, then has the learner justify a more adequate alternative. It opens with a relevant stimulus and asks what learners notice and wonder, and connects new material to meaningful classifications, language roots, and repeated use so it can consolidate.
+This skill advises the instructor or study-plan owner on surfacing what learners already believe, predict, or misread before instruction begins, and on correcting persistent misconceptions when ordinary explanation has not worked. It operates at the grain of a single lesson, unit, or module opening, and of an individual misconception-correction episode.
 
 ## When to use
 
@@ -53,14 +53,25 @@ This skill opens learning by surfacing what learners already believe and using i
 
 ## Procedure
 
-1. Connect new material to meaningful classifications, language roots, prior knowledge, and repeated use so it can consolidate into an adaptable mental model (P006).
-2. At the opening of new learning, require a brief prediction, attempted answer, problem solution, or skill trial before formal instruction (P025).
-3. Use predictions and pretests to diagnose prior knowledge, misconceptions, expected assessment demands, and mismatched study strategies before substantial instruction (P042).
-4. Correct persistent misconceptions with refutational teaching: lead with the accurate account, name the misconception briefly, explain its failure with evidence, and inoculate against recurring misleading arguments (P043).
-5. Correct a misconception by eliciting the learner's current model as a prediction, testing it so the consequential discrepancy and its failed assumptions become visible, and then constructing a more adequate alternative the learner must justify (P078).
-6. Open learning with a relevant stimulus and ask what learners notice and wonder to activate curiosity, prior knowledge, prediction, retrieval, and connection (P098).
-7. Structure prediction as a complete learning cycle: elicit a reasoned commitment before instruction or an outcome, supply corrective content promptly, and require reflection that revises the learner's mental model (P114).
-8. Probe prior knowledge, emotional and cultural context, learner questions, and interpretations rather than assuming that a shared presentation produced shared understanding (P150).
+### Surface what learners already believe
+
+1. Have the instructor open learning with a relevant stimulus and ask what learners notice and wonder, to activate curiosity, prior knowledge, prediction, retrieval, and connection (P098).
+2. At the opening of new learning, have the instructor require a brief prediction, attempted answer, problem solution, or skill trial before formal instruction (P025).
+3. Have the instructor probe prior knowledge, emotional and cultural context, learner questions, and interpretations, rather than assuming that a shared presentation produced shared understanding (P150).
+4. Have the instructor use predictions and pretests to diagnose prior knowledge, misconceptions, expected assessment demands, and mismatched study strategies before substantial instruction (P042).
+
+### Close the loop on every prediction
+
+5. Structure prediction as a complete learning cycle: have the instructor elicit a reasoned commitment before instruction or an outcome, supply corrective content promptly, and require reflection that revises the learner's mental model (P114).
+
+### Correct and rebuild the model where a misconception persists
+
+6. Where a misconception persists, have the instructor elicit the learner's current model as a prediction, test it so the consequential discrepancy and its failed assumptions become visible, and then have the learner construct and justify a more adequate alternative (P078).
+7. Have the instructor correct persistent misconceptions with refutational teaching: lead with the accurate account, name the misconception briefly, explain its failure with evidence, and inoculate against recurring misleading arguments (P043).
+
+### Consolidate new material
+
+8. Have the instructor connect new material to meaningful classifications, language roots, prior knowledge, and repeated use so it can consolidate into an adaptable mental model (P006).
 
 ## Inputs
 
@@ -69,7 +80,7 @@ This skill opens learning by surfacing what learners already believe and using i
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -86,7 +97,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 A teacher explains clearly that heavier objects do not fall faster. On the test, many students answer that they do.
 
-Explanation alone does not displace a held model. Elicit the learner's current model as a prediction, test it so the consequential discrepancy and its failed assumptions become visible, and have the learner construct a more adequate alternative that they must justify (P078). Deliver the correction refutationally: lead with the accurate account, name the misconception briefly, explain its failure with evidence, and inoculate against the misleading arguments that will recur (P043). Run prediction as a complete cycle — a reasoned commitment before instruction, prompt corrective content, and reflection that revises the mental model (P114) — and use predictions and pretests to diagnose prior knowledge and misconceptions before substantial instruction rather than after it (P042).
+Explanation alone does not displace a held model. Advise the instructor to elicit the learner's current model as a prediction, test it so the consequential discrepancy and its failed assumptions become visible, and have the learner construct a more adequate alternative that they must justify (P078). Have the instructor deliver the correction refutationally: lead with the accurate account, name the misconception briefly, explain its failure with evidence, and inoculate against the misleading arguments that will recur (P043). Recommend running prediction as a complete cycle — a reasoned commitment before instruction, prompt corrective content, and reflection that revises the mental model (P114) — and using predictions and pretests to diagnose prior knowledge and misconceptions before substantial instruction rather than after it (P042).
 
 ## References
 

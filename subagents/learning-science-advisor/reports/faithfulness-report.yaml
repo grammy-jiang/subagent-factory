@@ -393,10 +393,11 @@ findings:
   action: accept_with_note
   note: 'Restates P087/P115/P124/P132/P134/P146; within the source''s scope, no strengthening. Group categories
     are restricted to ''bounded population inference'' and explicitly barred from becoming individual capacity
-    judgments (P134), matching the source almost verbatim. P115''s age-trend caveat is compressed from
-    ''an average age trend in speeded reasoning'' to ''an average age trend''; P115''s own closing clause
-    already generalizes to ''age trends as hypotheses rather than capacity verdicts'' without the speeded-reasoning
-    qualifier, so this compression stays within the principle''s own scope.'
+    judgments (P134), matching the source almost verbatim. P115''s age-trend caveat is carried with its
+    qualifier retained verbatim — the rule reads ''rather than an average age trend in speeded reasoning'',
+    not the unqualified ''an average age trend'' — so no hedge is dropped; P115''s own closing clause
+    then generalizes to ''age trends as hypotheses rather than capacity verdicts'', which the rule also
+    restates.'
 - rule_ref: knowledge_partition.always_on[14]
   verdict: WITHIN_SCOPE
   distortion:
@@ -460,18 +461,57 @@ findings:
   - none
   severity: low
   action: accept_with_note
+  note: Authored evidence guardrail — cites no principle by design. The ban on citing an effect size,
+    statistic, or numeric benchmark not carried in the invoked principle's own statement (direction and
+    strength of support stated in words instead) constrains the agent's own output discipline; it makes
+    no source-attributed claim about learning, so it cannot be stronger than source support. It is
+    strictly self-limiting — it can only narrow what the agent asserts, never widen it — and is distinct
+    from forbidden_behaviours[3], which fences over-claimed certainty and generality rather than invented
+    precision. Grade WITHIN_SCOPE as an authored guardrail, consistent with how the other authored
+    boundaries are graded in this report.
+- rule_ref: forbidden_behaviours[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
   note: Authored scope boundary mirroring when_not_to_use[4] and handoff_rules[2] — no principle grants
     or withholds this authority; it is a self-limiting jurisdictional statement (the advisor will not rule
     on education law, accreditation, safeguarding, or institutional policy), not a claim about what the
     sources establish. Grade WITHIN_SCOPE as an authored boundary, not a source-derived rule that could
     exceed its evidence.
+- rule_ref: forbidden_behaviours[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Authored scope boundary mirroring when_not_to_use[3] — the advisor will not supply or rule on the
+    subject-matter answer itself (the correct chemistry, translation, or legal position) rather than how
+    to teach, practise, or assess it. No principle grants or withholds authority over the subject matter
+    a course teaches; the statement is self-limiting jurisdiction, not an empirical claim, so it cannot
+    exceed its evidence. Grade WITHIN_SCOPE as an authored boundary.
 - rule_ref: handoff_rules[2]
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Authored scope boundary matching forbidden_behaviours[5] and when_not_to_use[4] — routes education-law/accreditation/safeguarding/institutional-policy
+  note: Authored scope boundary matching forbidden_behaviours[6] and when_not_to_use[4] — routes education-law/accreditation/safeguarding/institutional-policy
     rulings to the responsible institutional, legal, or accrediting authority. No principle grants this
     authority; the statement is a jurisdictional handoff, not an empirical claim, so it cannot be stronger
     than source support. Grade WITHIN_SCOPE.
+- rule_ref: source_of_truth_policy.canonical_owner
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Authored scope boundary — cites no principle by design, and is recorded as such in provenance-ledger.md's
+    authored-fields table (added at 1.3.0). It names the same authorities as handoff_rules[0]-[2] —
+    teacher/designer/institution over curriculum, materials, delivery and marks; qualified specialists
+    over assessing or diagnosing an individual learner; the responsible body over placement, grading,
+    admission and employment decisions — plus the statement that the distilled principles are the
+    authority only for the advisory criteria invoked. Every clause withholds authority from the advisor
+    rather than asserting a source-backed claim, so it cannot be stronger than source support. Grade
+    WITHIN_SCOPE. Its sibling source_of_truth_policy.precedence is principle-cited and graded separately.

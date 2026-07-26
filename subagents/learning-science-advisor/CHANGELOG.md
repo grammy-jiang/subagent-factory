@@ -3,6 +3,74 @@
 All notable changes to this generated subagent package are recorded here. Versions follow the
 `agent_version` field in `profile.yaml`.
 
+## [1.3.0] — 2026-07-27
+
+Independent re-verify round r1 (`reports/review-loop/learning-science-advisor.r1.review.md`) —
+3 must-fix findings and every high-value should-fix applied. This round closes the review → grounded
+fix → independent re-verify loop that 1.2.1 asserted `status: ready` before completing (finding S2).
+No claim absent from `principles/principles.yaml` was introduced anywhere.
+
+### Added
+- **`forbidden_behaviours[7]`** (M3) — "Supplying or ruling on the subject-matter answer itself rather
+  than how to teach, practise, or assess it (authored scope boundary)." `when_not_to_use[3]` was the
+  only routing exclusion with no enforceable forbidden-behaviour mirror, so nothing forbade answering
+  the subject-matter question once the advisor was invoked. Appended at index 7, so indices 0–6 and
+  every existing citation keep their numbering. Recorded in the ledger's authored-fields table.
+- **`reports/faithfulness-report.yaml`** — new `forbidden_behaviours[5]` entry (numeric/effect-size
+  guardrail), new `forbidden_behaviours[7]` entry, and new `source_of_truth_policy.canonical_owner`
+  entry; all graded `WITHIN_SCOPE` as authored, self-limiting boundaries.
+- **Named `###` decision phases in all 15 `## Procedure` sections** (S5), replacing the flat
+  principle-id-ordered checklist.
+
+### Fixed
+- **Faithfulness-report index off-by-one** (M1) — the entry labelled `forbidden_behaviours[5]` reviewed
+  the *law/accreditation* rule, which is index 6. The report held `[0..5]` and no `[6]`, leaving the real
+  index 5 — the numeric-claim guardrail that polices over-claim by invented precision — with zero
+  faithfulness coverage. Entry relabelled `[6]`; the `handoff_rules[2]` cross-reference corrected from
+  `[5]` to `[6]`. No rule text changed.
+- **`source_of_truth_policy.canonical_owner` was an orphan field value** (M2) — it carried no P-code and
+  was absent from the ledger's authored-exception table, violating "No orphan field values" and
+  falsifying the ledger's own completeness claim. Recorded as an authored scope boundary (the same
+  jurisdictional statement as `handoff_rules[0]`–`[2]`). Field text unchanged.
+- **Stale `always_on[13]` faithfulness note** (S1) — claimed P115's caveat was compressed from "an
+  average age trend in speeded reasoning" to "an average age trend"; the profile retains the qualifier
+  verbatim. Verdict unchanged (`WITHIN_SCOPE`); note rewritten so no future reviewer infers an accepted
+  hedge-drop that does not exist.
+- **Performing-voice skill steps** (S6) — P029 in `feedback-assessment-and-error-correction` and P098 in
+  `prior-knowledge-prediction-and-misconceptions` read as the agent teaching; reframed as advice to the
+  instructor.
+- **P141 mis-filed trigger** (N5) — moved in `motivation-belonging-and-classroom-climate` from the
+  exclusion/threat-climate trigger to a structured-discussion trigger it actually grounds.
+- **Unbounded P045 trigger** (N4) — `memory-mnemonics-and-recall-accuracy`'s recollection-accuracy
+  trigger now names a learning, assessment, or debriefing context, so it cannot fire on pure forensic or
+  witness-interview requests outside the charter's audience.
+- **`role` pointed at the `sources` profile key** (N2), which the adapter body never renders; it now
+  points at this package's `provenance-ledger.md`.
+- **`always_on[13]` irregular line wrap** (N7) reflowed.
+
+### Changed
+- **All 15 `skills/*/SKILL.md` bodies re-authored** (S4, S5, S8). Every frontmatter `provenance` block —
+  including `authored_from_digest` — is byte-for-byte unchanged and every principle citation survives
+  attached to the same content. `## Purpose` cut from a ~1:1 prose restatement of `## Procedure` to a
+  1–3 sentence what/for-whom/at-what-grain statement; the charter clause duplicated verbatim ×15 at the
+  end of `## Output` replaced by a pointer to the profile's forbidden behaviours and handoff rules.
+- **`router_description` restructured** (S7) — short identity clause + exclusions + a trailing
+  `Covers: …` list. Same coverage; faster router matching against sibling packages.
+- **`evidence-appraisal-and-learning-myths` `description`** (N3) now excludes the design detail of a
+  technique that already has its own skill in this package.
+- **Body-word trims to stay inside the 1000-word profile body-size FAIL gate.** The body stood at 998
+  words, so `forbidden_behaviours[7]` had to be paid for in the same pass. Wording only — never a
+  citation, hedge, or boundary clause: `inputs.required` items 1–4, `outputs.primary_format`,
+  `minimum_useful_output`, the `advise` mode output, `quality_bar[6]`, `handoff_rules[0]`, `precedence`.
+  Final body: 991 words.
+
+### Known limitation
+- **S3 remains open.** The validator's `quote-scan` WARN persists — neither `sources/markdown/` nor a
+  warm cache module is present in this worktree, so the verbatim-quote gate over the 12
+  `distillation-only` sources could not run. The standalone `quote_scan` over the package passes, so
+  there is no evidence of a leak, but the rights gate must be exercised once in an environment holding
+  the source markdown before release.
+
 ## [1.2.1] — 2026-07-27
 
 Adversarial verify gate (`reports/review-loop/learning-science-advisor.verify1.md`) — 3 must-fix

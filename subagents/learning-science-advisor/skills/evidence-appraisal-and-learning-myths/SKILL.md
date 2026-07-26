@@ -1,7 +1,9 @@
 ---
 name: evidence-appraisal-and-learning-myths
 description: Appraises whether a claimed learning technique, teaching myth, or brain-based
-  claim is supported by evidence, triggered when adopting, keeping, or debunking a method.
+  claim is supported by evidence, triggered when adopting, keeping, or debunking a method —
+  not the design detail of a technique (e.g. spaced or distributed practice) that already
+  has its own skill in this package.
 kind: skill
 status: ready
 provenance:
@@ -47,7 +49,7 @@ provenance:
 
 ## Purpose
 
-This skill judges whether a claimed learning technique is actually supported. It selects teaching and study methods from empirical evidence rather than intuition, isolated successes, untested theory, or interested marketing, and revises the choice as evidence changes. It evaluates a technique across learning conditions, learner characteristics, material types, immediate and delayed outcomes, comprehension, application, and transfer before treating it as broadly useful, and reads a low or moderate utility rating as a limit on general use rather than proof of no valid niche. It defaults to practice testing and distributed practice as the broadly applicable techniques and replaces highlighting or rereading as primary methods when a stronger technique targets the same goal and is feasible. It refuses the recurring myths: it does not organise differentiated instruction around learning-style categories absent evidence of a stable crossover, does not prescribe preference-matched visual or verbal instruction, does not classify learners by left-brain/right-brain stereotypes, and does not map fine-grained brain findings onto instruction without an established cognitive bridge; presentation modality is chosen because it represents the content well, with accessibility accommodations provided on their own footing. It holds narrow or fast-fading techniques to their real limits, requires objective improvement on untrained outcomes before a far-transfer claim, flags untested arguments as untested, and refuses to infer truth from familiarity, vividness, confidence, or consensus.
+This skill appraises whether a claimed learning technique, teaching myth, or brain-based claim is actually supported by evidence, for an instructor, designer, or purchaser who is deciding whether to adopt, keep, or debunk a method. It works at the grain of a single technique or claim, weighed against its real evidence base before it is built into a design decision.
 
 ## When to use
 
@@ -58,20 +60,31 @@ This skill judges whether a claimed learning technique is actually supported. It
 
 ## Procedure
 
-1. Evaluate a learning technique across learning conditions, learner characteristics, material types, immediate and delayed outcomes, comprehension, application, and transfer before treating it as broadly useful (P007).
-2. Do not organize differentiated instruction around a learning-style category unless evidence shows a stable crossover in which different methods reliably benefit different groups (P011).
-3. Choose visual, auditory, or physical presentation because it represents the target content well, while providing learner-specific accessibility accommodations rather than matching style labels (P017).
-4. Default to practice testing and distributed practice for broadly applicable learning, and replace highlighting or rereading as primary methods when the stronger technique targets the same goal and is feasible (P020).
-5. Prefer cognitive and behavioral evidence for actionable classroom guidance, and do not map fine-grained brain findings directly to instruction without an established cognitive bridge (P033).
-6. Distinguish modality preference from outcome evidence, and do not prescribe preference-matched visual or verbal instruction as a way to increase learning (P044).
-7. Select teaching and study methods from empirical evidence, not intuition, isolated successes, untested theories, or interested marketing, and revise the choice as evidence changes (P053).
-8. Match study techniques to the instructional objective and their supported conditions; interpret a low or moderate utility rating as a limit on general use, not proof that the technique has no valid niche (P072).
-9. Do not classify learners or prescribe training from left-brain/right-brain stereotypes; complex cognition uses coordinated bilateral networks and informal hemisphere tests lack educational validity (P074).
-10. Do not rely on the mnemonic keyword method for durable vocabulary learning: it improves recall of definitions and sentence comprehension but fades very quickly, with delayed post-test effects as low as d = 0.19 (P084).
-11. Reject modality matching: instruction matched to a supposed auditory (0.18), visual (0.09) or kinesthetic (0.18) preference yields little or no gain, and the groups overlap so heavily that the preferences are doubtful (P103).
-12. Flag as untested rather than assert the arguments that deep subject knowledge helps a teacher sequence surface-to-deep progressions and give feedback as students struggle (P105).
-13. Do not infer truth from familiarity, vividness, confidence, hindsight, or agreement in collaborative recollection; verify against independent evidence (P109).
-14. Restrict imagery-based text learning to learners able to visualize concrete narratives or spatial content, and expect memory benefits more readily than comprehension, inference, application, or standardized-test gains (P130).
+### Establish the evidence standard
+
+1. Advise selecting teaching and study methods from empirical evidence, not intuition, isolated successes, untested theories, or interested marketing, and revising the choice as evidence changes (P053).
+2. Do not let a claim or shared memory pass as true because it feels familiar, is stated vividly or confidently, seems obvious in hindsight, or is agreed upon by a group; verify it against independent evidence (P109).
+
+### Test the claim's breadth
+
+3. Evaluate a learning technique across learning conditions, learner characteristics, material types, immediate and delayed outcomes, comprehension, application, and transfer before treating it as broadly useful (P007).
+4. Match study techniques to the instructional objective and their supported conditions; interpret a low or moderate utility rating as a limit on general use, not proof that the technique has no valid niche (P072).
+5. Recommend practice testing and distributed practice as the defaults for broadly applicable learning, and replace highlighting or rereading as primary methods when the stronger technique targets the same goal and is feasible (P020).
+
+### Refuse the known myths
+
+6. Do not organize differentiated instruction around a learning-style category unless evidence shows a stable crossover in which different methods reliably benefit different groups (P011).
+7. Advise choosing visual, auditory, or physical presentation because it represents the target content well, and providing learner-specific accessibility accommodations rather than matching style labels (P017).
+8. Distinguish modality preference from outcome evidence, and do not prescribe preference-matched visual or verbal instruction as a way to increase learning (P044).
+9. Reject modality matching: instruction matched to a supposed auditory (0.18), visual (0.09) or kinesthetic (0.18) preference yields little or no gain, and the groups overlap so heavily that the preferences are doubtful (P103).
+10. Do not classify learners or prescribe training from left-brain/right-brain stereotypes; complex cognition uses coordinated bilateral networks and informal hemisphere tests lack educational validity (P074).
+11. Prefer cognitive and behavioral evidence for actionable classroom guidance, and do not map fine-grained brain findings directly to instruction without an established cognitive bridge (P033).
+
+### State the residual limit
+
+12. Do not recommend the mnemonic keyword method for durable vocabulary learning: it improves recall of definitions and sentence comprehension but fades very quickly, with delayed post-test effects as low as d = 0.19 (P084).
+13. Restrict imagery-based text learning to learners able to visualize concrete narratives or spatial content, and expect memory benefits more readily than comprehension, inference, application, or standardized-test gains (P130).
+14. Flag as untested rather than assert the arguments that deep subject knowledge helps a teacher sequence surface-to-deep progressions and give feedback as students struggle (P105).
 
 ## Inputs
 
@@ -80,7 +93,7 @@ This skill judges whether a claimed learning technique is actually supported. It
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 

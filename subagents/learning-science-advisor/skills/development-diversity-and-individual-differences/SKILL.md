@@ -39,7 +39,7 @@ provenance:
 
 ## Purpose
 
-This skill handles who the learners are without converting group patterns into individual verdicts. It matches expectations and supports responsively to a learner's emerging competencies and demonstrated developmental readiness, treating timing as variable rather than a rigid age schedule while still providing supported challenge and time for growth. It protects developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational input as early as possible, because substantial recovery is possible but time-sensitive. It designs for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts, and evaluates aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and weighing social connection, culture, community, and cohort. It treats cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal, and uses group categories only for bounded population inference — never converting them into individual capacity judgments — measuring plural cultural systems and socially produced conditions directly instead.
+This skill checks whether expectations, supports, and design decisions are matched to what a learner has actually demonstrated — rather than to their age, grade, or group membership — across developmental readiness, older-learner design, aging, and cultural or demographic categories. It serves the instructor or designer who is setting those expectations, at the level of a single decision about a learner or a learner population. Its job is to keep group-level patterns bounded to population inference so they are never converted into a verdict on an individual's capacity.
 
 ## When to use
 
@@ -50,12 +50,23 @@ This skill handles who the learners are without converting group patterns into i
 
 ## Procedure
 
-1. Match expectations and supports responsively to the learner's emerging competencies and demonstrated developmental readiness — treating timing as variable rather than a rigid age schedule — while still providing supported challenge and time for growth (P087).
-2. Design for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, supporting them with self-paced links to relevant prior knowledge and treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts (P115).
-3. Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and considering social connection, culture, community, and cohort effects (P124).
-4. Treat cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal (P132).
-5. Use group categories for bounded population inference without converting them into individual capacity judgments; measure plural cultural systems and socially produced conditions directly (P134).
-6. Protect developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational inputs as early as possible — especially for children facing deprivation — because substantial recovery is possible but time-sensitive (P146).
+### Read developmental readiness
+
+1. Recommend the instructor match expectations and supports responsively to the learner's emerging competencies and demonstrated developmental readiness — treating timing as variable rather than a rigid age schedule — while still providing supported challenge and time for growth (P087).
+
+### Design for the individual profile
+
+2. Have the instructor design for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, supporting them with self-paced links to relevant prior knowledge and treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts (P115).
+3. Have the instructor evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and considering social connection, culture, community, and cohort effects (P124).
+
+### Hold the group-to-individual line
+
+4. Recommend the instructor treat cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal (P132).
+5. Recommend the instructor use group categories for bounded population inference without converting them into individual capacity judgments; measure plural cultural systems and socially produced conditions directly (P134).
+
+### Protect sensitive periods
+
+6. Recommend the instructor protect developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational inputs as early as possible — especially for children facing deprivation — because substantial recovery is possible but time-sensitive (P146).
 
 ## Inputs
 
@@ -64,7 +75,7 @@ This skill handles who the learners are without converting group patterns into i
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -79,7 +90,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 A workshop designer reads that speeded reasoning declines on average with age and drops the advanced module for participants over sixty.
 
-That converts a bounded population inference into an individual capacity judgment, which the group category does not license (P134). Design instead from each learner's individual cognitive profile and retained domain knowledge, supply self-paced links to relevant prior knowledge, and treat unfamiliar-domain difficulty and the age trend as hypotheses rather than capacity verdicts (P115). Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning itself (P124), and match expectations and supports to demonstrated readiness while still providing supported challenge and time for growth (P087).
+That converts a bounded population inference into an individual capacity judgment, which the group category does not license (P134). Recommend the designer instead build the module from each learner's individual cognitive profile and retained domain knowledge, supply self-paced links to relevant prior knowledge, and treat unfamiliar-domain difficulty and the age trend as hypotheses rather than capacity verdicts (P115). Point to function-specific trajectories and individual context as the right basis for evaluating aging, distinguishing cognitive resources from learning itself (P124), and recommend matching expectations and supports to demonstrated readiness while still providing supported challenge and time for growth (P087).
 
 ## References
 

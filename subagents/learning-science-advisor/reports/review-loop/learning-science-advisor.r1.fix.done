@@ -1,35 +1,23 @@
 FIXED
 
-All 3 must-fix and all 7 should-fix findings applied at agent_version 1.1.0 (validate: 0 FAIL, 1
-pre-existing environment WARN), plus the actionable nice-to-haves: F1 replaced the machine-emitted,
-character-budget-truncated `## Anti-patterns to flag` list in all 15 skills with deliberately written
-failure modes, one per principle 1:1 with `## Procedure` (which also closes F5's silent 7-bullet cap),
-and a sweep for the same defect class beyond the section the review checked found and repaired two
-truncated `## Procedure` steps (P115 "…and treating.", P068 "…and fading."); F2 added mnemonic and
-memory systems and recall reliability to `router_description`, so the `always_on`
-`memory-mnemonics-and-recall-accuracy` skill is no longer an unreachable capability; F3 extended
-`reports/faithfulness-report.yaml` 29 → 50 findings, grading all 15 `knowledge_partition.always_on`
-blocks and all 3 `examples[*].ideal_response` (the effect sizes and myth refutations the prior report
-skipped while asserting a complete pass) plus the three new authored fields, all 50 WITHIN_SCOPE —
-that pass surfaced two further hedge slips, P050's "**can** reinforce confident errors" and P115's
-"an average age trend **in speeded reasoning**", both corrected in profile and skill; F4 restored
-P125's high-utility-default hedge to `quality_bar[2]`, which had contradicted the profile's own
-`source_of_truth_policy.precedence`; F6 and F8 added `quality_bar[6]` as an authored output floor
-carrying `outputs.primary_format` and `minimum_useful_output` into the deployed adapter (verified
-rendered) — done in the profile rather than the shared export template, since a template edit would
-break every other package's `adapter-fresh` check, and `minimum_useful_output` is now in the ledger's
-carve-out; F7 added the matching `forbidden_behaviours[5]` and `handoff_rules[2]` for the
-education-law / accreditation / safeguarding / institutional-policy boundary; F9 added the
-missing-context and Glob/Grep + skill-selection rules to `inputs.required`, motivating the adapter's
-two granted tools; F11 dropped the out-of-set P039 citation, F12 changed `when_to_use[1]` to
-"Investigating", F13 and F15 are recorded as ledger notes (`multisource_synthesis: deferred` is
-expected for a P0-authored layer; P092/P098's `profile_rule: false` does not conflict with their
-`always_on` citations, which are skill-scope not rule fields), and F14 trimmed `## Role`. F10 could
-not be closed: `sources/markdown/` and a warm MAP cache are both genuinely absent, so the
-source-text-backed rights gate cannot run here — the standalone `quote_scan` passes. `role`,
-`when_to_use`, `when_not_to_use`, `outputs` and the mode lines were compressed to hold the profile
-body at 985 words against the 1000-word hard limit, dropping prose but no claim. CHANGELOG and
-provenance-ledger carry matching 1.1.0 entries with per-change supersession reasoning, and the
-adapter was re-exported. The spine — 150 principles, 5006 claims, evidence, anchors — the
-skill→principle partition, every skill's frontmatter `provenance` block including
-`authored_from_digest`, and both test suites are untouched, and no other subagent was modified.
+All 3 must-fix findings and every high-value should-fix from
+`learning-science-advisor.r1.review.md` applied at `agent_version: 1.3.0` (validate: 0 FAIL, 1
+pre-existing environment WARN): the faithfulness report's `forbidden_behaviours` index off-by-one
+relabelled `[5]`→`[6]` with new `[5]` (numeric guardrail), `[7]` and `canonical_owner` entries added
+(M1); `source_of_truth_policy.canonical_owner` recorded in the ledger's authored-fields table so it is
+no longer an orphan field value (M2); a new `forbidden_behaviours[7]` added to mirror
+`when_not_to_use[3]` on subject-matter rulings, paid for by wording-only body trims that never touched
+a citation, hedge or boundary clause (M3, body 998 → 991 words against the 1000-word FAIL gate); the
+stale `always_on[13]` hedge note corrected to record that P115's "in speeded reasoning" qualifier is
+retained verbatim (S1); all 15 `skills/*/SKILL.md` bodies re-authored — `## Purpose` cut to 1–3
+sentences, `## Procedure` regrouped into 2–4 named `###` decision phases, the ×15 verbatim charter
+clause replaced by a pointer, and the two performing-voice steps (P029, P098) reframed as advice to the
+instructor — with every frontmatter `provenance` block including `authored_from_digest` byte-for-byte
+unchanged and every principle citation surviving on the same content (S4/S5/S6/S8); `router_description`
+restructured to identity + exclusions + `Covers: …` (S7); plus N2, N3, N4, N5 and N7. Matching 1.3.0
+CHANGELOG and provenance-ledger Version History entries written with per-change supersession reasoning,
+and the adapter re-exported (canonical and installed in sync). S3 could not be closed and is recorded as
+still open in both: `sources/markdown/` and a warm MAP cache are genuinely absent here, so the
+source-text-backed rights gate cannot run — the standalone `quote_scan` over the package passes. The
+spine (150 principles, 5006 claims, evidence, anchors), the skill→principle partition and both test
+suites are untouched, and no other subagent was modified.

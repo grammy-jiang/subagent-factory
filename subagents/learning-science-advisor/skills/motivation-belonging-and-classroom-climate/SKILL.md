@@ -48,31 +48,43 @@ provenance:
 
 ## Purpose
 
-This skill diagnoses and supports the motivational and social conditions learning needs. It treats motivation across three interacting dimensions — the value placed on the work, the expectation of success, and the perceived supportiveness of the environment — and targets whichever is actually limiting engagement, treating motivation and ability beliefs as changeable interpretations shaped by structures, relationships, feedback, and experience rather than fixed traits. It raises value by connecting rigorous work to important issues, authentic consequences, and future use; builds expectancy through genuine challenges that appear attainable, scaffolded early success, and outcome framing in terms of controllable strategy, preparation, and effort with concrete alternatives after failure; and supports persistence with strategy trials, help-seeking, and improved course conditions rather than effort praise or mindset language alone. It treats belonging as part of instructional responsibility because isolation, threat, and persistent doubt consume the resources learning needs, monitors interaction for exclusion or derogation while preserving safely facilitated disagreement, and treats stereotype threat as a situational interaction to be reduced by auditing framing, examples, differential treatment, and cues — not as a learner deficit. It watches for performance orientation shrinking challenge, uses small external rewards cautiously and only for initially low-interest tasks, and keeps policies and negative feedback task-focused and non-demeaning.
+This skill helps an instructor or course designer diagnose which motivational dimension — value, expected success, or perceived support — is limiting a learner's or cohort's engagement, and correct the task design, feedback framing, incentives, or classroom climate responsible. It applies at the grain of a specific learner, activity, or climate concern, not whole-course redesign.
 
 ## When to use
 
 - Learners disengage, avoid challenge, or give up, and the limiting factor — value, expected success, or perceived support — must be identified (P140, P057, P037).
-- Belonging, exclusion, identity threat, or an unsafe climate is affecting who can participate and learn (P070, P069, P023, P141).
+- Belonging, exclusion, identity threat, or an unsafe climate is affecting who can participate and learn (P070, P069, P023).
+- Discussion, debate, or ambiguous claims are being designed or reviewed and need structured comparison, evidence standards, and validated participation, without shutting down legitimate disagreement (P141).
 - Feedback, grading policy, or failure is being communicated and the framing will shape what learners conclude about themselves (P022, P080, P094).
 - Incentives, rewards, or 'make it relevant' interventions are being designed (P096, P079, P038, P139).
 
 ## Procedure
 
-1. After performance, frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure (P022).
-2. Treat stereotype threat as a situational interaction among identity, task, stereotype awareness, environmental cues, and evaluation demand rather than a fixed learner deficit, and reduce it by auditing task framing, assumptions, examples, differential treatment, and cues that make a negative group stereotype salient (P023).
-3. Watch for performance orientation reducing challenge: students focused on proving achievement relative to others may take on easier tasks to demonstrate competence, while mastery-oriented students attend to their own development (P037).
-4. Use belonging and scaffolded early success to build motivation, while continuing to supply the knowledge, practice, resources, and strategies required for actual learning (P038).
-5. Treat motivation and ability beliefs as changeable interpretations shaped by structures, relationships, feedback, and experience rather than fixed learner traits (P057).
-6. Continuously monitor interaction records for exclusion or derogation, intervene to protect belonging and equity, and model inclusive engagement while preserving safely facilitated legitimate disagreement (P069).
-7. Treat belonging as part of instructional responsibility because social isolation, threat, and persistent doubt consume resources needed for learning (P070).
-8. Increase perceived value by connecting rigorous learning to important issues, authentic consequences, future coursework, and professional use (P079).
-9. Communicate policies and negative feedback with an encouraging, task-focused tone that preserves approachability and directs improvement without demeaning the person (P080).
-10. Support persistence with strategy trials, help-seeking, reflection, and improved course conditions rather than effort praise or mindset language alone (P094).
-11. Use small external rewards cautiously for initially low-interest tasks, and avoid rewards large enough to weaken intrinsic motivation that is already present (P096).
-12. Give each learner a genuine challenge that appears attainable, adjusting the task or support when preparation differs materially (P139).
-13. Diagnose motivation across three interacting dimensions—value, expected success, and perceived support—and target the dimension that is actually limiting engagement (P140).
-14. Make ambiguity safe through structured comparison, evidence standards, and validation of participation without treating unsupported claims as equally strong (P141).
+### Diagnose the limiting dimension
+
+1. Treat motivation and ability beliefs as changeable interpretations shaped by structures, relationships, feedback, and experience — not as fixed learner traits — when forming a diagnosis (P057).
+2. Recommend diagnosing motivation across the three interacting dimensions — value, expected success, and perceived support — and target whichever dimension is actually limiting engagement, rather than treating motivation as one undifferentiated problem (P140).
+
+### Raise value and expectancy
+
+3. Recommend increasing perceived value by connecting rigorous learning to important issues, authentic consequences, later coursework, and professional use (P079).
+4. Recommend giving each learner a genuine challenge that appears attainable, adjusting the task or support when preparation differs materially (P139).
+5. Recommend using belonging-building and scaffolded early success to build motivation, while continuing to supply the knowledge, practice, resources, and strategies actually required for learning (P038).
+6. Recommend that, after performance, feedback frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure (P022).
+7. Recommend supporting persistence with strategy trials, help-seeking, reflection, and improved course conditions, rather than relying on effort praise or mindset language alone (P094).
+8. Recommend communicating policies and negative feedback in an encouraging, task-focused tone that preserves approachability and directs improvement without demeaning the person (P080).
+
+### Audit climate and belonging
+
+9. Treat belonging as part of instructional responsibility, because social isolation, threat, and persistent doubt consume resources needed for learning (P070).
+10. Treat stereotype threat as a situational interaction among identity, task, stereotype awareness, environmental cues, and evaluation demand — never as a fixed learner deficit — and reduce it by auditing task framing, assumptions, examples, differential treatment, and cues that make a negative group stereotype salient (P023).
+11. Recommend continuously monitoring interaction records for exclusion or derogation, intervening to protect belonging and equity, and modeling inclusive engagement, while preserving safely facilitated legitimate disagreement (P069).
+12. Recommend making ambiguity safe through structured comparison and evidence standards, and validating participation, without treating unsupported claims as equally strong as well-evidenced ones (P141).
+
+### Watch the side-effects
+
+13. Watch for performance orientation reducing challenge: learners focused on proving achievement relative to others may take on easier tasks to demonstrate competence, while mastery-oriented learners attend to their own development (P037).
+14. Recommend using small external rewards cautiously, only for initially low-interest tasks, and avoiding rewards large enough to weaken intrinsic motivation that is already present (P096).
 
 ## Inputs
 
@@ -81,7 +93,7 @@ This skill diagnoses and supports the motivational and social conditions learnin
 
 ## Output
 
-Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. This skill advises on learning and teaching practice; it does not teach the subject matter, deliver the course, mark the work, or diagnose a learning disability or clinical condition.
+Per finding: name the gap and the principle it engages, give the correction, state the residual trade-off or the referral to make, and end with a concrete next step. Order findings highest-impact first, and mark where the evidence is uncertain or context-bound rather than presenting it as settled. Advice only — the profile's forbidden behaviours and handoff rules govern what this skill will not do.
 
 ## Anti-patterns to flag
 
@@ -104,7 +116,7 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 A cohort disengages midway through a course. The instructor adds a growth-mindset slide and starts praising effort.
 
-Diagnose first across the three interacting dimensions — value, expected success, and perceived support — and target the one actually limiting engagement (P140). Effort praise and mindset language alone do not sustain persistence; supply strategy trials, help-seeking, reflection, and improved course conditions (P094), together with belonging and scaffolded early success alongside the knowledge, practice, resources, and strategies learning actually requires (P038). After performance, frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure (P022). Audit task framing, assumptions, examples, differential treatment, and cues that make a negative group stereotype salient (P023), treat belonging as part of instructional responsibility (P070), and raise perceived value by connecting the work to authentic consequences and professional use (P079).
+Recommend diagnosing first across the three interacting dimensions — value, expected success, and perceived support — and targeting the one actually limiting engagement (P140). Effort praise and mindset language alone will not sustain persistence; recommend strategy trials, help-seeking, reflection, and improved course conditions (P094), together with belonging-building and scaffolded early success alongside the knowledge, practice, resources, and strategies learning actually requires (P038). Recommend that, after performance, feedback frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure (P022). Recommend auditing task framing, assumptions, examples, differential treatment, and cues that make a negative group stereotype salient (P023), treating belonging as part of instructional responsibility (P070), and raising perceived value by connecting the work to authentic consequences and professional use (P079).
 
 ## References
 
