@@ -4,33 +4,32 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P017
-  - P024
-  - P027
-  - P040
-  - P098
-  - P112
-  - P146
+  - P022
+  - P033
+  - P057
+  - P113
+  - P130
+  - P165
   claims:
   - C00031
   - C00039
   - C00608
   - C00609
-  - C00665
-  - C00666
   - C00772
   - C00773
-  - C00973
-  - C00974
   - C01542
   - C01543
   - C01544
   - C01545
   - C01546
   - C01547
+  - C01578
+  - C01579
+  - C02580
+  - C02581
   evidence: []
   source_anchors: []
-  authored_from_digest: b7f83d3cd6761ae0168e4b968b07111120c22d1b050977529399e7421ed3651d
+  authored_from_digest: 1e842e2111cf48f5c39c7c4cde4ffdc1593b7300aebe8f07e222115ac43a8c0b
 ---
 
 
@@ -38,7 +37,7 @@ provenance:
 
 ## Purpose
 
-This skill builds the loop between performance and improvement: cheap recurring checks that reveal what learners took from a session, cycles of performance, feedback, revision, and new performance, immediate self-checkable feedback inside practice, response formats that do not force learners to answer against the person beside them, and shared quality criteria used consistently across instructor, peer, and self-review. It keeps formative feedback timely, two-way, and gap-closing — exposing both current performance and the intended standard while learners can still act on it — and treats a plan that cannot absorb feedback as a defect rather than a virtue.
+This skill builds the loop between performance and improvement: cycles of performance, feedback, revision, and new performance; feedback that tells the learner the degree of correctness of what they did, whether built into the medium, learner-initiated, or supplied later; immediate self-checkable feedback inside embedded practice grounded in the authentic goal; and shared quality criteria used consistently across instructor, peer, and self-review as learners' judgment develops. It keeps formative feedback timely, two-way, and gap-closing — exposing both current performance and the intended standard while learners can still act on it — and treats a plan that cannot absorb feedback as a defect rather than a virtue.
 
 ## When to use
 
@@ -49,13 +48,12 @@ This skill builds the loop between performance and improvement: cheap recurring 
 
 ## Procedure
 
-1. Plan for adjustment in light of goals, feedback, and predictable problems (P017).
-2. Use cheap recurring checks (P024).
-3. Give students opportunities to rehearse, consult resources, get feedback, and refine, and run learning as cycles of performance, feedback, revision, and new performance; the secure secret test retains a role but must coexist (P027).
-4. Prefer anonymous or semi-anonymous immediate response over a show of hands (P040).
-5. Use shared quality criteria for instructor, peer, and self-review, collecting successive authentic products and adapting checklists as learners' judgment develops (P098).
-6. Make formative feedback timely, two-way, and gap-closing (P112).
-7. Repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate self-checkable feedback during embedded assessment (P146).
+1. Plan for adjustment in light of goals, feedback, and predictable problems (P022).
+2. Give students opportunities to rehearse, consult resources, get feedback, and refine, and run learning as cycles of performance, feedback, revision, and new performance; the secure secret test retains a role but must coexist (P033).
+3. Make feedback inform the learner of the degree of correctness of their performance; its delivery may be built into the medium, learner-initiated and immediate, or supplied later by an instructor (P057).
+4. Use shared quality criteria for instructor, peer, and self-review, collecting successive authentic products and adapting checklists as learners' judgment develops (P113).
+5. Make formative feedback timely, two-way, and gap-closing (P130).
+6. Repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate self-checkable feedback during embedded assessment (P165).
 
 ## Inputs
 
@@ -68,13 +66,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P017: Plan for adjustment in light of goals, feedback, and predictable problems.
-- Overlooking P024: Use cheap recurring checks.
-- Overlooking P027: Give students opportunities to rehearse, consult resources, get feedback, and refine, and run learning as cycles of performance, feedback, revision.
-- Overlooking P040: Prefer anonymous or semi-anonymous immediate response over a show of hands.
-- Overlooking P098: Use shared quality criteria for instructor, peer, and self-review, collecting successive authentic products and adapting checklists as learners'.
-- Overlooking P112: Make formative feedback timely, two-way, and gap-closing.
-- Overlooking P146: Repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate.
+- Overlooking P022: Plan for adjustment in light of goals, feedback, and predictable problems.
+- Overlooking P033: Give students opportunities to rehearse, consult resources, get feedback, and refine, and run learning as cycles of performance, feedback, revision.
+- Overlooking P057: Make feedback inform the learner of the degree of correctness of their performance; its delivery may be built into the medium, learner-initiated.
+- Overlooking P113: Use shared quality criteria for instructor, peer, and self-review, collecting successive authentic products and adapting checklists as learners'.
+- Overlooking P130: Make formative feedback timely, two-way, and gap-closing.
+- Overlooking P165: Repair relevance by grounding examples and practice in the authentic goal, use only fair taught distinctions in distractors, and provide immediate.
 
 ## References
 
@@ -82,4 +79,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P017, P024, P027, P040, P098, P112, P146, grounded in the ten distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; and *e-Learning and the Science of Instruction*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P022, P033, P057, P113, P130, P165, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.

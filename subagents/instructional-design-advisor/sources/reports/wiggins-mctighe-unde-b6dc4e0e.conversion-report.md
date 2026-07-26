@@ -1,9 +1,9 @@
 # Conversion Report — wiggins-mctighe-unde-b6dc4e0e
 
-**Source:** wiggins-mctighe-understanding-by-design-2005.md
+**Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-26T10:28:26.947454+00:00
+**Generated:** 2026-07-26T12:51:14.734054+00:00
 
 ---
 

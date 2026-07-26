@@ -1,9 +1,9 @@
 # Conversion Report — merrill-first-princi-dd2a4ed2
 
-**Source:** merrill-first-principles-of-instruction.md
+**Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-26T10:28:26.994247+00:00
+**Generated:** 2026-07-26T12:51:14.811530+00:00
 
 ---
 

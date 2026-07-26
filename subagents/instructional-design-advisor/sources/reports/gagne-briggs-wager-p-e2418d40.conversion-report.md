@@ -1,9 +1,9 @@
 # Conversion Report — gagne-briggs-wager-p-e2418d40
 
-**Source:** gagne-briggs-wager-principles-of-instructional-design.md
+**Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-26T10:28:26.990451+00:00
+**Generated:** 2026-07-26T12:51:14.805825+00:00
 
 ---
 

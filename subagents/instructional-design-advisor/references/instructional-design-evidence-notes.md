@@ -184,10 +184,30 @@ provenance:
   - P178
   - P179
   - P180
+  - P181
+  - P182
+  - P183
+  - P184
+  - P185
+  - P186
+  - P187
+  - P188
+  - P189
+  - P190
+  - P191
+  - P192
+  - P193
+  - P194
+  - P195
+  - P196
+  - P197
+  - P198
+  - P199
+  - P200
   claims: []
   evidence: []
   source_anchors: []
-  authored_from_digest: 563c17469b9fa7617c732ff0590d7f36fa558320b7672fece186d17405708694
+  authored_from_digest: 1fb9bd93a4e9b087dc3b99e78b76395ecfee9b22f24833171d971e659e5c3e01
 ---
 
 
@@ -197,16 +217,17 @@ How the principles in this package are grounded, and how to keep advice faithful
 
 ## Sources
 
-Ten distillation-only sources ground the package, spanning backward design and assessment for understanding (*Understanding by Design*), constructive alignment and university teaching (*Teaching for Quality Learning at University*), integrated course design (*Creating Significant Learning Experiences*), the revised taxonomy of knowledge and cognitive process (*A Taxonomy for Learning, Teaching, and Assessing*), systematic instructional design (*Principles of Instructional Design*, *The Systematic Design of Instruction*), demonstration-application-centred instruction (*First Principles of Instruction*), iterative successive-approximation development (*Leaving ADDIE for SAM*), and the cognitive science of learning from words and pictures (*Multimedia Learning*, *e-Learning and the Science of Instruction*). Paraphrase and restructure only — no verbatim quotation (see `.claude/rules/rights-and-quotation-policy.md`).
+Eleven distillation-only sources ground the package, spanning backward design and assessment for understanding (*Understanding by Design*), constructive alignment and university teaching (*Teaching for Quality Learning at University*), integrated course design (*Creating Significant Learning Experiences*), the revised taxonomy of knowledge and cognitive process (*A Taxonomy for Learning, Teaching, and Assessing*), systematic instructional design (*Principles of Instructional Design*, *The Systematic Design of Instruction*), demonstration-application-centred instruction (*First Principles of Instruction*), instructional-theory and elaboration sequencing (*Instructional-Design Theories and Models*), iterative successive-approximation development (*Leaving ADDIE for SAM*), and the cognitive science of learning from words and pictures (*Multimedia Learning*, *e-Learning and the Science of Instruction*). Paraphrase and restructure only — no verbatim quotation (see `.claude/rules/rights-and-quotation-policy.md`).
 
 ## Faithfulness discipline
 
-- No advice may state a rule more strongly than its source supports: the multimedia and e-learning principles are guidance consistent with how the mind works, not unbending rules, and their boundary conditions must be stated whenever one is invoked (P141).
-- Taxonomies and models are adaptable analytic heuristics, not literal reality, a source of educational aims, or a unique teaching prescription; a disputed classification is used to improve the design, not to win a labelling argument (P067, P163).
-- Evidence about learning governs claims about quality: adequacy rests on what students actually learn and how much they grow, not on demand, enrolment, or satisfaction, and behavioural engagement is not evidence of learning (P007, P005).
-- Constructive alignment is adapted to local context while its core relationship is preserved, and the design stays iterative — earlier decisions are rethought as later ones expose problems (P047, P041).
-- The advisor guides the design; the teacher of record, the content expert, and the institution own the course, the subject matter, and the grades (P173, P121).
+- No advice may state a rule more strongly than its source supports: rules for teaching mental operations are conditional rather than absolute, so the conditions are stated with the rule, a method is prescribed together with the situation it fits, and a design principle's effect is checked against learner prior knowledge before it is applied (P011, P122, P042).
+- A design principle is recommended only when it is both theory-grounded and evidence-based; when only one criterion holds, say which is missing (P092).
+- Taxonomies and models are adaptable analytic heuristics, not literal reality, a source of educational aims, or a unique teaching prescription; a disputed classification is used to improve the design, not to win a labelling contest (P001, P182).
+- Evidence about learning governs claims about quality: adequacy rests on what students actually learn and how much they grow, not on demand, enrolment, or satisfaction; added interest that is irrelevant reliably reduces learning; and disengagement symptoms are evidence about the design (P004, P093, P100).
+- Constructive alignment is adapted to local context while its core relationship is preserved, and the design stays iterative — earlier decisions are rethought as later ones expose problems (P064, P055).
+- The advisor guides the design; the teacher of record, the content expert, and the institution own the course, the subject matter, and the grades (P107, P193, P021).
 
 ## Grounding
 
-Spine: 180 principles (52 high-confidence) over 6851 atomic claims, with evidence records and chunk anchors. Every principle id P001-P180 resolves into `principles/principles.yaml`.
+Spine: 200 principles (75 high-confidence) over 7860 atomic claims, with evidence records and chunk anchors. Every principle id P001-P200 resolves into `principles/principles.yaml`.

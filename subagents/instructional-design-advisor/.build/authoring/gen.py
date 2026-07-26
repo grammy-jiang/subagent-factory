@@ -5,6 +5,11 @@ Reads the already-assembled, deterministically-valid distilled spine
 LLM-authored layer: profile.yaml, references/*, skills/*, tests/*, reports/faithfulness-report.yaml,
 provenance-ledger.md, CHANGELOG.md. Every emitted id resolves into the spine.
 
+v1.1.0 fold-in: the spine was rebuilt over eleven sources (full *Multimedia Learning* replacing the
+partial conversion, plus *Instructional-Design Theories and Models / In Action*), which renumbered
+every principle. The 13-skill partition and every inline principle citation below were re-derived
+against the new P001-P200 numbering — the v1.0.0 ids do not carry over.
+
 Run:  python3 .build/authoring/gen.py
 """
 
@@ -18,7 +23,7 @@ import yaml
 
 BASE = Path(__file__).resolve().parents[2]  # subagents/instructional-design-advisor
 SLUG = "instructional-design-advisor"
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 DATE = "2026-07-26"
 
 # ---------------------------------------------------------------------------- spine load
@@ -47,38 +52,41 @@ def pids(n: int) -> str:
 
 # ---------------------------------------------------------------------------- partition
 # Each entry: (skill-slug (kebab, <=48 chars), [principle numbers]).
-# Every principle 1..N appears exactly once.
+# Every principle 1..N appears exactly once. Re-derived for the v1.1.0 renumbered spine.
 SKILLS: list[tuple[str, list[int]]] = [
     ("backward-design-and-constructive-alignment",
-     [6, 10, 13, 19, 41, 47, 74, 86, 95, 96, 107, 116, 153, 160]),
+     [3, 8, 9, 13, 14, 20, 46, 55, 64, 88, 101, 111, 125, 135, 172]),
     ("learning-outcomes-and-taxonomy",
-     [11, 38, 59, 60, 67, 89, 100, 105, 123, 124, 142, 151, 154, 163, 165, 169]),
+     [1, 31, 76, 77, 105, 115, 141, 142, 153, 161, 170, 173, 179, 182, 184, 188]),
     ("assessment-design-and-authentic-tasks",
-     [14, 15, 16, 18, 26, 32, 35, 36, 39, 65, 69, 71, 75, 82, 83, 94, 97, 99, 109, 110, 111, 114,
-      136, 145, 148]),
-    ("feedback-and-formative-practice", [17, 24, 27, 40, 98, 112, 146]),
+     [12, 16, 17, 18, 21, 44, 47, 48, 67, 81, 84, 89, 97, 98, 110, 112, 114, 127, 128, 129, 132,
+      167, 199]),
+    ("feedback-and-formative-practice", [22, 33, 57, 113, 130, 165]),
     ("teaching-for-understanding-and-transfer",
-     [3, 28, 33, 42, 61, 104, 113, 126, 135, 152, 155, 162, 176, 177, 178, 179]),
+     [23, 34, 45, 56, 58, 78, 116, 120, 131, 144, 154, 163, 171, 174, 196, 197, 198]),
     ("multimedia-and-elearning-design",
-     [1, 4, 5, 9, 20, 25, 43, 78, 134, 137, 138, 139, 140, 141]),
+     [2, 7, 15, 26, 38, 40, 42, 92, 93, 124, 155, 156, 157, 158, 159, 160]),
     ("instructional-strategy-and-events",
-     [8, 29, 30, 37, 46, 57, 72, 101, 102, 103, 106, 119, 125, 129, 132, 144, 149, 158, 161, 166,
-      167, 170, 171, 172]),
-    ("motivation-and-learner-engagement", [12, 21, 63, 85, 115, 150]),
-    ("needs-and-context-analysis", [2, 22, 48, 52, 54, 58, 62, 80, 127, 130, 168, 173]),
-    ("iterative-prototyping-and-development", [23, 50, 56, 70, 73, 133, 175]),
+     [5, 11, 19, 24, 25, 27, 28, 29, 32, 35, 36, 37, 39, 51, 52, 53, 54, 59, 60, 63, 74, 86, 117,
+      118, 122, 123, 143, 146, 147, 150, 180, 181, 185, 189, 190]),
+    ("motivation-and-learner-engagement", [30, 49, 80, 100, 133, 169]),
+    ("needs-and-context-analysis",
+     [50, 65, 70, 75, 79, 95, 102, 148, 187, 191, 192, 193]),
+    ("iterative-prototyping-and-development", [10, 68, 73, 85, 87, 119, 151, 152, 195]),
     ("evaluation-transfer-and-impact",
-     [45, 49, 51, 53, 55, 66, 77, 79, 81, 84, 88, 90, 93, 122, 128, 131, 159, 174]),
+     [41, 62, 66, 69, 71, 72, 82, 91, 94, 96, 99, 104, 106, 109, 140, 145, 149, 178, 194]),
     ("active-learning-and-group-formats",
-     [34, 44, 68, 87, 92, 108, 117, 118, 120, 147, 156, 157, 164]),
-    ("teaching-scholarship-and-quality", [7, 31, 64, 76, 91, 121, 143, 180]),
+     [61, 83, 103, 108, 126, 136, 137, 138, 139, 164, 166, 168, 175, 176, 177, 183, 186]),
+    ("teaching-scholarship-and-quality", [4, 6, 43, 90, 107, 121, 134, 162, 200]),
 ]
 
 # integrity: every principle exactly once
 _seen: list[int] = []
 for _slug, _nums in SKILLS:
     _seen += _nums
-assert sorted(_seen) == list(range(1, N_PRINC + 1)), f"partition mismatch: {sorted(_seen)}"
+assert sorted(_seen) == list(range(1, N_PRINC + 1)), (
+    f"partition mismatch: dup={sorted({n for n in _seen if _seen.count(n) > 1})} "
+    f"missing={sorted(set(range(1, N_PRINC + 1)) - set(_seen))}")
 assert len(set(s for s, _ in SKILLS)) == len(SKILLS), "duplicate skill slug"
 for s, _ in SKILLS:
     assert len(s) <= 48, f"slug too long ({len(s)}): {s}"
@@ -100,12 +108,13 @@ THEMES: dict[str, dict] = {
             "This skill governs the order and the alignment of a design: desired results first, then "
             "the evidence that would show they were achieved, then the teaching and learning that "
             "gets learners there. It keeps the unit as the working design focus while course, "
-            "programme, and graduate purposes are designed backward from outcomes; keeps outcomes "
-            "few, integrated, and stated as what a learner will newly do and how well; prioritises "
-            "threshold and core content deliberately against stakeholder accretion; makes sure "
-            "learners know what the learning eventually requires them to do; and treats design as "
-            "iterative, with earlier units rethought in light of later ones and every assessment "
-            "criterion traceable to a course outcome and a programme specification."),
+            "programme, and graduate purposes are designed backward with the same elements; keeps "
+            "outcomes few, integrated, and stated as what a learner will newly do and how well; "
+            "refuses covering the content as a goal because it names what the teacher does; "
+            "prioritises threshold and core content deliberately against stakeholder accretion; "
+            "makes sure learners know what the learning eventually requires them to do; checks "
+            "alignment goal-by-goal against the assessment and the activities that support it; and "
+            "treats design as iterative, with earlier units rethought in light of later ones."),
         when=[
             "A course, unit, lesson, or programme is being designed or redesigned and the order of "
             "design decisions is at issue.",
@@ -123,22 +132,23 @@ THEMES: dict[str, dict] = {
         purpose=(
             "This skill classifies and levels what learners are meant to achieve. It resolves broad "
             "objective language into the specific knowledge subtype and cognitive process the "
-            "performance actually requires, begins objective-writing from the type of learning "
-            "outcome intended, distinguishes routine execution from adaptive implementation, and "
-            "separates conceptual understanding, analysis, evaluation, and creation as either "
+            "performance actually requires, words objectives by intended cognition rather than by "
+            "observable response format, separates remembering from understanding and refuses "
+            "retention evidence as proof a design worked, distinguishes routine execution from "
+            "adaptive implementation, and treats analysis, evaluation, and creation as either "
             "transfer targets or means to simpler learning. It uses taxonomy as an adaptable "
             "analytic heuristic rather than a literal reality or a teaching prescription, classifies "
-            "a task for a stated learner group and prior-experience state, samples objectives "
-            "representatively at intermediate planning levels, and resolves conflicting signals by "
-            "comparing intended wording, enacted activity, and scoring criteria."),
+            "a task for a stated learner group and prior-experience state, analyses intellectual "
+            "performance at its actual transfer level, and resolves conflicting signals by comparing "
+            "intended wording, enacted activity, assessed content, and scoring criteria."),
         when=[
             "An objective, outcome statement, or standard is too broad to design or assess against.",
             "A design must decide the cognitive level it is actually targeting, or whether a claimed "
             "higher-order verb survives contact with the enacted task.",
             "A taxonomy classification is disputed, or is being applied as a rule rather than a "
             "heuristic.",
-            "Attitude, verbal-information, or transfer-level outcomes must be stated in a form that "
-            "can be taught and observed.",
+            "Transfer-level or understanding outcomes must be stated in a form that can be taught, "
+            "observed, and assessed with sufficiently novel material.",
         ],
         input="The objectives or outcome statements under discussion, the tasks and scoring criteria "
               "that enact them, and the learner group and its prior experience."),
@@ -147,13 +157,16 @@ THEMES: dict[str, dict] = {
         purpose=(
             "This skill designs and reviews the evidence side of a course: authentic tasks that "
             "require judgment on unstructured problems in a realistic context, explicit public "
-            "criteria applied before judgment, validity and reliability questions asked plainly, and "
-            "forward-looking tasks that put learners where the knowledge is actually used rather "
-            "than asking whether topics were covered. It separates formative from summative purpose, "
-            "separates task grades from outcome achievement, prefers criterion-referenced standards "
-            "over norm-referenced curves, builds assessment as an accumulating scrapbook of varied "
-            "evidence rather than one snapshot, and designs examinations, portfolios, rubrics, "
-            "reassessment, and the whole assessment programme as one proportionate evidence system."),
+            "criteria applied before judgment, rubric standards written as descriptions of "
+            "performance rather than bare numbers, and forward-looking tasks that put learners where "
+            "the knowledge is actually used rather than repeating a taught protocol with varied "
+            "parameters. It expects evidence of understanding to be less direct than an objective "
+            "test score, separates formative from summative purpose, separates task grades from "
+            "outcome achievement, prefers criterion-referenced standards over forced distributions "
+            "and false percentage precision, builds assessment as an accumulating scrapbook of "
+            "varied evidence rather than one snapshot, and designs examinations, portfolios, "
+            "rubrics, reassessment, and the whole assessment programme as one proportionate evidence "
+            "system."),
         when=[
             "An assessment task, rubric, examination, portfolio, or whole assessment programme is "
             "being designed or reviewed.",
@@ -168,14 +181,15 @@ THEMES: dict[str, dict] = {
     "feedback-and-formative-practice": dict(
         title="Feedback And Formative Practice",
         purpose=(
-            "This skill builds the loop between performance and improvement: cheap recurring checks "
-            "that reveal what learners took from a session, cycles of performance, feedback, "
-            "revision, and new performance, immediate self-checkable feedback inside practice, "
-            "response formats that do not force learners to answer against the person beside them, "
-            "and shared quality criteria used consistently across instructor, peer, and self-review. "
-            "It keeps formative feedback timely, two-way, and gap-closing — exposing both current "
-            "performance and the intended standard while learners can still act on it — and treats a "
-            "plan that cannot absorb feedback as a defect rather than a virtue."),
+            "This skill builds the loop between performance and improvement: cycles of performance, "
+            "feedback, revision, and new performance; feedback that tells the learner the degree of "
+            "correctness of what they did, whether built into the medium, learner-initiated, or "
+            "supplied later; immediate self-checkable feedback inside embedded practice grounded in "
+            "the authentic goal; and shared quality criteria used consistently across instructor, "
+            "peer, and self-review as learners' judgment develops. It keeps formative feedback "
+            "timely, two-way, and gap-closing — exposing both current performance and the intended "
+            "standard while learners can still act on it — and treats a plan that cannot absorb "
+            "feedback as a defect rather than a virtue."),
         when=[
             "Learners get results too late, too vaguely, or with no opportunity to revise and "
             "perform again.",
@@ -190,14 +204,18 @@ THEMES: dict[str, dict] = {
         title="Teaching For Understanding And Transfer",
         purpose=(
             "This skill targets durable understanding rather than covered content. It organises "
-            "teaching around big ideas and essential questions, surfaces predictable misconceptions "
-            "before teaching, tests understanding by appropriate application to newly posed "
-            "questions, and refuses to count a task as transfer when it varies only quantities or "
-            "symbols. It teaches metacognition and self-regulation explicitly as strategy knowledge "
-            "plus monitoring and repair, builds understanding by connecting new learning to prior "
-            "frameworks and revisiting ideas, preserves warranted uncertainty in evidence-based "
-            "judgment, and names the teacher's blind spot — that teaching implies learning, and that "
-            "a few visible successes and no questions do not mean the class understood."),
+            "teaching around big ideas and the four senses of an essential question, reviews "
+            "predictable misconceptions before teaching, evaluates instruction by transfer rather "
+            "than memory because approaches look equivalent under recall measures alone, and refuses "
+            "to count a task as transfer when it varies only quantities or symbols. It teaches "
+            "metacognition, comprehension monitoring, and self-regulation explicitly as strategy "
+            "knowledge plus monitoring and repair; builds understanding by connecting new learning "
+            "to prior frameworks and revisiting ideas through varied, spaced encounters; repairs "
+            "systematic misconceptions at the underlying categorization rather than by adding "
+            "another definition; opens access to substantial material through conceptual bridges "
+            "rather than lowered expectations; preserves warranted uncertainty in evidence-based "
+            "judgment; and declines to read a call for inquiry around a big idea as a blanket "
+            "endorsement of discovery learning."),
         when=[
             "A design covers content but cannot show that learners understand or can transfer it.",
             "Transfer, application, or 'real-world' claims need testing against what the tasks "
@@ -211,22 +229,25 @@ THEMES: dict[str, dict] = {
     "multimedia-and-elearning-design": dict(
         title="Multimedia And E-Learning Design",
         purpose=(
-            "This skill applies the evidence on how people learn from words and pictures. It prefers "
-            "spoken narration to concurrent on-screen prose when animation and words must be "
-            "processed together, refuses to duplicate narration with on-screen sentences merely to "
-            "add a delivery mode, strips irrelevant words, decorative images, and background sound, "
-            "places printed words next to the graphic part they describe, and eliminates split "
-            "attention wherever the interface creates it. It signals what should drive selective "
-            "perception, supplies or activates an organising structure, pretrains component names "
-            "and behaviour for novices, sets practice quantity from criticality and learner time "
-            "cost, treats high behavioural engagement as no evidence of learning, declines to design "
-            "around learning styles, chooses pedagogy before technology, and states boundary "
-            "conditions whenever it invokes one of these principles."),
+            "This skill applies the evidence on how people learn from words and pictures. It "
+            "analyses a message by how the learner processes it — verbal versus pictorial "
+            "presentation mode, auditory versus visual sensory modality — rather than by counting "
+            "delivery devices; designs against dual channels, limited capacity, and active "
+            "processing; and routes words away from the visual channel by preferring narration to "
+            "concurrent on-screen text when a graphic must be processed at the same time. It strips "
+            "seductive details, places printed words next to the graphic part they describe, "
+            "eliminates split attention wherever the interface creates it, matches graphic type to "
+            "what is being taught, aims for a schematic rather than photographic model, sets "
+            "practice quantity from criticality and learner time cost, diagnoses whether the problem "
+            "is extraneous, essential, or generative processing before prescribing a remedy, "
+            "declines to design around learning styles or a universally best medium, requires a "
+            "design principle to be both theory-grounded and evidence-based, and checks learner "
+            "prior knowledge before applying any principle."),
         when=[
             "E-learning, slides, animation, video, or any words-plus-graphics material is being "
             "designed or reviewed.",
             "A medium or technology is being chosen, or is being adopted ahead of the pedagogy.",
-            "A design appeals to learning styles, engagement, or added delivery modes as "
+            "A design appeals to learning styles, added delivery modes, or added interest as "
             "justification.",
             "Learners must split attention between text, graphic, question, and feedback.",
         ],
@@ -237,16 +258,20 @@ THEMES: dict[str, dict] = {
         purpose=(
             "This skill selects and sequences what actually happens in instruction, derived from the "
             "goal, the analyses, the objectives, and the assessments rather than from habit. It "
-            "covers motivation, presentation, examples, active practice, feedback, assessment, and "
-            "transfer; sequences by prerequisite and manageable progression with entry checks and "
-            "pretests; chooses the strategy by the information-processing stage it serves; and "
-            "matches technique to outcome type — concepts through varied instances and negative "
-            "instances, intellectual skills through activated prerequisites and progressive transfer "
-            "cases, verbal information through organised prior-knowledge links, attitudes through "
-            "modelled choices and consequences, motor skills through demonstration and physical "
-            "practice. It scaffolds generative and complex performance from supported to independent "
-            "work, uses spaced retrieval rather than re-presentation, makes training conditions "
-            "resemble retrieval conditions, and budgets time across the whole sequence."),
+            "treats the nine events as a design checklist rather than a mandatory script, prescribes "
+            "a method together with the situation it fits, and sequences like a zoom lens — an "
+            "epitome of the whole, then elaboration of one part, then synthesis back to the whole. "
+            "It sequences by prerequisite and manageable progression with entry checks and pretests, "
+            "and matches technique to outcome type: concepts through varied instances and diagnostic "
+            "non-instances with irrelevant shortcut cues removed, intellectual skills through "
+            "activated prerequisites and progressive transfer cases, verbal information through "
+            "organised prior-knowledge links, attitudes through credible models and delivered "
+            "consequences, motor skills through part and whole practice. It scaffolds generative and "
+            "complex performance from supported to independent work, fades prompts so contiguity is "
+            "established with the intended cue, keeps every practice and test instance new, uses "
+            "spaced retrieval rather than re-presentation, makes training conditions resemble "
+            "retrieval conditions, builds strategy flexibility across multiple valid methods, and "
+            "budgets time across the whole sequence."),
         when=[
             "The activities, examples, practice, and sequence of a unit or course must be chosen or "
             "reviewed.",
@@ -254,8 +279,8 @@ THEMES: dict[str, dict] = {
             "motor skills — need matching techniques.",
             "Learners must be scaffolded from supported work to independent production, or "
             "prerequisites are unmet.",
-            "Practice, repetition, and time budgets need setting against criticality and transfer "
-            "conditions.",
+            "A recommended technique needs the situation, conditions, and time budget that make it "
+            "the right one stated alongside it.",
         ],
         input="The objectives and assessments already fixed, the learners' entry performance, and the "
               "activities, examples, and practice currently planned."),
@@ -266,12 +291,12 @@ THEMES: dict[str, dict] = {
             "organises motivational design under attention, relevance, confidence, and satisfaction; "
             "connects the intended learning to goals learners value and makes success credible "
             "instead of manufacturing urgency through threatening assessment; sets challenge from "
-            "accurate information about what these learners can and cannot do and adjusts it as "
-            "progress shows; combines autonomy and trust with clear goals, organised support, and "
-            "fair safeguards while avoiding intimidation, arbitrary control, and cynical busy-work; "
-            "and reads deep and surface approaches as task-and-context dependent, treating the "
-            "familiar cluster of disengagement symptoms as evidence about the design rather than "
-            "about the students."),
+            "accurate information about what these learners can and cannot do and pairs a "
+            "challenging activity with the activities that build the skills it demands; combines "
+            "autonomy and trust with clear goals, organised support, and fair safeguards while "
+            "avoiding intimidation, arbitrary control, and cynical busy-work; and reads deep and "
+            "surface approaches as task-and-context dependent, treating the familiar cluster of "
+            "disengagement symptoms as evidence about the design rather than about the students."),
         when=[
             "Attendance, preparation, discussion energy, or out-of-class study are falling and the "
             "cause is being attributed to learners.",
@@ -286,126 +311,141 @@ THEMES: dict[str, dict] = {
         title="Needs And Context Analysis",
         purpose=(
             "This skill runs the front end: it begins performance improvement without presuming "
-            "instruction, observes the actual setting, consults frontline practitioners, and uses "
-            "proportionate analysis to separate capability gaps from environmental, incentive, and "
-            "systems causes. It derives training needs from documented discrepancies rather than "
-            "felt needs alone, traces a voiced problem to an organisational outcome and quantifies "
-            "the gap, operationalises vague goals into observable success behaviours confirmed by "
-            "several knowledgeable contributors, triangulates unclear goal steps through "
-            "performance, expert practitioners, and workplace evidence, describes learners and "
-            "context from actual conditions, splits goals whose subperformances differ in structure, "
-            "and has a qualified content expert review goals and skill frameworks against explicit "
-            "structured criteria."),
+            "instruction and commits to needs assessment and design only for verified skill gaps, "
+            "using proportionate analysis to separate capability deficits from accountability, "
+            "incentive, tool, process, and culture causes. It traces a voiced problem to an "
+            "organisational outcome and quantifies the desired-versus-actual gap with critical "
+            "distance, multiple perspectives, and contrary evidence; operationalises vague goals "
+            "into observable success behaviours confirmed by several knowledgeable contributors; "
+            "triangulates unclear goal steps through self-performance, competent performers, "
+            "workplace evidence, and authoritative procedures; uncovers the thought processes an "
+            "expert actually uses by objective methods rather than self-report; describes learners, "
+            "learning context, performance context, and tools from actual conditions; splits goals "
+            "whose subperformances differ in structure; tests adoption fit against organisational "
+            "goals and total cost; and gives a qualified content expert explicit structured review "
+            "criteria rather than an unbounded opinion."),
         when=[
             "A training request arrives before anyone has established that instruction is the right "
-            "intervention.",
-            "A goal is stated too vaguely to design or assess against, or its steps are unclear.",
-            "Learner characteristics, prior performance, technology, and workplace conditions must "
-            "be established from actual evidence.",
-            "A goal analysis or subordinate-skill breakdown needs expert review for accuracy, "
-            "completeness, and job alignment.",
+            "response.",
+            "A goal, its steps, or its success indicators are too vague to design or assess against.",
+            "Learners, delivery technology, workplace conditions, or support arrangements must be "
+            "established from actual conditions rather than assumed.",
+            "Subject-matter accuracy or goal validity needs a content expert's review under explicit "
+            "criteria.",
         ],
-        input="The stated problem or training request, the organisational outcome behind it, and "
-              "whatever is known about performers, setting, and prior performance systems."),
+        input="The stated problem or training request, the organisational outcome behind it, what is "
+              "known about the performers and their setting, and any analysis already done."),
     "iterative-prototyping-and-development": dict(
         title="Iterative Prototyping And Development",
         purpose=(
-            "This skill manages the build as successive approximation rather than a single "
-            "specification handoff. It sets goals through early design-prototype-evaluation cycles "
-            "and stabilises behavioural objectives before detailed development; uses experiential "
-            "prototypes instead of specification-only approval to align stakeholders and test "
-            "timing, transitions, media, interaction, and integration; involves recent and "
-            "representative learners while fundamental change is still affordable; maps objectives "
-            "to treatments and reuses treatments where context and criteria permit; and moves "
-            "through progressive release gates — design proof, alpha, beta — converging as evidence "
-            "stabilises, resisting perfectionism and unplanned refinement, releasing something fit "
-            "for responsible use with correction capacity, and reopening approved design only for "
-            "unacceptable defects. It treats the whole instructional system as interdependent and "
-            "revised from outcome feedback."),
+            "This skill develops the design in small, evidence-tested increments rather than by "
+            "specification sign-off. It begins and ends every cycle with evaluation and keeps the "
+            "first cycle to a thin slice connecting performance goals, objectives, appraisal, "
+            "practical media, and representative treatments and content; uses experiential "
+            "prototypes to align stakeholder expectations and test timing, transitions, media, "
+            "interaction, and integration before misunderstanding reaches costly development; "
+            "involves recent and representative learners while fundamental changes remain "
+            "affordable, shifting review focus from treatment to wording, media, interface, "
+            "navigation, and feedback as fidelity rises; drafts only enough objectives to prototype "
+            "representative cases and prototypes each distinct objective-activity type rather than "
+            "every instance; gates release progressively through design proof, alpha, and beta; "
+            "converges as evidence stabilises and resists perfection and unplanned refinement; and "
+            "estimates cost and duration honestly, phasing delivery or cutting to a coherent "
+            "effective core rather than underfunding the whole solution."),
         when=[
-            "A development effort must move from analysis and objectives into building materials.",
-            "Stakeholders are approving specifications they cannot yet experience, or scope is "
-            "expanding through unplanned refinement.",
-            "Prototypes need learner exposure while change is still affordable.",
-            "Release readiness must be judged and the design frozen or reopened.",
+            "A development approach must be chosen, or a project is heading for specification "
+            "sign-off without a testable artefact.",
+            "Prototypes, review cycles, or release gates need designing or are being skipped.",
+            "Scope, cost, or schedule pressure is about to spread inadequate funding across the "
+            "whole solution.",
+            "A design is being refined past the point where evidence still justifies the change.",
         ],
-        input="The current state of the build, the objectives and treatments planned, the "
-              "stakeholders and learners available for review, and the release constraints."),
+        input="The development plan, the artefacts produced so far, who reviews them and when, and "
+              "the resources and schedule committed."),
     "evaluation-transfer-and-impact": dict(
-        title="Evaluation, Transfer And Impact",
+        title="Evaluation Transfer And Impact",
         purpose=(
-            "This skill plans and reads evaluation across its stages. It distinguishes learner "
-            "assessment from instructional evaluation, uses one-to-one, small-group, and field "
-            "formative evidence on a usable draft and traces each learner difficulty back to the "
-            "implicated design component, analyses learner-by-item-by-objective performance across "
-            "pretest, practice, and posttest, and gates expensive downstream evaluation behind "
-            "congruence, content, design, and transfer analyses. For impact it establishes with "
-            "valid posttest evidence that learners could perform before reading absent workplace "
-            "behaviour as transfer failure, measures use by degree, frequency, context, and prior "
-            "use, diagnoses nonuse across relevance, permission, support, resources, and incentives, "
-            "triangulates across learners and workplace observers, uses an independent evaluator "
-            "where stakeholder interest threatens the judgment, and reports purpose, questions, "
-            "design, findings, and limits with an executive summary."),
+            "This skill establishes what a design actually achieved. It distinguishes learner "
+            "assessment from instructional evaluation — formative assessment to improve learning, "
+            "staged formative evaluation to revise development, independent summative evaluation to "
+            "support post-completion decisions — and formatively evaluates a usable draft through "
+            "one-to-one, small-group, and field evidence, tracing learner difficulty back to the "
+            "implicated design assumption. It gates expert judgment through congruence, content, "
+            "design, and transfer analyses and stops when a material defect makes downstream "
+            "evaluation unjustified; screens instruction for congruence, completeness, and strategy "
+            "fit before funding an impact study; establishes with valid posttest evidence that "
+            "learners could perform before reading absent workplace behaviour as a transfer failure; "
+            "measures use by degree, frequency, context, and prior use and diagnoses nonuse across "
+            "relevance, permission, support, resources, and opportunity; triangulates across "
+            "learners, observers, records, and objective indicators; compares interventions only "
+            "once each is mature and uses an independent evaluator when interests threaten "
+            "impartiality; and reports purpose, questions, design, findings, and limits with an "
+            "executive summary."),
         when=[
-            "A draft design must be formatively evaluated and revised from evidence.",
-            "Learners completed training but the expected workplace behaviour is not appearing.",
-            "An impact, transfer, or return study must be scoped, instrumented, and reported.",
-            "Two interventions are being compared, or a summative judgment must be made about "
-            "whether the originating problem was resolved.",
+            "A design must be evaluated — formatively during development or summatively after "
+            "completion.",
+            "Training was delivered but the intended behaviour is not appearing at work.",
+            "An impact, effectiveness, or return claim is being made or requested.",
+            "Expert review, field trials, or a comparison between two interventions needs "
+            "designing.",
         ],
-        input="The evaluation question, the stage the instruction has reached, the evidence and "
-              "instruments available, and who owns the decision the evaluation informs."),
+        input="The design or programme under evaluation, the evidence already gathered, the "
+              "organisational outcome it was meant to serve, and who will use the findings."),
     "active-learning-and-group-formats": dict(
         title="Active Learning And Group Formats",
         purpose=(
-            "This skill designs what learners do together and in what setting. It treats lectures, "
-            "seminars, and online formats as settings rather than teaching methods and selects "
-            "different learner activities for different outcomes; moves initial content acquisition "
-            "out of contact time so the second task of learning to use the content gets the room it "
-            "needs; structures group learning so members hold relevant resources, responsibility, "
-            "psychological room to test interpretations, and a cognitively demanding agenda tied to "
-            "assessed outcomes; launches authentic projects through credible examples, learner "
-            "participation, stakeholder critique, and full support ecosystems; aligns problem-based "
-            "learning end to end from outcomes through facilitation to assessment; designs "
-            "peer-teaching around explicit outcomes, selection, training, and continuous support; "
-            "and makes large classes work through stable peer support, rapid formative evidence, and "
-            "visible reasoning."),
+            "This skill designs what learners do together and over extended work. It treats broad "
+            "formats as settings rather than methods, selecting different learner activities for "
+            "different outcomes and reserving lectures for distinctive live value rather than "
+            "routine information transfer. It structures group learning so members have relevant "
+            "resources, responsibility, room to test interpretations, and a cognitively demanding "
+            "agenda tied to assessed outcomes; uses group evidence only with visible individual "
+            "contribution, whole-task understanding, individual reflection, and safeguards; sustains "
+            "large classes with stable peer support, rapid formative evidence, and work-along "
+            "activity that makes reasoning visible; designs peer-teaching programmes with explicit "
+            "roles, selection, training, and continuous support; launches authentic projects through "
+            "a credible example, investigated audiences and products, and stakeholder critique, and "
+            "calibrates option choice for demand, workload, and scoring before grading it; designs "
+            "problem-based learning and practica from their intended outcomes with aligned tutors, "
+            "assessment, and organisational boundaries; and scaffolds extended creation by "
+            "introducing purpose, audience, criteria, and source adequacy before drafting begins."),
         when=[
-            "Group work, project work, problem-based learning, practica, or peer teaching is being "
-            "designed or is failing.",
-            "Contact time is consumed by content delivery that could happen elsewhere.",
-            "A large class must still elicit and observe learner reasoning.",
-            "A format is being chosen as if it were a teaching method rather than a setting.",
+            "Group work, team projects, problem-based learning, practica, peer teaching, or a large "
+            "class format is being designed or is failing.",
+            "Individual contribution, free-riding, or the fairness of a group grade is in question.",
+            "Learners choose among project options that differ in demand, workload, or scoring.",
+            "An extended written, oral, or research product needs scaffolding before drafting.",
         ],
-        input="The format and group arrangements in place, the outcomes they are meant to serve, and "
-              "the support, assessment, and class size that surround them."),
+        input="The format, group arrangements, project or problem brief, criteria, and support in "
+              "place, and the outcomes the format is meant to deliver."),
     "teaching-scholarship-and-quality": dict(
         title="Teaching Scholarship And Quality",
         purpose=(
-            "This skill treats teaching improvement as disciplined inquiry and instructional design "
-            "as professional work requiring knowledge and practice. It makes the teaching theory "
-            "shaping an environment explicit, then uses evidence and a coherent framework to "
-            "diagnose problems and adapt to local learners and constraints; runs repeated, "
-            "systematic action-research cycles that frame an observable learning problem, plan a "
-            "change from theory and student evidence, apply it, evaluate, and revise, triangulating "
-            "across students and trusted colleagues; analyses teaching cases as provisional evidence "
-            "by classifying intention, enactment, and assessment separately before evaluating; "
-            "grounds any claim that instruction is adequate in what students actually learn rather "
-            "than in demand, enrolment, or satisfaction; makes leadership an enabling system for "
-            "department-wide alignment; and expects the right proportion of approaches to be one the "
-            "teacher is not in the habit of using."),
+            "This skill governs how a teacher or design team learns about its own practice and how "
+            "quality claims are warranted. It grounds any claim that instruction is adequate in "
+            "evidence about what students actually learn and how much they grow rather than in "
+            "demand, enrolment, or satisfaction; prefers results replicated and synthesised across "
+            "studies over any single study while noting that synthesis also pinpoints when an effect "
+            "is strong; makes the teaching theory shaping the learning environment explicit and uses "
+            "evidence and a coherent framework to adapt to local learners and constraints; "
+            "investigates teaching through repeated action-research cycles — frame an observable "
+            "learning problem, plan a change from theory and student evidence, apply it, evaluate, "
+            "revise — triangulated across students and trusted colleagues; reads realistic teaching "
+            "cases as provisional evidence, classifying intention, enactment, and assessment "
+            "separately before evaluating; names the teacher's blind spot that teaching implies "
+            "learning; treats instructional design as professional work requiring knowledge and "
+            "practice; and chooses approaches by what the learning needs rather than by what the "
+            "teaching finds comfortable, knowing each preference's characteristic failure mode."),
         when=[
-            "A teaching problem must be investigated systematically rather than adjusted by "
-            "intuition.",
-            "Quality, adequacy, or improvement claims rest on enrolment, demand, or satisfaction "
-            "data.",
-            "Department- or programme-level alignment needs leadership, resourcing, and staff "
-            "engagement.",
-            "A teacher's or designer's default approach needs examining against what the learning "
-            "requires.",
+            "A quality, effectiveness, or 'our teaching is fine' claim rests on enrolment, demand, "
+            "satisfaction, or the teacher's own impression.",
+            "Evidence from research is being cited to justify a design decision.",
+            "A team wants to investigate and improve its own teaching systematically.",
+            "Instructional approach is being chosen by habit, comfort, or seniority rather than by "
+            "what the learning requires.",
         ],
-        input="The teaching problem or quality claim under discussion, the evidence gathered so far, "
-              "and the institutional constraints and leadership context around it."),
+        input="The quality or effectiveness claim being made, the evidence offered for it, and the "
+              "team's current arrangements for investigating its own teaching."),
 }
 
 # ---------------------------------------------------------------------------- helpers
@@ -485,11 +525,12 @@ print(f"principles={N_PRINC} high={len(HI_IDS)} claims={len(CLAIM_IDS)}")
 # ============================================================================ EMITTERS
 
 _SRC_LINE = (
-    "grounded in the ten distillation-only sources (*Understanding by Design*; *Teaching for "
+    "grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for "
     "Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for "
     "Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of "
     "Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia "
-    "Learning*; and *e-Learning and the Science of Instruction*)")
+    "Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and "
+    "Models: A New Paradigm of Instructional Theory / In Action*)")
 
 
 def emit_skills() -> None:
@@ -558,35 +599,41 @@ def emit_refs() -> None:
     out.append("How the principles in this package are grounded, and how to keep advice faithful to "
                "the sources.\n")
     out.append("## Sources\n")
-    out.append("Ten distillation-only sources ground the package, spanning backward design and "
+    out.append("Eleven distillation-only sources ground the package, spanning backward design and "
                "assessment for understanding (*Understanding by Design*), constructive alignment and "
                "university teaching (*Teaching for Quality Learning at University*), integrated "
                "course design (*Creating Significant Learning Experiences*), the revised taxonomy of "
                "knowledge and cognitive process (*A Taxonomy for Learning, Teaching, and "
                "Assessing*), systematic instructional design (*Principles of Instructional Design*, "
                "*The Systematic Design of Instruction*), demonstration-application-centred "
-               "instruction (*First Principles of Instruction*), iterative successive-approximation "
-               "development (*Leaving ADDIE for SAM*), and the cognitive science of learning from "
-               "words and pictures (*Multimedia Learning*, *e-Learning and the Science of "
-               "Instruction*). Paraphrase and restructure only — no verbatim quotation (see "
-               "`.claude/rules/rights-and-quotation-policy.md`).\n")
+               "instruction (*First Principles of Instruction*), instructional-theory and "
+               "elaboration sequencing (*Instructional-Design Theories and Models*), iterative "
+               "successive-approximation development (*Leaving ADDIE for SAM*), and the cognitive "
+               "science of learning from words and pictures (*Multimedia Learning*, *e-Learning and "
+               "the Science of Instruction*). Paraphrase and restructure only — no verbatim "
+               "quotation (see `.claude/rules/rights-and-quotation-policy.md`).\n")
     out.append("## Faithfulness discipline\n")
-    out.append("- No advice may state a rule more strongly than its source supports: the multimedia "
-               "and e-learning principles are guidance consistent with how the mind works, not "
-               "unbending rules, and their boundary conditions must be stated whenever one is "
-               "invoked (P141).")
+    out.append("- No advice may state a rule more strongly than its source supports: rules for "
+               "teaching mental operations are conditional rather than absolute, so the conditions "
+               "are stated with the rule, a method is prescribed together with the situation it "
+               "fits, and a design principle's effect is checked against learner prior knowledge "
+               "before it is applied (P011, P122, P042).")
+    out.append("- A design principle is recommended only when it is both theory-grounded and "
+               "evidence-based; when only one criterion holds, say which is missing (P092).")
     out.append("- Taxonomies and models are adaptable analytic heuristics, not literal reality, a "
                "source of educational aims, or a unique teaching prescription; a disputed "
-               "classification is used to improve the design, not to win a labelling argument (P067, "
-               "P163).")
+               "classification is used to improve the design, not to win a labelling contest (P001, "
+               "P182).")
     out.append("- Evidence about learning governs claims about quality: adequacy rests on what "
                "students actually learn and how much they grow, not on demand, enrolment, or "
-               "satisfaction, and behavioural engagement is not evidence of learning (P007, P005).")
+               "satisfaction; added interest that is irrelevant reliably reduces learning; and "
+               "disengagement symptoms are evidence about the design (P004, P093, P100).")
     out.append("- Constructive alignment is adapted to local context while its core relationship is "
                "preserved, and the design stays iterative — earlier decisions are rethought as later "
-               "ones expose problems (P047, P041).")
+               "ones expose problems (P064, P055).")
     out.append("- The advisor guides the design; the teacher of record, the content expert, and the "
-               "institution own the course, the subject matter, and the grades (P173, P121).\n")
+               "institution own the course, the subject matter, and the grades (P107, P193, "
+               "P021).\n")
     out.append("## Grounding\n")
     out.append(f"Spine: {N_PRINC} principles ({len(HI_IDS)} high-confidence) over {len(CLAIM_IDS)} "
                f"atomic claims, with evidence records and chunk anchors. Every principle id "
@@ -605,23 +652,24 @@ def _always_on() -> list[str]:
 ROUTER_DESCRIPTION = (
     "Advises on instructional and course design: backward design and constructive alignment, "
     "learning outcomes and taxonomy level, authentic assessment and rubrics, feedback and formative "
-    "practice, teaching for understanding and transfer, instructional strategy for each outcome "
-    "type, multimedia and e-learning materials, motivation, needs and context analysis, iterative "
-    "prototyping, evaluation of transfer and impact, group and project formats, and teaching "
-    "scholarship. Use when designing or reviewing a course, unit, lesson, programme, training "
-    "intervention, assessment scheme, or instructional material. Not for: building the course or "
-    "materials, teaching or grading learners, ruling on subject-matter correctness, or accreditation "
-    "and certification decisions."
+    "practice, teaching for understanding and transfer, instructional strategy and sequencing for "
+    "each outcome type, multimedia and e-learning materials, motivation, needs and context "
+    "analysis, iterative prototyping, evaluation of transfer and impact, group and project formats, "
+    "and teaching scholarship. Use when designing or reviewing a course, unit, lesson, programme, "
+    "training intervention, assessment scheme, or instructional material. Not for: building the "
+    "course or materials, teaching or grading learners, ruling on subject-matter correctness, or "
+    "accreditation and certification decisions."
 )
 
 PROFILE_ROLE = (
-    "An advisor on instructional and course design, grounded in ten distillation-only sources on "
+    "An advisor on instructional and course design, grounded in eleven distillation-only sources on "
     "backward design, constructive alignment, learning taxonomies, systematic instructional design, "
-    "iterative development, and multimedia learning. It helps designers and teachers analyse needs, "
-    "set and level outcomes, design assessment and instructional strategy, prototype materials, and "
-    "evaluate transfer and impact. The invariants below are advisory criteria, not authority to "
-    "act: this advice-only boundary and the forbidden behaviours override every invariant, so the "
-    "advisor never builds the course, teaches it, grades learners, or certifies a programme.")
+    "instructional theory and sequencing, iterative development, and multimedia learning. It helps "
+    "designers and teachers analyse needs, set and level outcomes, design assessment and "
+    "instructional strategy, prototype materials, and evaluate transfer and impact. The invariants "
+    "below are advisory criteria, not authority to act: this advice-only boundary and the forbidden "
+    "behaviours override every invariant, so the advisor never builds the course, teaches it, "
+    "grades learners, or certifies a programme.")
 
 WHEN_TO_USE = [
     "A course, unit, lesson, or training programme is being designed or redesigned and its outcomes, "
@@ -649,44 +697,56 @@ WHEN_NOT_TO_USE = [
 
 QUALITY_BAR = [
     "Designed backward: desired results, then the evidence of achievement, then the teaching — with "
-    "every assessment criterion traceable to an outcome (P013, P006, P153, P095).",
+    "the unit as the working focus and every goal, assessment, and activity checked against each "
+    "other (P013, P003, P008, P172).",
     "Outcomes resolved to the knowledge subtype and cognitive process the performance actually "
-    "requires, with taxonomy used as a heuristic (P060, P038, P067, P100).",
-    "Assessment authentic, criterion-referenced, and accumulated as varied evidence rather than one "
-    "snapshot (P014, P015, P039, P136, P016).",
-    "Understanding shown by application to newly posed questions, not coverage or recall, with "
-    "predictable misconceptions surfaced first (P179, P042, P178, P104).",
+    "requires, worded by intended cognition, with remembering separated from understanding and "
+    "taxonomy used as a heuristic (P077, P115, P153, P001).",
+    "Assessment authentic, criterion-referenced against public descriptive standards, and "
+    "accumulated as varied evidence across a proportionate programme rather than one snapshot "
+    "(P016, P017, P098, P199, P167).",
+    "Understanding shown by transfer to new problems and settings rather than recall or coverage, "
+    "with predictable misconceptions reviewed first (P196, P056, P198, P067).",
     "Materials follow the evidence on words and pictures — coherence, contiguity, modality, "
-    "signalling, pretraining — with boundary conditions stated (P078, P139, P001, P020, P141).",
-    "Instruction warranted by analysis, prototyped iteratively, and evaluated for learning and "
-    "workplace transfer, not enrolment or satisfaction (P130, P133, P122, P007).",
+    "signalling — applied as theory-grounded, evidence-based guidance checked against learner prior "
+    "knowledge (P093, P159, P157, P053, P042, P092).",
+    "Instruction warranted by front-end analysis, prototyped experientially, and evaluated for "
+    "learning and workplace transfer rather than enrolment or satisfaction (P148, P152, P140, "
+    "P004).",
 ]
 
 FORBIDDEN = [
     "Building the deliverable for the caller — the course, materials, or item bank produced end to "
-    "end; the advisor guides the design, it does not author it (P173, P031).",
-    "Certifying a design effective, a programme accredited, or learners competent; those judgments "
-    "need evaluation evidence and belong to the institution (P081, P093, P007).",
-    "Stating a design principle more strongly than its source supports, or invoking one without its "
-    "boundary conditions (P141, P067).",
-    "Treating engagement, enrolment, satisfaction, or learning-style fit as evidence that learning "
-    "occurred (P005, P007, P043).",
+    "end; the advisor supplies review criteria and the practitioner makes the teaching theory and "
+    "the design their own (P193, P107).",
+    "Certifying a design effective, a programme accredited, or learners competent in advance; "
+    "impact is evaluated only after target learners can perform in context, on valid posttest "
+    "evidence (P096, P109, P004).",
+    "Stating a design principle more strongly than its source supports — omitting the conditions "
+    "that make a rule hold, the situation a method fits, the learner prior knowledge that bounds it, "
+    "or which of theory-grounding and evidence is missing (P011, P122, P042, P092).",
+    "Treating enrolment, satisfaction, added interest, or learning-style fit as evidence that "
+    "learning occurred, or reading disengagement as a fact about the students (P004, P093, P040, "
+    "P100).",
 ]
 
 HANDOFF = [
     "The teacher of record, the design team, and the institution own the course, the grades, and the "
-    "decision to run it; the advisor informs the design and names the residual trade-off (P121, "
-    "P031).",
-    "Subject-matter accuracy is referred to a qualified content expert against explicit review "
-    "criteria, and impact judgments wait on evaluation evidence (P173, P081).",
+    "decision to run it; the advisor informs the design, names the residual trade-off, and leaves "
+    "criterion-based outcome judgement and its administrative constraints with them (P107, P021, "
+    "P134).",
+    "Subject-matter accuracy is referred to a qualified content expert against explicit structured "
+    "review criteria, and impact judgments wait on evaluation evidence gathered once learners can "
+    "perform in context (P193, P096).",
 ]
 
 PRECEDENCE = (
-    "What learners are meant to be able to do governs the design — outcomes precede evidence, and "
-    "evidence precedes teaching (P013, P153); no principle is stated more strongly than its source "
-    "supports, and its boundary conditions are named whenever it is invoked (P141, P067); and the "
-    "teacher of record and the institution own the course and the grades, which overrides every "
-    "design invariant (P121).")
+    "What learners are meant to be able to do governs the design — desired results precede the "
+    "evidence, and the evidence precedes the teaching (P013, P172); no principle is stated more "
+    "strongly than its source supports, so the conditions that make a rule hold and the situation a "
+    "method fits are named whenever it is invoked (P011, P122); and the teacher of record, the "
+    "content expert, and the institution own the course, the subject matter, and the grades, which "
+    "overrides every design invariant (P107, P193).")
 
 MODES = [
     dict(name="advise",
@@ -717,18 +777,21 @@ EXAMPLES = [
          ideal_response=(
              "Flag the gaps, highest-impact first. (1) The design starts from the means: work "
              "backward from desired results, to the evidence that would show them, to the teaching "
-             "(P013), keeping the unit as the design focus (P006). (2) 'Understand' is unresolved: "
-             "state the knowledge subtype and cognitive process the performance actually requires "
-             "(P060), and write the goal as what students will newly be able to do and how well "
-             "(P160). (3) A multiple-choice quiz cannot show understanding — a right answer can come "
-             "from recall, test-taking skill, or a guess (P071); test understanding by application "
-             "to newly posed questions (P179) in an authentic task (P014) with explicit criteria "
-             "(P015). (4) Enjoyed activities are not evidence: state the intended result and success "
-             "criteria and connect them repeatedly to the activity (P096). (5) Ask what "
-             "misconceptions learners bring before teaching (P178). Correction: rewrite the unit "
-             "outcome, choose the evidence, then rebuild activities. Residual trade-off: authentic "
-             "tasks cost marking time, so plan the assessment programme's workload proportionately "
-             "(P148). The design and the grades stay with the teacher.")),
+             "(P013), keeping the unit as the design focus (P003); covering the chapters is not a "
+             "learning goal because it names what the teacher does (P046). (2) 'Understand' is "
+             "unresolved: state the knowledge subtype and cognitive process the performance actually "
+             "requires (P077), and write the goal as what students will newly be able to do and how "
+             "well (P125). (3) A multiple-choice quiz cannot show understanding — a right answer can "
+             "come from rote recall, test-taking skill, or a lucky guess (P067), and retention "
+             "evidence alone does not show the design worked (P153); test transfer on new problems "
+             "and settings (P196) through an authentic task (P016) with explicit criteria applied "
+             "before judgment (P017). (4) Enjoyed activities are not evidence: state the intended "
+             "result and success criteria, connect them repeatedly to the activity, and show "
+             "representative evidence (P111). (5) Ask what misconceptions learners bring before "
+             "teaching (P198). Correction: rewrite the unit outcome, choose the evidence, then "
+             "rebuild activities. Residual trade-off: authentic tasks cost marking time, so weight "
+             "the assessment programme proportionally to educational importance (P167). The design "
+             "and the grades stay with the teacher.")),
     dict(title="Decline to build the course and to certify its effectiveness",
          kind="failure-recovery",
          scenario=(
@@ -736,18 +799,19 @@ EXAMPLES = [
              "final exam — and confirm it will cut our error rate by half.'"),
          ideal_response=(
              "Decline both requests: this advisor guides design rather than authoring the "
-             "deliverable, and no design can be certified effective in advance — impact claims wait "
-             "on evaluation evidence gathered after learners can perform in context (forbidden "
-             "behaviours, P081, P093). Redirect: first establish that instruction is warranted at "
-             "all, by observing the setting and separating capability gaps from environment, "
-             "incentive, and systems causes (P130, P168) and quantifying the desired-versus-actual "
-             "gap (P054). If a skill gap is verified, set outcomes and evidence before materials "
-             "(P013), prototype experientially rather than approving specifications (P133), and plan "
-             "formative evaluation on a usable draft with one-to-one, small-group, and field "
-             "evidence (P122). Then scope an impact study that measures use by degree, frequency, "
-             "and context and diagnoses nonuse across relevance, permission, support, resources, and "
-             "incentives (P045). Offer to review the team's drafts against these criteria; the build "
-             "and the claims stay with the team.")),
+             "deliverable, and no design can be certified effective in advance — impact is evaluated "
+             "only after target learners can perform in context (forbidden behaviours, P096, P109). "
+             "Redirect: first establish that instruction is warranted at all, beginning performance "
+             "improvement without presuming it and separating capability deficits from "
+             "accountability, incentive, tool, process, and culture causes (P148, P187), tracing the "
+             "voiced problem to an organisational outcome and quantifying the gap (P191). If a skill "
+             "gap is verified, set outcomes and the evidence of achievement before materials (P013), "
+             "prototype experientially rather than approving specifications (P152), and formatively "
+             "evaluate a usable draft through one-to-one, small-group, and field evidence (P140). "
+             "Then scope an impact study that measures use by degree, frequency, context, and prior "
+             "use and diagnoses nonuse across relevance, permission, support, resources, and "
+             "adaptation opportunity (P062). Offer to review the team's drafts against these "
+             "criteria; the build and the claims stay with the team.")),
 ]
 
 SOURCES = [
@@ -775,12 +839,15 @@ SOURCES = [
     dict(source_id="allen-leaving-addie-36548667",
          title="Leaving ADDIE for SAM",
          author="Michael Allen with Richard Sites", year=2012),
-    dict(source_id="mayer-multimedia-lea-f516bca0",
+    dict(source_id="mayer-multimedia-lea-40e2757d",
          title="Multimedia Learning",
          author="Richard E. Mayer", year=2009),
     dict(source_id="clark-mayer-elearnin-a0fa4bb7",
          title="e-Learning and the Science of Instruction",
          author="Ruth Colvin Clark and Richard E. Mayer", year=2016),
+    dict(source_id="reigeluth-instructio-a562075c",
+         title="Instructional-Design Theories and Models (In Action / A New Paradigm)",
+         author="Charles M. Reigeluth (ed.)", year=1999),
 ]
 for _s in SOURCES:
     _s["rights_status"] = "distillation-only"
@@ -825,7 +892,7 @@ def emit_profile() -> None:
                 "The teacher of record and the design team hold final authority over the course, its "
                 "materials, and what is taught; a qualified content expert holds authority over "
                 "subject-matter accuracy; the institution and any accrediting body hold authority "
-                "over grades, credit, and certification. The distilled principles from the ten "
+                "over grades, credit, and certification. The distilled principles from the eleven "
                 "sources are the authority for the advisory criteria the advisor invokes."),
             "may_edit_canonical": False,
             "precedence": PRECEDENCE,
@@ -857,28 +924,28 @@ def emit_faithfulness() -> None:
             "note": f"Restates {ids}; within the source's scope, no strengthening. {note}",
         })
 
-    qb_ids = ["P013/P006/P153/P095", "P060/P038/P067/P100", "P014/P015/P039/P136/P016",
-              "P179/P042/P178/P104", "P078/P139/P001/P020/P141", "P130/P133/P122/P007"]
+    qb_ids = ["P013/P003/P008/P172", "P077/P115/P153/P001", "P016/P017/P098/P199/P167",
+              "P196/P056/P198/P067", "P093/P159/P157/P053/P042/P092", "P148/P152/P140/P004"]
     for i, ids in enumerate(qb_ids):
         add(f"quality_bar[{i}]", ids, "Advisory criterion, not authority to act.")
-    fb_ids = ["P173/P031", "P081/P093/P007", "P141/P067", "P005/P007/P043"]
+    fb_ids = ["P193/P107", "P096/P109/P004", "P011/P122/P042/P092", "P004/P093/P040/P100"]
     for i, ids in enumerate(fb_ids):
         add(f"forbidden_behaviours[{i}]", ids, "Boundary restraint; no over-claim.")
-    wt_ids = ["P013/P006/P153/P160", "P047/P095/P100/P154", "P130/P168/P054/P002",
-              "P078/P139/P140/P141", "P122/P090/P081/P045"]
+    wt_ids = ["P013/P003/P172/P125", "P064/P077/P173/P135", "P148/P187/P191/P192",
+              "P157/P159/P093/P042", "P140/P094/P096/P062"]
     for i, ids in enumerate(wt_ids):
         add(f"when_to_use[{i}]", ids, "Routing trigger grounded in the cited principles.")
-    add("outputs.primary_format", "P015/P017",
+    add("outputs.primary_format", "P017/P130",
         "Per-finding format with explicit criteria and a gap-closing correction; names the "
         "trade-off or referral rather than a bare verdict or a built deliverable.")
-    add("handoff_rules[0]", "P121/P031",
+    add("handoff_rules[0]", "P107/P021/P134",
         "Ownership handed to the teacher of record, the design team, and the institution.")
-    add("handoff_rules[1]", "P173/P081",
-        "Subject-matter accuracy routed to a qualified content expert; impact judgments wait on "
-        "evaluation evidence.")
-    add("source_of_truth_policy.precedence", "P013/P153/P141/P067/P121",
-        "Backward-design ordering + no-over-claim-beyond-boundary-conditions + "
-        "institution-owns-the-course, all source-grounded.")
+    add("handoff_rules[1]", "P193/P096",
+        "Subject-matter accuracy routed to a qualified content expert under explicit review "
+        "criteria; impact judgments wait on evaluation evidence.")
+    add("source_of_truth_policy.precedence", "P013/P172/P011/P122/P107/P193",
+        "Backward-design ordering + state-the-conditions-and-situation (no over-claim) + "
+        "practitioner-and-institution-own-the-course, all source-grounded.")
     report = {
         "schema_version": "faithfulness-report-v1",
         "subagent_slug": SLUG,
@@ -900,41 +967,44 @@ GOLDEN = [
                   "Require an authentic task with explicit public criteria"],
          must_not=["Write the finished unit plan and quiz for them",
                    "Certify the unit as effective"],
-         cov=["P013", "P060", "P071", "P179", "P014", "P015"]),
+         cov=["P013", "P046", "P077", "P067", "P196", "P016", "P017"]),
     dict(test_id="GT-002", mode="review",
          desc="Positive routing — e-learning module with narrated text on screen and decoration",
          prompt="Review our e-learning module. Each screen narrates the text that's also printed on "
                 "screen, has background music and stock photos, and the diagram labels are in a "
                 "legend below.",
-         must_do=["Remove the on-screen duplication of narrated words",
-                   "Strip background music, decorative images, and irrelevant words",
-                   "Place printed words next to the graphic part they describe",
-                   "Eliminate split attention across the interface"],
+         must_do=["Prefer narration over concurrent on-screen text when a graphic must be processed "
+                  "at the same time",
+                  "Strip background music, decorative images, and other seductive details",
+                  "Place printed words next to the graphic part they describe",
+                  "Eliminate split attention across the interface"],
          must_not=["Rebuild the module for them",
                    "Justify the duplication as serving different learning styles"],
-         cov=["P004", "P078", "P139", "P140", "P001", "P043"]),
+         cov=["P157", "P093", "P159", "P160", "P040", "P042"]),
     dict(test_id="GT-003", mode="advise",
          desc="Positive routing — training request before any analysis",
          prompt="Our error rate is up so we want a training course for the whole team. Where do we "
                 "start?",
          must_do=["Begin performance improvement without presuming instruction",
-                  "Observe the actual setting and consult frontline practitioners",
-                  "Separate capability gaps from environment, incentive, and systems causes",
+                  "Commit to design only for a verified skill gap",
+                  "Separate capability deficits from accountability, incentive, tool, process, and "
+                  "culture causes",
                   "Trace the problem to an organisational outcome and quantify the gap"],
          must_not=["Start designing the course immediately",
                    "Promise the training will cut the error rate"],
-         cov=["P130", "P168", "P054", "P022", "P002"]),
+         cov=["P148", "P187", "P191", "P192", "P075"]),
     dict(test_id="GT-004", mode="review",
          desc="Positive routing — assessment scheme graded on a curve with hidden criteria",
          prompt="Review our assessment scheme. We grade on a curve, the criteria live in the "
                 "marker's head, and everything rides on one final exam.",
-         must_do=["Prefer criterion-referenced standards over norm-referenced grading on a curve",
-                  "Require explicit public criteria applied before judgment",
+         must_do=["Replace the forced distribution with a standards model judged against public "
+                  "criteria",
+                  "Require explicit criteria identified before judgment",
                   "Gather evidence along the way by varied methods rather than one snapshot",
                   "Separate formative from summative purpose and label them unmistakably"],
          must_not=["Assign the grades or set the pass mark for them",
                    "Treat a single exam score as sufficient outcome evidence"],
-         cov=["P039", "P015", "P136", "P075", "P083"]),
+         cov=["P098", "P017", "P199", "P089", "P167", "P110"]),
     dict(test_id="GT-005", mode="plan",
          desc="Positive routing — build a course from verified need to evaluation",
          prompt="We've confirmed a real skill gap. Plan how we get from here to a working course we "
@@ -948,7 +1018,7 @@ GOLDEN = [
                   "field evidence"],
          must_not=["Build the materials for them",
                    "Treat specification sign-off as evidence the design works"],
-         cov=["P013", "P102", "P133", "P073", "P122"]),
+         cov=["P013", "P117", "P152", "P087", "P140", "P119"]),
     dict(test_id="GT-006", mode="review",
          desc="Positive routing — group project failing with free-riding and vague outcomes",
          prompt="Review our group project. Teams pick their own topic, one person does the work, and "
@@ -960,7 +1030,7 @@ GOLDEN = [
                   "Calibrate option choice for demand, workload, and scoring before grading it"],
          must_not=["Assign the group grades for them",
                    "Treat the format itself as the teaching method"],
-         cov=["P087", "P092", "P164", "P145", "P147"]),
+         cov=["P103", "P108", "P183", "P164", "P166"]),
     dict(test_id="GT-007", mode="advise",
          desc="Positive routing — training delivered but the behaviour is not appearing at work",
          prompt="Everyone passed the training six months ago but we don't see the new procedure "
@@ -968,11 +1038,12 @@ GOLDEN = [
          must_do=["Establish with valid posttest evidence that learners could perform every main "
                   "goal performance",
                   "Measure use by degree, frequency, context, and prior use",
-                  "Diagnose nonuse across relevance, permission, support, resources, and incentives",
+                  "Diagnose nonuse across relevance, permission, support, resources, and adaptation "
+                  "opportunity",
                   "Triangulate across learners and relevant workplace observers"],
          must_not=["Conclude the training failed without posttest evidence",
                    "Prescribe more training as the default remedy"],
-         cov=["P093", "P045", "P051", "P066", "P131"]),
+         cov=["P109", "P062", "P069", "P082", "P096"]),
 ]
 
 NEGATIVE = [
@@ -1003,8 +1074,8 @@ MISSING = [
     dict(test_id="MC-003",
          prompt="We need training.",
          ask=["The organisational outcome or problem behind the request",
-              "Whether a capability gap has been distinguished from environment, incentive, and "
-              "systems causes",
+              "Whether a capability deficit has been distinguished from accountability, incentive, "
+              "tool, process, and culture causes",
               "Who the performers are and what they can currently do"]),
 ]
 
@@ -1113,12 +1184,13 @@ tags, per repo convention.)
 |-----------|-------|--------|------|--------|
 {rows}
 
-All ten sources are **distillation-only**: paraphrase and restructure only, no verbatim quotation
+All eleven sources are **distillation-only**: paraphrase and restructure only, no verbatim quotation
 (see `.claude/rules/rights-and-quotation-policy.md`; enforced by `quote_scan`). They are canonical
 works on instructional and course design — backward design and assessment for understanding,
 constructive alignment and university teaching, integrated course design, the revised taxonomy of
 knowledge and cognitive process, systematic instructional design, first principles of instruction,
-iterative successive-approximation development, and the cognitive science of multimedia learning.
+instructional theory and elaboration sequencing, iterative successive-approximation development, and
+the cognitive science of multimedia learning.
 
 ## Distillation
 
@@ -1129,11 +1201,21 @@ references index and ground them.
 
 ## Version History
 
-- **{VERSION}** ({DATE}) — Initial LLM-authored layer over the pre-built distilled spine: profile
-  (role, three modes, quality bar, forbidden behaviours, {len(SKILLS)}-skill / {len(REFS)}-reference
-  knowledge partition), faithfulness report, {len(SKILLS)} skills, {len(REFS)} references, golden +
-  principle-behaviour tests, and the exported Claude Code adapter. No prior profile decisions
-  superseded.
+- **1.0.0** (2026-07-26) — Initial LLM-authored layer over the pre-built distilled spine of 180
+  principles from ten sources (*Multimedia Learning* present only as a partial conversion): profile,
+  faithfulness report, 13 skills, 2 references, golden + principle-behaviour tests, and the exported
+  Claude Code adapter.
+- **{VERSION}** ({DATE}) — Source fold-in and full re-author over the rebuilt spine. Two source
+  changes: the partial *Multimedia Learning* conversion was replaced by the full text
+  (`mayer-multimedia-lea-f516bca0` -> `mayer-multimedia-lea-40e2757d`), and *Instructional-Design
+  Theories and Models* (Reigeluth) was added — eleven sources, {N_PRINC} principles, {len(CLAIM_IDS)}
+  claims. The map->reduce rebuild renumbered every principle, so the 1.0.0 principle ids do not carry
+  over: the {len(SKILLS)}-skill partition, every inline citation in `quality_bar`,
+  `forbidden_behaviours`, `handoff_rules`, `source_of_truth_policy.precedence`, the examples, the
+  faithfulness report, and both test suites were re-derived against the new P001-P{N_PRINC:03d}
+  numbering. No 1.0.0 profile decision was silently overwritten — the role, boundary, mode set, and
+  skill partition survive; only their grounding ids and the sequencing/instructional-theory coverage
+  contributed by the new sources changed.
 """
     w(BASE / "provenance-ledger.md", md)
 
@@ -1147,44 +1229,68 @@ All notable changes to this generated subagent package are recorded here. Versio
 ## [{VERSION}] — {DATE}
 
 ### Added
+- *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*
+  (Reigeluth, ed.) folded in as an eleventh source, adding instructional-theory selection
+  (prescribe a method together with the situation it fits) and elaboration sequencing (the
+  epitome -> elaborate -> synthesize zoom-lens cycle).
+
+### Changed
+- *Multimedia Learning* (Mayer) re-ingested from the full text, replacing the partial conversion
+  (`mayer-multimedia-lea-f516bca0` -> `mayer-multimedia-lea-40e2757d`); the multimedia principles no
+  longer lean on *e-Learning and the Science of Instruction* to cover Mayer's own material.
+- Distilled spine rebuilt over the eleven sources: {N_PRINC} principles (was 180) over
+  {len(CLAIM_IDS)} claims (was 6851). The rebuild renumbered every principle.
+- LLM-authored layer fully re-derived against the new P001-P{N_PRINC:03d} numbering — the
+  {len(SKILLS)}-skill partition, `profile.yaml` (quality bar, forbidden behaviours, handoff rules,
+  precedence, examples, `knowledge_partition.always_on`), `reports/faithfulness-report.yaml`, all
+  {len(SKILLS)} skills, both references, `tests/golden-tests.yaml`, and
+  `tests/principle-behaviour-tests.yaml` ({N_PRINC} tests, one per principle). The 1.0.0 principle
+  ids do not carry over.
+- Claude Code adapter re-exported to `adapters/claude-code/` and reinstalled under
+  `.claude/agents/generated/`.
+
+### Fixed
+- `sources/metadata/*.metadata.json`: `source_type` written as `md` by the rebuild, which is not a
+  member of the `source-metadata-v1` enum; normalised back to `markdown`.
+
+## [1.0.0] — 2026-07-26
+
+### Added
 - Initial release of the **{SLUG}** subagent (Tier 2), authoring the LLM layer over the
-  already-assembled, deterministically-valid distilled spine ({N_PRINC} principles
-  P001-P{N_PRINC:03d} / {len(CLAIM_IDS)} claims from ten distillation-only sources).
-- `profile.yaml` derived from the {N_PRINC} promoted principles: role, router description,
+  already-assembled, deterministically-valid distilled spine (180 principles / 6851 claims from ten
+  distillation-only sources).
+- `profile.yaml` derived from the promoted principles: role, router description,
   when/when-not-to-use, three modes (advise / review / plan), quality bar, forbidden behaviours,
   handoff rules, and a {len(SKILLS)}-skill / {len(REFS)}-reference `knowledge_partition` covering
   every principle exactly once.
-- {len(SKILLS)} authored skills partitioning all {N_PRINC} principles; {len(REFS)} references
-  (principles index + evidence notes).
+- {len(SKILLS)} authored skills; {len(REFS)} references (principles index + evidence notes).
 - `reports/faithfulness-report.yaml` — every load-bearing profile rule graded WITHIN_SCOPE against
   its principles (no rule stronger than its evidence).
-- `tests/golden-tests.yaml` ({len(GOLDEN)} golden, {len(NEGATIVE)} negative-routing,
-  {len(MISSING)} missing-context) and `tests/principle-behaviour-tests.yaml` (one behaviour test per
-  principle, {N_PRINC} total).
+- `tests/golden-tests.yaml` and `tests/principle-behaviour-tests.yaml`.
 - Claude Code adapter exported to `adapters/claude-code/` and installed under
   `.claude/agents/generated/`.
 
 ### Grounding
-- Ten distillation-only sources: *Understanding by Design* (Wiggins & McTighe, 2005); *Teaching for
-  Quality Learning at University* (Biggs & Tang, 2011); *Creating Significant Learning Experiences*
-  (Fink, 2013); *A Taxonomy for Learning, Teaching, and Assessing* (Anderson & Krathwohl, 2001);
-  *Principles of Instructional Design* (Gagné, Briggs & Wager, 1992); *First Principles of
-  Instruction* (Merrill, 2002); *The Systematic Design of Instruction* (Dick, Carey & Carey, 2015);
-  *Leaving ADDIE for SAM* (Allen, 2012); *Multimedia Learning* (Mayer, 2009); and *e-Learning and
-  the Science of Instruction* (Clark & Mayer, 2016).
+- Eleven distillation-only sources: *Understanding by Design* (Wiggins & McTighe, 2005); *Teaching
+  for Quality Learning at University* (Biggs & Tang, 2011); *Creating Significant Learning
+  Experiences* (Fink, 2013); *A Taxonomy for Learning, Teaching, and Assessing* (Anderson &
+  Krathwohl, 2001); *Principles of Instructional Design* (Gagné, Briggs & Wager, 1992); *First
+  Principles of Instruction* (Merrill, 2002); *The Systematic Design of Instruction* (Dick, Carey &
+  Carey, 2015); *Leaving ADDIE for SAM* (Allen, 2012); *Multimedia Learning* (Mayer, 2009);
+  *e-Learning and the Science of Instruction* (Clark & Mayer, 2016); and *Instructional-Design
+  Theories and Models* (Reigeluth, ed., 1999).
 """
     w(BASE / "CHANGELOG.md", md)
 
 
 def fix_metadata() -> None:
+    """The map->reduce rebuild writes source_type: 'md', which is not in the source-metadata-v1
+    enum (it wants 'markdown'). Normalise before validation."""
     mdir = BASE / "sources" / "metadata"
-    for mf in mdir.glob("*.metadata.json"):
+    for mf in sorted(mdir.glob("*.metadata.json")):
         data = json.loads(mf.read_text())
-        changed = False
         if data.get("source_type") == "md":
             data["source_type"] = "markdown"
-            changed = True
-        if changed:
             mf.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
             print("fixed metadata source_type ->", mf.name)
 

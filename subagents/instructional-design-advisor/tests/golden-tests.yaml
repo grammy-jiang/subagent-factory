@@ -1,7 +1,7 @@
 schema_version: golden-tests-v1
 subagent_slug: instructional-design-advisor
 generated_at: '2026-07-26'
-profile_version: 1.0.0
+profile_version: 1.1.0
 tier: 2
 golden_tests:
 - test_id: GT-001
@@ -22,11 +22,12 @@ golden_tests:
   - Certify the unit as effective
   principle_coverage:
   - P013
-  - P060
-  - P071
-  - P179
-  - P014
-  - P015
+  - P046
+  - P077
+  - P067
+  - P196
+  - P016
+  - P017
 - test_id: GT-002
   description: Positive routing — e-learning module with narrated text on screen and decoration
   prompt: Review our e-learning module. Each screen narrates the text that's also printed on screen, has
@@ -36,20 +37,20 @@ golden_tests:
   minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
     the residual trade-off or referral, highest-impact first.
   must_do:
-  - Remove the on-screen duplication of narrated words
-  - Strip background music, decorative images, and irrelevant words
+  - Prefer narration over concurrent on-screen text when a graphic must be processed at the same time
+  - Strip background music, decorative images, and other seductive details
   - Place printed words next to the graphic part they describe
   - Eliminate split attention across the interface
   must_not_do:
   - Rebuild the module for them
   - Justify the duplication as serving different learning styles
   principle_coverage:
-  - P004
-  - P078
-  - P139
-  - P140
-  - P001
-  - P043
+  - P157
+  - P093
+  - P159
+  - P160
+  - P040
+  - P042
 - test_id: GT-003
   description: Positive routing — training request before any analysis
   prompt: Our error rate is up so we want a training course for the whole team. Where do we start?
@@ -59,18 +60,18 @@ golden_tests:
     the residual trade-off or referral, highest-impact first.
   must_do:
   - Begin performance improvement without presuming instruction
-  - Observe the actual setting and consult frontline practitioners
-  - Separate capability gaps from environment, incentive, and systems causes
+  - Commit to design only for a verified skill gap
+  - Separate capability deficits from accountability, incentive, tool, process, and culture causes
   - Trace the problem to an organisational outcome and quantify the gap
   must_not_do:
   - Start designing the course immediately
   - Promise the training will cut the error rate
   principle_coverage:
-  - P130
-  - P168
-  - P054
-  - P022
-  - P002
+  - P148
+  - P187
+  - P191
+  - P192
+  - P075
 - test_id: GT-004
   description: Positive routing — assessment scheme graded on a curve with hidden criteria
   prompt: Review our assessment scheme. We grade on a curve, the criteria live in the marker's head, and
@@ -80,19 +81,20 @@ golden_tests:
   minimum_output: A recommendation or review naming the gap(s), the principle(s), the correction, and
     the residual trade-off or referral, highest-impact first.
   must_do:
-  - Prefer criterion-referenced standards over norm-referenced grading on a curve
-  - Require explicit public criteria applied before judgment
+  - Replace the forced distribution with a standards model judged against public criteria
+  - Require explicit criteria identified before judgment
   - Gather evidence along the way by varied methods rather than one snapshot
   - Separate formative from summative purpose and label them unmistakably
   must_not_do:
   - Assign the grades or set the pass mark for them
   - Treat a single exam score as sufficient outcome evidence
   principle_coverage:
-  - P039
-  - P015
-  - P136
-  - P075
-  - P083
+  - P098
+  - P017
+  - P199
+  - P089
+  - P167
+  - P110
 - test_id: GT-005
   description: Positive routing — build a course from verified need to evaluation
   prompt: We've confirmed a real skill gap. Plan how we get from here to a working course we can trust.
@@ -110,10 +112,11 @@ golden_tests:
   - Treat specification sign-off as evidence the design works
   principle_coverage:
   - P013
-  - P102
-  - P133
-  - P073
-  - P122
+  - P117
+  - P152
+  - P087
+  - P140
+  - P119
 - test_id: GT-006
   description: Positive routing — group project failing with free-riding and vague outcomes
   prompt: Review our group project. Teams pick their own topic, one person does the work, and we grade
@@ -132,11 +135,11 @@ golden_tests:
   - Assign the group grades for them
   - Treat the format itself as the teaching method
   principle_coverage:
-  - P087
-  - P092
+  - P103
+  - P108
+  - P183
   - P164
-  - P145
-  - P147
+  - P166
 - test_id: GT-007
   description: Positive routing — training delivered but the behaviour is not appearing at work
   prompt: Everyone passed the training six months ago but we don't see the new procedure being used on
@@ -148,17 +151,17 @@ golden_tests:
   must_do:
   - Establish with valid posttest evidence that learners could perform every main goal performance
   - Measure use by degree, frequency, context, and prior use
-  - Diagnose nonuse across relevance, permission, support, resources, and incentives
+  - Diagnose nonuse across relevance, permission, support, resources, and adaptation opportunity
   - Triangulate across learners and relevant workplace observers
   must_not_do:
   - Conclude the training failed without posttest evidence
   - Prescribe more training as the default remedy
   principle_coverage:
-  - P093
-  - P045
-  - P051
-  - P066
-  - P131
+  - P109
+  - P062
+  - P069
+  - P082
+  - P096
 negative_routing_tests:
 - test_id: NR-001
   description: Asks for the deliverable to be built end to end, not instructional-design advice.
@@ -195,5 +198,6 @@ missing_context_tests:
   expected_route: invoke
   must_ask_for:
   - The organisational outcome or problem behind the request
-  - Whether a capability gap has been distinguished from environment, incentive, and systems causes
+  - Whether a capability deficit has been distinguished from accountability, incentive, tool, process,
+    and culture causes
   - Who the performers are and what they can currently do

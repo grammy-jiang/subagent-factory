@@ -21,27 +21,39 @@ tags, per repo convention.)
 | merrill-first-princi-dd2a4ed2 | First Principles of Instruction | M. David Merrill | 2002 | distillation-only |
 | dick-carey-systemati-65eb3dad | The Systematic Design of Instruction | Walter Dick, Lou Carey, and James O. Carey | 2015 | distillation-only |
 | allen-leaving-addie-36548667 | Leaving ADDIE for SAM | Michael Allen with Richard Sites | 2012 | distillation-only |
-| mayer-multimedia-lea-f516bca0 | Multimedia Learning | Richard E. Mayer | 2009 | distillation-only |
+| mayer-multimedia-lea-40e2757d | Multimedia Learning | Richard E. Mayer | 2009 | distillation-only |
 | clark-mayer-elearnin-a0fa4bb7 | e-Learning and the Science of Instruction | Ruth Colvin Clark and Richard E. Mayer | 2016 | distillation-only |
+| reigeluth-instructio-a562075c | Instructional-Design Theories and Models (In Action / A New Paradigm) | Charles M. Reigeluth (ed.) | 1999 | distillation-only |
 
-All ten sources are **distillation-only**: paraphrase and restructure only, no verbatim quotation
+All eleven sources are **distillation-only**: paraphrase and restructure only, no verbatim quotation
 (see `.claude/rules/rights-and-quotation-policy.md`; enforced by `quote_scan`). They are canonical
 works on instructional and course design — backward design and assessment for understanding,
 constructive alignment and university teaching, integrated course design, the revised taxonomy of
 knowledge and cognitive process, systematic instructional design, first principles of instruction,
-iterative successive-approximation development, and the cognitive science of multimedia learning.
+instructional theory and elaboration sequencing, iterative successive-approximation development, and
+the cognitive science of multimedia learning.
 
 ## Distillation
 
-Spine: 180 promoted principles (P001-P180; 52 high-confidence) over
-6851 atomic claims, with evidence records and chunk anchors. The 180 principles are
+Spine: 200 promoted principles (P001-P200; 75 high-confidence) over
+7860 atomic claims, with evidence records and chunk anchors. The 200 principles are
 partitioned across 13 skills, each principle owned by exactly one skill; the two
 references index and ground them.
 
 ## Version History
 
-- **1.0.0** (2026-07-26) — Initial LLM-authored layer over the pre-built distilled spine: profile
-  (role, three modes, quality bar, forbidden behaviours, 13-skill / 2-reference
-  knowledge partition), faithfulness report, 13 skills, 2 references, golden +
-  principle-behaviour tests, and the exported Claude Code adapter. No prior profile decisions
-  superseded.
+- **1.0.0** (2026-07-26) — Initial LLM-authored layer over the pre-built distilled spine of 180
+  principles from ten sources (*Multimedia Learning* present only as a partial conversion): profile,
+  faithfulness report, 13 skills, 2 references, golden + principle-behaviour tests, and the exported
+  Claude Code adapter.
+- **1.1.0** (2026-07-26) — Source fold-in and full re-author over the rebuilt spine. Two source
+  changes: the partial *Multimedia Learning* conversion was replaced by the full text
+  (`mayer-multimedia-lea-f516bca0` -> `mayer-multimedia-lea-40e2757d`), and *Instructional-Design
+  Theories and Models* (Reigeluth) was added — eleven sources, 200 principles, 7860
+  claims. The map->reduce rebuild renumbered every principle, so the 1.0.0 principle ids do not carry
+  over: the 13-skill partition, every inline citation in `quality_bar`,
+  `forbidden_behaviours`, `handoff_rules`, `source_of_truth_policy.precedence`, the examples, the
+  faithfulness report, and both test suites were re-derived against the new P001-P200
+  numbering. No 1.0.0 profile decision was silently overwritten — the role, boundary, mode set, and
+  skill partition survive; only their grounding ids and the sequencing/instructional-theory coverage
+  contributed by the new sources changed.

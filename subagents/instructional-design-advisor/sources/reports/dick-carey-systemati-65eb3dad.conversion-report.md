@@ -1,9 +1,9 @@
 # Conversion Report — dick-carey-systemati-65eb3dad
 
-**Source:** dick-carey-systematic-design-of-instruction.md
+**Source:** source.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-26T10:28:27.007668+00:00
+**Generated:** 2026-07-26T12:51:14.830779+00:00
 
 ---
 

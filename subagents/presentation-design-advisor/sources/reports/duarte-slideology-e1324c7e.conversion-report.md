@@ -1,9 +1,9 @@
-# Conversion Report — mayer-multimedia-lea-f516bca0
+# Conversion Report — duarte-slideology-e1324c7e
 
-**Source:** mayer-multimedia-learning.md
+**Source:** duarte-slideology.md
 **Status:** ok
 **Converter:** map-reduce (pre-chunked markdown)
-**Generated:** 2026-07-26T10:28:27.019635+00:00
+**Generated:** 2026-07-26T12:39:59.465487+00:00
 
 ---
 
@@ -12,7 +12,7 @@
 | Metric | Value |
 |--------|-------|
 | Pages | — |
-| Words | 18827 |
+| Words | 41539 |
 | Headings | — |
 | Tables | — |
 | Figures | — |

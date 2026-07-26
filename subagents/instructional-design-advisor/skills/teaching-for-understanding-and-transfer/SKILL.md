@@ -4,22 +4,23 @@ kind: skill
 status: ready
 provenance:
   principles:
-  - P003
-  - P028
-  - P033
-  - P042
-  - P061
-  - P104
-  - P113
-  - P126
-  - P135
-  - P152
-  - P155
-  - P162
-  - P176
-  - P177
-  - P178
-  - P179
+  - P023
+  - P034
+  - P045
+  - P056
+  - P058
+  - P078
+  - P116
+  - P120
+  - P131
+  - P144
+  - P154
+  - P163
+  - P171
+  - P174
+  - P196
+  - P197
+  - P198
   claims:
   - C00002
   - C00003
@@ -36,10 +37,10 @@ provenance:
   - C00056
   - C00147
   - C00148
-  - C00159
+  - C00151
   evidence: []
   source_anchors: []
-  authored_from_digest: a06047b7c1371211af8aa2de3e4df68b3b628f472c5ef742738537d34f2e9a55
+  authored_from_digest: 77359f362a74809fa42e96bae9480bfbdd5391da88f5832f05f43c44ccfc4aab
 ---
 
 
@@ -47,7 +48,7 @@ provenance:
 
 ## Purpose
 
-This skill targets durable understanding rather than covered content. It organises teaching around big ideas and essential questions, surfaces predictable misconceptions before teaching, tests understanding by appropriate application to newly posed questions, and refuses to count a task as transfer when it varies only quantities or symbols. It teaches metacognition and self-regulation explicitly as strategy knowledge plus monitoring and repair, builds understanding by connecting new learning to prior frameworks and revisiting ideas, preserves warranted uncertainty in evidence-based judgment, and names the teacher's blind spot — that teaching implies learning, and that a few visible successes and no questions do not mean the class understood.
+This skill targets durable understanding rather than covered content. It organises teaching around big ideas and the four senses of an essential question, reviews predictable misconceptions before teaching, evaluates instruction by transfer rather than memory because approaches look equivalent under recall measures alone, and refuses to count a task as transfer when it varies only quantities or symbols. It teaches metacognition, comprehension monitoring, and self-regulation explicitly as strategy knowledge plus monitoring and repair; builds understanding by connecting new learning to prior frameworks and revisiting ideas through varied, spaced encounters; repairs systematic misconceptions at the underlying categorization rather than by adding another definition; opens access to substantial material through conceptual bridges rather than lowered expectations; preserves warranted uncertainty in evidence-based judgment; and declines to read a call for inquiry around a big idea as a blanket endorsement of discovery learning.
 
 ## When to use
 
@@ -58,22 +59,23 @@ This skill targets durable understanding rather than covered content. It organis
 
 ## Procedure
 
-1. Evaluate meaningful learning with transfer tasks that require prediction, diagnosis, mechanism explanation, or redesign in a new situation; use retention as a complementary measure rather than as proof of understanding (P003).
-2. Integrate teaching of metacognitive skills across subject areas and make the processes explicit (P028).
-3. Teach comprehension monitoring as the capability of setting learning goals, estimating success against them, and selecting alternative strategies to meet them (P033).
-4. Do not count a task as a transfer problem if it differs from classroom examples only in quantities or symbols; it is new only if the student must modify the problem statement, cast it into a model, or search memory for the relevant (P042).
-5. Develop durable understanding by connecting new learning to prior knowledge, organising cases under higher-order relations, balancing guidance with learner construction, and revisiting ideas through varied, spaced encounters (P061).
-6. Name the teacher's blind spot (P104).
-7. Teach strategy use conditionally (P113).
-8. Preserve warranted uncertainty in evidence-based judgment (P126).
-9. Treat big ideas as the meaningful patterns that connect the dots of otherwise fragmented knowledge and as the building material of understandings, and as linchpins without which students are left with easily forgotten fragments even (P135).
-10. Teach self-regulation as both knowledge and action (P152).
-11. Design for meaningful learning by combining retained relevant knowledge with opportunities to construct understanding, solve problems, and use learning in new situations (P155).
-12. Develop strategy flexibility by having learners apply, explain, and compare multiple valid methods, and diagnose actual method use rather than inferring it from answers or speed alone (P162).
-13. Recognize the four senses of essential (P176).
-14. Stay vigilant because teachers are prone to read correct answers as understanding while students want to appear to get it; that a few students get it and no one asks questions does not mean the rest understand, and answering on cue (P177).
-15. Review predictable misconceptions before teaching by asking what misinformation learners harbour and what rough spots always crop up (P178).
-16. Treat the test of understanding as appropriate application of concepts and principles to newly posed questions rather than repetition of learned information or performance of mastered practices, using new problems followed (P179).
+1. Recognize that no additional fact tells the learner which fact to use when (P023).
+2. Integrate teaching of metacognitive skills across subject areas and make the processes explicit (P034).
+3. Teach comprehension monitoring as the capability of setting learning goals, estimating success against them, and selecting alternative strategies to meet them (P045).
+4. Do not count a task as a transfer problem if it differs from classroom examples only in quantities or symbols; it is new only if the student must modify the problem statement, cast it into a model, or search memory for the relevant (P056).
+5. Do not read a call for active inquiry and application around a big idea as a blanket endorsement of discovery learning (P058).
+6. Develop durable understanding by connecting new learning to prior knowledge, organising cases under higher-order relations, balancing guidance with learner construction, and revisiting ideas through varied, spaced encounters (P078).
+7. Teach categories through their defining common structure and useful disciplinary applications; when a misconception is systematic, diagnose and repair the underlying categorization rather than adding another definition (P116).
+8. Expect content standards to vary widely in form (P120).
+9. Teach strategy use conditionally (P131).
+10. Preserve warranted uncertainty in evidence-based judgment (P144).
+11. Treat big ideas as the meaningful patterns that connect the dots of otherwise fragmented knowledge and as the building material of understandings, and as linchpins without which students are left with easily forgotten fragments even (P154).
+12. Provide access to intellectually substantial material through conceptual bridges, paraphrase, examples, performance, and structured comparison rather than lowering expectations solely from prior attainment (P163).
+13. Teach self-regulation as both knowledge and action (P171).
+14. Design for meaningful learning by combining retained relevant knowledge with opportunities to construct understanding, solve problems, and use learning in new situations (P174).
+15. Evaluate instruction by transfer rather than memory (P196).
+16. Recognize the four senses of essential (P197).
+17. Review predictable misconceptions before teaching by asking what misinformation learners harbour and what rough spots always crop up (P198).
 
 ## Inputs
 
@@ -86,13 +88,13 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P003: Evaluate meaningful learning with transfer tasks that require prediction, diagnosis, mechanism explanation, or redesign in a new situation; use.
-- Overlooking P028: Integrate teaching of metacognitive skills across subject areas and make the processes explicit.
-- Overlooking P033: Teach comprehension monitoring as the capability of setting learning goals, estimating success against them, and selecting alternative strategies.
-- Overlooking P042: Do not count a task as a transfer problem if it differs from classroom examples only in quantities or symbols; it is new only if the student must.
-- Overlooking P061: Develop durable understanding by connecting new learning to prior knowledge, organising cases under higher-order relations, balancing guidance.
-- Overlooking P104: Name the teacher's blind spot.
-- Overlooking P113: Teach strategy use conditionally.
+- Overlooking P023: Recognize that no additional fact tells the learner which fact to use when.
+- Overlooking P034: Integrate teaching of metacognitive skills across subject areas and make the processes explicit.
+- Overlooking P045: Teach comprehension monitoring as the capability of setting learning goals, estimating success against them, and selecting alternative strategies.
+- Overlooking P056: Do not count a task as a transfer problem if it differs from classroom examples only in quantities or symbols; it is new only if the student must.
+- Overlooking P058: Do not read a call for active inquiry and application around a big idea as a blanket endorsement of discovery learning.
+- Overlooking P078: Develop durable understanding by connecting new learning to prior knowledge, organising cases under higher-order relations, balancing guidance.
+- Overlooking P116: Teach categories through their defining common structure and useful disciplinary applications; when a misconception is systematic, diagnose.
 
 ## References
 
@@ -100,4 +102,4 @@ See `../../references/instructional-design-principles-index.md` for the full pri
 
 ## Provenance
 
-Derived from P003, P028, P033, P042, P061, P104, P113, P126, P135, P152, P155, P162, P176, P177, P178, P179, grounded in the ten distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; and *e-Learning and the Science of Instruction*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
+Derived from P023, P034, P045, P056, P058, P078, P116, P120, P131, P144, P154, P163, P171, P174, P196, P197, P198, grounded in the eleven distillation-only sources (*Understanding by Design*; *Teaching for Quality Learning at University*; *Creating Significant Learning Experiences*; *A Taxonomy for Learning, Teaching, and Assessing*; *Principles of Instructional Design*; *First Principles of Instruction*; *The Systematic Design of Instruction*; *Leaving ADDIE for SAM*; *Multimedia Learning*; *e-Learning and the Science of Instruction*; and *Instructional-Design Theories and Models: A New Paradigm of Instructional Theory / In Action*). The frontmatter `provenance` block lists the exact principle and claim ids, which resolve into `principles/principles.yaml` and `analysis/claims.jsonl`.
