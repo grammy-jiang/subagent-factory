@@ -1,5 +1,8 @@
 ---
 name: feedback-assessment-and-error-correction
+description: Guides design and review of feedback, rubrics, and error correction,
+  covering what feedback should say, when to intervene on early error, and whether
+  a grade suffices.
 kind: skill
 status: ready
 provenance:
@@ -68,13 +71,13 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P029: Support problem solving with the least help needed.
-- Overlooking P031: Permit recoverable errors, correct them promptly, and teach learners to use struggle and failure as diagnostic information for the next attempt.
-- Overlooking P036: Build task-specific analytic rubrics that separate consequential components, reflect their intended weight, and expose class-wide as well.
-- Overlooking P051: Understand feedback's purpose as reducing the discrepancy between current understanding and the learning intention, with the strategy depending.
-- Overlooking P088: Require feedback to give information about the task or learning process that fills the gap between what is understood and what is aimed at, rather.
-- Overlooking P091: Supervise early practice closely enough to observe performance, interrupt error before it becomes entrenched, and give milestone feedback.
-- Overlooking P099: Return targeted feedback while learners can still apply it to related work; a grade alone is insufficient when further development is possible.
+- A helper immediately supplies the finished answer or takes over the decision when a learner is stuck, instead of using root-cause questions, learner-generated options, consequence analysis, or visible-progress framing to keep ownership with the learner (P029).
+- An error is punished, hidden, or left to linger instead of being permitted, corrected promptly, and read back to the learner as diagnostic information for the next attempt (P031).
+- A rubric for a complex performance collapses its consequential components into one holistic score, or weights them without regard to their actual importance, leaving neither the class nor the individual learner able to see where the priority lies (P036).
+- Feedback is delivered with no reference to the learning intention it is meant to close the gap toward, or the same feedback strategy is applied regardless of which of the four levels it is actually operating at (P051).
+- Feedback on a learner's performance amounts to a mark, a tick, or a bare correctness judgment, with no information about the task or the learning process that would actually close the gap between what is understood and what is aimed at (P088).
+- Early practice is left unsupervised until a late milestone, so a learner's error becomes entrenched before anyone intervenes, even though the learner cannot yet reliably diagnose the error or habit alone (P091).
+- Feedback on practice work only surfaces after the related work is already finished, or a bare grade is handed back with no further guidance, even though the same knowledge or skill will be used again in later work (P099).
 
 ## References
 

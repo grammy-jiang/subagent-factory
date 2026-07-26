@@ -1,5 +1,7 @@
 ---
 name: collaborative-and-peer-learning
+description: Guides structuring group work, peer instruction, and reciprocal or
+  prepare-to-teach activities so peer learning is accountable, scripted, and produces visible understanding.
 kind: skill
 status: ready
 provenance:
@@ -64,11 +66,11 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P055: Run peer instruction as an individual answer, reasoned peer comparison, revised answer, and whole-class debrief, using the revision evidence.
-- Overlooking P075: Train collaboration explicitly with shared understanding, role organization, action protocols, constructive disagreement, monitoring, repair.
-- Overlooking P086: Use preparation to teach and reciprocal teaching to make learners retrieve, organize, explain, question, clarify, summarize, and predict.
-- Overlooking P095: Impose structure on peer learning.
-- Overlooking P097: Pair individual accountability with group rewards and script the session.
+- Sending learners straight into group discussion without first collecting an individual answer, or ending the cycle without a whole-class debrief that acts on the revision evidence, forfeits the reasoned peer comparison that reveals differing reasoning and the signal for whether to advance or reteach (P055).
+- Treating collaboration as a skill students already have and skipping explicit training in shared understanding, role organization, action protocols, and constructive disagreement lets dominance or nonparticipation go unmonitored and unrepaired when a task requires interdependent problem solving (P075).
+- Assigning learners to prepare to teach or run reciprocal teaching without actually monitoring the accuracy of their retrieving, explaining, questioning, clarifying, summarizing, or predicting lets an incorrect peer explanation stand uncorrected (P086).
+- Leaving peer learning unstructured, so groups never articulate the goals, learning intentions, or success criteria for the conversation, removes the mechanism by which students would otherwise collectively catch and learn from each other's errors (P095).
+- Awarding a group grade with no individual accountability mechanism and no scripted directions for running the session drops the structure that helps particularly when new material must be organized and elaborated (P097).
 
 ## References
 

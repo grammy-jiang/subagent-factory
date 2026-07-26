@@ -24,9 +24,20 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P125/P061/P142/P028; within the source's scope, no strengthening. P125's high-utility
-    default keeps its stated uncertainty for complex structured learning and higher-order outcomes; the
-    spacing ratio stays a provisional heuristic (P061).
+  note: 'Restates P125/P061/P142/P028. Wording changed since the prior pass: quality_bar[2] previously
+    stated distributed and interleaved practice unconditionally as settled fact (''Practice is distributed
+    rather than massed... and interleaved when learners must discriminate categories or select strategies'',
+    with no exception clause), and that unconditional wording was scored WITHIN_SCOPE — that scoring was
+    wrong: P125 states distributed practice as a high-utility default only ''while preserving uncertainty
+    for complex structured learning, higher-order outcomes, and moderators beyond age'', a hedge the unconditional
+    wording had dropped, which should have been graded HEDGING_REMOVED. The current wording restores the
+    hedge — ''as a high-utility default... — except where complex structured learning or higher-order outcomes
+    leave the benefit uncertain'' — carrying P125''s own uncertainty through almost verbatim (omitting
+    only the third clause, ''moderators beyond age'', which does not change the rule''s operative conditionality).
+    P061''s spacing-ratio heuristic (''the gap set against the retention horizon'') and P142/P028''s interleaving
+    condition (''when learners must discriminate categories or select strategies'') are restated at source
+    strength. With the hedge restored, WITHIN_SCOPE is now the correct verdict for the current wording;
+    recorded here so the earlier miss is not silently repeated.'
 - rule_ref: quality_bar[3]
   verdict: WITHIN_SCOPE
   distortion:
@@ -169,16 +180,25 @@ findings:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P052; within the source's scope, no strengthening. Exclusion grounded in the boundary
-    the cited principles imply; no rule strengthened.
+  note: 'Restates the authored scope boundary, not a principle. Correction: the prior finding graded this
+    entry against an earlier accessibility-related exclusion citing P052; the current text (''The caller
+    wants a binding ruling on education law, accreditation, safeguarding, or institutional policy'') has
+    since been replaced with the new authored legal/policy scope boundary that mirrors forbidden_behaviours[5]
+    and handoff_rules[2] — no principle grants or withholds this authority, so P052 no longer applies here
+    (P052''s accessibility content is now correctly grounded only in when_to_use[4]). Grade: WITHIN_SCOPE
+    as an authored boundary; not stronger than source support because it makes no source-attributed claim.'
 - rule_ref: outputs.primary_format
   verdict: WITHIN_SCOPE
   distortion:
   - none
   severity: low
   action: accept_with_note
-  note: Restates P072/P010; within the source's scope, no strengthening. Per-finding format names the
-    condition and trade-off rather than a verdict or the taught content.
+  note: 'Restates P072/P010; within the source''s scope, no strengthening. Correction: the never-a-bare-verdict/diagnosis/taught-content
+    exclusion previously described in this finding''s note has moved to the new quality_bar[6] ''Output
+    floor'' entry (authored, carries this field forward into the adapter); outputs.primary_format''s own
+    current text now states only the positive structure — findings name the gap and its principle, give
+    the correction, and state the condition or residual trade-off — which restates P072''s match-technique-to-condition
+    framing and P010''s adapt-implementation framing without overstating them.'
 - rule_ref: outputs.modes[advise].output
   verdict: WITHIN_SCOPE
   distortion:
@@ -235,3 +255,223 @@ findings:
   action: accept_with_note
   note: Restates P072/P010; within the source's scope, no strengthening. Requires the condition or trade-off,
     which is what keeps the advice at source strength.
+- rule_ref: knowledge_partition.always_on[0]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Restates P014/P026/P034/P050/P054/P059/P060/P066/P092/P107/P127/P135/P138; within the source''s
+    scope, no strengthening. Retrieval-over-restudy (P059), recall-over-recognition ''when learners can
+    produce a meaningful answer'' (P060), the unaided-attempt requirement (P107), and the accuracy-check
+    condition ''whenever learners cannot verify themselves'' (P050) all keep their source-stated conditions.
+    Minor observation: ''because uncorrected retrieval reinforces confident errors'' states P050''s own
+    hedged mechanism (''can reinforce'') as more definite; low materiality since the operative rule itself
+    — pair retrieval with an accuracy check whenever learners cannot verify — stays correctly conditioned.'
+- rule_ref: knowledge_partition.always_on[1]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Restates P019/P024/P027/P040/P061/P065/P093/P110/P118/P125/P129/P144/P145; within the source''s
+    scope, no strengthening. P125''s high-utility-default hedge is carried through (''while preserving
+    uncertainty for complex structured learning and higher-order outcomes''), though it omits P125''s third
+    named moderator (''and moderators beyond age''); the two restated conditions are enough to keep the
+    default non-absolute, so this remains within scope. P061''s one-tenth-to-one-fifth heuristic is restated
+    as ''a provisional planning heuristic'', matching the source''s own hedge exactly.'
+- rule_ref: knowledge_partition.always_on[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P001/P028/P035/P064/P106/P142; within the source's scope, no strengthening. Interleaving
+    is kept conditional on discrimination or strategy-selection need (P028, P142), and the blocking exception
+    for 'discovering common structure among dissimilar members of one category' is restated with P064's
+    own hedge ('can help', not 'always helps').
+- rule_ref: knowledge_partition.always_on[3]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Restates P002/P004/P016/P058/P068/P073/P120/P137/P143/P147; within the source''s scope, no strengthening.
+    P143''s uncertainty scope for self-explanation is carried through almost word for word — ''a broadly
+    applicable, moderate-utility technique... while keeping far transfer, durability, classroom generality,
+    and learner moderators explicitly uncertain''.'
+- rule_ref: knowledge_partition.always_on[4]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P006/P025/P042/P043/P078/P098/P114/P150; within the source's scope, no strengthening.
+    The refutational-correction sequence (P043) and the predict-then-reflect cycle (P114) are restated
+    in the source's own order and content.
+- rule_ref: knowledge_partition.always_on[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P003/P012/P021/P047/P063/P067/P101/P112/P113/P121/P136/P149; within the source's scope,
+    no strengthening. Difficulty-introduction is kept to P021's four joint conditions (surmountable, relevant,
+    aligned with current knowledge, viable path to progress) rather than loosened to any one of them.
+- rule_ref: knowledge_partition.always_on[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P013/P015/P032/P041/P048/P049/P071/P076/P085/P090/P126/P133/P148; within the source's
+    scope, no strengthening. The 'unformed habit, not moral failing' framing (P076) and the delayed-performance
+    judging rule (P085/P126) are restated at source strength.
+- rule_ref: knowledge_partition.always_on[7]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P022/P023/P037/P038/P057/P069/P070/P079/P080/P094/P096/P139/P140/P141; within the source's
+    scope, no strengthening. The three-dimension motivation model (P140) and the 'situational interaction,
+    not fixed deficit' framing for stereotype threat (P023) are restated at source strength; small-reward
+    caution keeps P096's 'only for initially low-interest tasks' condition.
+- rule_ref: knowledge_partition.always_on[8]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P029/P031/P036/P051/P088/P091/P099; within the source's scope, no strengthening. P091's
+    supervise-unless-independent-error-detection-is-the-target exception is restated in full, including
+    the delay-the-intervention branch.
+- rule_ref: knowledge_partition.always_on[9]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P007/P011/P017/P020/P033/P044/P053/P072/P074/P084/P103/P105/P109/P130; within the source's
+    scope, no strengthening. P072's 'limit on general use, not proof of no valid niche' hedge and P011's
+    'absent evidence of a stable crossover' condition are both carried through; the specific effect sizes
+    in P084/P103/P130 are not quoted in this block (they are checked at examples[1].ideal_response below)
+    but nothing here overstates them.
+- rule_ref: knowledge_partition.always_on[10]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P005/P009/P018/P039/P100/P104/P108/P117/P122/P128/P131; within the source's scope, no
+    strengthening. Far transfer is still gated on 'objective improvement on untrained outcomes' (P039),
+    and P009's novice-to-expert fading sequence is restated in the source's own order.
+- rule_ref: knowledge_partition.always_on[11]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P008/P045/P046/P116/P119; within the source's scope, no strengthening. Mnemonic cues
+    are kept to 'a practiced bridge... rather than an effortless substitute' (P116), and consequential recollection
+    keeps P045's neutral-prompt and uncertainty-preserving conditions.
+- rule_ref: knowledge_partition.always_on[12]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P010/P030/P052/P056/P062/P077/P081/P082/P083/P089/P102/P111/P123; within the source's
+    scope, no strengthening. Distance/blended judging stays tied to instructional design and interaction
+    quality rather than delivery mode (P062), and technology synthesis stays by feature/goal/learner/task/context/access/timing
+    rather than by tool-category ranking (P083).
+- rule_ref: knowledge_partition.always_on[13]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Restates P087/P115/P124/P132/P134/P146; within the source''s scope, no strengthening. Group categories
+    are restricted to ''bounded population inference'' and explicitly barred from becoming individual capacity
+    judgments (P134), matching the source almost verbatim. P115''s age-trend caveat is compressed from
+    ''an average age trend in speeded reasoning'' to ''an average age trend''; P115''s own closing clause
+    already generalizes to ''age trends as hypotheses rather than capacity verdicts'' without the speeded-reasoning
+    qualifier, so this compression stays within the principle''s own scope.'
+- rule_ref: knowledge_partition.always_on[14]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Restates P055/P075/P086/P095/P097; within the source's scope, no strengthening. The structured
+    peer-instruction sequence (P055) and the individual-accountability-plus-group-reward-plus-script combination
+    (P097) are restated verbatim.
+- rule_ref: examples[0].ideal_response
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Cites P020, P059, P135, P107, P060, P050, P040, P118, P061, P126, P085. Within the source''s scope,
+    no strengthening. Recall-over-recognition keeps P060''s ''where students can produce a meaningful answer''
+    condition; the spacing steps (modest delay, mix older material, final review, revisit missed items
+    sooner, expand after success) restate P040/P118 in the source''s own terms. Minor observation: ''uncorrected
+    retrieval will reinforce confident errors'' states P050''s hedged mechanism (''can reinforce'') as more
+    definite; the operative instruction itself — pair every retrieval attempt with an accuracy check because
+    they cannot reliably check themselves — stays correctly conditioned, so this is low materiality.'
+- rule_ref: examples[1].ideal_response
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: 'Cites P011, P103, P044, P017, P052, P020, P083, P030. Within the source''s scope, no strengthening.
+    The effect sizes and their order match P103 exactly — auditory 0.18, visual 0.09, kinesthetic 0.18,
+    ''little or no gain'' with heavy group overlap — with no number altered or dropped. P011''s ''unless
+    evidence shows a stable crossover'' condition is restated and its non-existence asserted (''it is not
+    established''), which stays within P011/P103''s joint scope since no principle in this profile claims
+    such crossover evidence exists. P044''s preference-is-not-outcome-evidence distinction is restated accurately.'
+- rule_ref: examples[2].ideal_response
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Cites P134, P046, P135, P059, P076, P041, P090 (and forbidden_behaviours/handoff_rules by cross-reference).
+    Within the source's scope, no strengthening. The decline-to-diagnose move restates P134's group-to-individual
+    prohibition exactly; the four-way memory-failure breakdown (absent attention, failed encoding, storage
+    loss, retrieval failure) restates P046 verbatim; the unformed-habit-not-moral-failure framing restates
+    P076 verbatim.
+- rule_ref: quality_bar[6]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Authored output floor — cites no principle by design. It restates outputs.primary_format and minimum_useful_output
+    (the finding-with-gap/principle/correction/condition-or-trade-off structure, and the never-a-bare-verdict/diagnosis/taught-content
+    exclusion) as a single adapter-facing floor rather than deriving a new empirical claim from the sources;
+    it is not stronger than any source support because it makes no source-attributed claim. Grade WITHIN_SCOPE
+    as an authored structural constraint, consistent with how outputs.primary_format and minimum_useful_output
+    are graded elsewhere in this report.
+- rule_ref: forbidden_behaviours[5]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Authored scope boundary mirroring when_not_to_use[4] and handoff_rules[2] — no principle grants
+    or withholds this authority; it is a self-limiting jurisdictional statement (the advisor will not rule
+    on education law, accreditation, safeguarding, or institutional policy), not a claim about what the
+    sources establish. Grade WITHIN_SCOPE as an authored boundary, not a source-derived rule that could
+    exceed its evidence.
+- rule_ref: handoff_rules[2]
+  verdict: WITHIN_SCOPE
+  distortion:
+  - none
+  severity: low
+  action: accept_with_note
+  note: Authored scope boundary matching forbidden_behaviours[5] and when_not_to_use[4] — routes education-law/accreditation/safeguarding/institutional-policy
+    rulings to the responsible institutional, legal, or accrediting authority. No principle grants this
+    authority; the statement is a jurisdictional handoff, not an empirical claim, so it cannot be stronger
+    than source support. Grade WITHIN_SCOPE.

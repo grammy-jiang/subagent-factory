@@ -1,5 +1,8 @@
 ---
 name: elaboration-examples-and-self-explanation
+description: Guides elaboration, examples, and self-explanation prompts for building
+  transferable structure, used when learners can state facts but cannot explain
+  their reasoning or need transfer beyond one example.
 kind: skill
 status: ready
 provenance:
@@ -56,7 +59,7 @@ This skill deepens processing by making learners build and articulate structure.
 2. Direct attention explicitly to the relation that examples share and provide enough varied examples for learners to use the abstraction beyond the first case (P004).
 3. Compare multiple examples side by side and explicitly search for shared relational structure so learners abstract rules that transfer beyond the nearest example (P016).
 4. Prompt learners to explain each problem-solving step so the reasoning process becomes an object of learning; rely on experimental prompting evidence rather than correlation alone (P058).
-5. Have learners generate the connections between new content and relevant prior cases, knowledge, experience, examples, or uses rather than only presenting instructor-made connections, cueing those connections at first and fading (P068).
+5. Have learners generate the connections between new content and relevant prior cases, knowledge, experience, examples, or uses rather than only presenting instructor-made connections, cueing those connections at first and fading the prompts as learners retrieve and test them independently (P068).
 6. Combine complementary verbal and visual representations for all learners when both add relevant information, make their relationship explicit, and favor accurate simple sketches over decorative artistry (P073).
 7. After foundational knowledge is in place, have learners generate source-checked how-and-why explanations about central relationships, then fade the source and require accurate explanation from memory (P120).
 8. Help learners build structure by retrieving central concepts, separating supporting from incidental detail, stating governing rules, and mapping their connections (P137).
@@ -74,13 +77,16 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P002: Make meaningful relationships and organizational principles an explicit object of learner activity rather than assuming novices will infer expert.
-- Overlooking P004: Direct attention explicitly to the relation that examples share and provide enough varied examples for learners to use the abstraction beyond.
-- Overlooking P016: Compare multiple examples side by side and explicitly search for shared relational structure so learners abstract rules that transfer beyond.
-- Overlooking P058: Prompt learners to explain each problem-solving step so the reasoning process becomes an object of learning; rely on experimental prompting evidence.
-- Overlooking P068: Have learners generate the connections between new content and relevant prior cases, knowledge, experience, examples, or uses rather than only.
-- Overlooking P073: Combine complementary verbal and visual representations for all learners when both add relevant information, make their relationship explicit.
-- Overlooking P120: After foundational knowledge is in place, have learners generate source-checked how-and-why explanations about central relationships, then fade.
+- The lesson walks through well-organized examples but never asks learners to state, compare, or work directly with the relationships underneath them, on the assumption that novices will pick up the expert structure just from watching (P002).
+- Learners see only a single worked example, or several examples whose shared relation is never pointed out, so they never build enough varied experience to apply the idea to a new case (P004).
+- Examples are shown one at a time rather than placed side by side, so learners are never prompted to search for the shared relational structure and end up matching new problems to whichever example looks most similar on the surface (P016).
+- Learners work through problems and hand in final answers without ever being asked to explain their steps, or the case for self-explanation rests on noticing that stronger students happen to explain more, rather than on actually prompting the explanations (P058).
+- The instructor always states how new content connects to prior cases, knowledge, or uses instead of having learners work out the connection themselves, or an initial cueing prompt is either never offered or never faded as learners gain independence (P068).
+- A visual is added mainly for decorative polish rather than because it carries information the words do not, or a genuinely complementary diagram and passage are placed together without ever making their relationship explicit (P073).
+- Learners are asked to explain central relationships from memory before the foundational knowledge is in place, or the source material is never faded, so they keep copying rather than being checked on accurate, independent explanation (P120).
+- Complex material is left as an undifferentiated list of facts, with no activity that helps learners retrieve the central concepts, separate supporting from incidental detail, state the governing rule, or map how the parts connect (P137).
+- Self-explanation is promoted as a guaranteed route to durable, far-transferring learning for every learner and classroom, rather than as a moderate-utility technique whose benefit is best evidenced for memory, comprehension, inference, application, and near transfer, with far transfer, durability, classroom generality, and learner moderators left an open question (P143).
+- Learners work through problems or examples without ever being asked what they are doing, why they chose that approach, or which principle applies, so a flawed mental model goes undetected and unrepaired (P147).
 
 ## References
 

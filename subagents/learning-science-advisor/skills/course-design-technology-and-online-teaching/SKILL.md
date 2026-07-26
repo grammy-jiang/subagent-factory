@@ -1,5 +1,7 @@
 ---
 name: course-design-technology-and-online-teaching
+description: Guides course- and curriculum-level design, technology selection, and
+  online/blended teaching, from outcomes and universal design to instructor presence.
 kind: skill
 status: ready
 provenance:
@@ -81,13 +83,19 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P010: Translate a general learning principle through its underlying mechanism, then adapt the implementation to the local learners, course format.
-- Overlooking P030: Start technology selection with the learning purpose and required level of thinking, then choose the simplest tool whose stable pedagogical functions.
-- Overlooking P052: Apply universal design as the default framework.
-- Overlooking P056: Translate learning research through a two-way partnership.
-- Overlooking P062: Judge distance and blended programmes by instructional design and the quality of student interaction with peers and instructors rather.
-- Overlooking P077: Treat personal educational experience as practical context rather than proof.
-- Overlooking P081: Use brief objective-focused reflection early and periodically, then close the course by having learners compare their starting point, achievements.
+- A design lifts a published practice's surface implementation into this course unchanged, without first identifying the mechanism that makes it work or adapting it to the local learners, format, workload, and institution (P010).
+- Technology is chosen from a feature list, vendor demo, or organizational default before anyone names the learning purpose and required level of thinking, or a more complex tool is picked than the need requires (P030).
+- Accessibility and participation options are bolted on afterward for one flagged learner rather than built into the initial design as flexible, low-effort, error-tolerant access with foreseeable barriers already removed (P052).
+- A research synthesis is handed to educators as ready-made prescription, skipping the two-way exchange in which researchers make findings usable and educators contribute their real constraints and questions (P056).
+- A distance or blended course's outcomes are credited or blamed to its delivery mode itself, rather than to its instructional design and the quality of peer/instructor interaction, and no in-person or study support is added when learners clearly lack self-regulation (P062).
+- A teaching decision is justified by "it worked when I was a student" or "it's how I was taught," with no check against evidence about the actual students and setting now being taught (P077).
+- The course has no brief objective-focused reflection early or periodically, or piles on reflection heavy enough to become overload, or closes without learners comparing their starting point, achievements, and intended application (P081).
+- An instructor's engagement, peer collaboration, professional network, and review of evolving evidence go unmonitored, letting isolation or routine quietly erode teaching vitality (P082).
+- A claim ranks a whole delivery mode ("online" versus "in person") as generally better, instead of synthesizing evidence by the specific feature, goal, learner, task, context, access, and timing involved (P083).
+- Course design starts from content coverage, a textbook's table of contents, or activities chosen before the outcomes are set, rather than from substantive, demonstrable outcomes planned backward (P089).
+- A curriculum leaves how students are meant to progress year to year unstated, so teachers of the same grade in the same school end up inventing different, uncoordinated conceptions of progress (P102).
+- A course calls itself "high-structure" without actually publishing objectives, requiring preparation and pre-result generation, quizzing foundations, using learner-built explanations and integrative problems, and revising study from practice-test errors — adopting the label without its components (P111).
+- Instructor presence in an online or large course is sparse or purely administrative, or its announcement routine is not sustainable and collapses before the final week, leaving learners unable to infer presence from a shared physical setting (P123).
 
 ## References
 

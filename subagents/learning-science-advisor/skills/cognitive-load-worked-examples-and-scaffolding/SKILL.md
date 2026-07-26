@@ -1,5 +1,6 @@
 ---
 name: cognitive-load-worked-examples-and-scaffolding
+description: Manages cognitive load via worked examples, scaffolding, chunking, and prerequisite checks when learners overload, stall, or need a hard procedure faded toward independence.
 kind: skill
 status: ready
 provenance:
@@ -78,13 +79,18 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P003: Teach domain knowledge and reasoning strategies together in contexts where learners use both; external lookup cannot replace knowledge that must.
-- Overlooking P012: Build reliable memory for prerequisite facts, concepts, and procedures as a foundation for comprehension and application rather than treating memory.
-- Overlooking P021: Introduce difficulty only when the struggle is surmountable, relevant to the target, aligned with current knowledge, and supported by a viable path.
-- Overlooking P047: Account for the working-memory cost of transient information.
-- Overlooking P063: Organize elements into meaningful chunks grounded in prior knowledge.
-- Overlooking P067: Scaffold difficult work with models, think-alouds, prompts, checklists, and exemplars; coach performance and fade support as competence grows.
-- Overlooking P101: Use worked examples — a problem statement plus the steps to its solution — to show what success looks like and reduce cognitive load, so students.
+- Teaching a reasoning strategy or "critical thinking" skill as a standalone unit apart from the domain content it operates on, or assuming a lookup reference can substitute for knowledge learners must hold in mind while reasoning through a task (P003).
+- Cutting practice on prerequisite facts, concepts, or procedures to make more room for analysis or application, as if building reliable memory and pursuing higher-order learning compete for the same time rather than the latter depending on the former (P012).
+- Escalating a task's difficulty as a matter of rigor without checking that the added struggle is surmountable, targets the intended skill, matches learners' current knowledge, and leaves a viable path to progress — risking avoidable anxiety instead of improved durability or transfer (P021).
+- Delivering multistep directions, an animation, or a spoken explanation in one uninterrupted pass with nothing kept visible and no pacing, forcing learners to hold and integrate more transient elements than working memory supports (P047).
+- Presenting many related details as an unstructured list instead of grouping them into chunks grounded in what learners already know (P063).
+- Assigning difficult work with no model, think-aloud, prompt, checklist, or exemplar to scaffold it, or leaving that scaffolding unchanged as competence grows instead of fading it, or withdrawing it even when a task's difficulty spikes and warrants restoring it (P067).
+- Showing learners only a completed answer with the steps that produced it omitted, so attention lands on the final answer instead of the solution process a worked example is meant to reveal (P101).
+- Introducing a complex performance at full difficulty from the start instead of in manageable layers, skipping early achievable component practice, gradual complexity increases, and process feedback before harder attempts (P112).
+- Leaving a stable, recurring prerequisite or routine unpracticed toward automaticity, so learners keep spending scarce attention reconstructing or verifying the same substeps instead of applying it to novel, higher-order work (P113).
+- Relying on learners' intention, an incentive, or mere exposure and attention to make a target idea or relation stick, instead of designing the task so processing that idea or relation is unavoidable (P121).
+- Assigning inquiry, critical analysis, or problem solving before checking that learners can actually retrieve the facts and procedures the task requires to generate and evaluate an answer (P136).
+- Holding practice challenge fixed regardless of learners' growing expertise, or providing support that performs the target skill for them rather than merely enabling their own performance of it (P149).
 
 ## References
 

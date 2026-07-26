@@ -1,5 +1,8 @@
 ---
 name: expertise-development-and-transfer
+description: Guides practice design, complex-skill training, and transfer or
+  competence claims, matching supports to expertise level and requiring
+  objective evidence before crediting far transfer.
 kind: skill
 status: ready
 provenance:
@@ -76,13 +79,17 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P005: Build expertise with goal-directed practice on current weaknesses, accurate feedback, repeated diagnosis, and coaching rather than undirected.
-- Overlooking P009: Match support and practice to expertise.
-- Overlooking P018: For complex performance, diagnose difficult components slowly, rehearse them from natural cues in multiple coordinated representations.
-- Overlooking P039: Require objective improvement on untrained outcomes before accepting a far-transfer claim; distinguish specific skill gains from transferable.
-- Overlooking P100: Collect real-word reading, spelling ability and word attack skills as the diagnostic measures.
-- Overlooking P104: Use mental practice, which benefits both initial and later stages of learning, expecting large effects on cognitive tasks from relatively short.
-- Overlooking P108: Treat capability as developable through focus, sustained practice, learned mental models, and environmental support while respecting biological.
+- A practice plan drills the same tasks on a fixed schedule or counts hours logged, instead of retargeting current weaknesses, supplying accurate feedback, and re-diagnosing progress through coaching (P005).
+- Novices are handed independent, unscaffolded problems, or experts are still walked through concrete worked examples with close spacing, because support and practice were never faded to match how much expertise the learner has actually built (P009).
+- A complex performance is rehearsed only as a whole, so a struggling component never gets its own slow, natural-cue rehearsal across the representations that must eventually coordinate before it is reintegrated (P018).
+- A claim that practicing one skill improved a different, untrained outcome is accepted on the trained task's own gains alone, with no objective evidence that the untrained outcome moved and no attempt to rule out a general practice habit as the real cause (P039).
+- A reading difficulty is diagnosed from comprehension performance alone, without measuring the word-level reading, spelling, and word-attack skills that are its greatest predictors (P100).
+- Mental, imagery-only rehearsal is skipped or dismissed as ineffective, even though it can produce large gains on cognitive tasks from comparatively short sessions and few trials (P104).
+- A skill is written off as fixed and untrainable, or pushed with effort alone and no supporting practice structure, mental model, or environmental scaffold, ignoring both real biological limits and real room to develop (P108).
+- Training stays confined to explanation, isolated drills, or lecture, so learners never rehearse the complete field decision-and-action sequence, or the hands-on practice happens but is never debriefed against the cues, choices, constraints, and outcomes that occurred (P117).
+- A specialized term, convention, cultural assumption, or analogy is taught only as a positive correspondence, with no explicit account of where it stops applying and no comparison designed to trigger scrutiny before it is used unreflectively (P122).
+- Competence is certified from a single static, school-style score, with no separate look at analytical reasoning, creative adaptation, practical execution, or the expertise a learner has built in a specific context (P128).
+- Perceptual or motor expertise is taught mainly through explanation, without the extensive performance, rapid discrimination trials, immediate feedback, and juxtaposed near-contrast cases that build fast, accurate judgment (P131).
 
 ## References
 

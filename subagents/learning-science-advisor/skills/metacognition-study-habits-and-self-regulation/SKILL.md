@@ -1,5 +1,8 @@
 ---
 name: metacognition-study-habits-and-self-regulation
+description: Guides diagnosis of ineffective study habits and confidence-performance
+  mismatches, teaches learning strategies and self-regulation, and repairs study
+  routines, planning, and reflection for independent learners.
 kind: skill
 status: ready
 provenance:
@@ -80,13 +83,19 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P013: Design learning around durable, independently retrievable capability rather than ease, familiarity, or immediate practice performance.
-- Overlooking P015: Calibrate self-directed learning with domain-specific criteria, unaided retrieval, contextual performance, external feedback, and objective stopping.
-- Overlooking P032: Structure reflection as a written or mental reconstruction of what happened, the connections and outcomes involved, and a specific adjustment to test.
-- Overlooking P041: At home, establish an age-appropriate recurring routine that retrieves recent and older learning, connects it with current work, and adds or removes.
-- Overlooking P048: Make planning explicit for complex tasks, model decomposition and sequencing for novices, then transfer responsibility through assessed.
-- Overlooking P049: Make otherwise invisible reasoning inspectable.
-- Overlooking P071: Teach effective learning strategies alongside domain content so learners know what works, when and how to use it, and how it depends.
+- A teacher or learner picks a study method because it feels easy, familiar, or produces smooth in-session performance, without checking whether the resulting capability is durable and can be retrieved unaided later (P013).
+- A learner decides they have studied enough based on a general feeling of readiness rather than domain-specific criteria, an unaided-retrieval check, performance in a realistic context, external feedback, and an explicit stopping rule (P015).
+- Reflection is reduced to a vague verdict like "that went fine" instead of reconstructing what actually happened, the connections and outcomes involved, and naming one specific adjustment to try next (P032).
+- Home study is left to happen whenever it happens, with no recurring routine that revisits both recent and older material, connects it to current work, or adjusts its cues when they stop working (P041).
+- Learners are handed a complex task with no explicit planning support and no modeled decomposition or sequencing, and are never required to produce and be assessed on a plan of their own, so planning never transfers to them (P048).
+- A learner's reasoning stays entirely inside their head, with no annotation, process log, think-aloud, or stated decisions, assumptions, obstacles, and revisions, leaving no evidence anyone can use to target support (P049).
+- Strategy instruction is skipped or bolted on as a single generic session detached from the domain content, so learners never learn which strategy works, when or how to use it, or that its usefulness depends on what they already know (P071).
+- A learner who has stopped studying effectively is treated as lazy or unmotivated rather than diagnosed as facing an unformed habit and concrete transfer barriers such as setup cost or competing intermittent rewards (P076).
+- Learning is judged durable because it looked effortless or was completed without errors in the moment, rather than by testing delayed, unaided retrieval and explanation (P085).
+- A study schedule is set and then never revisited: nobody checks whether the study happened, what strategy or attention level it involved, a failing schedule is never revised, and no plan is made for the obstacles that were predictable in advance (P090).
+- A study method is judged effective because the learner feels confident or because rereading feels familiar and easy, so effortful retrieval practice is dropped in favor of consecutive rereading even when retention is the goal, and no extra support is added when retrieval keeps failing (P126).
+- Learners are expected to self-regulate without meaningful goals, challenges matched to their capacity, targeted feedback, metacognitive prompts, or any genuine responsibility for monitoring and adapting their own progress (P133).
+- A study plan skips spacing and genuine retrieval as its core, or claims that stacking interleaving, explanation, examples, and verbal-visual representations together produces a synergistic boost that has not actually been tested (P148).
 
 ## References
 

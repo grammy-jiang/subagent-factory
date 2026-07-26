@@ -1,5 +1,7 @@
 ---
 name: development-diversity-and-individual-differences
+description: Guides expectations, older-learner design, and developmental-timing decisions when age, grade, or
+  group demographics risk substituting for a learner's demonstrated readiness or individual context.
 kind: skill
 status: ready
 provenance:
@@ -37,7 +39,7 @@ provenance:
 
 ## Purpose
 
-This skill handles who the learners are without converting group patterns into individual verdicts. It matches expectations and supports responsively to a learner's emerging competencies and demonstrated developmental readiness, treating timing as variable rather than a rigid age schedule while still providing supported challenge and time for growth. It protects developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational input as early as possible, because substantial recovery is possible but time-sensitive. It designs for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend, treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts, and evaluates aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and weighing social connection, culture, community, and cohort. It treats cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal, and uses group categories only for bounded population inference — never converting them into individual capacity judgments — measuring plural cultural systems and socially produced conditions directly instead.
+This skill handles who the learners are without converting group patterns into individual verdicts. It matches expectations and supports responsively to a learner's emerging competencies and demonstrated developmental readiness, treating timing as variable rather than a rigid age schedule while still providing supported challenge and time for growth. It protects developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory, and educational input as early as possible, because substantial recovery is possible but time-sensitive. It designs for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts, and evaluates aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and weighing social connection, culture, community, and cohort. It treats cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal, and uses group categories only for bounded population inference — never converting them into individual capacity judgments — measuring plural cultural systems and socially produced conditions directly instead.
 
 ## When to use
 
@@ -49,7 +51,7 @@ This skill handles who the learners are without converting group patterns into i
 ## Procedure
 
 1. Match expectations and supports responsively to the learner's emerging competencies and demonstrated developmental readiness (P087).
-2. Design for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, supporting them with self-paced links to relevant prior knowledge and treating (P115).
+2. Design for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded reasoning, supporting them with self-paced links to relevant prior knowledge and treating unfamiliar-domain difficulty and age trends as hypotheses rather than capacity verdicts (P115).
 3. Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and considering social connection, culture, community, and cohort effects (P124).
 4. Treat cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather than universal (P132).
 5. Use group categories for bounded population inference without converting them into individual capacity judgments; measure plural cultural systems and socially produced conditions directly (P134).
@@ -66,12 +68,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P087: Match expectations and supports responsively to the learner's emerging competencies and demonstrated developmental readiness.
-- Overlooking P115: Design for older learners from their individual cognitive profile and retained domain knowledge rather than an average age trend in speeded.
-- Overlooking P124: Evaluate aging by function-specific trajectories and individual context, distinguishing cognitive resources from learning and considering social.
-- Overlooking P132: Treat cultures as changing and internally diverse, race as social rather than biological, and developmental benchmarks as context-sensitive rather.
-- Overlooking P134: Use group categories for bounded population inference without converting them into individual capacity judgments; measure plural cultural systems.
-- Overlooking P146: Protect developmentally sensitive periods by preventing severe early deprivation and providing high-quality relational, linguistic, sensory.
+- A teacher or designer sets expectations or withholds support based on the learner's age or grade level rather than checking the competencies and readiness the learner has actually demonstrated (P087).
+- A course or programme for an older learner sets pace, difficulty, or support from a generic curve of age-related decline in speeded reasoning instead of assessing that individual's own retained domain knowledge and cognitive profile, and treats their difficulty with an unfamiliar topic as settled proof of reduced capacity rather than something still to be tested (P115).
+- Weaker performance by an older learner is attributed to aging in general without identifying which specific cognitive function is affected or checking whether cohort, culture, community, or a lack of learning opportunity — rather than a loss of cognitive resources — better explains it (P124).
+- A design or claim treats a culture as one fixed, uniform group, treats race as a biological rather than social category, or applies a single developmental benchmark as a universal timeline regardless of the learner's context (P132).
+- A group-level statistic — cultural, demographic, or age-based — is used to decide what a specific individual learner can do, instead of measuring that learner's own cultural practices and circumstances directly (P134).
+- Enriched placement or high-quality relational, linguistic, sensory, and educational input for a young child who has experienced severe early deprivation is delayed on the assumption it can be supplied just as well later, losing the time-sensitive window in which recovery is still possible (P146).
 
 ## References
 

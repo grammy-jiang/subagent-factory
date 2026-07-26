@@ -1,5 +1,8 @@
 ---
 name: memory-mnemonics-and-recall-accuracy
+description: Guides building mnemonic and memory-cue systems for large ordered
+  material, diagnosing memory failures, and judging how reliable a recollection
+  is.
 kind: skill
 status: ready
 provenance:
@@ -64,11 +67,11 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P008: Use practiced mnemonic cue systems to organize and retrieve large bodies of information, while assessing conceptual mastery separately.
-- Overlooking P045: In consequential memory interviews, use neutral prompts, preserve uncertainty and information source, and avoid leading wording or repeated.
-- Overlooking P046: Diagnose an apparent memory failure by distinguishing absent attention, failed encoding, storage loss, and retrieval failure before choosing a remedy.
-- Overlooking P116: Use mnemonic cues as a practiced bridge from initial understanding to fluent whole-pattern performance, not as an effortless substitute for either.
-- Overlooking P119: After understanding and synthesizing material into key ideas, attach each idea to a distinctive cue in a stable, familiar ordered structure.
+- A learner's fluent run-through of a mnemonic cue system, such as an acronym or a loci system, is accepted as evidence of conceptual mastery instead of assessing that understanding on its own terms (P008).
+- Someone questioning a witness or client about a consequential event uses leading or suggestive wording, pushes them to resolve their stated uncertainty, or has them repeatedly re-imagine the event, rather than using neutral prompts and preserving the uncertainty and source they actually reported (P045).
+- A learner who cannot produce previously presented information is given the same generic remedy, such as more repetition, without first working out whether the failure traces to absent attention, failed encoding, storage loss, or a retrieval problem (P046).
+- A mnemonic cue system is left in place indefinitely as a permanent crutch, or is expected to work as an effortless shortcut that skips the understanding it is supposed to bridge toward and the fluent performance it is supposed to build, rather than being treated as a practiced, temporary bridge to both (P116).
+- Key ideas are attached to cues in a loose or shifting arrangement, or are cued before the material has actually been understood and synthesized, instead of being placed in a stable, familiar ordered structure only after that synthesis (P119).
 
 ## References
 

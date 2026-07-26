@@ -1,5 +1,8 @@
 ---
 name: interleaving-variation-and-discrimination
+description: Sequences interleaved versus blocked practice and structured problem
+  variation for learners who must discriminate related categories, strategies, or
+  procedures, not just execute them.
 kind: skill
 status: ready
 provenance:
@@ -66,12 +69,12 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P001: Introduce each new type with focused instruction and enough blocked practice for basic competence, then mix it cumulatively with previously learned.
-- Overlooking P028: Use interleaved rather than blocked practice when learners must discriminate related categories or select among problem-solving strategies.
-- Overlooking P035: Practice applicability directly, not execution alone.
-- Overlooking P064: Sequence examples to create the comparison the goal requires.
-- Overlooking P106: Vary and interleave practice by shuffling relevant items, order, starting conditions, and contingencies so learners must diagnose the situation.
-- Overlooking P142: Use interleaving when learners must distinguish among problem types, strategies, formulas, or categories, and judge it by delayed discrimination.
+- A brand-new type or method is thrown straight into mixed, interleaved practice before learners have had focused instruction and enough blocked practice to reach basic competence, or it is introduced but never later mixed with the earlier types it must be distinguished from (P001).
+- Practice stays blocked by type or method even though the real difficulty is choosing which related category or strategy applies, and selection errors pass uncorrected instead of being surfaced and fixed through interleaving (P028).
+- Learners drill execution of one procedure in a row without also mixing plausible problem types and contexts, context-to-skill and skill-to-context matching, option trade-offs, or counterfactual variation, so they rehearse the moves but are never made to diagnose the situation and choose (P035).
+- Examples are sequenced the same way regardless of the goal — interleaving dissimilar members of one category when the challenge is discovering their common structure, or blocking similar confusable categories when the goal is sharpening discrimination between them (P064).
+- Items, order, starting conditions, or contingencies stay constant across repetitions, so learners can anticipate what comes next instead of having to diagnose the situation and select a response each time (P106).
+- An interleaved sequence is judged by how fluent or fast it looks during the practice session itself, rather than by learners' delayed discrimination and transfer once the mixing is taken away (P142).
 
 ## References
 

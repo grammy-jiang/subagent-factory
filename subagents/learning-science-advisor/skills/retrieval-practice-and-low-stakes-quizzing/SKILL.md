@@ -1,5 +1,8 @@
 ---
 name: retrieval-practice-and-low-stakes-quizzing
+description: Designs and reviews retrieval practice — converting rereading into recall,
+  building low-stakes quizzes, and checking accuracy — for study routines, quizzes, and
+  discussion sequencing.
 kind: skill
 status: ready
 provenance:
@@ -44,7 +47,7 @@ provenance:
 
 ## Purpose
 
-This skill designs and reviews retrieval practice — bringing knowledge back to mind rather than reviewing it. It prefers successful retrieval to equivalent restudy for durable learning, prefers generative recall or short answer to recognition when learners can produce a meaningful answer, and requires an unaided attempt before the answer is revealed. It insists that retrieval be paired with an accuracy check whenever learners cannot verify themselves, because uncorrected retrieval reinforces confident errors. It builds frequent low- or no-stakes cycles — mini-quizzes sampling priority items with prompt feedback and return to later practice, closed-resource exit prompts reviewed before the next meeting, individual observable attempts before peer or whole-class discussion — and it treats the responses as formative evidence of gaps and learner calibration. Format matters less than retrieving at all, so it chooses a sustainable format that still demands meaningful recall.
+This skill designs and reviews retrieval practice — bringing knowledge back to mind rather than reviewing it. It prefers successful retrieval to equivalent restudy for durable learning, prefers generative recall or short answer to recognition when learners can produce a meaningful answer, and requires an unaided attempt before the answer is revealed. It insists that retrieval be paired with an accuracy check whenever learners cannot verify themselves, because uncorrected retrieval can reinforce confident errors. It builds frequent low- or no-stakes cycles — mini-quizzes sampling priority items with prompt feedback and return to later practice, closed-resource exit prompts reviewed before the next meeting, individual observable attempts before peer or whole-class discussion — and it treats the responses as formative evidence of gaps and learner calibration. Format matters less than retrieving at all, so it chooses a sustainable format that still demands meaningful recall.
 
 ## When to use
 
@@ -80,13 +83,19 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P014: Inspect retrieval responses to reveal gaps, improve learner calibration, and guide preparation or instructional follow-up.
-- Overlooking P026: Use frequent low-stakes mini-quizzes as a renewable retrieval cycle by sampling priority items, giving prompt feedback, revisiting answers.
-- Overlooking P034: Use frequent low- or no-stakes retrieval and choose a sustainable format that still requires meaningful recall; format differences matter less.
-- Overlooking P050: Always pair retrieval with an accuracy check when learners cannot verify responses independently.
-- Overlooking P054: Use headings to scope broad recall, produce complete flashcard answers before checking, and construct concept maps from memory before consulting.
-- Overlooking P059: Prefer retrieval practice to equivalent restudy for durable learning because successful retrieval strengthens later access directly and can improve.
-- Overlooking P060: Prefer generative recall or short-answer practice over recognition-only practice when learners can produce meaningful answers, while allowing.
+- Retrieval responses are collected and scored but never inspected for what they reveal about gaps or learner calibration, so nothing about the next session's preparation or follow-up changes (P014).
+- Mini-quizzes run as a one-off event rather than a renewable cycle: items are never resampled, feedback lags well behind the attempt, or a missed item is never returned to a later round (P026).
+- Retrieval is dropped altogether because an elaborate format proved unsustainable, or the format retained lets learners recognize rather than actually recall the answer (P034).
+- Learners retrieve answers they cannot verify on their own, and no accuracy check is built in, so a confidently wrong answer gets practiced and reinforced instead of corrected (P050).
+- Broad recall is attempted without a heading or scope to focus it, a flashcard's answer is checked before it is fully produced, or a concept map is drawn while consulting the source instead of from memory (P054).
+- Restudy or rereading is chosen over an equally available retrieval option, forfeiting the stronger durable-learning benefit that successful retrieval provides (P059).
+- Recognition-only items, such as pure multiple-choice, are used by default even when learners are capable of generating a meaningful answer on their own, with no case made for why recall is currently infeasible or is itself the target (P060).
+- Multiple-choice items use implausible distractors that require no real discrimination, skip the complex-reasoning items the content could support, or are left without corrective feedback afterward (P066).
+- A session or study guide ends with no closed-resource prompt at all, or the exit-prompt responses are collected but never reviewed before the next meeting to shape its opening (P092).
+- The answer or a hint is revealed before the learner has made an unaided attempt, or immediate guidance is given so continuously that it becomes a crutch replacing genuine retrieval (P107).
+- Retrieval practice is set at a difficulty the learner cannot realistically attempt, so it collapses back into passive restudy or recognition, or an error surfaces and is left uncorrected rather than fixed before it takes hold (P127).
+- An activity is labeled "retrieval" or "review" but only asks learners to reread, copy, or highlight rather than genuinely reconstruct the answer, map, drawing, or explanation from memory (P135).
+- Peer or whole-class discussion opens before every learner has made their own observable retrieval attempt, letting quieter learners skip independent recall entirely, or the discussion that follows is never actually used to give feedback and revise answers (P138).
 
 ## References
 

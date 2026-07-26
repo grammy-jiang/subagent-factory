@@ -6,8 +6,25 @@ report, and tests are all derived from the distilled spine in this package
 `sources/anchors/*.anchors.jsonl`), assembled by the map->reduce build. No load-bearing profile rule
 field is an orphan: every `quality_bar`, `forbidden_behaviours`, `handoff_rules`,
 `knowledge_partition.always_on`, and `source_of_truth_policy` value cites the promoted principle(s)
-it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs` — carry no inline
-tags, per repo convention.)
+it restates. (Descriptive fields — `role`, `when_to_use`, `inputs`, `outputs`, and
+`minimum_useful_output` — carry no inline tags, per repo convention.)
+
+Three fields are **authored**, not distilled, and say so inline rather than citing a principle they
+do not have:
+
+| Field | Kind | Why it carries no principle |
+|-------|------|------------------------------|
+| `quality_bar[6]` ("Output floor") | authored output floor | Restates `outputs.primary_format` + `minimum_useful_output` so the export template, which renders neither, still carries the output floor into the deployed adapter. It is a format rule, not a domain claim. |
+| `forbidden_behaviours[5]` | authored scope boundary | Mirrors `when_not_to_use[4]`. No source principle grants or withholds authority over education law, accreditation, safeguarding, or institutional policy; the boundary is a repo-policy decision. |
+| `handoff_rules[2]` | authored scope boundary | The named-authority half of the same boundary. |
+
+Two principles are cited as backing inside `knowledge_partition.always_on` while carrying
+`operational_mapping.profile_rule: false` in `principles/principles.yaml` — P092 (`always_on[0]`)
+and P098 (`always_on[4]`). This is not a conflict: the `always_on` blocks are the scope paragraphs
+of the skills that own those principles, not profile **rule** fields, and `profile_rule` governs
+only whether a principle drives a rule field. The flags are correct and the citations are load-bearing
+for skill scope. (P092 is `confidence: medium`, so it is also outside the adapter's compiled
+must-hold invariant tier, which takes high-confidence principles only.)
 
 ## Sources
 
@@ -43,6 +60,53 @@ partitioned across 15 skills, each principle owned by exactly one skill; the two
 references index and ground them.
 
 ## Version History
+
+- **1.1.0** (2026-07-27) — Review round 1 (`/review-subagent`), must-fix = 0. Supersedes, and states
+  what it supersedes:
+  - **Skill bodies.** The `## Anti-patterns to flag` section of all 15 skills was a machine-emitted
+    "Overlooking Pxxx: <restated principle>" list, cut at a fixed character budget and closed with a
+    bare period, and silently capped at 7 bullets (dropping ~half the principles in 9 skills). It is
+    superseded by deliberately written failure modes, one per principle, 1:1 with `## Procedure`, no
+    cap. Each skill also gains a `description:` frontmatter line so a caller's topic can be matched to
+    it. Frontmatter `provenance` blocks (including `authored_from_digest`) are untouched — the
+    grounding did not change, only its prose.
+  - **Two truncated `## Procedure` steps repaired** from their own principle statements: P115 in
+    `development-diversity-and-individual-differences` (step 2 ended "…and treating.") and P068 in
+    `elaboration-examples-and-self-explanation` (step 5 ended "…and fading."). Same defect class as
+    the anti-patterns; missed by the review's ellipsis-only truncation grep.
+  - **`router_description`** superseded: `memory-mnemonics-and-recall-accuracy` is an `always_on`
+    skill whose topic appeared nowhere in the routing surface, making a shipped capability
+    unreachable. Mnemonic and memory systems and recall reliability are now named.
+  - **`quality_bar[2]`** superseded: it stated distributed + interleaved practice unconditionally.
+    P125 states distributed practice as a **high-utility default while preserving uncertainty for
+    complex structured learning, higher-order outcomes, and moderators beyond age**, and
+    `source_of_truth_policy.precedence` commits to carrying source hedging through — so the prior
+    wording contradicted the profile's own policy. The hedge is restored. Two smaller hedge slips
+    superseded on the same grounds: P050's "**can** reinforce confident errors" (flattened to
+    "reinforces"/"will reinforce" in `always_on[0]`, `examples[0]` and the retrieval skill) and
+    P115's "an average age trend **in speeded reasoning**" (compressed to "an average age trend" in
+    `always_on[13]` and its skill).
+  - **`quality_bar[6]`, `forbidden_behaviours[5]`, `handoff_rules[2]` added** — see the authored-field
+    table above. `when_not_to_use[4]`'s legal/policy exclusion previously existed only at the routing
+    layer, and the export template renders neither `outputs.primary_format` nor
+    `minimum_useful_output`, so the deployed adapter carried no output floor.
+  - **`inputs.required` extended** with the missing-context rule (ask for learners, target competence,
+    and time rather than assuming defaults) and the Glob/Grep + skill-selection rule, which motivate
+    the two tools the adapter grants.
+  - **`role`, `when_to_use`, `when_not_to_use`, `outputs`, `modes` compressed** to absorb the
+    additions within the profile body budget. No claim was dropped, only prose; the
+    responsible-authority clause moved from `when_not_to_use[4]` into the new `handoff_rules[2]`.
+  - **`reports/faithfulness-report.yaml` extended 29 → 50 findings.** The prior report asserted a
+    complete pass it had not run: all 29 findings covered routing/scaffolding fields and **zero**
+    covered `knowledge_partition.always_on[0..14]` or `examples[*].ideal_response` — the two
+    highest over-claim-risk rule sets, carrying the effect sizes and myth refutations. All 18 are now
+    graded, plus the three new authored fields; all 50 land `WITHIN_SCOPE`.
+  - `multisource_synthesis: deferred` alongside `status: ready` is expected and not an omission: this
+    package is a P0-authored layer over a pre-built map→reduce spine, whose cross-source clustering
+    happened at reduce time, so `principles/principle-clusters.json` and `principle-graph.json` are
+    deliberately absent.
+  - Unchanged: the distilled spine (150 principles, 5006 claims, evidence records, anchors), the
+    skill→principle partition, and both test suites.
 
 - **1.0.0** (2026-07-26) — Initial LLM-authored layer over the pre-built distilled spine: profile
   (role, three modes, quality bar, forbidden behaviours, 15-skill / 2-reference

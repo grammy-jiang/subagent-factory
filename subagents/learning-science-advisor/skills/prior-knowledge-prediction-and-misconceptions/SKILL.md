@@ -1,5 +1,8 @@
 ---
 name: prior-knowledge-prediction-and-misconceptions
+description: Surfaces learners' prior knowledge, predictions, and misconceptions
+  before instruction begins, and corrects persistent misconceptions refutationally
+  when ordinary explanation has not worked.
 kind: skill
 status: ready
 provenance:
@@ -70,13 +73,14 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P006: Connect new material to meaningful classifications, language roots, prior knowledge, and repeated use so it can consolidate into an adaptable mental.
-- Overlooking P025: At the opening of new learning, require a brief prediction, attempted answer, problem solution, or skill trial before formal instruction.
-- Overlooking P042: Use predictions and pretests to diagnose prior knowledge, misconceptions, expected assessment demands, and mismatched study strategies before.
-- Overlooking P043: Correct persistent misconceptions with refutational teaching.
-- Overlooking P078: Correct a misconception by eliciting the learner's current model as a prediction, testing it so the consequential discrepancy and its failed.
-- Overlooking P098: Open learning with a relevant stimulus and ask what learners notice and wonder to activate curiosity, prior knowledge, prediction, retrieval.
-- Overlooking P114: Structure prediction as a complete learning cycle.
+- A teacher introduces new terminology or a new classification as an isolated fact, without linking it to learners' existing categories, word roots, or repeated practice, so it never consolidates into an adaptable mental model (P006).
+- A lesson or unit opens straight into explanation or delivered content, with no brief prediction, attempted answer, problem attempt, or skill trial asked of learners first (P025).
+- Substantial instruction begins without any pretest or prediction step to diagnose what learners already know, misunderstand, or expect of the assessment, even when a quick diagnostic was feasible and existing beliefs would materially shape how the new content is read (P042).
+- A persistent misconception is corrected by stating the right answer alone, without naming the misconception, showing the evidence that defeats it, or inoculating learners against the misleading arguments that will resurface (P043).
+- A misconception is corrected by handing learners the accurate model directly, without first eliciting their own current model as a testable prediction and letting them see it fail before they must justify the replacement (P078).
+- A session opens with the explanation or lecture itself rather than a stimulus that asks learners what they notice and wonder, so curiosity, prior knowledge, and prediction are never activated (P098).
+- A prediction is elicited at the start but the corrective content is delayed or the follow-up reflection is skipped, so the cycle stops at the initial guess and never revises the learner's mental model (P114).
+- A single shared presentation is treated as proof that everyone understood, with no probing of learners' actual interpretations, questions, or emotional and cultural context (P150).
 
 ## References
 

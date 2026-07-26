@@ -1,5 +1,8 @@
 ---
 name: spacing-distributed-practice-and-consolidation
+description: Schedules spaced retrieval, cumulative assessment, and consolidation
+  time so revision, practice, and review plans protect retention rather than rely
+  on massed repetition.
 kind: skill
 status: ready
 provenance:
@@ -80,13 +83,19 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P019: Allow consolidation time, including sleep when schedules permit, and later reconstructive retrieval instead of treating polished rapid repetitions.
-- Overlooking P024: Space preparation early enough to protect sleep.
-- Overlooking P027: Make important prior learning recur across assignments, quizzes, and major exams instead of reserving cumulative retrieval for the final assessment.
-- Overlooking P040: Plan spacing early, review after a modest delay, mix older material into later sessions, and retain a final review without making it the only study.
-- Overlooking P061: Set spacing in relation to the desired retention horizon, using roughly one tenth to one fifth of that horizon as a provisional planning heuristic.
-- Overlooking P065: Introduce spacing with small sustainable cumulative practices such as lagged assignments and brief quizzes spanning prior classes, weeks, and months.
-- Overlooking P093: Keep cumulative assessment sustainable by maintaining a reusable pool of essential earlier questions, sampling from it rather than testing.
+- A crammed, smooth final re-read is treated as evidence of durable learning, with no consolidation time — including sleep — and no later reconstructive retrieval built into the plan (P019).
+- Preparation is scheduled late enough that it displaces normal sleep, forgoing the consolidation, understanding, and easier relearning that post-learning sleep supports (P024).
+- Prior material is tested only once, at the final exam, instead of being allowed to recur across assignments and quizzes along the way (P027).
+- Spacing is left unplanned until late, the only revisit of older material is a last-minute final review, and no modest-delay review or mixing of older content into later sessions happens beforehand (P040).
+- A fixed review interval (for example, always "review tomorrow") is applied regardless of how far off the target retention date is, instead of scaling the gap to that horizon and adjusting it for deadlines and how retrieval is going (P061).
+- Spacing is introduced as one large one-off overhaul rather than small sustainable cumulative practices, or the practices omit prompts that connect new material back to older knowledge (P065).
+- Cumulative assessment tries to retest everything from earlier in the course rather than sampling from a pruned, reusable pool of essential questions, so the assessment burden becomes unsustainable (P093).
+- Retrieval attempts are packed so closely together that little forgetting occurs, or spaced so far apart that the attempt becomes unrecoverable rather than merely challenging (P110).
+- Retrieval runs on a fixed schedule that doesn't shorten the interval after a missed item or lengthen it after a success, and drops long-interval checks on important material once it seems learned (P118).
+- Distributed practice is applied as a rigid universal rule to complex structured learning or higher-order outcomes, where the evidence for its benefit is less certain, instead of being treated as a high-utility default (P125).
+- An assessment is planned without first inventorying its prerequisite cognitive skills, or an important component enters the assessment having been rehearsed only once or not at all (P129).
+- Retrieval attempts are massed within a single session, or intervals are lengthened for a long-term retention goal without the earlier practice or support needed to keep retrieval achievable at that distance (P144).
+- Information is presented once, in a single context and representation, with no consolidation gap before the next encounter, leaving the knowledge tied to that one episode rather than reusable (P145).
 
 ## References
 

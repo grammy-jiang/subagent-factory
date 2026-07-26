@@ -1,5 +1,7 @@
 ---
 name: evidence-appraisal-and-learning-myths
+description: Appraises whether a claimed learning technique, teaching myth, or brain-based
+  claim is supported by evidence, triggered when adopting, keeping, or debunking a method.
 kind: skill
 status: ready
 provenance:
@@ -51,7 +53,7 @@ This skill judges whether a claimed learning technique is actually supported. It
 
 - A technique, product, or training is being adopted and its evidence base must be appraised (P053, P007, P072, P020).
 - Learning styles, modality matching, or left/right-brain claims are driving an instructional decision (P011, P044, P103, P074, P017).
-- A brain-based, far-transfer, or 'works for everything' claim is being made (P033, P039, P105).
+- A brain-based, far-transfer, or 'works for everything' claim is being made (P033, P105).
 - A technique's advertised benefit must be checked against its actual scope and durability (P084, P130, P109).
 
 ## Procedure
@@ -82,13 +84,20 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P007: Evaluate a learning technique across learning conditions, learner characteristics, material types, immediate and delayed outcomes, comprehension.
-- Overlooking P011: Do not organize differentiated instruction around a learning-style category unless evidence shows a stable crossover in which different methods.
-- Overlooking P017: Choose visual, auditory, or physical presentation because it represents the target content well, while providing learner-specific accessibility.
-- Overlooking P020: Default to practice testing and distributed practice for broadly applicable learning, and replace highlighting or rereading as primary methods when.
-- Overlooking P033: Prefer cognitive and behavioral evidence for actionable classroom guidance, and do not map fine-grained brain findings directly to instruction.
-- Overlooking P044: Distinguish modality preference from outcome evidence, and do not prescribe preference-matched visual or verbal instruction as a way to increase.
-- Overlooking P053: Select teaching and study methods from empirical evidence, not intuition, isolated successes, untested theories, or interested marketing, and revise.
+- A technique gets rolled out as broadly useful on the strength of one study, one age group, one material type, or an immediate-test result, without checking whether the gain holds across conditions, learner characteristics, delayed retention, or transfer (P007).
+- Learners are sorted into learning-style groups and taught by different methods with no stable-crossover evidence that different methods actually benefit different groups (P011).
+- A presentation mode is picked to match a learner's stated style label rather than because it best represents the target content, and accessibility accommodation is folded into that style-matching instead of handled on its own footing (P017).
+- Highlighting or rereading stays the default study method even when practice testing or distributed practice targets the same goal and would be feasible to substitute (P020).
+- An instructional decision is justified by citing a brain-imaging or neuroscience finding directly, with no established cognitive-level bridge connecting it to the classroom practice (P033).
+- A learner's stated preference for visual or verbal material is treated as evidence that instruction matched to that preference will increase their learning (P044).
+- A method stays in place because it feels intuitive, worked once, or is marketed persuasively, and the choice is never revisited as new evidence comes in (P053).
+- A technique rated low or moderate utility overall is dropped entirely rather than checked for the narrower objective and conditions under which it is actually supported (P072).
+- A learner is labeled "left-brained" or "right-brained" from an informal test and given training prescribed on that basis (P074).
+- The keyword mnemonic is kept as the primary strategy for durable vocabulary learning on the strength of its immediate-test gains, ignoring how quickly that benefit fades (P084).
+- A lesson is redesigned to match learners' self-reported auditory, visual, or kinesthetic preference on the assumption that this reliably improves outcomes (P103).
+- The claim that deep subject-matter knowledge lets a teacher sequence surface-to-deep progressions and respond to student struggle is asserted as an established finding rather than flagged as untested (P105).
+- A claim or shared memory is accepted as true because it feels familiar, is stated vividly or confidently, seems obvious in hindsight, or is agreed upon by a group, without checking it against independent evidence (P109).
+- Imagery-based text instruction is applied to learners regardless of their ability to visualize concrete or spatial content, or is promoted as boosting comprehension, inference, application, or standardized-test scores rather than the memory benefit it actually supports (P130).
 
 ## References
 

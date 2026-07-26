@@ -1,5 +1,8 @@
 ---
 name: motivation-belonging-and-classroom-climate
+description: Diagnoses and supports learner motivation, belonging, and classroom
+  climate, including value, expectancy, feedback framing, and stereotype threat,
+  when engagement or inclusion is at risk.
 kind: skill
 status: ready
 provenance:
@@ -82,13 +85,20 @@ Per finding: name the gap and the principle it engages, give the correction, sta
 
 ## Anti-patterns to flag
 
-- Overlooking P022: After performance, frame outcomes in terms of controllable strategies, preparation, time, and effort, and teach concrete alternatives after failure.
-- Overlooking P023: Treat stereotype threat as a situational interaction among identity, task, stereotype awareness, environmental cues, and evaluation demand rather.
-- Overlooking P037: Watch for performance orientation reducing challenge.
-- Overlooking P038: Use belonging and scaffolded early success to build motivation, while continuing to supply the knowledge, practice, resources, and strategies.
-- Overlooking P057: Treat motivation and ability beliefs as changeable interpretations shaped by structures, relationships, feedback, and experience rather than fixed.
-- Overlooking P069: Continuously monitor interaction records for exclusion or derogation, intervene to protect belonging and equity, and model inclusive engagement while.
-- Overlooking P070: Treat belonging as part of instructional responsibility because social isolation, threat, and persistent doubt consume resources needed for learning.
+- A poor result is attributed to fixed ability, luck, or "just not being a strategies-person," and no concrete alternative strategy is offered for next time, instead of framing the outcome in terms of controllable preparation, effort, and strategy (P022).
+- A group's underperformance is read as evidence of a fixed deficit in that group rather than as a signal to audit whether task framing, examples, differential treatment, or environmental cues are making a negative stereotype salient in that moment (P023).
+- An instructor fails to notice that a performance-oriented learner is quietly choosing an easier task to protect their image of competence, and mistakes that avoidance for genuine engagement rather than for the reduced challenge it actually is (P037).
+- Belonging-building activities and an early win are used to motivate learners while the actual knowledge, practice, resources, and strategies those learners still need to keep learning are quietly under-supplied (P038).
+- A learner's disengagement is explained as a fixed trait — "not motivated," "not a strong student" — rather than as an interpretation shaped by the structures, relationships, feedback, or experience that produced it (P057).
+- Exclusion or derogation in group work or discussion goes unnoticed because no one is monitoring the interaction for it, or legitimate disagreement is shut down entirely instead of being safely facilitated (P069).
+- Belonging is handled as a welfare add-on sitting outside the instructional design, rather than as something that directly consumes the resources — attention, confidence, persistence — that learning itself requires (P070).
+- A task is assigned with no stated connection to an important issue, authentic consequence, later coursework, or professional use, leaving learners unable to see why the rigor demanded of them is worth it (P079).
+- Grading policy or corrective feedback is delivered in a tone that reads as a judgment of the person rather than a task-focused direction for improvement, closing off approachability instead of preserving it (P080).
+- A struggling learner is offered only praise for effort or generic growth-mindset language, with no strategy trial, help-seeking channel, reflection, or change to the course conditions actually limiting them (P094).
+- A large extrinsic reward is attached to a task learners already find interesting, or small rewards are handed out routinely rather than reserved for initially low-interest tasks, risking crowding out intrinsic motivation already present (P096).
+- The same task and level of support are given to learners whose preparation differs materially, so the challenge lands as unattainable for some and trivial for others instead of genuine and attainable for each (P139).
+- A motivation problem is treated as one undifferentiated thing and answered with a generic pep talk or reward, without first diagnosing whether value, expected success, or perceived support is the dimension actually limiting engagement (P140).
+- An open-ended or ambiguous discussion runs with no structured comparison or evidence standard, so an unsupported claim is treated as carrying the same weight as a well-evidenced one, or participation itself goes unvalidated (P141).
 
 ## References
 
