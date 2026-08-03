@@ -53,14 +53,25 @@ case "$SKILL_DIR" in
   /|/home|/home/*/|"$HOME") echo "skill-review: refusing unsafe --skill '$SKILL_DIR'" >&2; exit 3;;
 esac
 # A skill is either a bare directory holding SKILL.md, or a project that ships
-# one under skill/ alongside the code that backs it. Both are reviewable; the
-# second is the more useful target because the reviewers see the code too.
-if [ -f "$SKILL_DIR/SKILL.md" ]; then
-  SKILL_MD="$SKILL_DIR/SKILL.md"
-elif [ -f "$SKILL_DIR/skill/SKILL.md" ]; then
-  SKILL_MD="$SKILL_DIR/skill/SKILL.md"
-else
-  echo "skill-review: no SKILL.md in $SKILL_DIR or $SKILL_DIR/skill — not a skill" >&2
+# one alongside the code that backs it — beside the source, or inside the
+# package itself so that the checkout and the installed tree are the same paths.
+# All are reviewable; the project cases are the more useful targets because the
+# reviewers see the code too. An unmatched glob stays literal and fails -f.
+SKILL_MD=""
+for candidate in "$SKILL_DIR/SKILL.md" "$SKILL_DIR/skill/SKILL.md" \
+                 "$SKILL_DIR"/src/*/skill/SKILL.md; do
+  [ -f "$candidate" ] || continue
+  if [ -n "$SKILL_MD" ]; then
+    echo "skill-review: more than one SKILL.md under $SKILL_DIR" >&2
+    echo "  $SKILL_MD" >&2
+    echo "  $candidate" >&2
+    echo "skill-review: point --skill at the one you mean" >&2
+    exit 3
+  fi
+  SKILL_MD="$candidate"
+done
+if [ -z "$SKILL_MD" ]; then
+  echo "skill-review: no SKILL.md under $SKILL_DIR (./, ./skill/, ./src/*/skill/) — not a skill" >&2
   exit 3
 fi
 SKILL_NAME="$(basename "$SKILL_DIR")"
