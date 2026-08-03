@@ -5,8 +5,13 @@ the active set — so the next round only runs reviewers still finding issues.
 
 A finding's identity = sha1(reviewer + '\\x1f' + normalized(title)); it is NEW if that signature is
 not in the cumulative seen-titles file. A reviewer is dropped iff it REPORTED this round (appears in
-findings.json) with zero new findings; a reviewer absent from findings.json (never got to report,
-e.g. the session timed out) is KEPT active for another chance.
+findings.json) and produced nothing that keeps it alive; a reviewer absent from findings.json (never
+got to report, e.g. the session timed out) is KEPT active for another chance.
+
+What "keeps it alive" is `--drop-when`:
+  no-new         (default) any NEW finding, at any severity, keeps the reviewer active.
+  no-actionable  only a NEW must-fix/should keeps it; a reviewer whose new findings are all nits is
+                 dropped (its nits are still printed and recorded). Cheaper convergence.
 """
 
 from __future__ import annotations
@@ -53,7 +58,16 @@ def main() -> int:
     ap.add_argument("--seen", required=True)
     ap.add_argument("--state", required=True)
     ap.add_argument("--active", required=True, help="comma-separated reviewers run this round")
+    ap.add_argument("--label", default="DOGFOOD REVIEW", help="digest header label")
+    ap.add_argument(
+        "--drop-when",
+        choices=("no-new", "no-actionable"),
+        default="no-new",
+        help="no-new: any new finding keeps a reviewer; no-actionable: only new must-fix/should does",
+    )
     a = ap.parse_args()
+
+    actionable = {"must-fix", "should"}
 
     active = [r for r in a.active.split(",") if r.strip()]
     fpath = Path(a.findings)
@@ -100,11 +114,15 @@ def main() -> int:
                 seen_sigs.add(s)
                 seen_rows.append(f"{s}\t{rv}\t{title}")
                 fresh.append(f)
-        per[rv] = {"status": "reported", "new": fresh, "total": len(finds)}
-        (kept if fresh else dropped).append(rv)
+        if a.drop_when == "no-actionable":
+            alive = [f for f in fresh if str(f.get("severity", "")).strip() in actionable]
+        else:
+            alive = fresh
+        per[rv] = {"status": "reported", "new": fresh, "total": len(finds), "alive": len(alive)}
+        (kept if alive else dropped).append(rv)
 
     # ── digest ──────────────────────────────────────────────────────────────
-    print(f"\n===== DOGFOOD REVIEW — round {a.round} digest =====")
+    print(f"\n===== {a.label} — round {a.round} digest =====")
     total_new = 0
     for rv in active:
         p = per[rv]
@@ -113,8 +131,13 @@ def main() -> int:
         if p["status"] == "absent":
             print(f"\n## {rv}: (did not report this round — kept active)")
             continue
-        tail = "" if n else "   <-- nothing new; DROPPED from next round"
-        print(f"\n## {rv}: {n} new / {p['total']} total{tail}")
+        if p["alive"]:
+            tail = ""
+        elif n:
+            tail = "   <-- nothing actionable (nits only); DROPPED from next round"
+        else:
+            tail = "   <-- nothing new; DROPPED from next round"
+        print(f"\n## {rv}: {n} new / {p['total']} total  ({p['alive']} actionable){tail}")
         for f in sorted(
             p["new"], key=lambda x: {"must-fix": 0, "should": 1, "nit": 2}.get(x.get("severity"), 3)
         ):
